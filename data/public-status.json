@@ -1,8 +1,9 @@
 {
   "sprint_id": null,
-  "workflow": "none",
+  "workflow": "none (bootstrap complete, ready for Plan or Chat)",
+  "status": "idle — run the Plan workflow to populate this file.",
   "last_closure_at": "2026-04-19",
-  "last_closure_type": "bootstrap",
+  "last_closure_type": "Bootstrap",
   "artifacts": [],
   "blockers": [],
   "next_sprint_seed": "S-001: Portfolio audit + positioning draft"

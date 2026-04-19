@@ -8,7 +8,6 @@ accept = [200, 204, 301, 302, 403, 429]
 exclude_path = ["docs/templates/"]
 
 # Exclude known external URLs that may rate-limit CI
-[exclude]
-urls = [
+exclude = [
     "https://www.linkedin.com/.*",
 ]
