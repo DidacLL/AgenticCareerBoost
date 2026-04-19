@@ -1,4 +1,5 @@
 # Sprint S-000 Kickoff Post Options
+
 - Date: 2026-04-19
 - Sprint: S-000
 - Agent: CommunityManager (T6)
@@ -10,19 +11,22 @@
 ## Option A — "The Contradiction Hook" (Career-change + technical reveal)
 
 ### Strategic label
+
 Architecture-first career pivot — leads with the paradox of deep experience meeting zero tech credentials.
 
 ### Target audience emphasis
+
 - Recruiters: 50% (scannable proof, clear capability signal)
 - Engineering peers: 40% (architecture specifics invite technical engagement)
 - Career-changers: 10% (relatable situation, actionable framing)
 
 ### Channel
+
 LinkedIn (primary). GitHub README blurb variant: shorter, links to the LaTeX PDF and sprint contract.
 
 ### Full draft body (LinkedIn, 1,387 chars)
 
-```
+```text
 I have 15 years of professional experience — none of it in tech.
 
 So I built a multiagent system to engineer my own career transition.
@@ -61,17 +65,20 @@ problem?
 ```
 
 ### Hook / Proof / CTA breakdown
+
 - **Hook:** "15 years of experience — none in tech" (honest admission pattern, 4.8% engagement per T4 §S1)
 - **Proof:** Architecture specifics (6 agents, path-based routing, PairCheck, LaTeX), open-source repo
 - **CTA:** Experience-sharing question, specific enough to filter generic replies
 
 ### Evidence links
-- Repository: https://github.com/DidacLL/AgenticCareerBoost
-- AGENTS.md: https://github.com/DidacLL/AgenticCareerBoost/blob/main/AGENTS.md
+
+- Repository: <https://github.com/DidacLL/AgenticCareerBoost>
+- AGENTS.md: <https://github.com/DidacLL/AgenticCareerBoost/blob/main/AGENTS.md>
 - S-000 LaTeX source: content/reports/tex/sprints/s000-agentic-os-bootstrap.tex (compiled PDF available as CI artifact after first push)
 - Sprint contract: state/active-sprint.md (will be populated during sprint execution)
 
 ### KPI targets (first 7 days, cold-start adjusted)
+
 - Profile visits: 50-150 (cold-start range; upper bound assumes network seeding via BCN Engineering / GDG Barcelona)
 - Post impressions: 500-3,000 (new account with zero followers; upper bound aspirational)
 - Engagement rate: 3.5%+ (T4 §3.3 sweet-spot benchmark — rate is follower-independent)
@@ -94,19 +101,22 @@ problem?
 ## Option B — "The Document Reveal" (Architecture artifact as native upload)
 
 ### Strategic label
+
 Engineering-artifact-first — leads with a native PDF upload of the actual system design document, framed by a short narrative.
 
 ### Target audience emphasis
+
 - Engineering peers: 55% (the document itself is the content)
 - Recruiters: 35% (the document demonstrates engineering maturity)
 - Career-changers: 10% (the meta-narrative is implicit)
 
 ### Channel
+
 LinkedIn (primary, native PDF upload). GitHub: the PDF is already in the repo as a CI artifact. Site: link to the PDF from the projects page when S-002 ships.
 
 ### Full draft body (LinkedIn, 1,192 chars)
 
-```
+```text
 Here's the actual system design document for a model-agnostic
 multiagent career system.
 
@@ -140,16 +150,19 @@ personal projects?
 ```
 
 ### Hook / Proof / CTA breakdown
+
 - **Hook:** "Here's the actual system design document" (reveal pattern + native document upload for 5-10x reach per T4 §S4)
 - **Proof:** The document itself — readers can download and inspect it
 - **CTA:** Question about documentation practices, invites peer-level engagement
 
 ### Evidence links
+
 - Attached PDF: s000-agentic-os-bootstrap.pdf (native LinkedIn upload)
-- Repository: https://github.com/DidacLL/AgenticCareerBoost
+- Repository: <https://github.com/DidacLL/AgenticCareerBoost>
 - LaTeX source: content/reports/tex/sprints/s000-agentic-os-bootstrap.tex
 
 ### KPI targets (first 7 days, cold-start adjusted)
+
 - Profile visits: 80-200 (cold-start range; document format drives higher click-through)
 - Post impressions: 1,000-5,000 (document upload algorithm boost partially offsets zero-follower penalty)
 - Engagement rate: 4.0%+ (T4 §3.4: documents outperform text — rate is format-driven)
@@ -172,19 +185,22 @@ personal projects?
 ## Option C — "The Anti-Hype Manifesto" (Contrarian positioning)
 
 ### Strategic label
+
 Contrarian take — directly opposes the saturated AI-hype framing while demonstrating real engineering through the contrast.
 
 ### Target audience emphasis
+
 - Engineering peers: 60% (the opinion invites debate)
 - Recruiters: 30% (the technical specifics underneath signal capability)
 - Career-changers: 10% (the "don't follow the herd" angle is implicitly motivating)
 
 ### Channel
+
 LinkedIn (primary, text-only — the opinion is the content). GitHub: no specific variant. Site: could become a blog essay in S-002.
 
 ### Full draft body (LinkedIn, 1,478 chars)
 
-```
+```text
 I'm not an AI influencer. I'm an engineer who uses AI as tooling.
 
 Most agentic-AI content I see on LinkedIn is framework demos or
@@ -221,17 +237,20 @@ for agentic AI?
 ```
 
 ### Hook / Proof / CTA breakdown
+
 - **Hook:** "I'm not an AI influencer. I'm an engineer who uses AI as tooling." (contradiction + opinion pattern, inferred 3.7-4.2% engagement from T4 §3.1 data)
 - **Proof:** System architecture specifics, truth hierarchy, PairCheck, LaTeX CI, $0 cost
 - **CTA:** Genuine curiosity question about non-enterprise agentic use cases — invites peer-level sharing
 
 ### Evidence links
-- Repository: https://github.com/DidacLL/AgenticCareerBoost
-- AGENTS.md: https://github.com/DidacLL/AgenticCareerBoost/blob/main/AGENTS.md
+
+- Repository: <https://github.com/DidacLL/AgenticCareerBoost>
+- AGENTS.md: <https://github.com/DidacLL/AgenticCareerBoost/blob/main/AGENTS.md>
 - Truth hierarchy: docs/core/truth-hierarchy.md
 - LaTeX build CI: .github/workflows/latex-build.yml
 
 ### KPI targets (first 7 days, cold-start adjusted)
+
 - Profile visits: 80-250 (cold-start range; opinion posts drive click-through if they reach critical mass)
 - Post impressions: 1,000-4,000 (opinion format helps but cold-start limits reach)
 - Engagement rate: 3.5-4.2%+ (inferred from T4 §3.1 contradiction/opinion hooks)
@@ -253,7 +272,7 @@ for agentic AI?
 
 ## Agent Recommendation
 
-**Recommended: Option A ("The Contradiction Hook")**
+### Recommended: Option A ("The Contradiction Hook")
 
 **Rationale:**
 
@@ -265,6 +284,7 @@ for agentic AI?
 6. Option C (anti-hype) is high-variance and risks establishing a combative first impression. Reserve the contrarian edge for post 3-4, after the audience knows who Dídac is.
 
 **Recommended sequence:**
+
 - Post 1 (Tuesday): Option A — establish the person + the system
 - Post 2 (Thursday): Option B — the document reveal, referencing Post 1
 - Post 3 (following Tuesday): Option C — the opinion piece, now backed by two prior evidence-linked posts

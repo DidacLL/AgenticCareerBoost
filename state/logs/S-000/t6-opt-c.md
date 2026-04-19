@@ -20,7 +20,7 @@
 
 ## Linked evidence
 
-- https://github.com/DidacLL/AgenticCareerBoost
-- https://github.com/DidacLL/AgenticCareerBoost/blob/main/AGENTS.md
+- <https://github.com/DidacLL/AgenticCareerBoost>
+- <https://github.com/DidacLL/AgenticCareerBoost/blob/main/AGENTS.md>
 - docs/core/truth-hierarchy.md
 - .github/workflows/latex-build.yml

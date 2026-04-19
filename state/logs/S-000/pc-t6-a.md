@@ -11,7 +11,7 @@
 
 ## Verdict
 
-**PARTIAL**
+### PARTIAL
 
 ---
 
@@ -85,6 +85,7 @@ The three drafts are concise (1,192–1,478 chars against a 3,000-char limit). T
 ## Mission alignment
 
 **Strong.** All three options directly serve `docs/core/mission.md`:
+
 - "Rebuild a public technical profile through visible, agentic engineering work" — each option showcases the agentic system architecture as the primary artifact.
 - "Convert scattered real capability into recruiter-readable, peer-inspectable proof" — Options A and B explicitly frame the repo as inspectable evidence; Option C frames the contrast between empty claims and verifiable engineering.
 - "Demonstrated agentic workflow design as a skill in itself" — the meta-narrative (the system wrote its own social content) is present in all three options.
@@ -97,6 +98,7 @@ The three drafts are concise (1,192–1,478 chars against a 3,000-char limit). T
 Options A and B are brand-compliant and publication-ready pending CI artifacts. Option C is strategically strong but requires a sarcasm reduction pass to comply with style-book.md §4.3. The agent's recommendation (Option A first, B second, C third) is sound — it naturally gives time to revise Option C before it would be needed.
 
 **Recommended corrections before PASS:**
+
 1. Option C: reduce sarcastic moments to one (keep the opening hook, remove or neutralize "I didn't build this to impress LinkedIn," and rewrite the CTA to be genuine rather than contempt-inviting).
 2. Option A: replace the PDF placeholder with the `.tex` source path and a note that the compiled PDF will be available after CI.
 3. Option A/C: rephrase at least one instance of "coordinate through Markdown files and file paths" to eliminate verbatim overlap.

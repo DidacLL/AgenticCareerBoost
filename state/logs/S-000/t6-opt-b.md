@@ -21,5 +21,5 @@
 ## Linked evidence
 
 - Attached PDF: content/reports/tex/sprints/s000-agentic-os-bootstrap.pdf
-- https://github.com/DidacLL/AgenticCareerBoost
+- <https://github.com/DidacLL/AgenticCareerBoost>
 - content/reports/tex/sprints/s000-agentic-os-bootstrap.tex

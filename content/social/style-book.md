@@ -1,4 +1,5 @@
 # Public Voice Style Book — AgenticCareerBoost
+
 - Date: 2026-04-19
 - Sprint: S-000
 - Agent: CommunityManager (T5)

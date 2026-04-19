@@ -20,7 +20,7 @@
 
 ## Linked evidence
 
-- https://github.com/DidacLL/AgenticCareerBoost
-- https://github.com/DidacLL/AgenticCareerBoost/blob/main/AGENTS.md
+- <https://github.com/DidacLL/AgenticCareerBoost>
+- <https://github.com/DidacLL/AgenticCareerBoost/blob/main/AGENTS.md>
 - state/active-sprint.md
 - CI artifact: s000-agentic-os-bootstrap.pdf (pending first CI run)
