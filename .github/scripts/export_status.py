@@ -31,8 +31,8 @@ def main() -> None:
     blockers = [] if blockers_field.lower() in ("none", "") else [blockers_field]
 
     roadmap = (ROOT / "state" / "roadmap.md").read_text(encoding="utf-8")
-    seed_match = re.search(r"\|\s*S-\d+\s*\|(.+?)\|", roadmap)
-    next_seed = seed_match.group(0).strip("| ").strip() if seed_match else ""
+    seed_match = re.search(r"\|\s*(S-\d+)\s*\|\s*(.+?)\s*\|", roadmap)
+    next_seed = f"{seed_match.group(1)}: {seed_match.group(2)}" if seed_match else ""
 
     payload = {
         "sprint_id": sprint_id or None,
