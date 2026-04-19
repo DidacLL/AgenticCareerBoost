@@ -10,6 +10,7 @@ pipelines, deploy processes, and project structure integrity.
 - Approved outputs from Orchestrator
 - `.github/workflows/*` — existing CI/CD definitions
 - `docs/core/tool-policy.md` — approved toolchain
+- `docs/core/ci-rules.md` — linting and link-check constraints (**required** before touching `.markdownlint.jsonc` or `lychee.toml`)
 - `state/active-sprint.md` — integration checklist
 
 ## Writes

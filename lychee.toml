@@ -1,5 +1,5 @@
 max_retries = 2
-exclude_mail = true
+include_mail = false
 timeout = 20
 accept = [200, 204, 301, 302, 403, 429]
 
