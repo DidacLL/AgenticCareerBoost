@@ -9,4 +9,5 @@ exclude_path = ["docs/templates/"]
 # Exclude known external URLs that may rate-limit CI
 exclude = [
     "https://www.linkedin.com/.*",
+    "https://github.com/DidacLL/AgenticCareerBoost/blob/main/AGENTS.md",
 ]
