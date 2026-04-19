@@ -8,6 +8,7 @@ on:
   pull_request:
     paths:
       - 'content/reports/tex/**'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -20,15 +21,15 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           working_directory: content/reports/tex
-          root_file: sprints/*.tex
-          latexmk_use_lualatex: false
-          latexmk_shell_escape: false
-          args: -pdf -interaction=nonstopmode -halt-on-error
+          root_file: |
+            smoke.tex
+            sprints/*.tex
+          args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
 
       - name: Upload PDF artifacts
         uses: actions/upload-artifact@v4
         with:
           name: latex-reports
-          path: content/reports/tex/**/*.pdf
+          path: content/reports/tex/build/*.pdf
           if-no-files-found: error
           retention-days: 30
