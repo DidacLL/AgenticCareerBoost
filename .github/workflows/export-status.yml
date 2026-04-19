@@ -1,0 +1,30 @@
+name: Export status
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "state/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Export status JSON
+        run: python .github/scripts/export_status.py
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update public-status.json [auto]"
+          file_pattern: data/public-status.json
