@@ -1,0 +1,114 @@
+%% tikzlib.tex — TikZ library loads and reusable styles for architecture diagrams
+%%
+%% Loaded automatically by agenticboost.sty. Do not \input this directly.
+
+\usetikzlibrary{
+  arrows.meta,
+  positioning,
+  shapes.geometric,
+  shapes.multipart,
+  fit,
+  calc,
+  backgrounds,
+  decorations.pathreplacing,
+}
+
+%% --- Node styles -----------------------------------------------------------
+
+% Generic agent node (rounded box, accent border)
+\tikzset{agentnode/.style={
+  rectangle,
+  rounded corners=4pt,
+  draw=accentblue,
+  fill=accentblue!8,
+  text=black,
+  minimum height=2em,
+  minimum width=6em,
+  font=\small\sffamily,
+  align=center,
+  thick,
+}}
+
+% File / artifact node (document shape)
+\tikzset{filenode/.style={
+  rectangle,
+  draw=mutedgray,
+  fill=codebg,
+  text=black,
+  minimum height=2em,
+  minimum width=5em,
+  font=\small\ttfamily,
+  align=center,
+}}
+
+% State / volatile node (dashed border)
+\tikzset{statenode/.style={
+  rectangle,
+  rounded corners=2pt,
+  draw=mutedgray,
+  dashed,
+  fill=yellow!5,
+  text=black,
+  minimum height=2em,
+  minimum width=5em,
+  font=\small\sffamily,
+  align=center,
+}}
+
+% User / external actor
+\tikzset{usernode/.style={
+  ellipse,
+  draw=accentblue,
+  fill=accentblue!15,
+  text=black,
+  minimum height=2em,
+  minimum width=4em,
+  font=\small\sffamily\bfseries,
+  align=center,
+  thick,
+}}
+
+% Workflow step
+\tikzset{stepnode/.style={
+  rectangle,
+  rounded corners=2pt,
+  draw=accentblue!70,
+  fill=white,
+  text=black,
+  minimum height=1.8em,
+  minimum width=5em,
+  font=\small\sffamily,
+  align=center,
+}}
+
+% Group box (subgraph equivalent)
+\tikzset{groupbox/.style={
+  rectangle,
+  rounded corners=6pt,
+  draw=mutedgray!60,
+  fill=mutedgray!5,
+  inner sep=8pt,
+}}
+
+%% --- Arrow styles ----------------------------------------------------------
+
+\tikzset{flowedge/.style={
+  -Stealth,
+  thick,
+  accentblue!80,
+}}
+
+\tikzset{dataedge/.style={
+  -Stealth,
+  dashed,
+  mutedgray,
+}}
+
+\tikzset{handoffedge/.style={
+  -Stealth,
+  thick,
+  red!60!black,
+}}
+
+% Backward compatibility alias for the typo used in early documents
+\tikzset{datadge/.style={dataedge}}

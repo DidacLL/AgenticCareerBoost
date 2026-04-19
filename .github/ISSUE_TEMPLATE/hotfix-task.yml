@@ -1,0 +1,33 @@
+name: Hotfix task
+description: A small, focused fix outside a full sprint.
+labels: ["hotfix"]
+body:
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      placeholder: What exactly needs to be fixed?
+    validations:
+      required: true
+  - type: input
+    id: deliverable
+    attributes:
+      label: Single deliverable
+      placeholder: One commit, one fix.
+    validations:
+      required: true
+  - type: dropdown
+    id: effort
+    attributes:
+      label: Max effort
+      options:
+        - "< 30 min"
+        - "< 1 hour"
+        - "Escalate to sprint"
+    validations:
+      required: true
+  - type: textarea
+    id: backlog_note
+    attributes:
+      label: Backlog note
+      placeholder: Brief note to append to state/backlog.md after completion.

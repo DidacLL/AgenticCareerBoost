@@ -1,0 +1,20 @@
+max_retries = 3
+include_mail = false
+timeout = 30
+accept = [200, 204, 301, 302, 403, 429]
+
+# Exclude paths that contain placeholder URLs or templates
+exclude_path = ["docs/templates/"]
+
+# Exclude known external URLs that may rate-limit or fail in CI
+exclude = [
+    # LinkedIn blocks automated traffic
+    "https://www.linkedin.com/.*",
+    # Internal agent file (requires auth in some contexts)
+    "https://github.com/DidacLL/AgenticCareerBoost/blob/main/AGENTS.md",
+    # GitHub Pages site – not yet deployed; exclude until live
+    "https://didacll.github.io/AgenticCareerBoost.*",
+    # Known SSL/TLS or connectivity issues (LLM-cited external sources)
+    "https://humaneer.me/.*",
+    "https://www.tiaeastwood.com/.*",
+]

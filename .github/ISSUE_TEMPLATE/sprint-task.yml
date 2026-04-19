@@ -1,0 +1,43 @@
+name: Sprint task
+description: A task for an active or upcoming sprint.
+labels: ["sprint"]
+body:
+  - type: input
+    id: sprint
+    attributes:
+      label: Linked sprint
+      placeholder: "S-001"
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: Task goal
+      placeholder: What should this task achieve?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: Checklist of conditions for task completion.
+    validations:
+      required: true
+  - type: dropdown
+    id: roles
+    attributes:
+      label: Roles needed
+      multiple: true
+      options:
+        - Developer
+        - PairCheck
+        - CI/CD
+        - Documentation
+        - CommunityManager
+    validations:
+      required: true
+  - type: textarea
+    id: closure_artifacts
+    attributes:
+      label: Expected closure artifacts
+      placeholder: Which of the 6 sprint closure artifacts does this task produce?

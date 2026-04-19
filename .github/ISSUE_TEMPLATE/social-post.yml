@@ -1,0 +1,34 @@
+name: Social post
+description: Draft a public post for review.
+labels: ["social"]
+body:
+  - type: dropdown
+    id: channel
+    attributes:
+      label: Channel
+      options:
+        - LinkedIn
+        - GitHub (release / discussion)
+        - Site (blog post)
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: source_artifact
+    attributes:
+      label: Source artifact
+      placeholder: Sprint, commit, or doc that this post references.
+    validations:
+      required: true
+  - type: textarea
+    id: draft
+    attributes:
+      label: Draft content
+      placeholder: Post text adapted for the chosen channel.
+    validations:
+      required: true
+  - type: textarea
+    id: tone_check
+    attributes:
+      label: Tone check
+      placeholder: Confirm alignment with docs/core/brand.md — flag any concerns.

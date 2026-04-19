@@ -1,0 +1,52 @@
+name: Docs lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  markdownlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DavidAnson/markdownlint-cli2-action@v19
+        with:
+          globs: "**/*.md"
+          config: ".markdownlint.jsonc"
+
+  # Stage 1 – critical: validate internal file references (blocks merge)
+  internal-linkcheck:
+    name: Check internal links (critical)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate internal file references
+        run: bash scripts/validate-links.sh
+
+  # Stage 2 – advisory: check all URLs via Lychee (never blocks merge)
+  external-linkcheck:
+    name: Check external links (advisory)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Lychee link checker
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --config lychee.toml "**/*.md"
+          # Non-blocking: report problems without failing the build.
+          # Broken external links produce a warning in the job summary only.
+          fail: false
+      - name: Upload link-check report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: link-check-report
+          path: lychee/out.md
+          if-no-files-found: ignore

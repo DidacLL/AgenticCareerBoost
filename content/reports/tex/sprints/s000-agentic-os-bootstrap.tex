@@ -1,0 +1,793 @@
+\documentclass[a4paper,11pt,openany]{report}
+\usepackage{../preamble/agenticboost}
+
+\renewcommand{\sprintId}{S-000}
+
+\title{%
+  \textsc{AgenticCareerBoost}\\[0.4em]
+  \Large Sprint S-000: Agentic OS Bootstrap\\[0.3em]
+  \large Engineering Documentation%
+}
+\author{Dídac Llorens \\ \small \href{https://github.com/DidacLL}{github.com/DidacLL}}
+\date{April 2026 --- v1.0}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+% ============================================================================
+\chapter{Preface}
+% ============================================================================
+
+\takeaway{This document records the complete architecture, rationale, and
+implementation of a path-based, model-agnostic multiagent operating system
+built inside a single Git repository. It is the engineering proof that the
+system works, written for two audiences: a recruiter who needs fast evidence
+of capability, and an engineering peer who values visible craft.}
+
+\section{Mission}
+
+The \projectName{} project exists to rebuild a public technical profile through
+visible, agentic engineering work. It converts scattered real capability into
+recruiter-readable, peer-inspectable proof. The repository itself is the primary
+artifact: every operational rule is a Markdown file with git history, every
+sprint produces documented closure artifacts, and the architecture is designed
+to be understood by any LLM that can read files and follow paths.
+
+\section{Audience}
+
+\begin{description}[style=nextline]
+  \item[Recruiters] Need fast proof of capability and role-fit. They will scan
+    this document's diagrams, the file manifest, and the sprint closure
+    checklist. The table of contents and chapter openers are written for them.
+  \item[Engineering peers] Value visible craft, systems thinking, and tooling
+    depth. They will read the rationale sections, inspect the TikZ diagrams,
+    and follow the truth-hierarchy logic. The ``common pitfalls'' boxes are
+    written for them.
+\end{description}
+
+\section{Reading path}
+
+Chapters~2--3 cover the big picture: how agents navigate the repository and
+why conflicting information is resolved deterministically. Chapters~4--9 walk
+through every subsystem in the order an agent would encounter them. Chapter~10
+covers CI/CD automation. Chapter~11 restates the invariants. Appendix~A lists
+every file.
+
+\pitfall{Do not read this document linearly if you only want to understand one
+subsystem. Use the table of contents and jump to the relevant chapter.}
+
+
+% ============================================================================
+\chapter{Architectural Overview}
+\label{ch:architecture}
+% ============================================================================
+
+\takeaway{The system is path-based: a single entrypoint file
+(\pathref{AGENTS.md}) dispatches agents to the specific files they need.
+No mega-prompt, no vendor lock-in, no model-specific tricks.}
+
+\section{Routing map}
+
+\Cref{fig:routing-map} shows the complete information flow from a user prompt
+through the agent system to published outputs.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=1.5cm and 2cm]
+  % Nodes
+  \node[usernode] (user) {User prompt};
+  \node[agentnode, below=of user] (agents) {AGENTS.md};
+  \node[agentnode, below left=1.5cm and 2.5cm of agents] (wf) {docs/workflows/};
+  \node[filenode, below right=1.5cm and 2.5cm of agents] (core) {docs/core/};
+  \node[agentnode, below=of wf] (roles) {docs/agents/};
+  \node[filenode, below=of roles] (templ) {docs/templates/};
+  \node[statenode, right=2.5cm of roles] (state) {state/};
+  \node[filenode, below=of templ] (outputs) {content/};
+  \node[statenode, left=2cm of outputs] (logs) {state/logs/};
+  \node[agentnode, below=of outputs] (ci) {.github/workflows/};
+  \node[filenode, below left=1.2cm and 1cm of ci] (status) {data/};
+  \node[filenode, below right=1.2cm and 1cm of ci] (site) {site/starter/};
+
+  % Edges
+  \draw[flowedge] (user) -- (agents);
+  \draw[flowedge] (agents) -- node[left,font=\scriptsize]{detect workflow} (wf);
+  \draw[datadge] (agents) -- node[right,font=\scriptsize]{stable truth} (core);
+  \draw[flowedge] (wf) -- (roles);
+  \draw[datadge] (roles) -- (templ);
+  \draw[datadge] (wf) -- (state);
+  \draw[datadge] (templ) -- node[left,font=\scriptsize]{fill \& commit} (outputs);
+  \draw[datadge] (roles) -- (state);
+  \draw[datadge] (templ) -- (logs);
+  \draw[flowedge] (outputs) -- (ci);
+  \draw[datadge] (ci) -- (status);
+  \draw[datadge] (ci) -- (site);
+\end{tikzpicture}
+\caption{Repository routing map: from user prompt to published outputs.}
+\label{fig:routing-map}
+\end{figure}
+
+\section{Design principles}
+
+The architecture obeys six invariants:
+
+\begin{enumerate}
+  \item \textbf{Token cost} --- agents load only the 1--3 files needed per
+    turn, not a monolithic prompt.
+  \item \textbf{Conflict containment} --- volatile files can be wrong without
+    corrupting canonical truth; a strict hierarchy resolves precedence.
+  \item \textbf{Model agnosticism} --- any LLM that reads Markdown and follows
+    file paths works. No vendor-specific prompt engineering in canonical files.
+  \item \textbf{Auditability} --- every rule is a file with git history.
+    Reviewers diff changes instead of re-reading prose.
+  \item \textbf{Parallel agents} --- different agents open different files
+    without racing on a shared prompt buffer.
+  \item \textbf{Graceful failure} --- a missing file forces the agent to stop
+    and ask, rather than hallucinate structure.
+\end{enumerate}
+
+\section{The entrypoint: AGENTS.md}
+
+\pathref{AGENTS.md} is the machine-readable entrypoint. It contains:
+\begin{itemize}
+  \item A truth-priority list (one-liner summary of the full hierarchy).
+  \item A workflow dispatch table mapping keywords to file paths.
+  \item A role index mapping agent names to their contract files.
+  \item State pointers to volatile files.
+  \item A rationale footer explaining why path-based beats mega-prompt.
+\end{itemize}
+
+An agent arriving at the repository reads this single file, identifies the
+active workflow keyword, and navigates to exactly the files it needs. Total
+context loaded: typically under 3\,KB.
+
+\pitfall{Never add content to \pathref{AGENTS.md} that does not serve the
+routing function. It is a dispatch table, not documentation.}
+
+
+% ============================================================================
+\chapter{Truth Hierarchy and Token Rationale}
+\label{ch:truth}
+% ============================================================================
+
+\takeaway{When information conflicts, the system resolves it using a strict
+six-level priority. This eliminates ambiguity without requiring agents to
+load everything.}
+
+\section{The six levels}
+
+\begin{longtable}{c l l}
+\toprule
+\textbf{Priority} & \textbf{Source} & \textbf{Mutability} \\
+\midrule
+\endhead
+1 & Direct user prompt & Per-session \\
+2 & \pathref{docs/core/} & Stable --- change only via system-review \\
+3 & \pathref{docs/workflows/} & Stable --- change only via system-review \\
+4 & \pathref{docs/agents/} & Stable --- change only via system-review \\
+5 & \pathref{state/} & Volatile --- updated every sprint/hotfix \\
+6 & Backlog, logs, summaries & Volatile --- may be outdated \\
+\bottomrule
+\end{longtable}
+
+\section{Resolution rules}
+
+\begin{itemize}
+  \item Agent-generated logs are never canonical truth.
+  \item If a volatile file contradicts a stable file, the stable file wins.
+  \item If two stable files at the same level contradict, escalate to the user.
+  \item If a referenced path does not exist, \textbf{stop and ask} --- do not
+    fabricate content or structure.
+\end{itemize}
+
+\section{Token rationale}
+
+The hierarchy exists because loading all files into a single context window is
+wasteful and error-prone. An agent running the \workflow{chat} workflow needs
+only \pathref{docs/core/} and \pathref{state/current.md} --- under 3\,KB of
+context. An agent running \workflow{sprint} adds workflow and role contracts
+but never loads logs or summaries unless explicitly needed.
+
+This design keeps per-turn cost low, makes conflicts deterministic, and allows
+the system to scale to dozens of files without degrading agent performance.
+
+\pitfall{Never flatten the hierarchy into a single file ``for convenience.''
+The separation \emph{is} the conflict-resolution mechanism.}
+
+
+% ============================================================================
+\chapter{Canonical Truth: docs/core/}
+\label{ch:core}
+% ============================================================================
+
+\takeaway{Six files define the stable ground truth of the project. They are
+read-only during sprints and can only be modified through a system-review
+workflow. Every other file in the repository defers to them.}
+
+\section{mission.md}
+
+\pathref{docs/core/mission.md} states the project goal, scope, success
+criteria, and non-goals.
+
+\begin{description}[style=nextline]
+  \item[Goal] Rebuild a public technical profile through visible, agentic
+    engineering work. Convert scattered real capability into recruiter-readable,
+    peer-inspectable proof.
+  \item[Scope] Public GitHub repository as source of truth; curated website as
+    mirror; LinkedIn/social as campaign distribution; formal engineering
+    documentation where warranted.
+  \item[Success criteria] Portfolio of visible, documented artifacts; coherent
+    technical narrative; demonstrated agentic workflow design; recruiter-facing
+    landing page with AI-readable metadata; at least one formal case study.
+  \item[Non-goals] Building a startup or product; becoming an AI influencer;
+    mass-producing generic content; replacing human judgment.
+\end{description}
+
+\section{brand.md}
+
+\pathref{docs/core/brand.md} defines positioning and tone constraints.
+
+The positioning: \emph{systems-minded builder, technical generalist with unusual
+documentation and tooling depth, agentic workflow designer, engineer with range,
+judgment, and visible iteration discipline.}
+
+Tone rules: technical, disciplined, direct; slightly artistic and young in
+energy; controlled sarcastic or provocative edge where appropriate; never
+chaotic, never self-sabotaging; never generic AI hype; never ``just another
+junior'' framing.
+
+The language policy maps contexts to languages: English for core docs and code;
+English default for public content with Spanish when locally useful; Catalan
+permitted in formal LaTeX reports; Catalan as cultural accent, not default.
+
+Forbidden framings: fake startup-founder noise, AI-influencer tone, empty
+self-description without evidence, CRUD-only backend identity box.
+
+\section{marketing.md}
+
+\pathref{docs/core/marketing.md} establishes the campaign strategy.
+
+Audience: recruiters first (fast proof of capability), engineering peers second
+(visible craft and systems thinking). Channels in priority order: repository
+(canonical source), website (curated mirror), LinkedIn/social (selective
+distribution). Cadence rule: every sprint closure produces at least one
+narrative candidate suitable for social distribution.
+
+Anti-patterns: generic self-promotion, AI-hype bandwagon posts, founder-LARP
+tone, content without linked evidence, duplicating identical text across
+channels.
+
+\section{constraints.md}
+
+\pathref{docs/core/constraints.md} lists hard and soft constraints.
+
+Hard: free/student-accessible tools only; model-agnostic (no vendor-specific
+prompt tricks in canonical files); human-reviewed truth (agents draft, humans
+approve); public inspectability (nothing operational hidden in private tooling);
+token-aware brevity (target $\leq 80$ lines per file).
+
+Soft: prefer checklists over prose; prefer small reusable templates; avoid
+repeated context across files; avoid decorative complexity.
+
+\section{truth-hierarchy.md}
+
+\pathref{docs/core/truth-hierarchy.md} is the canonical source for the
+six-level priority table discussed in \cref{ch:truth}. \pathref{AGENTS.md}
+cites it as a one-liner; this file contains the full resolution rules.
+
+\section{tool-policy.md}
+
+\pathref{docs/core/tool-policy.md} lists the approved toolchain: GitHub
+(repository, issues, projects), GitHub Pages (hosting), GitHub Actions (CI/CD),
+Jekyll (static site generator), markdownlint-cli2 (Markdown linting), lychee
+(link checking), \LaTeX{} via TeX Live (formal documents), and any capable LLM
+(model-agnostic execution).
+
+Adding a new tool requires a pull request with justification, confirmation of a
+free or student-accessible tier, proof of no vendor lock-in, and an entry in the
+policy table.
+
+\pitfall{Do not introduce a new tool in a sprint and document it after the fact.
+The PR-first policy exists so that tool choices are auditable and reversible.}
+
+
+% ============================================================================
+\chapter{Workflow Contracts: docs/workflows/}
+\label{ch:workflows}
+% ============================================================================
+
+\takeaway{Five workflows define every type of work the system can perform.
+Each follows the same skeleton: Trigger, Inputs, Steps, Outputs, Exit Criteria.
+Agents read only the workflow they need.}
+
+Every workflow file under \pathref{docs/workflows/} uses a shared five-section
+skeleton. This uniformity means an agent can parse any workflow without
+learning a new format.
+
+\section{plan.md --- Design a new sprint}
+
+\textbf{Trigger:} User requests a new sprint plan, or the orchestrator
+identifies the need.
+
+\textbf{Steps:} Select the next sprint seed from
+\pathref{state/roadmap.md}; decompose into tasks with owning role, acceptance
+criteria, and expected output; define pair-check and backlog requirements; fill
+the sprint-output template; copy to \pathref{state/active-sprint.md}; update
+\pathref{state/current.md}.
+
+\textbf{Exit criteria:} Every task has an owning role, acceptance criteria, and
+expected output; pair-check assignments exist for every non-trivial task; the
+plan is achievable within one sprint cycle.
+
+\section{sprint.md --- Execute a planned sprint}
+
+\textbf{Trigger:} A populated \pathref{state/active-sprint.md} with
+\texttt{status: planned}.
+
+\textbf{Steps:} \role{Orchestrator} decomposes work $\to$ \role{Developer}
+agents execute $\to$ two fresh \role{PairCheck} agents review each non-trivial
+output $\to$ \role{CI/CD} integrates $\to$ \role{Documentation} emits docs
+$\to$ \role{CommunityManager} emits narrative $\to$ \role{Orchestrator}
+verifies closure.
+
+\textbf{Six closure artifacts} (all required or explicitly waived):
+\begin{enumerate}
+  \item Repository artifact(s) --- committed code, configs, or docs.
+  \item Website / repo update trace.
+  \item Social / LinkedIn-ready artifact.
+  \item Formal engineering documentation.
+  \item Condensed technical backlog.
+  \item Condensed narrative backlog.
+\end{enumerate}
+
+\section{hotfix.md --- Small focused fix}
+
+\textbf{Trigger:} A small, focused change needed outside a full sprint cycle.
+
+One \role{Developer} agent, narrow scope, one commit, minimal backlog note.
+No pair-check ceremony. \textbf{Escalation:} if scope expands during execution,
+convert to a sprint via the Plan workflow.
+
+\section{chat.md --- Discussion only}
+
+\textbf{Trigger:} User initiates a discussion.
+
+Read \pathref{docs/core/} and \pathref{state/current.md}. No file edits except
+an optional summary written to \fname{state/summaries/}. Chat never silently
+promotes itself to a sprint.
+
+\section{system-review.md --- Audit the system}
+
+\textbf{Trigger:} Scheduled review, user request, or detected inconsistency.
+
+Audit \pathref{docs/} for contradictions, dead routes, and token waste.
+Check that every path in \pathref{AGENTS.md} resolves. Review backlog and logs
+for recurring failures. Output: issue report with proposed diffs and migration
+notes if structure changes.
+
+\pitfall{Using the wrong workflow is a protocol violation. A ``quick fix''
+that touches multiple concerns must be escalated from hotfix to sprint.}
+
+
+% ============================================================================
+\chapter{Agent Roles: docs/agents/}
+\label{ch:agents}
+% ============================================================================
+
+\takeaway{Six roles define the division of labor. Each has a contract
+specifying what it reads, what it writes, what it must not do, and where it
+hands off. No role is self-approving.}
+
+\section{Role contracts}
+
+\begin{longtable}{l p{3cm} p{3cm} p{4cm}}
+\toprule
+\textbf{Role} & \textbf{Reads} & \textbf{Writes} & \textbf{Must not} \\
+\midrule
+\endhead
+\role{Orchestrator} &
+  Workflows, state, core &
+  Sprint state, task contracts &
+  Implement non-trivial code; skip pair-check \\
+\role{Developer} &
+  Task contract, core, repo &
+  Code, configs, docs &
+  Self-approve; work multiple tasks; modify core \\
+\role{PairCheck} &
+  Output, contract, core &
+  Paircheck verdict &
+  Modify output; communicate with other PairCheck \\
+\role{CI/CD} &
+  Approved outputs, workflows, tool-policy &
+  Pipelines, status JSON, tags &
+  Approve work; introduce unlisted tools \\
+\role{Documentation} &
+  Sprint outputs, mission, brand, templates &
+  Docs (Markdown + \LaTeX) &
+  Publish directly; modify core; add decorative prose \\
+\role{CommunityManager} &
+  Sprint outputs, brand, marketing, templates &
+  Social drafts &
+  Publish without user approval; contradict brand \\
+\bottomrule
+\end{longtable}
+
+\section{Interaction graph}
+
+\Cref{fig:agent-interaction} shows the handoff paths between roles during a
+sprint workflow.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=2cm and 2.5cm]
+  \node[usernode] (user) {User};
+  \node[agentnode, below=of user] (orch) {Orchestrator};
+  \node[agentnode, below left=2cm and 2cm of orch] (dev) {Developer};
+  \node[agentnode, below right=2cm and 2cm of orch] (pc) {PairCheck\\(x2)};
+  \node[agentnode, right=2.5cm of orch] (cicd) {CI/CD};
+  \node[agentnode, below=of dev] (doc) {Documentation};
+  \node[agentnode, below=of pc] (cm) {Community\\Manager};
+
+  \draw[flowedge] (user) -- (orch);
+  \draw[flowedge] (orch) -- node[left,font=\scriptsize]{task} (dev);
+  \draw[flowedge] (dev) -- node[below,font=\scriptsize]{output} (pc);
+  \draw[flowedge] (pc) -- node[right,font=\scriptsize]{verdict} (orch);
+  \draw[flowedge] (orch) -- node[above,font=\scriptsize]{integrate} (cicd);
+  \draw[flowedge] (orch) -- node[left,font=\scriptsize]{docs} (doc);
+  \draw[flowedge] (orch) -- node[right,font=\scriptsize]{narrative} (cm);
+  \draw[handoffedge] (pc) to[bend left=20] node[right,font=\scriptsize]{fail} (orch);
+  \draw[datadge] (doc) -- node[below,font=\scriptsize]{hook} (cm);
+\end{tikzpicture}
+\caption{Agent interaction graph during a sprint workflow.}
+\label{fig:agent-interaction}
+\end{figure}
+
+\subsection{Key constraints across roles}
+
+\begin{itemize}
+  \item No role is self-approving: \role{Developer} outputs must pass through
+    two independent \role{PairCheck} instances.
+  \item \role{PairCheck} agents are always \textbf{fresh} --- they cannot access
+    prior review history or communicate with each other.
+  \item \role{Orchestrator} delegates but never implements non-trivial artifacts
+    directly.
+  \item \role{CommunityManager} never publishes without explicit user approval.
+\end{itemize}
+
+\pitfall{Allowing a role to both produce and approve its own output defeats the
+pair-check mechanism. If you find yourself skipping PairCheck ``because it is
+simple,'' the hotfix workflow already exists for truly trivial changes.}
+
+
+% ============================================================================
+\chapter{Output Templates: docs/templates/}
+\label{ch:templates}
+% ============================================================================
+
+\takeaway{Four templates standardize every sprint output. Each is a short
+fillable Markdown contract. Agents fill templates rather than inventing formats,
+ensuring consistent traceability across sprints.}
+
+\section{sprint-output.md}
+
+\pathref{docs/templates/sprint-output.md} structures a sprint plan and closure
+record. Fields: Sprint ID, goal, status, task table (role, acceptance criteria,
+evidence link), pair-check assignment table, closure artifacts checklist,
+backlog deltas (technical + narrative), and CI trace.
+
+The filled template is copied to \pathref{state/active-sprint.md} when a sprint
+is planned, and updated in place as tasks complete.
+
+\section{paircheck-output.md}
+
+\pathref{docs/templates/paircheck-output.md} records an independent review
+verdict. Fields: contract reference, verdict (pass/fail/partial), defects list,
+missing evidence, token-efficiency notes, mission alignment assessment, and an
+agent signature.
+
+Two filled instances are saved to \fname{state/logs/} per reviewed output.
+
+\section{documentation-output.md}
+
+\pathref{docs/templates/documentation-output.md} accompanies every documentation
+deliverable. Fields: artifact reference, date, rationale (why the work was
+done), mechanism (what was built), diagrams link, formal document link, and a
+public-narrative hook sentence suitable for the \role{CommunityManager}.
+
+\section{community-output.md}
+
+\pathref{docs/templates/community-output.md} structures every public-facing
+artifact. Fields: source artifact, channel (LinkedIn/GitHub/Site), scheduled
+date, headline, body, and a checks section verifying tone consistency with
+\pathref{docs/core/brand.md}, evidence linking, cross-channel originality, and
+technical identity support.
+
+\pitfall{Skipping the template and writing a free-form output breaks
+traceability. Every sprint artifact must be traceable back to a template
+instance saved in \fname{state/logs/}.}
+
+
+% ============================================================================
+\chapter{State Machinery: state/}
+\label{ch:state}
+% ============================================================================
+
+\takeaway{Four Markdown files and two log directories form the volatile memory
+of the system. They are updated every sprint or hotfix and are always
+subordinate to stable truth in \pathref{docs/core/}.}
+
+\section{Lifecycle overview}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=1.6cm and 2cm]
+  \node[statenode] (current) {current.md\\status snapshot};
+  \node[statenode, right=3cm of current] (active) {active-sprint.md\\sprint contract};
+  \node[statenode, below=of current] (roadmap) {roadmap.md\\sprint seeds};
+  \node[statenode, below=of active] (backlog) {backlog.md\\tech + narrative};
+  \node[filenode, below right=1.5cm and 0.5cm of backlog] (logs) {logs/};
+  \node[filenode, below left=1.5cm and 0.5cm of backlog] (summaries) {summaries/};
+
+  \draw[flowedge] (roadmap) -- node[left,font=\scriptsize]{plan} (current);
+  \draw[flowedge] (current) -- node[above,font=\scriptsize]{activate} (active);
+  \draw[datadge] (active) -- node[right,font=\scriptsize]{deltas} (backlog);
+  \draw[datadge] (active) -- (logs);
+  \draw[datadge] (backlog) -- (summaries);
+  \draw[flowedge] (active) to[bend right=30]
+    node[below,font=\scriptsize]{close} (current);
+\end{tikzpicture}
+\caption{State file lifecycle during a sprint.}
+\label{fig:state-lifecycle}
+\end{figure}
+
+\section{current.md}
+
+\pathref{state/current.md} is a one-screen snapshot: active workflow, active
+sprint ID, blockers, and a table of the last three closures. It is the first
+volatile file any workflow reads.
+
+\section{active-sprint.md}
+
+\pathref{state/active-sprint.md} holds the current sprint contract (filled from
+\pathref{docs/templates/sprint-output.md}). When no sprint is active, it reads
+\texttt{status: idle}. Task status is updated in place as work progresses.
+
+\section{roadmap.md}
+
+\pathref{state/roadmap.md} lists 3--5 upcoming sprint seeds. Each seed becomes
+a full plan via the Plan workflow. Seeds are consumed (moved to active) and
+replenished after system reviews.
+
+\section{backlog.md}
+
+\pathref{state/backlog.md} has two sections: \emph{Technical backlog} (tickets
+with ID, description, origin, priority) and \emph{Narrative backlog} (scrum-like
+notes tracking communication and strategy decisions).
+
+\section{logs/ and summaries/}
+
+\fname{state/logs/} accumulates pair-check outputs, CI traces, and per-sprint
+evidence files. \fname{state/summaries/} stores chat session summaries and
+periodic digests. Both are append-only during a sprint.
+
+\pitfall{Never treat data in \fname{state/} as canonical. If a volatile file
+says the mission is X but \pathref{docs/core/mission.md} says Y, the core file
+wins unconditionally.}
+
+
+% ============================================================================
+\chapter{Public Surfaces: content/, site/, data/}
+\label{ch:surfaces}
+% ============================================================================
+
+\takeaway{Three content directories, a Jekyll scaffold, and two JSON files
+bridge the internal repository to its public-facing outputs.}
+
+\section{content/ --- artifact sources}
+
+\begin{description}[style=nextline]
+  \item[\pathref{content/social/}] Platform-adapted post drafts. Naming
+    convention: \fname{YYYY-MM-DD-<channel>-<slug>.md}.
+  \item[\pathref{content/site/}] Markdown sources that Jekyll pulls into the
+    public site.
+  \item[\pathref{content/reports/}] Formal \LaTeX{} engineering documents.
+    This directory hosts the \fname{tex/} subtree with shared preamble and
+    per-sprint documents.
+\end{description}
+
+\section{site/starter/ --- Jekyll scaffold}
+
+\pathref{site/starter/} contains a minimal Jekyll site: \fname{\_config.yml}
+(base URL \texttt{/AgenticCareerBoost}, plugins: \texttt{jekyll-feed},
+\texttt{jekyll-seo-tag}), \fname{Gemfile}, \fname{index.md} (landing page
+derived from the README), \fname{\_layouts/default.html} (semantic HTML, dark-mode
+friendly, no JS dependencies), and \fname{projects/index.md} (reserved for
+per-repo subpages in a later sprint).
+
+\section{data/ --- machine-readable state}
+
+\pathref{data/public-status.json} exports sprint status for the Jekyll site:
+sprint ID, workflow, last closure timestamp, artifacts array, and blockers.
+It is auto-generated by a GitHub Actions workflow whenever \pathref{state/}
+changes.
+
+\pathref{data/links.json} curates outbound links: GitHub profile, LinkedIn,
+legacy site, and this repository.
+
+\screenshotfig{figures/screenshots/jekyll-site-preview.png}%
+  {Jekyll site landing page (placeholder --- replace with actual screenshot after first deploy).}%
+  {fig:jekyll-preview}
+
+\pitfall{Do not edit \fname{data/public-status.json} by hand. It is
+machine-generated by \fname{export-status.yml}. Manual edits will be
+overwritten on the next push to \pathref{state/}.}
+
+
+% ============================================================================
+\chapter{CI/CD Automation: .github/}
+\label{ch:cicd}
+% ============================================================================
+
+\takeaway{Three GitHub Actions workflows, five issue templates, and a PR
+template enforce quality gates and automate the publish pipeline --- all within
+GitHub's free tier.}
+
+\section{Workflows}
+
+\subsection{docs-lint.yml}
+
+Triggers on PR and push to main. Runs \texttt{markdownlint-cli2} over all
+\fname{*.md} files using a \fname{.markdownlint.jsonc} configuration that
+relaxes line-length rules for templates. Then runs \texttt{lychee} for link
+checking with retries and mail exclusion.
+
+\subsection{site-build.yml}
+
+Triggers on push to main affecting \fname{site/starter/}, \fname{content/site/},
+or \fname{README.md}. Uses the official GitHub Pages actions
+(\texttt{actions/configure-pages}, \texttt{actions/jekyll-build-pages},
+\texttt{actions/deploy-pages}) with source at \fname{./site/starter/}.
+Permissions: \texttt{pages: write}, \texttt{id-token: write}.
+
+\subsection{export-status.yml}
+
+Triggers on push to main affecting \fname{state/} and on manual dispatch.
+A Python script (\fname{.github/scripts/export\_status.py}, $\leq 40$ lines)
+parses front-matter from \pathref{state/current.md} and
+\pathref{state/active-sprint.md}, writes \pathref{data/public-status.json},
+and auto-commits only if content changed.
+
+\subsection{latex-build.yml}
+
+Triggers on PR and push touching \fname{content/reports/tex/}. Uses
+\texttt{xu-cheng/latex-action} (TeX Live full) to run \texttt{latexmk~-pdf}
+on every file under \fname{sprints/}. Uploads compiled PDFs as workflow
+artifacts. Does not commit back or deploy to Pages --- publication remains
+user-gated.
+
+\screenshotfig{figures/screenshots/screenshot001.png}%
+  {GitHub Actions workflow run showing all four pipelines (placeholder --- replace after first CI run).}%
+  {fig:actions-run}
+
+\section{Issue templates}
+
+Five YAML-based issue forms standardize work requests:
+\fname{sprint-task.yml}, \fname{hotfix-task.yml}, \fname{system-review.yml},
+\fname{website-update.yml}, and \fname{social-post.yml}. Each maps directly to
+a workflow or agent role.
+
+\section{PR template}
+
+\pathref{.github/PULL\_REQUEST\_TEMPLATE.md} enforces a checklist: links to
+sprint or hotfix, pair-check references, closure artifacts updated,
+\pathref{state/} updated, no orphan work.
+
+\pitfall{Adding a workflow that introduces a tool not listed in
+\pathref{docs/core/tool-policy.md} is a policy violation. The tool must be
+approved via PR first, then the workflow can reference it.}
+
+
+% ============================================================================
+\chapter{Lessons and Invariants}
+\label{ch:lessons}
+% ============================================================================
+
+\takeaway{The bootstrap sprint established invariants that future sprints
+inherit. Breaking these invariants silently is the primary failure mode of
+agentic systems.}
+
+\section{Design invariants}
+
+\begin{enumerate}
+  \item \textbf{Every file has exactly one owner.} Core files are owned by the
+    user via system-review. State files are owned by the orchestrator. Templates
+    are shared but version-controlled.
+  \item \textbf{No self-approval.} Every non-trivial output passes through two
+    independent PairCheck instances before integration.
+  \item \textbf{No fabricated paths.} If an agent references a file that does
+    not exist, it must stop and ask rather than create a plausible-sounding
+    alternative.
+  \item \textbf{No mega-prompts.} The system never concatenates all files into a
+    single context. Agents load what they need, guided by \pathref{AGENTS.md}.
+  \item \textbf{Public inspectability.} The process is part of the proof. Nothing
+    operational is hidden in private tooling.
+  \item \textbf{Token-aware brevity.} Files target $\leq 80$ lines. Many are
+    under 30. Longer files require justification.
+\end{enumerate}
+
+\section{Forbidden patterns}
+
+\begin{itemize}
+  \item Storing state in code comments or commit messages instead of
+    \pathref{state/}.
+  \item Duplicating truth across files instead of linking.
+  \item Skipping PairCheck because ``the change is small'' --- use the hotfix
+    workflow instead.
+  \item Adding tools, then documenting them after the fact.
+  \item Using model-specific prompt syntax in any file under \pathref{docs/}.
+\end{itemize}
+
+\screenshotfig{figures/screenshots/repo-file-tree.png}%
+  {Repository file tree after bootstrap completion (placeholder --- replace with actual tree screenshot).}%
+  {fig:file-tree}
+
+\pitfall{The most dangerous failure mode is a ``temporary'' exception to an
+invariant that becomes permanent. If an invariant needs to change, use the
+system-review workflow --- never silently work around it.}
+
+
+% ============================================================================
+\appendix
+\chapter{File Manifest}
+\label{app:manifest}
+% ============================================================================
+
+\takeaway{Every file in the repository after the bootstrap sprint, with its
+purpose and approximate size.}
+
+\begin{longtable}{l l r}
+\toprule
+\textbf{Path} & \textbf{Purpose} & \textbf{Lines} \\
+\midrule
+\endhead
+\pathref{AGENTS.md} & Agent entrypoint / dispatch & $\sim$65 \\
+\pathref{README.md} & Public human entrypoint & $\sim$70 \\
+\midrule
+\pathref{docs/core/mission.md} & Goal, scope, success criteria & $\sim$29 \\
+\pathref{docs/core/brand.md} & Positioning, tone, language policy & $\sim$36 \\
+\pathref{docs/core/marketing.md} & Campaign strategy & $\sim$33 \\
+\pathref{docs/core/constraints.md} & Hard and soft constraints & $\sim$23 \\
+\pathref{docs/core/truth-hierarchy.md} & Conflict resolution order & $\sim$20 \\
+\pathref{docs/core/tool-policy.md} & Approved toolchain & $\sim$24 \\
+\midrule
+\pathref{docs/workflows/plan.md} & Sprint planning workflow & $\sim$37 \\
+\pathref{docs/workflows/sprint.md} & Sprint execution workflow & $\sim$42 \\
+\pathref{docs/workflows/hotfix.md} & Focused fix workflow & $\sim$35 \\
+\pathref{docs/workflows/chat.md} & Discussion workflow & $\sim$31 \\
+\pathref{docs/workflows/system-review.md} & System audit workflow & $\sim$34 \\
+\midrule
+\pathref{docs/agents/orchestrator.md} & Orchestrator role contract & $\sim$36 \\
+\pathref{docs/agents/developer.md} & Developer role contract & $\sim$32 \\
+\pathref{docs/agents/paircheck.md} & PairCheck role contract & $\sim$38 \\
+\pathref{docs/agents/cicd.md} & CI/CD role contract & $\sim$34 \\
+\pathref{docs/agents/documentation.md} & Documentation role contract & $\sim$33 \\
+\pathref{docs/agents/community-manager.md} & CommunityManager role contract & $\sim$32 \\
+\midrule
+\pathref{docs/templates/sprint-output.md} & Sprint plan/closure template & $\sim$48 \\
+\pathref{docs/templates/paircheck-output.md} & Review verdict template & $\sim$25 \\
+\pathref{docs/templates/documentation-output.md} & Documentation template & $\sim$29 \\
+\pathref{docs/templates/community-output.md} & Social artifact template & $\sim$26 \\
+\midrule
+\pathref{state/current.md} & Active workflow snapshot & $\sim$12 \\
+\pathref{state/active-sprint.md} & Current sprint contract & $\sim$7 \\
+\pathref{state/roadmap.md} & Upcoming sprint seeds & $\sim$11 \\
+\pathref{state/backlog.md} & Technical + narrative backlog & $\sim$18 \\
+\bottomrule
+\end{longtable}
+
+Additional infrastructure files (\fname{.github/}, \fname{site/starter/},
+\fname{data/}, \fname{bootstrap/}, \fname{assets/}) are documented in their
+respective chapters above.
+
+\end{document}
