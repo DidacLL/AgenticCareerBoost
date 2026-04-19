@@ -8,7 +8,7 @@
 
 ## Verdict
 
-**PASS**
+### PASS
 
 ## Checklist
 
@@ -35,6 +35,7 @@ proper nesting and indentation. No syntax errors detected.
 
 Contract requires: PR and push on `content/reports/tex/**`.
 Workflow specifies:
+
 - `push.branches: [main]` with `paths: ['content/reports/tex/**']`
 - `pull_request.paths: ['content/reports/tex/**']`
 
@@ -79,6 +80,7 @@ specified in the contract.
 ### 7. Free/OSS classification
 
 Both tools are correctly classified:
+
 - `latexmk` ships with TeX Live and is GPL-licensed — Free / OSS.
 - `xu-cheng/latex-action` is MIT-licensed on GitHub — Free / OSS.
 

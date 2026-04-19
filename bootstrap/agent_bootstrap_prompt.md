@@ -134,21 +134,27 @@ The project should help produce:
 ## Non-negotiable design principles
 
 ### 1. Model independence
+
 The system must work in different environments:
+
 - chat-based LLMs
 - IDE-embedded agents
 - CLI / terminal agents
 - repository-aware coding assistants
 
 ### 2. Canonical text first
+
 Durable instructions and knowledge must live in repository files.
 
 ### 3. Human-reviewed truth
+
 Agents may draft, plan, analyze, and scaffold.
 Final truth and publication decisions remain human-controlled.
 
 ### 4. Evidence over adjectives
+
 Prefer:
+
 - repos
 - docs
 - commits
@@ -161,10 +167,12 @@ Prefer:
 Avoid empty self-description.
 
 ### 5. Constraint-aware tooling
+
 Only use free tools or tools available through public/student access when possible.
 List them publicly when used.
 
 ### 6. Token-aware structure
+
 Optimize for low token cost.
 Shorter files with better routing beat giant documents.
 
@@ -175,9 +183,11 @@ Shorter files with better routing beat giant documents.
 This system must support these workflows.
 
 ### 1. Plan
+
 Purpose: design a fully detailed multiagent sprint.
 
 Output must include:
+
 - sprint goal
 - tasks
 - acceptance criteria
@@ -187,15 +197,18 @@ Output must include:
 - review requirements
 
 ### 2. Multiagentic Sprint
+
 Purpose: execute a planned sprint through coordinated agents.
 
 Rules:
+
 - the orchestrator does not directly execute implementation work
 - it decomposes work and delegates to specialized agents
 - every non-trivial output is checked by two fresh pair-check agents
 - unresolved conflicts may be escalated back to the orchestrator or developer flow
 
 Sprint closure must produce:
+
 - repository artifact(s)
 - website/repo update trace
 - social / LinkedIn-ready artifact
@@ -205,26 +218,32 @@ Sprint closure must produce:
 - CI/CD integration trigger or handoff
 
 ### 3. Hotfix
+
 Purpose: solve a small focused task without opening a full sprint.
 
 Rules:
+
 - one specialized agent may execute the task
 - scope must remain narrow
 - produce the required change plus a minimal backlog note
 - no full multiagent sprint ceremony unless escalation is needed
 
 ### 4. Chat
+
 Purpose: discuss the project while respecting project constraints.
 
 Rules:
+
 - stay aware of mission, tone, constraints, and current state
 - at the end, produce a concise session summary
 - do not silently turn chat into a sprint unless requested
 
 ### 5. System Review
+
 Purpose: review the agentic system itself.
 
 Focus:
+
 - `.md` rules
 - file structure
 - contradictions
@@ -233,6 +252,7 @@ Focus:
 - failure reports
 
 Output:
+
 - issue report
 - proposed rule/file changes
 - migration notes if structure changes
@@ -244,7 +264,9 @@ Output:
 Keep role logic simple and explicit.
 
 ### Orchestrator
+
 Responsibilities:
+
 - reads the active workflow and state
 - decomposes work
 - instantiates the needed specialized agents
@@ -254,11 +276,14 @@ Responsibilities:
 - decides readiness for integration
 
 Restrictions:
+
 - does not directly implement non-trivial work
 - avoids context saturation by relying on delegated execution and review
 
 ### Developer Agent
+
 Responsibilities:
+
 - executes implementation tasks
 - develops or modifies the required artifacts
 - tests when appropriate
@@ -266,6 +291,7 @@ Responsibilities:
 - reports assumptions, limitations, and backlog items
 
 Examples:
+
 - Java
 - CI/CD
 - Git / GitHub
@@ -276,12 +302,15 @@ Examples:
 - content tooling
 
 ### PairCheck Agent
+
 Responsibilities:
+
 - receives the developer output and orchestrator requirements
 - verifies whether the output satisfies the requested contract
 - lists defects, mismatches, missing evidence, or unnecessary verbosity
 
 Validation areas:
+
 - requirements fit
 - correctness
 - consistency
@@ -290,21 +319,27 @@ Validation areas:
 - alignment with mission
 
 ### CI/CD Agent
+
 Responsibilities:
+
 - integrates approved work into repository/project flow
 - preserves integrity of automation and project structure
 - keeps logs and handoff notes between sprints
 - maintains deploy/build continuity
 
 ### Documentation Agent
+
 Responsibilities:
+
 - documents implementations
 - maintains both native documentation and formal engineering documentation
 - keeps the public project readable as an agentic engineering case
 - records the why, not just the what
 
 ### CommunityManager Agent
+
 Responsibilities:
+
 - tracks external communication and campaign coherence
 - adapts technical work into platform-appropriate public messaging
 - keeps alignment with personal branding and marketing strategy
@@ -317,6 +352,7 @@ Responsibilities:
 The campaign must remain strategically coherent.
 
 Key rules:
+
 - public communication must support the technical identity
 - every visible output should strengthen role-fit and memorability
 - avoid generic self-promotion
@@ -325,6 +361,7 @@ Key rules:
 - stay evidence-driven
 
 Preferred public image:
+
 - systems-minded builder
 - technical generalist with unusual documentation/tooling depth
 - agentic workflow designer
@@ -337,11 +374,13 @@ The public tone may include a controlled ironic/sarcastic edge, but never at the
 ## Languages and publication format
 
 Default language strategy:
+
 - English for core technical docs and flagship outputs
 - Spanish when locally useful or more natural for a given artifact
 - Catalan only as a selective signal, not the default
 
 Default content strategy:
+
 - repo Markdown as canonical source
 - website as curated mirror
 - LinkedIn/social as selective distribution
@@ -408,6 +447,7 @@ Do not treat this file as the whole system.
 Treat it as the bootstrap entrypoint that defines the architecture, scope, priorities, and operating law for the repository.
 
 When in doubt, prefer:
+
 - shorter file
 - clearer routing
 - lower token cost

@@ -5,6 +5,8 @@
   "MD033": false,
   // Allow duplicate headings across different files
   "MD024": { "siblings_only": true },
+  // Do not treat YAML front matter title as a heading (needed for Jekyll site pages)
+  "MD025": { "front_matter_title": "" },
   // Allow trailing punctuation in headings (needed for "?")
   "MD026": false
 }

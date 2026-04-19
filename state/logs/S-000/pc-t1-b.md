@@ -19,7 +19,7 @@ returns true (the file can be opened), so `\includegraphics` is invoked. Since
 the `graphicx` driver resolves format from the file extension and `.gitkeep` is
 not a recognised graphics extension, `pdflatex` emits:
 
-```
+```text
 ! LaTeX Error: Unknown graphics extension: .gitkeep.
 ```
 

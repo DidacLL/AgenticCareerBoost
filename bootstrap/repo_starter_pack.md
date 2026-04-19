@@ -9,7 +9,7 @@ Its job is to create a repository that humans and agents can both navigate with 
 
 ---
 
-# 1. Design goal
+## 1. Design goal
 
 Build a repository that is:
 
@@ -30,24 +30,30 @@ The repository must clearly separate:
 
 ---
 
-# 2. Core repository rules
+## 2. Core repository rules
 
 ## Rule 1 — Source of truth
+
 GitHub repository + GitHub Projects are the operational source of truth.
 
 ## Rule 2 — Canonical text first
+
 All durable instructions and knowledge must exist first as plain text in the repository.
 
 ## Rule 3 — Public mirror
+
 The website is a curated public mirror, not the workflow engine.
 
 ## Rule 4 — Distribution
+
 LinkedIn / social distributes selected narrative artifacts.
 
 ## Rule 5 — Brevity by default
+
 Files must be brief unless detail is strictly necessary.
 
 Prefer:
+
 - short sections
 - checklists
 - compact task contracts
@@ -55,13 +61,16 @@ Prefer:
 - dense Markdown
 
 Avoid:
+
 - long essays
 - repeated context
 - decorative prose
 - giant rule dumps
 
 ## Rule 6 — Truth priority
+
 When files conflict, use this order:
+
 1. direct user prompt
 2. `docs/core/`
 3. `docs/workflows/`
@@ -70,7 +79,9 @@ When files conflict, use this order:
 6. logs, backlogs, summaries, scratch files
 
 ## Rule 7 — No orphan work
+
 A meaningful sprint output should connect, when applicable, to:
+
 - one repository artifact
 - one website trace or update
 - one social-ready artifact or queued narrative candidate
@@ -79,7 +90,7 @@ This rule is strict for sprints, lighter for hotfixes, and optional for pure cha
 
 ---
 
-# 3. Minimal initial repository tree
+## 3. Minimal initial repository tree
 
 ```text
 public-profile-rebuild/

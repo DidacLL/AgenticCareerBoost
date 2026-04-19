@@ -80,7 +80,7 @@ Cross-referenced the file manifest (Appendix A) and all chapter descriptions aga
 - All 4 `.github/workflows/` files documented (docs-lint, site-build, export-status, latex-build).
 - All 5 `.github/ISSUE_TEMPLATE/` forms documented.
 - `PULL_REQUEST_TEMPLATE.md` documented.
-- `site/starter/` contents match: _config.yml, Gemfile, index.md, _layouts/default.html, projects/index.md.
+- `site/starter/` contents match: _config.yml, Gemfile, index.md,_layouts/default.html, projects/index.md.
 - `data/` files match: public-status.json, links.json.
 - `content/` subtree structure accurately described.
 - The CI/CD chapter correctly documents the `latex-build.yml` workflow (l.661–667), including the `xu-cheng/latex-action` container and the artifact upload strategy.

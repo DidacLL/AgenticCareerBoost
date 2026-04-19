@@ -1,4 +1,5 @@
 # LinkedIn Landscape Research: Career-Change + Agentic Engineering
+
 - Date: 2026-04-19
 - Sprint: S-000
 - Agent: CommunityManager (T4)
@@ -13,41 +14,41 @@ A curated set of 25 cited sources across three archetypes: career-change narrati
 
 | # | Title | Platform | URL | Relevance |
 |---|-------|----------|-----|-----------|
-| C1 | "I Changed Careers at 40. Here's How It Actually Went." (Buono) | dev.to | https://dev.to/buonoatsushi/i-changed-careers-at-40-heres-how-it-actually-went-1fgm | Hardware engineer → IT at 40. 15+ years prior experience reframed as asset. Posting publicly before the switch built trust. |
-| C2 | "I quit my banking job at 32 to learn programming" (Pavel Polcr) | LinkedIn | https://www.linkedin.com/posts/pavel-polcr_i-quit-my-banking-job-at-32-to-learn-programming-activity-7339368916239958016-kJ6s | Banking → senior dev. No CS degree. Very close profile to Dídac's situation (financial sector, 30+). |
-| C3 | "At 32 I switched careers into tech" (Andrew Codesmith) | LinkedIn | https://www.linkedin.com/posts/andrewtattersalltech_at-32-i-switched-careers-into-tech-and-became-activity-7272677819883626496-8qsz | Five concrete lessons. Advocates "don't be picky about first role" plus deep fundamentals mastery. |
-| C4 | "Career change at 38: Transitioning to Software Developer in 6 months & scouted by Google!" | Zero to Mastery | https://zerotomastery.io/blog/career-change-at-38-transitioning-to-software-developer-in-6-months-scouted-by-google | Project manager → dev at 38. Structured self-study. Scouted by Google. |
-| C5 | "From QA to Developer: How I Restarted My Career in My Mid-30s" (Andrey Masunov) | Medium | https://medium.com/@andrey.masunov/from-qa-to-developer-how-i-restarted-my-career-in-my-mid-30s-56c0bc585e95 | QA → Java dev at 35 in Germany. 14-month government-funded program. Realistic about timeline. |
-| C6 | "What is a tech career change like after a coding bootcamp in 2025?" (Mathieu Jelsch) | Medium | https://medium.com/@mathieu.jelsch/whats-a-tech-career-change-like-in-2025-in-the-age-of-ai-and-through-a-coding-bootcamp-126a5d39472d | Banking → web dev. Brutally honest: 2.5 years to first full-time role. Calls bootcamp grads "baby developers." |
-| C7 | "How I made the transition to software development in my 30s" (Tia Eastwood) | Personal blog | https://www.tiaeastwood.com/how-i-made-the-transition-to-software-development-in-my-30s | Illustrator/designer → dev. Creative background. "Learning in public" as accountability strategy. |
-| C8 | "How I switched careers into software development in my late 30s" (Bukola Kehinde) | Medium / She Code Africa | https://medium.com/shecodeafrica/scaiwd2021-how-i-switched-careers-into-software-development-in-my-late-30s-by-bukola-kehinde-76a2cb122129 | Microbiology → dev in late 30s. Self-study → bootcamps → Outreachy internship pipeline. |
-| C9 | "Career change does not mean starting over" (Kedeisha Bryan) | LinkedIn | https://www.linkedin.com/posts/kedeishabryan_career-change-does-not-mean-starting-over-activity-7331696784806674432-kv1a | Reframe-centric post: prior experience as leverage, not liability. 18+ comments. |
-| C10 | "Career Switch to Tech After 30, 40, or 50: Is It Still Worth It in 2026?" | Adiuvisti | https://adiuvisti.com/career-switch-to-tech-after-30-40-or-50/ | Comprehensive overview. Lists realistic alternative paths (PM, BA, Scrum Master) alongside dev. |
+| C1 | "I Changed Careers at 40. Here's How It Actually Went." (Buono) | dev.to | <https://dev.to/buonoatsushi/i-changed-careers-at-40-heres-how-it-actually-went-1fgm> | Hardware engineer → IT at 40. 15+ years prior experience reframed as asset. Posting publicly before the switch built trust. |
+| C2 | "I quit my banking job at 32 to learn programming" (Pavel Polcr) | LinkedIn | <https://www.linkedin.com/posts/pavel-polcr_i-quit-my-banking-job-at-32-to-learn-programming-activity-7339368916239958016-kJ6s> | Banking → senior dev. No CS degree. Very close profile to Dídac's situation (financial sector, 30+). |
+| C3 | "At 32 I switched careers into tech" (Andrew Codesmith) | LinkedIn | <https://www.linkedin.com/posts/andrewtattersalltech_at-32-i-switched-careers-into-tech-and-became-activity-7272677819883626496-8qsz> | Five concrete lessons. Advocates "don't be picky about first role" plus deep fundamentals mastery. |
+| C4 | "Career change at 38: Transitioning to Software Developer in 6 months & scouted by Google!" | Zero to Mastery | <https://zerotomastery.io/blog/career-change-at-38-transitioning-to-software-developer-in-6-months-scouted-by-google> | Project manager → dev at 38. Structured self-study. Scouted by Google. |
+| C5 | "From QA to Developer: How I Restarted My Career in My Mid-30s" (Andrey Masunov) | Medium | <https://medium.com/@andrey.masunov/from-qa-to-developer-how-i-restarted-my-career-in-my-mid-30s-56c0bc585e95> | QA → Java dev at 35 in Germany. 14-month government-funded program. Realistic about timeline. |
+| C6 | "What is a tech career change like after a coding bootcamp in 2025?" (Mathieu Jelsch) | Medium | <https://medium.com/@mathieu.jelsch/whats-a-tech-career-change-like-in-2025-in-the-age-of-ai-and-through-a-coding-bootcamp-126a5d39472d> | Banking → web dev. Brutally honest: 2.5 years to first full-time role. Calls bootcamp grads "baby developers." |
+| C7 | "How I made the transition to software development in my 30s" (Tia Eastwood) | Personal blog | <https://www.tiaeastwood.com/how-i-made-the-transition-to-software-development-in-my-30s> | Illustrator/designer → dev. Creative background. "Learning in public" as accountability strategy. |
+| C8 | "How I switched careers into software development in my late 30s" (Bukola Kehinde) | Medium / She Code Africa | <https://medium.com/shecodeafrica/scaiwd2021-how-i-switched-careers-into-software-development-in-my-late-30s-by-bukola-kehinde-76a2cb122129> | Microbiology → dev in late 30s. Self-study → bootcamps → Outreachy internship pipeline. |
+| C9 | "Career change does not mean starting over" (Kedeisha Bryan) | LinkedIn | <https://www.linkedin.com/posts/kedeishabryan_career-change-does-not-mean-starting-over-activity-7331696784806674432-kv1a> | Reframe-centric post: prior experience as leverage, not liability. 18+ comments. |
+| C10 | "Career Switch to Tech After 30, 40, or 50: Is It Still Worth It in 2026?" | Adiuvisti | <https://adiuvisti.com/career-switch-to-tech-after-30-40-or-50/> | Comprehensive overview. Lists realistic alternative paths (PM, BA, Scrum Master) alongside dev. |
 
 ### 1.2 Agentic-AI Builder Narratives
 
 | # | Title | Platform | URL | Relevance |
 |---|-------|----------|-----|-----------|
-| A1 | "How I Built an Agentic System That Runs My LinkedIn for Free" (Sarvesh Talele) | Medium / Level Up Coding | https://levelup.gitconnected.com/how-i-built-an-agentic-system-that-runs-my-linkedin-for-free-78cab68ec108 | Multi-agent content pipeline. Eliminates 45-min manual workflow. Technical depth. |
-| A2 | "I Open-Sourced the AI Agent That Grew My LinkedIn 5x in 30 Days" | dev.to | https://dev.to/itskondrat/i-open-sourced-the-ai-agent-that-grew-my-linkedin-5x-in-30-days-4a5j | Chrome DevTools Protocol + Claude. Open-sourced. $2-5/day across 10 platforms. |
-| A3 | "I built a fully autonomous agent that manages 4 business projects simultaneously" | dev.to | https://dev.to/clawgear/i-built-a-fully-autonomous-agent-that-manages-4-business-projects-simultaneously-heres-the-system-4cmf | Four-layer architecture: workspace, identity files, multi-channel routing, memory sync. Very close to AgenticCareerBoost's path-based design. |
-| A4 | "I Built a 23-Agent AI System That Runs a Real Business" | dev.to | https://dev.to/jarveyspecter/i-built-a-23-agent-ai-system-that-runs-a-real-business-heres-what-actually-happened-41dn | 23 agents across two servers. Governance protocols. PostgreSQL-backed Mission Control. Production realism. |
-| A5 | "How I Built a Deterministic Multi-Agent Dev Pipeline Inside OpenClaw" | dev.to | https://dev.to/ggondim/how-i-built-a-deterministic-multi-agent-dev-pipeline-inside-openclaw-and-contributed-a-missing-4ool | YAML-driven deterministic orchestration. Contributed loop support upstream. FOSS contribution angle. |
-| A6 | Patrick M. Ferdig's 5-agent OpenClaw deployment | LinkedIn | https://www.linkedin.com/posts/patrickmferdig_this-weekend-i-took-the-plunge-and-built-activity-7429574827398725632-ARHd | 32 comments. Deployed five specialized agents for a real business. Demonstrates "weekend build" framing. |
-| A7 | "I just created an agentic-workflow to automatically write and publish content" (Akshay Pachaar) | LinkedIn | https://www.linkedin.com/posts/akshay-pachaar_i-just-created-an-agentic-workflow-to-automatically-activity-7275492760797782016-oTuM | CrewAI + Llama 3.2, 100% local. 34 comments. Clean tech-stack listing in post body. |
+| A1 | "How I Built an Agentic System That Runs My LinkedIn for Free" (Sarvesh Talele) | Medium / Level Up Coding | <https://levelup.gitconnected.com/how-i-built-an-agentic-system-that-runs-my-linkedin-for-free-78cab68ec108> | Multi-agent content pipeline. Eliminates 45-min manual workflow. Technical depth. |
+| A2 | "I Open-Sourced the AI Agent That Grew My LinkedIn 5x in 30 Days" | dev.to | <https://dev.to/itskondrat/i-open-sourced-the-ai-agent-that-grew-my-linkedin-5x-in-30-days-4a5j> | Chrome DevTools Protocol + Claude. Open-sourced. $2-5/day across 10 platforms. |
+| A3 | "I built a fully autonomous agent that manages 4 business projects simultaneously" | dev.to | <https://dev.to/clawgear/i-built-a-fully-autonomous-agent-that-manages-4-business-projects-simultaneously-heres-the-system-4cmf> | Four-layer architecture: workspace, identity files, multi-channel routing, memory sync. Very close to AgenticCareerBoost's path-based design. |
+| A4 | "I Built a 23-Agent AI System That Runs a Real Business" | dev.to | <https://dev.to/jarveyspecter/i-built-a-23-agent-ai-system-that-runs-a-real-business-heres-what-actually-happened-41dn> | 23 agents across two servers. Governance protocols. PostgreSQL-backed Mission Control. Production realism. |
+| A5 | "How I Built a Deterministic Multi-Agent Dev Pipeline Inside OpenClaw" | dev.to | <https://dev.to/ggondim/how-i-built-a-deterministic-multi-agent-dev-pipeline-inside-openclaw-and-contributed-a-missing-4ool> | YAML-driven deterministic orchestration. Contributed loop support upstream. FOSS contribution angle. |
+| A6 | Patrick M. Ferdig's 5-agent OpenClaw deployment | LinkedIn | <https://www.linkedin.com/posts/patrickmferdig_this-weekend-i-took-the-plunge-and-built-activity-7429574827398725632-ARHd> | 32 comments. Deployed five specialized agents for a real business. Demonstrates "weekend build" framing. |
+| A7 | "I just created an agentic-workflow to automatically write and publish content" (Akshay Pachaar) | LinkedIn | <https://www.linkedin.com/posts/akshay-pachaar_i-just-created-an-agentic-workflow-to-automatically-activity-7275492760797782016-oTuM> | CrewAI + Llama 3.2, 100% local. 34 comments. Clean tech-stack listing in post body. |
 
 ### 1.3 Platform Strategy, Tone, and Open-Source Branding
 
 | # | Title | Platform | URL | Relevance |
 |---|-------|----------|-----|-----------|
-| S1 | "I Analyzed 50,000 LinkedIn Posts. Here's What Actually Gets Engagement" | dev.to | https://dev.to/olams/i-analyzed-50000-linkedin-posts-heres-what-actually-gets-engagement-56l9 | Data-backed post-structure research. 1,200-1,500 char sweet spot. Hook taxonomy. Carousel dominance (5.2%). |
-| S2 | "LinkedIn Strategy for Developers in 2026 — What Actually Works" | ShipPost | https://shippost.lol/blog/developer-linkedin-strategy-2026 | Anti-lunatic-playbook manifesto. Specificity, opinion, consistency. PR-to-post pipeline concept. |
-| S3 | "LinkedIn Post Hooks for Developers — 15 Openers That Actually Get Read" | ShipPost | https://shippost.lol/blog/linkedin-post-hooks-for-developers | 15 concrete hook patterns: numbers, opinions, stories, recommendations. |
-| S4 | "LinkedIn's 2026 Algorithm: The Engagement Bait Era Is Finally Over" | dev.to | https://dev.to/synergistdigitalmedia/linkedins-2026-algorithm-the-engagement-bait-era-is-finally-over-68 | Depth Score signal. Three-stage distribution. Carousel decline. Document uploads winning. |
-| S5 | "AI LinkedIn Posts That Don't Sound Fake: A Complete Guide" | Humaneer | https://humaneer.me/blog/ai-linkedin-posts-sound-real | AI-tell detection patterns. Authentic voice markers. |
-| S6 | "Good Developer Content is a Conversation, Not a Broadcast" | Lindsay Brunner | https://lindsaybrunner.com/thoughts/2025-06-14/developer-content-conversation-not-broadcast/ | Conversational tone > broadcast. "Late-night chat" feel as engagement driver. |
-| S7 | "The Curated, Automated Open Source Portfolio: How It's Going" | dev.to | https://dev.to/adiatiayu/the-curated-automated-open-source-portfolio-how-its-going-5f98 | Automated portfolio with personas (e.g. "Community Mentor"), impact visualization. |
-| S8 | "When AI offers older workers a second chance" | El País (English) | https://english.elpais.com/technology/2026-04-10/when-ai-offers-older-workers-a-second-chance-it-has-given-us-superpowers.html | Spain-specific. AI empowering 50+ workers. Counters ageism narrative with local data. |
+| S1 | "I Analyzed 50,000 LinkedIn Posts. Here's What Actually Gets Engagement" | dev.to | <https://dev.to/olams/i-analyzed-50000-linkedin-posts-heres-what-actually-gets-engagement-56l9> | Data-backed post-structure research. 1,200-1,500 char sweet spot. Hook taxonomy. Carousel dominance (5.2%). |
+| S2 | "LinkedIn Strategy for Developers in 2026 — What Actually Works" | ShipPost | <https://shippost.lol/blog/developer-linkedin-strategy-2026> | Anti-lunatic-playbook manifesto. Specificity, opinion, consistency. PR-to-post pipeline concept. |
+| S3 | "LinkedIn Post Hooks for Developers — 15 Openers That Actually Get Read" | ShipPost | <https://shippost.lol/blog/linkedin-post-hooks-for-developers> | 15 concrete hook patterns: numbers, opinions, stories, recommendations. |
+| S4 | "LinkedIn's 2026 Algorithm: The Engagement Bait Era Is Finally Over" | dev.to | <https://dev.to/synergistdigitalmedia/linkedins-2026-algorithm-the-engagement-bait-era-is-finally-over-68> | Depth Score signal. Three-stage distribution. Carousel decline. Document uploads winning. |
+| S5 | "AI LinkedIn Posts That Don't Sound Fake: A Complete Guide" | Humaneer | <https://humaneer.me/blog/ai-linkedin-posts-sound-real> | AI-tell detection patterns. Authentic voice markers. |
+| S6 | "Good Developer Content is a Conversation, Not a Broadcast" | Lindsay Brunner | <https://lindsaybrunner.com/thoughts/2025-06-14/developer-content-conversation-not-broadcast/> | Conversational tone > broadcast. "Late-night chat" feel as engagement driver. |
+| S7 | "The Curated, Automated Open Source Portfolio: How It's Going" | dev.to | <https://dev.to/adiatiayu/the-curated-automated-open-source-portfolio-how-its-going-5f98> | Automated portfolio with personas (e.g. "Community Mentor"), impact visualization. |
+| S8 | "When AI offers older workers a second chance" | El País (English) | <https://english.elpais.com/technology/2026-04-10/when-ai-offers-older-workers-a-second-chance-it-has-given-us-superpowers.html> | Spain-specific. AI empowering 50+ workers. Counters ageism narrative with local data. |
 
 ---
 
@@ -104,7 +105,7 @@ Based on analysis of S1, S2, S3, and all corpus entries:
 
 Optimal structure derived from S1, S2, S3:
 
-```
+```text
 [Hook line — no emoji, max 140 chars]
                                           ← blank line
 [1-2 sentence context: who you are, why this matters]
@@ -231,7 +232,7 @@ Distilled from S2, S3, S5, S6, and cross-referenced with brand.md constraints:
 |--------|--------|-----------|
 | **Small follower count is an advantage** | S1: accounts with 1K-5K followers have 4.1% engagement rate vs. 1.9% for 100K+ accounts. | Don't chase followers. A tight, relevant network (Barcelona tech, agentic AI builders, career-changers) will outperform a large, generic one. |
 | **Join BCN Engineering and GDG Barcelona** | Barcelona tech scene research | BCN Engineering has an active Slack community. GDG Barcelona hosts regular events. Both are networking + content distribution amplifiers. |
-| **Attend the Agentic Coding Meetup in Barcelona** | https://www.meetup.com/barcelona-product-and-design-tech-networking/events/314055214/ | Directly relevant topic. In-person networking → LinkedIn connections → first-hour engagement on posts. |
+| **Attend the Agentic Coding Meetup in Barcelona** | <https://www.meetup.com/barcelona-product-and-design-tech-networking/events/314055214/> | Directly relevant topic. In-person networking → LinkedIn connections → first-hour engagement on posts. |
 | **Comment on others' posts with substance first** | S4: "Genuine engagement groups where members comment meaningfully." S1: "1 comment = 5 likes in algorithmic boost." | Before posting your own content, spend 2 weeks commenting thoughtfully on agentic-AI and career-change posts. Build the network first. |
 
 ### 5.5 Anti-Patterns to Actively Avoid
@@ -287,6 +288,7 @@ Proposed hook:
 > So I built a 6-agent multiagent system to engineer my own career transition.
 
 This hook:
+
 - Uses the "honest admission" pattern (4.8% engagement per S1)
 - Introduces the contradiction ("none of it in tech" → "built a multiagent system")
 - Avoids all forbidden framings (no hype, no self-pity, no founder-LARP)

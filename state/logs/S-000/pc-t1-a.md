@@ -69,6 +69,7 @@ However, the test **cannot compile** due to D1: line 42 feeds `.gitkeep` to `\in
 ### 6. Package load order (PASS)
 
 `agenticboost.sty` loads in textbook order:
+
 1. Encoding: `inputenc`, `fontenc`
 2. Language: `babel`
 3. Layout: `geometry`, `microtype`

@@ -7,16 +7,19 @@
 ## Defects
 
 ### D1 — Speculative page count in Option B post body (Medium severity)
+
 Option B draft body states "What's inside (37 pages):" — this number cannot be verified. The LaTeX source `content/reports/tex/sprints/s000-agentic-os-bootstrap.tex` exists, but the compiled PDF does not. The page count is fabricated or estimated. For a brand built on "evidence over adjectives" (marketing.md §Artifact rules), publishing an unverifiable page count in the LinkedIn post body is a factual integrity risk.
 
 **Fix:** Replace "37 pages" with a placeholder to be filled after compilation, or remove the specific count and use "the full document" instead.
 
 ### D2 — Option C engagement-rate KPI citation imprecise (Low severity)
+
 Option C sets a KPI target of "4.5%+ (T4 §S1: controversy/opinion is highest engagement)." The T4 research does not assign a specific 4.5% figure to controversy/opinion text posts. The highest explicit engagement rate in §S1 data is 4.8% for "honest admission" stories (used by Option A), and 3.7–4.2% for "age + pivot + specificity." The "contradiction" hook pattern is labelled "High (triggers curiosity + disagreement)" without a numeric rate. The 4.5% target appears interpolated rather than cited.
 
 **Fix:** Either provide a range with explicit derivation ("inferred from 3.7–4.8% range in T4 §3.1") or lower the target to match verifiable data.
 
 ### D3 — KPI targets not adjusted for cold-start reality (Medium severity)
+
 All three options set KPI targets derived from T4 research data (S1: 50K-post analysis), but that data comes from accounts with existing followership. A brand-new LinkedIn profile with zero followers faces cold-start dynamics that are acknowledged in Option A's cons ("first-post cold start: no existing audience to seed initial engagement") but never reflected in the KPI numbers themselves. Specifically:
 
 - Option B: 5,000+ impressions and 50+ PDF downloads for a zero-follower account seems optimistic even with document-upload algorithm boost.
@@ -27,14 +30,16 @@ The escalating impression targets across A → B → C (3K → 5K → 6K) also i
 **Fix:** Add a "cold-start adjustment" qualifier to all KPI tables, or provide a realistic range (e.g., "1,500–3,000 impressions" with an aspirational target in parentheses).
 
 ### D4 — Option A evidence link to idle sprint contract (Low severity)
+
 Option A's evidence links include "Sprint contract: state/active-sprint.md". This file exists but contains only the idle placeholder text: "Status: idle — run the Plan workflow to populate this file." It provides no sprint data. The evidence link technically resolves to a real file, but the file doesn't contain what a reader would expect from "sprint contract."
 
 **Fix:** Either note the dependency ("populated after sprint execution") or replace with a link to the sprint plan that was used to drive S-000 (if one exists elsewhere, e.g., the bootstrap plan in `.cursor/plans/`).
 
 ### D5 — Option C sarcastic edge density (Low severity)
+
 The style book §4.3 states: "Use at most once per post. Two sarcastic lines in the same post reads as bitter, not sharp." Option C's body contains three consecutive satirical examples mocking specific LinkedIn post archetypes:
 
-```
+```text
 → "AI will replace developers" (posted by someone who can't write a for-loop)
 → "I built an AI startup in a weekend" (it's a ChatGPT wrapper with a Stripe button)
 → "10 AI tools that will 10x your productivity" (numbered emoji list, zero evidence)
@@ -45,6 +50,7 @@ These are thematically unified as one contrast block, but the parenthetical asid
 **Fix:** Reduce to two examples, or soften the parenthetical commentary on one of them.
 
 ### D6 — Option B PDF evidence link references nonexistent file (Low severity)
+
 `t6-opt-b.md` lists "Attached PDF: content/reports/tex/sprints/s000-agentic-os-bootstrap.pdf" as linked evidence, but this file does not exist in the repository (only the `.tex` source exists). The main drafts file correctly marks the CI artifact as "(CI artifact after first push)" for Option A, but Option B's template instance doesn't include this qualifier.
 
 **Fix:** Add "(pending CI compilation)" qualifier to the PDF evidence link in `t6-opt-b.md`.

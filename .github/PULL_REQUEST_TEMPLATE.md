@@ -1,3 +1,4 @@
+<!-- markdownlint-disable-file MD041 -->
 ## Checklist
 
 - [ ] Links to sprint task or hotfix issue: #___
