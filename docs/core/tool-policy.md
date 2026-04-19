@@ -11,6 +11,8 @@
 | markdownlint-cli2 | Markdown linting | Free / OSS |
 | lychee | Link checking | Free / OSS |
 | LaTeX (TeX Live) | Formal documents | Free / OSS |
+| latexmk | LaTeX build automation | Free / OSS (ships with TeX Live) |
+| xu-cheng/latex-action | GitHub Actions TeX Live runner | Free / OSS |
 | Any capable LLM | Agentic execution | Model-agnostic |
 
 ## Adding a new tool

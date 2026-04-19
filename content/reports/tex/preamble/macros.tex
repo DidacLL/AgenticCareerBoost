@@ -1,0 +1,52 @@
+%% macros.tex — Project-wide convenience macros for AgenticCareerBoost reports
+%%
+%% Loaded automatically by agenticboost.sty. Do not \input this directly.
+
+%% --- Project metadata (override per-document with \renewcommand) -----------
+\newcommand{\projectName}{AgenticCareerBoost}
+\newcommand{\sprintId}{S-000}
+\newcommand{\repoURL}{https://github.com/DidacLL/AgenticCareerBoost}
+
+%% --- Inline styling --------------------------------------------------------
+
+% Repository path reference: renders in monospace, hyperlinked to GitHub blob
+\newcommand{\pathref}[1]{%
+  \href{\repoURL/blob/main/#1}{\texttt{#1}}%
+}
+
+% Agent role name in small caps
+\newcommand{\role}[1]{\textsc{#1}}
+
+% Agent reference (used inline when discussing agent instances)
+\newcommand{\agent}[1]{\textsc{#1}}
+
+% Workflow keyword in bold monospace
+\newcommand{\workflow}[1]{\textbf{\texttt{#1}}}
+
+% File name styling (monospace, no link)
+\newcommand{\fname}[1]{\texttt{#1}}
+
+% Key term on first introduction
+\newcommand{\keyterm}[1]{\textbf{\textit{#1}}}
+
+%% --- Structural helpers ----------------------------------------------------
+
+% Takeaway box at chapter opening
+\newcommand{\takeaway}[1]{%
+  \begin{center}
+  \fcolorbox{accentblue}{codebg}{%
+    \parbox{0.92\linewidth}{\small\textbf{Key takeaway:} #1}%
+  }
+  \end{center}
+  \vspace{0.5em}
+}
+
+% Pitfall box at chapter closing
+\newcommand{\pitfall}[1]{%
+  \begin{center}
+  \fcolorbox{red!60!black}{red!5}{%
+    \parbox{0.92\linewidth}{\small\textbf{Common pitfall:} #1}%
+  }
+  \end{center}
+  \vspace{0.5em}
+}

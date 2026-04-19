@@ -1,0 +1,10 @@
+# latexmkrc — latexmk configuration for AgenticCareerBoost reports
+#
+# Build from the tex/ root: latexmk -pdf sprints/s000-agentic-os-bootstrap.tex
+
+$pdf_mode = 1;            # Use pdflatex
+$pdflatex = 'pdflatex -interaction=nonstopmode -halt-on-error %O %S';
+$out_dir  = 'build';      # Keep build artifacts out of source tree
+$aux_dir  = 'build';
+
+$clean_ext = 'synctex.gz run.xml bbl bcf fdb_latexmk fls nav snm vrb';

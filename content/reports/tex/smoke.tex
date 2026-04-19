@@ -1,0 +1,64 @@
+\documentclass[a4paper,11pt]{report}
+\usepackage{preamble/agenticboost}
+
+\title{\textsc{AgenticCareerBoost} --- Smoke Test}
+\author{Automated Build Verification}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\chapter{Preamble Verification}
+
+\takeaway{If this PDF compiled, the shared preamble loads correctly and all
+required packages resolve.}
+
+This document verifies that the shared \LaTeX\ infrastructure for the
+\projectName{} project compiles without error.
+
+\section{Macro tests}
+
+\begin{itemize}
+  \item Project name: \projectName{}
+  \item Sprint ID: \sprintId{}
+  \item Repository path reference: \pathref{AGENTS.md}
+  \item Role reference: \role{Orchestrator}
+  \item Agent reference: \agent{Developer}
+  \item Workflow reference: \workflow{sprint}
+  \item File name: \fname{state/current.md}
+  \item Key term: \keyterm{path-based routing}
+\end{itemize}
+
+\section{Safe image inclusion}
+
+\subsection{Missing image (should render placeholder box)}
+
+\screenshotfig{figures/screenshots/nonexistent.png}%
+  {This image does not exist --- a placeholder box should appear.}%
+  {fig:missing-demo}
+
+\subsection{Another missing image (placeholder branch exercised again)}
+
+\safeincludegraphics[width=0.4\linewidth]{figures/screenshots/also-nonexistent.png}
+
+\section{TikZ diagram}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=1.8cm]
+  \node[usernode] (user) {User};
+  \node[agentnode, right=of user] (orch) {Orchestrator};
+  \node[agentnode, right=of orch] (dev) {Developer};
+  \node[filenode, below=of orch] (state) {state/};
+  \draw[flowedge] (user) -- (orch);
+  \draw[flowedge] (orch) -- (dev);
+  \draw[datadge] (orch) -- (state);
+\end{tikzpicture}
+\caption{Minimal agent interaction diagram.}
+\label{fig:smoke-tikz}
+\end{figure}
+
+\pitfall{If this document fails to compile, check that TeX Live is installed
+with all packages listed in \fname{preamble/agenticboost.sty}.}
+
+\end{document}

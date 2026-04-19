@@ -12,17 +12,38 @@ A populated `state/active-sprint.md` exists with `status: planned`.
 
 ## Steps
 
-1. **Orchestrator** reads the sprint contract and decomposes work.
-2. **Orchestrator** delegates tasks to **Developer** agents (one task each).
-3. Each **Developer** executes, tests where appropriate, and reports back.
+1. **Orchestrator** reads the sprint contract and decomposes into task
+   contracts. Each contract specifies: scope, acceptance criteria, owning
+   role, and input files. The Orchestrator writes contracts only — it does
+   not implement.
+2. **Orchestrator** delegates each task to a **separate agent instance**:
+   - Implementation tasks → **Developer** agent (one task per instance)
+   - Documentation tasks → **Documentation** agent
+   - Narrative tasks → **CommunityManager** agent
+3. Each agent executes its contract, tests where appropriate, and reports
+   back to the Orchestrator with output + assumptions log.
 4. **Orchestrator** sends each non-trivial output to **two fresh PairCheck**
-   agents (independent reviews).
-5. If both PairChecks pass → output accepted.
-   If disagreement → escalate to Orchestrator or re-delegate to Developer.
+   agents (independent reviews, no shared context).
+5. PairCheck resolution:
+   - Both pass → output accepted, proceed to integration.
+   - One or both return PARTIAL/FAIL → **Orchestrator creates a new
+     Developer agent** with a remediation contract containing only the
+     defect list and affected file paths. The Orchestrator must **never
+     apply fixes itself**.
+   - Remediated output goes to **two fresh PairCheck agents** (round 2).
+   - If round 2 also fails → **escalate to user**. Do not loop further.
+   - Two conflicting verdicts → Orchestrator resolves by reading only
+     the verdict summaries, or escalates to user if unclear.
 6. **CI/CD** agent integrates accepted work into repository flow.
-7. **Documentation** agent emits docs and optional formal report.
-8. **CommunityManager** agent emits social/narrative artifact.
-9. **Orchestrator** verifies closure artifacts and closes the sprint.
+7. **Orchestrator** verifies all six closure artifacts and closes the sprint.
+
+## Agent isolation rules
+
+- The Orchestrator must not read full file contents for analysis. It reads
+  contracts, verdicts, and status — then delegates deeper work.
+- Every agent instance receives only the files it needs (context budget).
+- No agent instance works on more than one task contract simultaneously.
+- PairCheck agents are always fresh — no prior review history.
 
 ## Outputs (all six required for closure)
 

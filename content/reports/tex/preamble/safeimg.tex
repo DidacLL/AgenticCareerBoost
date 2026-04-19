@@ -1,0 +1,36 @@
+%% safeimg.tex — Crash-proof image inclusion for AgenticCareerBoost reports
+%%
+%% Loaded automatically by agenticboost.sty. Do not \input this directly.
+%%
+%% RULE: Authors must NEVER use \includegraphics directly.
+%% Use \safeincludegraphics for inline images or \screenshotfig for figures.
+
+% Low-level safe include: renders a placeholder box when the file is missing.
+% Usage: \safeincludegraphics[width=0.8\linewidth]{figures/my-image.png}
+\newcommand{\safeincludegraphics}[2][width=\linewidth]{%
+  \IfFileExists{#2}{%
+    \includegraphics[#1]{#2}%
+  }{%
+    \fbox{\parbox[c][0.3\linewidth][c]{0.9\linewidth}{%
+      \centering\ttfamily\small
+      \vspace{1em}%
+      \textbf{[ Missing Image ]}\\[0.5em]
+      \textcolor{mutedgray}{#2}\\[0.5em]
+      \textit{Replace this placeholder with the actual screenshot.}%
+      \vspace{1em}%
+    }}%
+  }%
+}
+
+% Figure wrapper: places a safe image inside a float with caption and label.
+% Usage: \screenshotfig{figures/screenshots/actions-run.png}
+%                      {GitHub Actions workflow run for S-000}
+%                      {fig:actions-run}
+\newcommand{\screenshotfig}[3]{%
+  \begin{figure}[htbp]
+    \centering
+    \safeincludegraphics[width=0.85\linewidth]{#1}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}

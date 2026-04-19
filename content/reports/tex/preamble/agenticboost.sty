@@ -1,0 +1,111 @@
+%% agenticboost.sty — Shared LaTeX2e style for AgenticCareerBoost reports
+%% Load this once per document: \usepackage{preamble/agenticboost}
+%%
+%% Any recurring macro or package dependency used across sprint documents
+%% MUST be promoted here rather than duplicated in individual .tex files.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{preamble/agenticboost}[2026/04/19 v0.1 AgenticCareerBoost shared preamble]
+
+%% --- Encoding & language ---------------------------------------------------
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[english]{babel}
+
+%% --- Page layout -----------------------------------------------------------
+\RequirePackage[
+  a4paper,
+  margin=2.5cm,
+  headheight=14pt
+]{geometry}
+\RequirePackage{microtype}
+
+%% --- Typography helpers ----------------------------------------------------
+\RequirePackage{csquotes}
+\RequirePackage{enumitem}
+\RequirePackage{booktabs}
+\RequirePackage{longtable}
+\RequirePackage{tabularx}
+
+%% --- Mathematics (light use, kept for flexibility) -------------------------
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+
+%% --- Figures & graphics ----------------------------------------------------
+\RequirePackage{graphicx}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\RequirePackage{float}
+
+%% --- Colors ----------------------------------------------------------------
+\RequirePackage[dvipsnames,svgnames,table]{xcolor}
+\definecolor{accentblue}{HTML}{2563EB}
+\definecolor{mutedgray}{HTML}{6B7280}
+\definecolor{codebg}{HTML}{F3F4F6}
+
+%% --- Code listings ---------------------------------------------------------
+\RequirePackage{listings}
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{mutedgray},
+  breaklines=true,
+  breakatwhitespace=false,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  tabsize=2,
+  captionpos=b,
+}
+\lstdefinestyle{markdown}{
+  language={},
+  morekeywords={},
+  morecomment=[l]{\#},
+  morestring=[b]",
+}
+\lstdefinestyle{yaml}{
+  language={},
+  morekeywords={true,false,null},
+  morecomment=[l]{\#},
+  morestring=[b]',
+  morestring=[b]",
+}
+
+%% --- TikZ ------------------------------------------------------------------
+\RequirePackage{tikz}
+
+%% --- Headers & footers -----------------------------------------------------
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textsc{AgenticCareerBoost}}
+\fancyhead[R]{\small\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+%% --- Section styling -------------------------------------------------------
+\RequirePackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries\color{accentblue}}
+  {\chaptertitlename\ \thechapter}{12pt}{\LARGE}
+\titlespacing*{\chapter}{0pt}{-20pt}{20pt}
+
+%% --- Hyperlinks (load late) ------------------------------------------------
+\RequirePackage[
+  colorlinks=true,
+  linkcolor=accentblue,
+  citecolor=accentblue,
+  urlcolor=accentblue,
+  bookmarksnumbered=true,
+  pdfstartview=FitH
+]{hyperref}
+\RequirePackage{cleveref}
+
+%% --- Sub-preamble includes -------------------------------------------------
+\input{preamble/macros}
+\input{preamble/safeimg}
+\input{preamble/tikzlib}
+
+\endinput
