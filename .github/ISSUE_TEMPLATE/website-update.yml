@@ -1,0 +1,23 @@
+name: Website update
+description: Request a change to the public site.
+labels: ["site"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      placeholder: "e.g. index, projects/foo"
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Requested change
+      placeholder: What should be added, modified, or removed?
+    validations:
+      required: true
+  - type: input
+    id: source_artifact
+    attributes:
+      label: Source artifact
+      placeholder: Link to the sprint output, commit, or content file that drives this change.

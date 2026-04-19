@@ -1,0 +1,17 @@
+title: AgenticCareerBoost
+description: >-
+  Public engineering campaign — agentic workflows rebuilding a technical profile.
+  The process is the proof.
+baseurl: /AgenticCareerBoost
+url: https://didacll.github.io
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+markdown: kramdown
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
