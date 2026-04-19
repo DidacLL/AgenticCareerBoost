@@ -1,0 +1,10 @@
+{
+  // Allow longer lines in templates and generated content
+  "MD013": false,
+  // Allow HTML in markdown (needed for comments and templates)
+  "MD033": false,
+  // Allow duplicate headings across different files
+  "MD024": { "siblings_only": true },
+  // Allow trailing punctuation in headings (needed for "?")
+  "MD026": false
+}

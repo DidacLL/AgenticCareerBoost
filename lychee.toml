@@ -1,0 +1,14 @@
+[config]
+max_retries = 2
+exclude_mail = true
+timeout = 20
+accept = [200, 204, 301, 302, 403, 429]
+
+# Exclude paths that contain placeholder URLs or templates
+exclude_path = ["docs/templates/"]
+
+# Exclude known external URLs that may rate-limit CI
+[exclude]
+urls = [
+    "https://www.linkedin.com/.*",
+]
