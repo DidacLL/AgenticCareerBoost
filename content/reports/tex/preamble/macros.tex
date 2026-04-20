@@ -50,3 +50,23 @@
   \end{center}
   \vspace{0.5em}
 }
+\newcommand{\outmargin}[1]{
+	\hspace*{-.1\textwidth}\resizebox{1.2\textwidth}{!}{#1}
+}
+\newcommand{\vmaxsize}[1]{
+	\resizebox{!}{.9\textheight}{#1}
+}
+\newcommand{\hfigure}[3]{\begin{figure}[H]
+		\centering
+		\outmargin{#1}
+		\caption{#2}
+		\label{fig:#3}
+	\end{figure}
+}
+\newcommand{\vfigure}[3]{\begin{figure}[H]
+		\centering
+		\vmaxsize{#1}
+		\caption{#2}
+		\label{fig:#3}
+	\end{figure}
+}

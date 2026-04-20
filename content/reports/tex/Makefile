@@ -1,20 +1,19 @@
-# Makefile — Thin wrapper around latexmk for AgenticCareerBoost LaTeX reports
+# Makefile — Thin wrapper around the local build script for AgenticCareerBoost reports
 # Run from content/reports/tex/
 
-LATEXMK = latexmk -r latexmkrc -pdf
-SPRINTS = $(wildcard sprints/*.tex)
+.PHONY: all s000 guide smoke clean
 
-.PHONY: all s000 smoke clean
-
-all: $(SPRINTS)
-	$(LATEXMK) $(SPRINTS)
+all:
+	./build-local.sh
 
 s000:
-	$(LATEXMK) sprints/s000-agentic-os-bootstrap.tex
+	./build-local.sh s000
+
+guide:
+	./build-local.sh guide
 
 smoke:
-	$(LATEXMK) smoke.tex
+	./build-local.sh smoke
 
 clean:
-	$(LATEXMK) -C
-	rm -rf build/
+	./build-local.sh clean

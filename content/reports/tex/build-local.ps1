@@ -4,15 +4,17 @@
     Mirrors the CI pipeline (.github/workflows/latex-build.yml).
 
 .DESCRIPTION
-    Compiles all sprint documents (or a specific one) using pdflatex.
+    Compiles all report documents (sprints and guides, or a specific one)
+    using pdflatex.
     Uses latexmk if available (requires Perl); otherwise falls back to
     multi-pass pdflatex directly. Run this before committing to verify
     the PDF output locally.
 
 .PARAMETER Target
     Which document to build:
-      all    - all sprints/*.tex files (default)
+      all    - all sprints/*.tex and guides/*.tex files (default)
       s000   - Sprint S-000 document only
+      guide  - Agentic system guide only
       smoke  - preamble smoke test only
       clean  - remove build artifacts
 
@@ -24,7 +26,7 @@
 #>
 
 param(
-    [ValidateSet("all", "s000", "smoke", "clean")]
+    [ValidateSet("all", "s000", "guide", "smoke", "clean")]
     [string]$Target = "all"
 )
 
@@ -118,6 +120,31 @@ function Build-TexFile {
     }
 }
 
+function Build-TexFiles {
+    param(
+        [object[]]$TexFiles,
+        [string]$Label
+    )
+
+    if (-not $TexFiles -or $TexFiles.Count -eq 0) {
+        Write-Warning "No .tex files found for $Label"
+        return $true
+    }
+
+    $failed = 0
+    foreach ($f in $TexFiles) {
+        $ok = Build-TexFile -TexFile $f.FullName -Label $f.Name
+        if (-not $ok) { $failed++ }
+    }
+
+    if ($failed -gt 0) {
+        Write-Host "`n[build-local] $failed file(s) failed." -ForegroundColor Red
+        return $false
+    }
+
+    return $true
+}
+
 # --- Main ---
 Push-Location $texRoot
 try {
@@ -150,21 +177,15 @@ try {
             $ok = Build-TexFile -TexFile "sprints/s000-agentic-os-bootstrap.tex" -Label "Sprint S-000"
             if (-not $ok) { exit 1 }
         }
+        "guide" {
+            $ok = Build-TexFile -TexFile "guides/agentic-system-guide.tex" -Label "Agentic system guide"
+            if (-not $ok) { exit 1 }
+        }
         "all" {
-            $texFiles = Get-ChildItem -Path "sprints" -Filter "*.tex" -ErrorAction SilentlyContinue
-            if (-not $texFiles -or $texFiles.Count -eq 0) {
-                Write-Warning "No .tex files found in sprints/"
-                exit 0
-            }
-            $failed = 0
-            foreach ($f in $texFiles) {
-                $ok = Build-TexFile -TexFile $f.FullName -Label $f.Name
-                if (-not $ok) { $failed++ }
-            }
-            if ($failed -gt 0) {
-                Write-Host "`n[build-local] $failed file(s) failed." -ForegroundColor Red
-                exit 1
-            }
+            $sprintFiles = Get-ChildItem -Path "sprints" -Filter "*.tex" -ErrorAction SilentlyContinue
+            $guideFiles = Get-ChildItem -Path "guides" -Filter "*.tex" -ErrorAction SilentlyContinue
+            $ok = Build-TexFiles -TexFiles @($sprintFiles + $guideFiles) -Label "all report documents"
+            if (-not $ok) { exit 1 }
         }
     }
 } finally {

@@ -5,8 +5,15 @@ title: Home
 
 # AgenticCareerBoost
 
-A public engineering campaign using agentic workflows to audit, rebuild, and
-document a technical profile. The process itself is part of the proof.
+This is a public engineering campaign that uses agentic workflows to make the
+work inspectable. The repository is the operating system, the PDFs are the
+formal evidence, and this site is the short public mirror.
+
+## Start here
+
+- [Agentic System Guide](https://github.com/DidacLL/AgenticCareerBoost/blob/main/content/reports/build/agentic-system-guide.pdf)
+- [S-000 case study](https://github.com/DidacLL/AgenticCareerBoost/blob/main/content/reports/build/s000-agentic-os-bootstrap.pdf)
+- [README quick overview](https://github.com/DidacLL/AgenticCareerBoost/blob/main/README.md)
 
 ## Current status
 
@@ -14,13 +21,16 @@ document a technical profile. The process itself is part of the proof.
 |-------|-------|
 | Workflow | No active sprint (S-000 closed; ready for Plan or Chat) |
 | Next sprint | S-001: Portfolio audit + positioning draft |
-| Latest report | [Sprint S-000 PDF](https://github.com/DidacLL/AgenticCareerBoost/blob/main/content/reports/build/s000-agentic-os-bootstrap.pdf) |
+| Human guide | [Agentic System Guide](https://github.com/DidacLL/AgenticCareerBoost/blob/main/content/reports/build/agentic-system-guide.pdf) |
+| Latest case study | [Sprint S-000 PDF](https://github.com/DidacLL/AgenticCareerBoost/blob/main/content/reports/build/s000-agentic-os-bootstrap.pdf) |
 
-## What you'll find here
+## What you will find here
 
-- **Repository**: the operational source of truth for the entire campaign
+- **Repository**: the operational source of truth for the campaign
 - **This site**: a curated public mirror for recruiters and engineering peers
-- **Documentation**: engineering case studies, sprint reports, architecture docs
+- **Guide PDF**: the human-facing manual for how the system works
+- **S-000 PDF**: the technical case study and evidence trail
+- **README**: the fastest orientation layer before you open the reports
 
 ## Links
 
