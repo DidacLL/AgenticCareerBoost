@@ -4,19 +4,21 @@
 ## Prerequisites
 
 - TeX Live (full or custom with packages listed in `preamble/agenticboost.sty`)
-- `latexmk` (ships with TeX Live)
+- `pdflatex` is required
+- `latexmk` is optional; local scripts fall back to `pdflatex` when it is not available
 
 ## Local build (verify before committing)
 
-These scripts mirror the CI pipeline (`.github/workflows/latex-build.yml`)
-exactly. Always run locally before pushing to catch errors early.
+These scripts mirror the CI pipeline closely. Always run locally before pushing
+to catch errors early.
 
 **Windows (PowerShell):**
 
 ```powershell
 cd content/reports/tex
-.\build-local.ps1              # build all sprint documents
+.\build-local.ps1              # build all report documents
 .\build-local.ps1 -Target s000 # Sprint S-000 only
+.\build-local.ps1 -Target guide # Agentic system guide only
 .\build-local.ps1 -Target smoke # preamble smoke test
 .\build-local.ps1 -Target clean # remove build artifacts
 ```
@@ -25,8 +27,9 @@ cd content/reports/tex
 
 ```bash
 cd content/reports/tex
-./build-local.sh          # build all sprint documents
+./build-local.sh          # build all report documents
 ./build-local.sh s000     # Sprint S-000 only
+./build-local.sh guide    # Agentic system guide only
 ./build-local.sh smoke    # preamble smoke test
 ./build-local.sh clean    # remove build artifacts
 ```
@@ -35,6 +38,7 @@ cd content/reports/tex
 
 ```bash
 make s000    # build Sprint S-000 document
+make guide   # build the human-facing system guide
 make smoke   # build the 1-page smoke test
 make clean   # remove build artifacts
 ```
@@ -42,9 +46,10 @@ make clean   # remove build artifacts
 Local output lands in `build/`.
 
 On pushes that update `content/reports/tex/`, `.github/workflows/latex-build.yml`
-copies the compiled PDFs into `content/reports/build/` and commits them so the
-latest published documents are visible in the repository without opening a
-workflow run.
+refreshes `content/reports/build/`, copies the published PDFs into it, and
+commits them so the latest guide and report documents are visible in the
+repository without opening a workflow run. The smoke test still compiles in CI
+but is not promoted as a public artifact.
 
 ## Architecture
 
@@ -52,8 +57,16 @@ workflow run.
 - `preamble/macros.tex` — project macros (`\pathref`, `\role`, `\agent`, etc.).
 - `preamble/safeimg.tex` — crash-proof image inclusion (`\screenshotfig`).
 - `preamble/tikzlib.tex` — TikZ libraries and reusable diagram styles.
-- `sprints/` — one master `.tex` per sprint.
+- `sprints/` — technical case-study documents tied to a sprint.
+- `guides/` — standalone human-facing guide documents.
 - `figures/` — TikZ sources and external assets.
+
+## Document families
+
+- `guides/agentic-system-guide.tex` — the formal human-facing manual for how to
+  read and use the system.
+- `sprints/s000-agentic-os-bootstrap.tex` — the bootstrap case study and
+  evidence trail.
 
 ## Rules
 

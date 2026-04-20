@@ -26,12 +26,14 @@ jobs:
           root_file: |
             smoke.tex
             sprints/*.tex
+            guides/*.tex
           args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
 
       - name: Promote published PDFs into repository
         run: |
           mkdir -p content/reports/build
-          find content/reports/tex/build -maxdepth 1 -type f -name '*.pdf' -exec cp {} content/reports/build/ \;
+          find content/reports/build -maxdepth 1 -type f -name '*.pdf' -delete
+          find content/reports/tex/build -maxdepth 1 -type f -name '*.pdf' ! -name 'smoke.pdf' -exec cp {} content/reports/build/ \;
 
       - name: Upload PDF artifacts
         uses: actions/upload-artifact@v4

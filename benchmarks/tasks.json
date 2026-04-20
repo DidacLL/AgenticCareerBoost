@@ -1,0 +1,20 @@
+[
+  {
+    "name": "mission_goal_phrase",
+    "description": "The mission goal should include a specific phrase to maintain clarity of purpose.",
+    "file": "docs/core/mission.md",
+    "expected_substring": "Rebuild a public technical profile"
+  },
+  {
+    "name": "plan_workflow_steps_count",
+    "description": "The Plan workflow should list at least seven numbered steps to capture all planning activities.",
+    "file": "docs/workflows/plan.md",
+    "min_steps": 7
+  },
+  {
+    "name": "sprint_workflow_closure_artifacts",
+    "description": "The Sprint workflow should enumerate at least six closure artefacts in its Outputs section.",
+    "file": "docs/workflows/sprint.md",
+    "expected_checklist_count": 6
+  }
+]

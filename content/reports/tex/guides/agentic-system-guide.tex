@@ -1,0 +1,419 @@
+\documentclass[a4paper,11pt,openany]{report}
+\usepackage{../preamble/agenticboost}
+
+\title{%
+  \textsc{AgenticCareerBoost}\\[0.4em]
+  \Large Agentic System Guide\\[0.3em]
+  \large Human-facing orientation manual%
+}
+\author{Dídac Llorens \\ \small \href{https://github.com/DidacLL}{github.com/DidacLL}}
+\date{April 2026 --- v1.0}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+% ============================================================================
+\chapter{What This Project Is}
+% ============================================================================
+
+\takeaway{AgenticCareerBoost is a public engineering campaign built as a
+path-based multiagent operating system inside a Git repository. The repository
+is not just where the project is documented; it is where the system runs.}
+
+The project exists to turn work into inspectable proof. Instead of describing a
+technical profile with adjectives, it records decisions, workflows, state, and
+formal outputs directly in versioned files. Humans can read the repository as a
+project manual. Agents can read it as an execution environment.
+
+This guide is the human-readable entrypoint. The deeper technical evidence is in
+the bootstrap case study:
+\pathref{content/reports/build/s000-agentic-os-bootstrap.pdf}.
+
+\section{What it is not}
+
+\begin{itemize}
+  \item Not a startup product.
+  \item Not a generic ``AI wrapper'' demo.
+  \item Not a private automation setup hidden outside the repo.
+  \item Not a replacement for human judgment.
+\end{itemize}
+
+\pitfall{Do not mistake the repository structure for bureaucracy. The explicit
+files exist so humans and models can inspect the same truth with minimal
+ambiguity.}
+
+
+% ============================================================================
+\chapter{Mission, Purpose, and Intended Audience}
+% ============================================================================
+
+\takeaway{The mission is to rebuild a public technical profile through visible,
+agentic engineering work and make that work readable by recruiters, peers, and
+future collaborators.}
+
+\section{Mission and purpose}
+
+The canonical mission lives in \pathref{docs/core/mission.md}. In practical
+terms, the system has three public jobs:
+
+\begin{itemize}
+  \item convert scattered capability into clear engineering artifacts,
+  \item keep repository, site, and social outputs coherent,
+  \item prove the process, not only the result.
+\end{itemize}
+
+\section{Intended audience}
+
+\begin{description}[style=nextline]
+  \item[Curious readers] need a short explanation of what the repository is and
+  why it exists.
+  \item[Recruiters and hiring managers] need fast, credible evidence of
+  systems thinking, execution discipline, and documentation depth.
+  \item[Engineering peers] need the actual mechanism: roles, workflows,
+  review loops, build paths, and state handling.
+  \item[Operators and contributors] need to know how to request work, where to
+  read next, and which files are authoritative.
+\end{description}
+
+\section{How this guide fits the rest of the docs}
+
+\begin{itemize}
+  \item This guide explains the system in plain operational language.
+  \item The README is the shorter repo entrypoint.
+  \item The site is the public mirror.
+  \item The S-000 case study is the detailed technical record.
+\end{itemize}
+
+
+% ============================================================================
+\chapter{The System Mental Model}
+% ============================================================================
+
+\takeaway{The system has four layers: stable truth, workflow contracts, volatile
+state, and published outputs. Agents are routed by paths, not by a giant hidden
+prompt.}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=1.5cm and 2.1cm]
+  \node[usernode] (human) {Human / agent};
+  \node[agentnode, below=of human] (entry) {AGENTS.md};
+
+  \node[filenode, below left=1.6cm and 2.7cm of entry] (core) {docs/core/};
+  \node[agentnode, below=of entry] (workflows) {docs/workflows/};
+  \node[agentnode, below right=1.6cm and 2.7cm of entry] (roles) {docs/agents/};
+
+  \node[statenode, below left=1.8cm and 1.5cm of workflows] (state) {state/};
+  \node[filenode, below=of workflows] (reports) {content/reports/};
+  \node[filenode, below right=1.8cm and 1.5cm of workflows] (site) {site/ + data/};
+
+  \draw[flowedge] (human) -- (entry);
+  \draw[dataedge] (entry) -- node[above left,font=\scriptsize]{truth} (core);
+  \draw[flowedge] (entry) -- node[left,font=\scriptsize]{choose workflow} (workflows);
+  \draw[flowedge] (entry) -- node[above right,font=\scriptsize]{choose role} (roles);
+  \draw[dataedge] (workflows) -- (state);
+  \draw[dataedge] (roles) -- (state);
+  \draw[flowedge] (workflows) -- (reports);
+  \draw[flowedge] (reports) -- (site);
+\end{tikzpicture}
+\caption{System mental model: entrypoint, contracts, state, and outputs.}
+\label{fig:mental-model}
+\end{figure}
+
+\section{Stable truth}
+
+Stable truth lives under \pathref{docs/core/}. These files describe the mission,
+constraints, brand, and the truth hierarchy. They change rarely and win when a
+volatile file disagrees.
+
+\section{Workflow contracts}
+
+Workflow files define the allowed action modes:
+\workflow{chat}, \workflow{operate}, \workflow{review}, \workflow{hotfix},
+\workflow{plan}, \workflow{sprint}, and \workflow{system-review}.
+
+\section{Volatile state}
+
+Volatile state lives under \pathref{state/}. It holds the current status,
+backlog, active sprint, logs, and family memory. It is important, but it is not
+canonical truth when it conflicts with core rules.
+
+\section{Published outputs}
+
+Outputs live under \pathref{content/}, \pathref{site/starter/}, and
+\pathref{data/}. The formal PDFs are part of that surface: they are meant to be
+read, cited, and inspected.
+
+
+% ============================================================================
+\chapter{How To Use The System As A Human}
+% ============================================================================
+
+\takeaway{Humans use the repository by choosing the right workflow, not by
+reading every file. Start from the question you are trying to answer or the
+change you are trying to make.}
+
+\section{Use it as a curious reader}
+
+If you want to understand the project quickly:
+
+\begin{enumerate}
+  \item Read the README.
+  \item Read this guide.
+  \item Open the S-000 case study only if you want deeper evidence.
+\end{enumerate}
+
+\section{Use it as an operator or collaborator}
+
+If you want to get work done:
+
+\begin{enumerate}
+  \item Start at \pathref{AGENTS.md}.
+  \item Choose the workflow that matches the request.
+  \item Read only the referenced contracts and current state.
+  \item Keep changes inside declared scope and writes.
+\end{enumerate}
+
+\section{Use it as an agent}
+
+Agents should not improvise the filesystem. The correct path is:
+\pathref{AGENTS.md} $\rightarrow$ workflow $\rightarrow$ role or AutoAgent
+$\rightarrow$ state and outputs.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=1.4cm and 1.8cm]
+  \node[usernode] (request) {Request};
+  \node[stepnode, below=of request] (entry) {Read AGENTS.md};
+  \node[stepnode, below=of entry] (choose) {Choose workflow};
+  \node[stepnode, below left=1.7cm and 2.1cm of choose] (single) {One specialist};
+  \node[stepnode, below right=1.7cm and 2.1cm of choose] (sprint) {Multi-step sprint};
+  \node[statenode, below=of single] (output1) {Scoped output};
+  \node[statenode, below=of sprint] (output2) {Reviewed artifacts};
+
+  \draw[flowedge] (request) -- (entry);
+  \draw[flowedge] (entry) -- (choose);
+  \draw[flowedge] (choose) -- node[above left,font=\scriptsize]{operate / hotfix / review} (single);
+  \draw[flowedge] (choose) -- node[above right,font=\scriptsize]{plan / sprint} (sprint);
+  \draw[dataedge] (single) -- (output1);
+  \draw[dataedge] (sprint) -- (output2);
+\end{tikzpicture}
+\caption{Human usage flow: choose the workflow before choosing the files.}
+\label{fig:human-usage-flow}
+\end{figure}
+
+
+% ============================================================================
+\chapter{Actions And When To Use Them}
+% ============================================================================
+
+\takeaway{The action surface is intentionally small. Each workflow exists to
+solve a different coordination problem.}
+
+\section{Action quick reference}
+
+\begin{longtable}{p{2.2cm} p{4.2cm} p{5.6cm}}
+\toprule
+\textbf{Action} & \textbf{Use it when} & \textbf{Typical result} \\
+\midrule
+\endhead
+\workflow{chat} & You need discussion only & Answers, constraints, optional summary \\
+\workflow{operate} & One bounded specialist should do one bounded job & One scoped artifact or correction \\
+\workflow{review} & You need maintenance checks and consistency fixes & Scoped sync, lint, compile verification \\
+\workflow{hotfix} & One small fix is clearly isolated & One commit and minimal backlog note \\
+\workflow{plan} & A larger change needs a contract first & Active sprint definition \\
+\workflow{sprint} & Planned multi-step work needs role coordination & Reviewed multi-artifact delivery \\
+\workflow{system-review} & The architecture or rule system itself looks wrong & Issue report and proposed structural changes \\
+\bottomrule
+\end{longtable}
+
+\section{Action selection flow}
+
+\hfigure{
+	\begin{tikzpicture}
+	  \node[usernode] (start) {Need};
+	  \node[stepnode, below=of start] (question1) {Only discussion?};
+	  \node[stepnode, below left=1.5cm and 2.0cm of question1] (chat) {\workflow{chat}};
+	  \node[stepnode, below right=1.5cm and 2.0cm of question1] (question2) {One bounded task?};
+	  \node[stepnode, below left=1.5cm and 2.0cm of question2] (operate) {\workflow{operate}};
+	  \node[stepnode, below right=1.5cm and 2.0cm of question2] (question3) {Needs planning / multiple roles?};
+	  \node[stepnode, below left=1.5cm and 2.0cm of question3] (review) {\workflow{review} or \workflow{hotfix}};
+	  \node[stepnode, below right=1.5cm and 2.0cm of question3] (plan) {\workflow{plan} $\rightarrow$ \workflow{sprint}};
+
+	  \draw[flowedge] (start) -- (question1);
+	  \draw[flowedge] (question1) -- node[above left,font=\scriptsize]{yes} (chat);
+	  \draw[flowedge] (question1) -- node[above right,font=\scriptsize]{no} (question2);
+	  \draw[flowedge] (question2) -- node[above left,font=\scriptsize]{yes} (operate);
+	  \draw[flowedge] (question2) -- node[above right,font=\scriptsize]{no} (question3);
+	  \draw[flowedge] (question3) -- node[above left,font=\scriptsize]{maintenance or tiny fix} (review);
+	  \draw[flowedge] (question3) -- node[above right,font=\scriptsize]{planned multi-step work} (plan);
+	\end{tikzpicture}
+}{Choose the workflow by scope and coordination needs.}{action-flow}
+
+% ============================================================================
+\chapter{Roles, Specialties, AutoAgents, And Memory}
+% ============================================================================
+
+\takeaway{Top-level roles stay small; specialties narrow execution; AutoAgents
+handle recurring routines; family memory stores durable heuristics, not truth.}
+
+\section{Human-facing roles}
+
+\begin{itemize}
+  \item \role{Orchestrator} routes work and writes contracts.
+  \item \role{Developer} implements bounded technical changes.
+  \item \role{PairCheck} reviews non-trivial outputs independently.
+  \item \role{CI/CD} integrates and publishes approved work.
+  \item \role{Documentation} turns changes into readable engineering artifacts.
+  \item \role{CommunityManager} adapts proof into public-facing messaging.
+\end{itemize}
+
+\section{Specialties}
+
+Roles should not execute as generic experts. They run in specialty modes such
+as \texttt{Developer/latex}, \texttt{Documentation/guide}, or
+\texttt{CommunityManager/linkedin}. Specialty keeps the read scope small and
+the expected output explicit.
+
+\section{AutoAgents}
+
+The fixed routines currently live in \pathref{docs/agents/autoagents.md}. They
+cover consistency, Markdown quality, LaTeX compilation, and social planning.
+
+\section{Family memory}
+
+Family memory lives in \pathref{state/memory/}. It stores durable heuristics
+such as recurring build issues, accepted phrasing defaults, or source-quality
+notes. It must never replace canonical truth in \pathref{docs/core/}.
+
+
+% ============================================================================
+\chapter{Repository Layout And Where To Start}
+% ============================================================================
+
+\takeaway{The repository is organized so that each question leads to one or two
+obvious next files.}
+
+\section{Condensed layout}
+
+\begin{tabularx}{\linewidth}{l X}
+\toprule
+\textbf{Path} & \textbf{Why you would open it} \\
+\midrule
+\pathref{AGENTS.md} & Start here if you are routing work \\
+\pathref{docs/core/} & Understand what is stable and non-negotiable \\
+\pathref{docs/workflows/} & Choose the correct action mode \\
+\pathref{docs/agents/} & Understand who owns the work \\
+\pathref{state/} & Read current status, backlog, and recent activity \\
+\pathref{content/reports/} & Read published formal documentation \\
+\pathref{site/starter/} & Inspect the public mirror \\
+\bottomrule
+\end{tabularx}
+
+\section{Where a new reader should start}
+
+\begin{enumerate}
+  \item README for the shortest orientation.
+  \item This guide for the operating model.
+  \item S-000 for technical depth.
+  \item Specific workflows and roles only when you need to act.
+\end{enumerate}
+
+
+% ============================================================================
+\chapter{Typical Flows}
+% ============================================================================
+
+\takeaway{Most real usage falls into a few repeatable flows: read, operate,
+review, or plan.}
+
+\section{Human orientation flow}
+
+README $\rightarrow$ this guide $\rightarrow$ S-000 case study.
+
+\section{Bounded maintenance flow}
+
+\workflow{review} $\rightarrow$ \texttt{ContentSync} first
+$\rightarrow$ Markdown or LaTeX specialist if needed
+$\rightarrow$ scoped fixes only.
+
+\section{Change delivery flow}
+
+\workflow{operate} for one bounded specialist task, or
+\workflow{plan} $\rightarrow$ \workflow{sprint} when the work spans multiple
+concerns and needs pair-check.
+
+\section{Documentation flow}
+
+Implementation change $\rightarrow$ documentation artifact
+$\rightarrow$ published PDF or repo/site update
+$\rightarrow$ optional public adaptation by \role{CommunityManager}.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=1.4cm and 1.8cm]
+  \node[filenode] (readme) {README.md};
+  \node[filenode, right=2.8cm of readme] (guide) {agentic-system-guide.pdf};
+  \node[filenode, right=2.8cm of guide] (case) {S-000 case study};
+  \node[filenode, below=of guide] (site) {site/starter/};
+  \node[filenode, below=of case] (build) {content/reports/build/};
+
+  \draw[flowedge] (readme) -- node[above,font=\scriptsize]{quick entry} (guide);
+  \draw[flowedge] (guide) -- node[above,font=\scriptsize]{technical depth} (case);
+  \draw[dataedge] (guide) -- node[right,font=\scriptsize]{mirrored summary} (site);
+  \draw[dataedge] (case) -- node[right,font=\scriptsize]{published PDFs} (build);
+\end{tikzpicture}
+\caption{Documentation map: quick entrypoint, human guide, technical case study, and published outputs.}
+\label{fig:documentation-map}
+\end{figure}
+
+
+% ============================================================================
+\chapter{Reading Path To Deeper Technical Material}
+% ============================================================================
+
+\takeaway{Once the high-level model is clear, the deepest material is organized
+by question, not by chronology.}
+
+\begin{description}[style=nextline]
+  \item[What is always true?] Read \pathref{docs/core/}.
+  \item[What action should be used?] Read \pathref{docs/workflows/}.
+  \item[Who owns each kind of work?] Read \pathref{docs/agents/}.
+  \item[What changed recently?] Read \pathref{state/current.md} and the
+  backlog.
+  \item[How was the bootstrap system implemented?] Read the S-000 case study.
+  \item[How are formal PDFs built?] Read \pathref{content/reports/tex/README.md}
+  and the local build scripts.
+\end{description}
+
+\pitfall{Do not start from logs unless you are debugging a specific failure.
+Logs are volatile evidence, not the best orientation path.}
+
+
+% ============================================================================
+\appendix
+\chapter{Quick Reference}
+% ============================================================================
+
+\takeaway{These are the highest-value paths for humans using the repository.}
+
+\begin{longtable}{p{5cm} p{8cm}}
+\toprule
+\textbf{Path} & \textbf{Use it for} \\
+\midrule
+\endhead
+\pathref{README.md} & quickest human overview \\
+\pathref{AGENTS.md} & routing entrypoint for agents and operators \\
+\pathref{docs/core/mission.md} & purpose and success criteria \\
+\pathref{docs/workflows/review.md} & maintenance review chain \\
+\pathref{docs/workflows/operate.md} & one bounded specialist task \\
+\pathref{docs/agents/autoagents.md} & recurring routines and triggers \\
+\pathref{state/current.md} & current status snapshot \\
+\pathref{content/reports/build/agentic-system-guide.pdf} & published human-facing guide \\
+\pathref{content/reports/build/s000-agentic-os-bootstrap.pdf} & published technical case study \\
+\bottomrule
+\end{longtable}
+
+\end{document}
