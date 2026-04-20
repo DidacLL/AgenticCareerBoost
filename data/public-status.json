@@ -1,7 +1,7 @@
 {
-  "sprint_id": "S-000",
+  "sprint_id": null,
   "workflow": "none (S-000 closed, ready for Plan or Chat)",
-  "status": "closed",
+  "status": "idle",
   "last_closure_at": "2026-04-19",
   "last_closure_type": "Bootstrap",
   "artifacts": [],

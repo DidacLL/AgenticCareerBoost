@@ -41,7 +41,7 @@
 ### Technical
 
 - T-003 CLOSED: LaTeX build toolchain configured (content/reports/tex/ + latex-build.yml)
-- T-004 NEW: LaTeX PDF → GitHub Pages deployment (deferred; CI currently uploads artifacts only)
+- T-004 NEW: Decide whether published LaTeX PDFs should also be mirrored into GitHub Pages (repo publication handled in CI)
 - T-005 NEW: Architecture diagram screenshot collection (user to replace \screenshotfig placeholders)
 - T-001 UPDATE: LinkedIn scheduling tool decision still open; style-book.md §7 recommends 2x/week cadence
 
@@ -55,4 +55,4 @@
 ## CI trace
 
 - Commit(s): _(pending user commit)_
-- Workflow run: _(pending first push to main)_
+- Workflow run: GitHub Actions history for `latex-build.yml` on `main`

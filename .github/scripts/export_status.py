@@ -1,4 +1,4 @@
-"""Parse state/ front-matter and write data/public-status.json."""
+"""Parse state files and write data/public-status.json."""
 
 import json
 import re
@@ -13,13 +13,20 @@ def extract_field(text: str, field: str) -> str:
     return match.group(1).strip() if match else ""
 
 
+def is_none_like(value: str) -> bool:
+    normalized = value.strip().lower()
+    return normalized in {"", "none", "null", "n/a"}
+
+
 def main() -> None:
     current = (ROOT / "state" / "current.md").read_text(encoding="utf-8")
     sprint = (ROOT / "state" / "active-sprint.md").read_text(encoding="utf-8")
 
     workflow = extract_field(current, "Active workflow") or "none"
-    sprint_id = extract_field(sprint, "Sprint ID")
-    status_raw = extract_field(sprint, "Status") or "idle"
+    active_sprint = extract_field(current, "Active sprint")
+    sprint_id = None if is_none_like(active_sprint) else extract_field(sprint, "Sprint ID")
+    status_raw = extract_field(sprint, "Status") if sprint_id else "idle"
+    status = status_raw or "idle"
 
     closures = re.findall(
         r"\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*(\w+)\s*\|", current
@@ -31,13 +38,19 @@ def main() -> None:
     blockers = [] if blockers_field.lower() in ("none", "") else [blockers_field]
 
     roadmap = (ROOT / "state" / "roadmap.md").read_text(encoding="utf-8")
-    seed_match = re.search(r"\|\s*(S-\d+)\s*\|\s*(.+?)\s*\|", roadmap)
-    next_seed = f"{seed_match.group(1)}: {seed_match.group(2)}" if seed_match else ""
+    next_seed = ""
+    for sprint_id_match, title, focus in re.findall(
+        r"\|\s*(S-\d+)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|", roadmap
+    ):
+        if "closed" in focus.lower():
+            continue
+        next_seed = f"{sprint_id_match}: {title}"
+        break
 
     payload = {
-        "sprint_id": sprint_id or None,
+        "sprint_id": sprint_id,
         "workflow": workflow,
-        "status": status_raw,
+        "status": status,
         "last_closure_at": last_closure_at,
         "last_closure_type": last_closure_type,
         "artifacts": [],

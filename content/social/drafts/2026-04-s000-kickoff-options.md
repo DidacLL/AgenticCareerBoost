@@ -74,8 +74,9 @@ problem?
 
 - Repository: <https://github.com/DidacLL/AgenticCareerBoost>
 - AGENTS.md: <https://github.com/DidacLL/AgenticCareerBoost/blob/main/AGENTS.md>
-- S-000 LaTeX source: content/reports/tex/sprints/s000-agentic-os-bootstrap.tex (compiled PDF available as CI artifact after first push)
-- Sprint contract: state/active-sprint.md (will be populated during sprint execution)
+- S-000 LaTeX source: content/reports/tex/sprints/s000-agentic-os-bootstrap.tex
+- Published S-000 PDF: <https://github.com/DidacLL/AgenticCareerBoost/blob/main/content/reports/build/s000-agentic-os-bootstrap.pdf>
+- Sprint closure record: state/active-sprint.md
 
 ### KPI targets (first 7 days, cold-start adjusted)
 
@@ -112,7 +113,7 @@ Engineering-artifact-first — leads with a native PDF upload of the actual syst
 
 ### Channel
 
-LinkedIn (primary, native PDF upload). GitHub: the PDF is already in the repo as a CI artifact. Site: link to the PDF from the projects page when S-002 ships.
+LinkedIn (primary, native PDF upload). GitHub: the PDF is published in `content/reports/build/`. Site: link to the PDF from the projects page when S-002 ships.
 
 ### Full draft body (LinkedIn, 1,192 chars)
 
@@ -293,4 +294,4 @@ for agentic AI?
 
 ---
 
-*All drafts verified against content/social/style-book.md §8 (Forbidden-Tone Checklist). No violations detected. Every evidence link resolves to a file in the repository or a planned CI artifact.*
+*All drafts verified against content/social/style-book.md §8 (Forbidden-Tone Checklist). No violations detected. Every evidence link resolves to a file in the repository or a published repository artifact.*

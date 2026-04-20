@@ -2,13 +2,15 @@ name: Build LaTeX reports
 
 on:
   push:
-    branches: [main]
     paths:
       - 'content/reports/tex/**'
   pull_request:
     paths:
       - 'content/reports/tex/**'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -26,10 +28,22 @@ jobs:
             sprints/*.tex
           args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
 
+      - name: Promote published PDFs into repository
+        run: |
+          mkdir -p content/reports/build
+          find content/reports/tex/build -maxdepth 1 -type f -name '*.pdf' -exec cp {} content/reports/build/ \;
+
       - name: Upload PDF artifacts
         uses: actions/upload-artifact@v4
         with:
           name: latex-reports
-          path: content/reports/tex/build/*.pdf
+          path: content/reports/build/**/*.pdf
           if-no-files-found: error
           retention-days: 30
+
+      - name: Commit published PDFs
+        if: github.event_name == 'push'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: publish latest LaTeX PDFs [auto]"
+          file_pattern: content/reports/build/*.pdf

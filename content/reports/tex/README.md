@@ -39,7 +39,12 @@ make smoke   # build the 1-page smoke test
 make clean   # remove build artifacts
 ```
 
-Output lands in `build/`.
+Local output lands in `build/`.
+
+On pushes that update `content/reports/tex/`, `.github/workflows/latex-build.yml`
+copies the compiled PDFs into `content/reports/build/` and commits them so the
+latest published documents are visible in the repository without opening a
+workflow run.
 
 ## Architecture
 
