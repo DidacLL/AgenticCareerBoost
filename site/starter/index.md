@@ -12,8 +12,9 @@ document a technical profile. The process itself is part of the proof.
 
 | Field | Value |
 |-------|-------|
-| Workflow | Ready for first sprint |
+| Workflow | No active sprint (S-000 closed; ready for Plan or Chat) |
 | Next sprint | S-001: Portfolio audit + positioning draft |
+| Latest report | [Sprint S-000 PDF](https://github.com/DidacLL/AgenticCareerBoost/blob/main/content/reports/build/s000-agentic-os-bootstrap.pdf) |
 
 ## What you'll find here
 

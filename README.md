@@ -58,6 +58,7 @@ flowchart LR
 |-------|-------|
 | Current workflow | None (ready for Plan or Chat) |
 | Next sprint seed | S-001: Portfolio audit + positioning draft |
+| Latest report | [Sprint S-000 PDF](content/reports/build/s000-agentic-os-bootstrap.pdf) |
 | Site | [didacll.github.io/AgenticCareerBoost](https://didacll.github.io/AgenticCareerBoost/) |
 
 ## Links

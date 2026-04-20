@@ -1,7 +1,7 @@
 {
   "sprint_id": null,
-  "workflow": "none (bootstrap complete, ready for Plan or Chat)",
-  "status": "idle — run the Plan workflow to populate this file.",
+  "workflow": "none (S-000 closed, ready for Plan or Chat)",
+  "status": "idle",
   "last_closure_at": "2026-04-19",
   "last_closure_type": "Bootstrap",
   "artifacts": [],

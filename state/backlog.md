@@ -7,7 +7,7 @@
 | T-001 | Decide LinkedIn publication cadence and scheduling tool | Bootstrap | medium |
 | T-002 | Evaluate adding `docs/core/glossary.md` after Sprint 1 if term drift observed | Bootstrap | low |
 | T-003 | ~~Set up LaTeX build toolchain in `content/reports/`~~ | Bootstrap | **CLOSED** (S-000) |
-| T-004 | LaTeX PDF → GitHub Pages deployment (CI currently uploads artifacts only) | S-000 | deferred |
+| T-004 | Decide whether published LaTeX PDFs should also be mirrored into GitHub Pages (repo publication now handled in CI) | S-000 | deferred |
 | T-005 | Replace `\screenshotfig` placeholders with real screenshots in S-000 doc | S-000 | medium |
 
 ## Narrative backlog
