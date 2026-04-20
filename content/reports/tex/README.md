@@ -1,4 +1,5 @@
 # LaTeX reports — build instructions
+<!-- CI: workflow_dispatch also available for manual re-runs -->
 
 ## Prerequisites
 

@@ -7,6 +7,7 @@ on:
   pull_request:
     paths:
       - 'content/reports/tex/**'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -22,10 +23,10 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           working_directory: content/reports/tex
-          root_file: sprints/*.tex
-          latexmk_use_lualatex: false
-          latexmk_shell_escape: false
-          args: -pdf -interaction=nonstopmode -halt-on-error
+          root_file: |
+            smoke.tex
+            sprints/*.tex
+          args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
 
       - name: Promote published PDFs into repository
         run: |
