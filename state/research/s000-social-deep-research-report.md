@@ -88,7 +88,7 @@ This is the strongest recruiter-first plan. It takes the repo’s stated audienc
 | Public-status drift damages trust | README, site, and JSON disagree today. citeturn41view5turn35view0turn34view0 | Fix all status surfaces before Post 1 and again before each roadmap-bridge post. |
 | Cold-start feed penalizes reach | The repo is at zero stars/forks/watchers and has no existing public issue/release activity. citeturn41view5turn43view0 | Seed the first two posts intentionally through known communities and close contacts rather than relying on ambient discovery. |
 
-**Sample LinkedIn hooks for Posts 1–3**
+### Sample LinkedIn hooks for Posts 1–3
 
 | Post | Sample hook |
 |---|---|
@@ -133,7 +133,7 @@ This is the strongest artifact-first plan. It assumes the audience will reward s
 | Missing screenshots weaken visual credibility | Sprint 0 still carries placeholder screenshot debt. citeturn26view2turn9view1 | Generate a minimal, consistent visual kit before launch: file tree, Actions run, routing map, and one report spread. |
 | Future roadmap posts overpromise | S-001 and S-002 details are still only seed titles. citeturn9view2 | Phrase bridge posts around objectives and criteria, not around detailed deliverables that do not yet exist. |
 
-**Sample LinkedIn hooks for Posts 1–3**
+### Sample LinkedIn hooks for Posts 1–3
 
 | Post | Sample hook |
 |---|---|
@@ -178,7 +178,7 @@ This is the highest-variance plan. It is built from the repo’s Option C logic 
 | Early posts may feel gimmicky | The repo’s internal draft calls Option C high-variance and better reserved for later. citeturn19view0 | Do not open the campaign with this plan unless you have already built audience recognition elsewhere. |
 | Honest discussion of gaps reads as weakness | Surface drift and placeholders are real. citeturn34view0turn35view0turn26view2 | Share gaps only alongside a clear fix, a date, or a workflow rule that explains why the problem is visible. |
 
-**Sample LinkedIn hooks for Posts 1–3**
+### Sample LinkedIn hooks for Posts 1–3
 
 | Post | Sample hook |
 |---|---|
