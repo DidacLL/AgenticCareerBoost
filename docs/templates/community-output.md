@@ -5,6 +5,7 @@
 ## Meta
 
 - **Source artifact**: _sprint ID + task # or hotfix ref_
+- **Plan ref**: _`content/social/plan.md` or `none`_
 - **Channel**: LinkedIn | GitHub | Site
 - **Scheduled date**: YYYY-MM-DD
 

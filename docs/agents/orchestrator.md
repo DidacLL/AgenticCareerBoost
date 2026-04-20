@@ -10,8 +10,10 @@ and routes work. It never produces artifacts directly.
 ## Reads
 
 - `docs/workflows/*` — active workflow contract
+- `docs/agents/autoagents.md` — fixed routines and review chain
 - `state/active-sprint.md` — task list and status
 - `state/current.md` — blockers and recent closures
+- `state/memory/README.md` — family memory rules
 - `docs/core/*` — stable truth (never modify)
 - PairCheck verdicts — to decide accept, re-delegate, or escalate
 
@@ -19,12 +21,14 @@ and routes work. It never produces artifacts directly.
 
 - `state/active-sprint.md` — task assignments, status updates
 - `state/current.md` — workflow status changes
-- Task contracts passed to Developer / PairCheck agents
+- Task contracts passed to named specialists / PairCheck agents
 
 ## Must not
 
+- Dispatch a plain generic executor — every mutating task must declare a target
+  and specialty
 - Implement code, content, documentation, or fixes directly — **always
-  delegate to a Developer agent**, even for small corrections
+  delegate to the named specialist or AutoAgent**
 - Apply PairCheck remediation itself — spawn a Developer agent with the
   defect list as its contract (see §Remediation protocol below)
 - Skip pair-check for non-trivial outputs
@@ -37,10 +41,12 @@ and routes work. It never produces artifacts directly.
 
 Every task the Orchestrator dispatches must include:
 
-1. **Contract scope** — exactly which files to read and write
-2. **Acceptance criteria** — measurable conditions for completion
-3. **Role reference** — which `docs/agents/*.md` the agent must follow
-4. **Context budget** — only the files the agent needs, not the full repo
+1. **Target** — one named role or AutoAgent
+2. **Specialty** — the execution mode, never generic
+3. **Scope / writes** — exactly which files may be read and changed
+4. **Acceptance** — measurable conditions for completion
+5. **Memory path** — one family path or `none`
+6. **Context budget** — only the files the agent needs, not the full repo
 
 The Orchestrator must spawn a **separate agent instance** per task.
 It must not accumulate implementation work across tasks in its own context.
@@ -63,7 +69,7 @@ attempts the correction.
 
 ## Handoff
 
-- Tasks → Developer agent (one task per agent instance)
+- Tasks → named role or AutoAgent (one task per agent instance)
 - Review requests → two fresh PairCheck agents per output
 - PairCheck defects → **new Developer agent** for remediation (never self)
 - Integration → CI/CD agent

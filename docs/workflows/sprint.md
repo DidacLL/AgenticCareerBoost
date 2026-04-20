@@ -8,18 +8,20 @@ A populated `state/active-sprint.md` exists with `status: planned`.
 
 - `state/active-sprint.md` — task contracts and acceptance criteria
 - `docs/agents/*` — role definitions for instantiated agents
+- `docs/agents/autoagents.md` — fixed routines when the sprint contract names one
 - `docs/core/*` — stable truth (read-only during sprint)
 
 ## Steps
 
 1. **Orchestrator** reads the sprint contract and decomposes into task
-   contracts. Each contract specifies: scope, acceptance criteria, owning
-   role, and input files. The Orchestrator writes contracts only — it does
-   not implement.
+   contracts. Each mutating contract specifies: target, specialty, scope,
+   writes, acceptance, and memory path or `none`. The Orchestrator writes
+   contracts only — it does not implement.
 2. **Orchestrator** delegates each task to a **separate agent instance**:
    - Implementation tasks → **Developer** agent (one task per instance)
    - Documentation tasks → **Documentation** agent
    - Narrative tasks → **CommunityManager** agent
+   - Fixed maintenance tasks → named **AutoAgent** from the registry
 3. Each agent executes its contract, tests where appropriate, and reports
    back to the Orchestrator with output + assumptions log.
 4. **Orchestrator** sends each non-trivial output to **two fresh PairCheck**
@@ -42,6 +44,7 @@ A populated `state/active-sprint.md` exists with `status: planned`.
 - The Orchestrator must not read full file contents for analysis. It reads
   contracts, verdicts, and status — then delegates deeper work.
 - Every agent instance receives only the files it needs (context budget).
+- A mutating task may read at most one declared family memory path.
 - No agent instance works on more than one task contract simultaneously.
 - PairCheck agents are always fresh — no prior review history.
 

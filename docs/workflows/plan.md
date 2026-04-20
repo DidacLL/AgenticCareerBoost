@@ -14,10 +14,13 @@ User requests a new sprint plan, or the orchestrator identifies the need.
 ## Steps
 
 1. Select the next sprint seed from `state/roadmap.md`.
-2. Decompose into discrete tasks, each with:
-   - owning role (from `docs/agents/`)
-   - acceptance criteria
-   - expected output artifact
+2. Decompose into discrete tasks. Every mutating task must include:
+   - target role or named AutoAgent
+   - specialty
+   - scope
+   - writes
+   - acceptance
+   - memory path or `none`
 3. Define pair-check requirements for non-trivial tasks.
 4. Define backlog requirements (technical + narrative).
 5. Fill `docs/templates/sprint-output.md` with the complete plan.
@@ -31,6 +34,7 @@ User requests a new sprint plan, or the orchestrator identifies the need.
 
 ## Exit criteria
 
-- Every task has an owning role, acceptance criteria, and expected output.
+- Every mutating task has target, specialty, scope, writes, acceptance, and
+  memory path or `none`.
 - Pair-check assignments exist for every non-trivial task.
 - The plan is achievable within one sprint cycle.
