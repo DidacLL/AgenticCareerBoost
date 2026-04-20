@@ -10,10 +10,10 @@
 
 ## Tasks
 
-| # | Task | Role | Acceptance criteria | Evidence link |
-|---|------|------|---------------------|---------------|
-| 1 | | | | |
-| 2 | | | | |
+| # | Task | Target | Specialty | Scope | Writes | Acceptance | Memory | Evidence link |
+|---|------|--------|-----------|-------|--------|------------|--------|---------------|
+| 1 | | | | | | | | |
+| 2 | | | | | | | | |
 
 ## Pair-check assignments
 

@@ -4,7 +4,7 @@
 
 ## Meta
 
-- **Artifact ref**: _sprint ID + task #_
+- **Artifact ref**: _sprint ID + task # | operate ref | review ref_
 - **Date**: YYYY-MM-DD
 
 ## Rationale (why)

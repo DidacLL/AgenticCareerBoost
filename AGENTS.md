@@ -21,6 +21,8 @@ Full rationale: [`docs/core/truth-hierarchy.md`](docs/core/truth-hierarchy.md)
 |---------|---------------|-------------|
 | **plan** | [`docs/workflows/plan.md`](docs/workflows/plan.md) | Design a new sprint |
 | **sprint** | [`docs/workflows/sprint.md`](docs/workflows/sprint.md) | Execute a planned sprint |
+| **operate** | [`docs/workflows/operate.md`](docs/workflows/operate.md) | Run one bounded specialist or AutoAgent |
+| **review** | [`docs/workflows/review.md`](docs/workflows/review.md) | Run the fixed maintenance review chain |
 | **hotfix** | [`docs/workflows/hotfix.md`](docs/workflows/hotfix.md) | Small focused fix, no ceremony |
 | **chat** | [`docs/workflows/chat.md`](docs/workflows/chat.md) | Discuss project within constraints |
 | **system-review** | [`docs/workflows/system-review.md`](docs/workflows/system-review.md) | Audit the agentic system itself |
@@ -36,6 +38,11 @@ Full rationale: [`docs/core/truth-hierarchy.md`](docs/core/truth-hierarchy.md)
 | Documentation | [`docs/agents/documentation.md`](docs/agents/documentation.md) |
 | CommunityManager | [`docs/agents/community-manager.md`](docs/agents/community-manager.md) |
 
+## AutoAgent Registry
+
+- [`docs/agents/autoagents.md`](docs/agents/autoagents.md) — fixed routines for
+  review, sync, social research, planning, and writing
+
 ## State pointers
 
 | File | Purpose |
@@ -44,6 +51,7 @@ Full rationale: [`docs/core/truth-hierarchy.md`](docs/core/truth-hierarchy.md)
 | [`state/active-sprint.md`](state/active-sprint.md) | Current sprint contract |
 | [`state/roadmap.md`](state/roadmap.md) | Upcoming sprint seeds |
 | [`state/backlog.md`](state/backlog.md) | Technical + narrative backlog |
+| [`state/memory/README.md`](state/memory/README.md) | Family memory rules and paths |
 
 ## Output templates
 
