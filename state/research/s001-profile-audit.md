@@ -360,6 +360,7 @@ mention it in the profile README and LinkedIn.
 ## Section 3: Per-Repo Scorecard
 
 ### Scoring Key
+
 - **README quality** (0–5): 0=none, 1=one-liner, 2=basic, 3=adequate,
   4=good, 5=exemplary
 - **Commit hygiene** (0–5): 0=single commit dump, 1=poor messages, 2=mixed,

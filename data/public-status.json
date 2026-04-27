@@ -2,9 +2,34 @@
   "sprint_id": "S-001.5",
   "workflow": "review (S-001.5 public-profile cleanup)",
   "status": "reviewed / deploy pending",
-  "last_closure_at": "2026-04-19",
-  "last_closure_type": "Bootstrap",
-  "artifacts": [],
+  "last_closure_at": "2026-04-27",
+  "last_closure_type": "Review S-001.5",
+  "artifacts": [
+    {
+      "complete": true,
+      "label": "Repository artifact(s) — S-001.5 research, profile kits, outreach kit, execution checklist, site pages, CV source/PDF"
+    },
+    {
+      "complete": false,
+      "label": "Website / repo update trace — recruiter landing page rebuilt in `site/starter/` and `content/site/`; GitHub Pages deploy pending push"
+    },
+    {
+      "complete": true,
+      "label": "Social / LinkedIn-ready artifact — LinkedIn/JobTeaser kit and fair outreach messages"
+    },
+    {
+      "complete": true,
+      "label": "Formal engineering documentation — S-001 report source plus S-001.5 formal CV PDF"
+    },
+    {
+      "complete": true,
+      "label": "Condensed technical backlog — see below"
+    },
+    {
+      "complete": true,
+      "label": "Condensed narrative backlog — see below"
+    }
+  ],
   "blockers": [
     "GitHub Pages deploy requires committing and pushing local changes; external account actions require user-controlled confirmation and application"
   ],

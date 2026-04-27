@@ -24,6 +24,8 @@ jobs:
       - name: Merge content/site into site/starter
         run: rsync -a --exclude='README.md' content/site/ site/starter/
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/jekyll-build-pages@v1
         with:
           source: ./site/starter

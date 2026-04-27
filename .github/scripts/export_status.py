@@ -18,6 +18,24 @@ def is_none_like(value: str) -> bool:
     return normalized in {"", "none", "null", "n/a"}
 
 
+def extract_closure_artifacts(text: str) -> list[dict[str, str | bool]]:
+    artifacts = []
+    in_section = False
+    for line in text.splitlines():
+        if line.strip() == "## Closure artifacts":
+            in_section = True
+            continue
+        if in_section and line.startswith("## "):
+            break
+        match = re.match(r"- \[(x| )\]\s+(.+)", line)
+        if not match:
+            continue
+        checked = match.group(1) == "x"
+        label = match.group(2).strip()
+        artifacts.append({"complete": checked, "label": label})
+    return artifacts
+
+
 def main() -> None:
     current = (ROOT / "state" / "current.md").read_text(encoding="utf-8")
     sprint = (ROOT / "state" / "active-sprint.md").read_text(encoding="utf-8")
@@ -29,10 +47,10 @@ def main() -> None:
     status = status_raw or "idle"
 
     closures = re.findall(
-        r"\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*(\w+)\s*\|", current
+        r"\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([^|]+?)\s*\|", current
     )
-    last_closure_at = closures[-1][0] if closures else str(date.today())
-    last_closure_type = closures[-1][1] if closures else "unknown"
+    last_closure_at = closures[0][0] if closures else str(date.today())
+    last_closure_type = closures[0][1] if closures else "unknown"
 
     blockers_field = extract_field(current, "Blockers")
     blockers = [] if blockers_field.lower() in ("none", "") else [blockers_field]
@@ -53,7 +71,7 @@ def main() -> None:
         "status": status,
         "last_closure_at": last_closure_at,
         "last_closure_type": last_closure_type,
-        "artifacts": [],
+        "artifacts": extract_closure_artifacts(sprint),
         "blockers": blockers,
         "next_sprint_seed": next_seed,
     }
