@@ -1,11 +1,14 @@
 name: Build and deploy site
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
+      - ".github/workflows/site-build.yml"
       - "site/starter/**"
       - "content/site/**"
+      - "content/reports/build/**"
       - "README.md"
 
 permissions:
