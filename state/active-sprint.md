@@ -4,7 +4,7 @@
 
 - **Sprint ID**: S-001.5
 - **Goal**: Make the public profile event-ready for the VI Fira Virtual d'Ocupacio de la UOC by applying the S-001 positioning to GitHub, site, LinkedIn/JobTeaser copy, event outreach, and target-company triage.
-- **Status**: reviewed / static Pages deployment in progress
+- **Status**: reviewed / build green / Pages source setting blocked
 
 ## Tasks
 
@@ -18,7 +18,7 @@
 | 6 | Event outreach kit | CommunityManager | Recruiter messaging | Draft multilingual intros, interview request, follow-up, and company-specific angles | content/social/drafts/2026-04-s0015-uoc-fair-outreach.md | Drafts ready; sending remains user-controlled | none | content/social/drafts/2026-04-s0015-uoc-fair-outreach.md |
 | 7 | Execution checklist | Orchestrator | GitHub/account operations | Separate local work from external account actions requiring confirmation | state/summaries/s0015-execution-checklist.md | Human can apply changes without guessing | none | state/summaries/s0015-execution-checklist.md |
 | 8 | PairCheck | PairCheck | Evidence + public safety | Review site, CV, state sync, and public-copy kits | state/logs/S-001-5/pc-*.md | No fabricated metrics, stale links, missing curriculum, or unsupported claims | none | state/logs/S-001-5/ |
-| 9 | Sprint closure | Orchestrator | State update | Update state/current, roadmap, backlog, public status | state files, data/public-status.json | S-001.5 reviewed; deploy remains pending until the static `gh-pages` publish is verified | none | state/current.md |
+| 9 | Sprint closure | Orchestrator | State update | Update state/current, roadmap, backlog, public status | state files, data/public-status.json | S-001.5 reviewed; build tasks pass; deploy remains pending until GitHub Pages source is set to `gh-pages` / root | none | state/current.md |
 
 ## Pair-check assignments
 
@@ -30,7 +30,7 @@
 ## Closure artifacts
 
 - [x] Repository artifact(s) — S-001.5 research, profile kits, outreach kit, execution checklist, site pages, CV source/PDF
-- [ ] Website / repo update trace — recruiter landing page rebuilt as static HTML; `gh-pages` publish pending verification
+- [ ] Website / repo update trace — recruiter landing page rebuilt as static HTML; `gh-pages` branch published and build green; Pages source setting still required
 - [x] Social / LinkedIn-ready artifact — LinkedIn/JobTeaser kit and fair outreach messages
 - [x] Formal engineering documentation — S-001 report source plus S-001.5 formal CV PDF
 - [x] Condensed technical backlog — see below
@@ -54,4 +54,4 @@
 ## CI trace
 
 - Commit(s): `a1db91d`, `8642f6d`, `10bb463`, `e812508`
-- Workflow runs: docs lint passed for `8642f6d`, `10bb463`, and `e812508`; site deployment changed from Jekyll/Pages Actions to static `gh-pages` publish
+- Workflow runs: docs lint, export status, and static site publish passed for `f601700`; `gh-pages` branch exists; public URL still returns 404 until Pages source is set

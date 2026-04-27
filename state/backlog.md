@@ -14,7 +14,7 @@
 | T-008 | Verify S-001 LaTeX report PDF publication through CI after push | S-001 / S-001.5 review | high |
 | T-009 | Apply GitHub profile/repo metadata cleanup from S-001.5 checklist through user-controlled account actions | S-001.5 | **high** |
 | T-010 | Complete full S-002 site rebuild with project detail pages, CV hardening, stable assets, and post-deploy checks | S-001.5 | high |
-| T-011 | Verify `gh-pages` static site publication; if GitHub does not auto-publish it, enable Pages from branch `gh-pages` / root | S-001.5 review | **high** |
+| T-011 | Enable GitHub Pages from branch `gh-pages` / root, then verify `https://didacll.github.io/AgenticCareerBoost/` | S-001.5 review | **high** |
 
 ## Narrative backlog
 

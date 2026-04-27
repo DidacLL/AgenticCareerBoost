@@ -1,7 +1,7 @@
 {
   "sprint_id": "S-001.5",
   "workflow": "review (S-001.5 public-profile cleanup)",
-  "status": "reviewed / static Pages deployment in progress",
+  "status": "reviewed / build green / Pages source setting blocked",
   "last_closure_at": "2026-04-27",
   "last_closure_type": "Review S-001.5",
   "artifacts": [
@@ -11,7 +11,7 @@
     },
     {
       "complete": false,
-      "label": "Website / repo update trace — recruiter landing page rebuilt as static HTML; `gh-pages` publish pending verification"
+      "label": "Website / repo update trace — recruiter landing page rebuilt as static HTML; `gh-pages` branch published and build green; Pages source setting still required"
     },
     {
       "complete": true,
@@ -31,7 +31,7 @@
     }
   ],
   "blockers": [
-    "Static `gh-pages` deployment must be pushed and verified; external account/profile actions require user-controlled confirmation and application"
+    "`gh-pages` branch exists and build tasks pass, but GitHub Pages still returns 404 until repository Pages source is set to `gh-pages` / root; external account/profile actions require user-controlled confirmation and application"
   ],
   "next_sprint_seed": "S-002: Site rebuild (Jekyll)"
 }

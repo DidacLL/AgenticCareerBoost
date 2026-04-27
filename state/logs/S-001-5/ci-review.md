@@ -2,7 +2,7 @@
 
 - **Date**: 2026-04-27
 - **Scope**: GitHub Actions deploy/lint/report checks after the first S-001.5 push
-- **Verdict**: STATIC DEPLOYMENT PATH SELECTED
+- **Verdict**: BUILD GREEN; PUBLIC URL BLOCKED BY PAGES SOURCE SETTING
 
 ## Findings
 
@@ -23,7 +23,8 @@
 
 ## Remaining Action
 
-1. Push the static site commit.
-2. Confirm the `Publish static site` workflow creates/updates the `gh-pages` branch.
-3. Verify `https://didacll.github.io/AgenticCareerBoost/` and the CV PDF link.
-4. If the URL still returns 404, enable Pages manually with Source `Deploy from branch`, Branch `gh-pages`, Folder `/`.
+1. Static site commit `f601700` was pushed.
+2. `Publish static site`, `Docs lint`, and `Export status` passed for `f601700`.
+3. The `gh-pages` branch exists at `8d8061d4bd1526cc469a482fbd910f21687a995b`.
+4. `https://didacll.github.io/AgenticCareerBoost/` still returns 404.
+5. Enable Pages manually with Source `Deploy from branch`, Branch `gh-pages`, Folder `/`.
