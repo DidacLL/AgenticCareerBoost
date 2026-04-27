@@ -1,30 +1,12 @@
 {
   "sprint_id": "S-001.5",
-  "workflow": "review",
-  "status": "event-ready-local-deploy-pending",
-  "last_closure_at": "2026-04-27",
-  "last_closure_type": "UOC fair public profile cleanup review",
-  "artifacts": [
-    "site/starter/index.md",
-    "site/starter/projects/index.md",
-    "site/starter/curriculum.md",
-    "site/starter/contact.md",
-    "site/starter/_layouts/default.html",
-    "site/starter/_config.yml",
-    "content/site/index.md",
-    "content/site/curriculum.md",
-    "content/reports/tex/guides/didac-llorens-cv.tex",
-    "content/reports/build/didac-llorens-cv.pdf",
-    "content/reports/build/s001-profile-audit-positioning.pdf",
-    "content/social/drafts/2026-04-s0015-github-cleanup.md",
-    "content/social/drafts/2026-04-s0015-linkedin-jobteaser-kit.md",
-    "content/social/drafts/2026-04-s0015-uoc-fair-outreach.md",
-    "state/research/s0015-uoc-fair-targets.md",
-    "state/summaries/s0015-execution-checklist.md"
-  ],
+  "workflow": "review (S-001.5 public-profile cleanup)",
+  "status": "reviewed / deploy pending",
+  "last_closure_at": "2026-04-19",
+  "last_closure_type": "Bootstrap",
+  "artifacts": [],
   "blockers": [
-    "GitHub Pages deploy requires committing and pushing local changes.",
-    "External account edits require user-controlled confirmation: GitHub profile/settings, LinkedIn, JobTeaser, repo archiving, interview requests, applications, and messages."
+    "GitHub Pages deploy requires committing and pushing local changes; external account actions require user-controlled confirmation and application"
   ],
   "next_sprint_seed": "S-002: Site rebuild (Jekyll)"
 }
