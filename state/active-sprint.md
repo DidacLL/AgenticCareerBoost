@@ -2,37 +2,37 @@
 
 ## Meta
 
-- **Sprint ID**: S-000
-- **Goal**: Deliver formal LaTeX documentation of the Agentic OS bootstrap with reusable infrastructure, and produce research-backed branding plus 3 first-post options for user review.
-- **Status**: closed
+- **Sprint ID**: S-001.5
+- **Goal**: Make the public profile event-ready for the VI Fira Virtual d'Ocupacio de la UOC by applying the S-001 positioning to GitHub, site, LinkedIn/JobTeaser copy, event outreach, and target-company triage.
+- **Status**: reviewed / deploy pending
 
 ## Tasks
 
-| # | Task | Role | Acceptance criteria | Evidence link |
-|---|------|------|---------------------|---------------|
-| 1 | LaTeX infrastructure (shared preamble, macros, safe-image, TikZ, build config) | Developer | smoke.tex compiles; \screenshotfig renders placeholder for missing images | state/logs/S-000/pc-t1-a.md, pc-t1-b.md |
-| 2 | Master retro-document (s000-agentic-os-bootstrap.tex) | Documentation | PDF compiles; 12 chapters; 3+ screenshot placeholders; \takeaway and \pitfall per chapter | state/logs/S-000/pc-t2-a.md, pc-t2-b.md |
-| 3 | LaTeX build CI (.github/workflows/latex-build.yml) | CI/CD | CI green on S-000 PDF; artifact downloadable; tool-policy updated | state/logs/S-000/pc-t3-a.md, pc-t3-b.md |
-| 4 | LinkedIn landscape research (25 cited sources) | CommunityManager | Every claim cited or flagged as inference; 6 mandatory sections present | content/social/research/2026-04-linkedin-career-agentic-landscape.md |
-| 5 | Brand direction & style book | CommunityManager | Every rule traceable to brand.md, marketing.md, or T4 evidence | content/social/style-book.md |
-| 6 | Three kickoff post options | CommunityManager | 3 distinct options; all pass forbidden-tone checklist; evidence links resolve | state/logs/S-000/pc-t6-a.md, pc-t6-b.md |
-| 7 | State updates (roadmap, active-sprint, current) | Orchestrator | All state files reflect S-000 closure | state/current.md, state/roadmap.md |
+| # | Task | Target | Specialty | Scope | Writes | Acceptance | Memory | Evidence link |
+|---|------|--------|-----------|-------|--------|------------|--------|---------------|
+| 1 | Preserve S-001 baseline | Orchestrator | State recovery | Confirm S-001 local outputs and fix public-copy evidence issues | S-001 drafts, state notes | S-001 artifacts remain usable and no public copy repeats the 5-workflow error | none | content/social/drafts/2026-04-s001-audit-reveal-options.md |
+| 2 | Event target shortlist | Developer/research | Hiring-event triage | Rank JobTeaser companies against ML/data, research, platform, fintech/regtech, and consulting-risk criteria | state/research/s0015-uoc-fair-targets.md | 10+ targets with message angle and risk notes | none | state/research/s0015-uoc-fair-targets.md |
+| 3 | GitHub cleanup package | Developer + CommunityManager | Public profile | Prepare exact profile README, bio/settings, repo metadata, pin order, and archive list | content/social/drafts/2026-04-s0015-github-cleanup.md | No legacy/VladScv links; AgenticCareerBoost and P3CTeX lead | none | content/social/drafts/2026-04-s0015-github-cleanup.md |
+| 4 | Recruiter landing fast rebuild | Developer | Jekyll/static site | Build fair-ready landing page with JSON-LD, OG tags, projects, curriculum, PDF CV link, contact, and current links | site/starter/**, content/site/** | 90-second recruiter scan works; no active legacy-site link; curriculum and CV path exist | none | site/starter/index.md |
+| 5 | LinkedIn + JobTeaser profile kit | CommunityManager | Profile copy | Final paste-ready headline, About, Featured, Experience, JobTeaser summary, and event pitch | content/social/drafts/2026-04-s0015-linkedin-jobteaser-kit.md | Under platform-friendly length; no unsupported credentials | none | content/social/drafts/2026-04-s0015-linkedin-jobteaser-kit.md |
+| 6 | Event outreach kit | CommunityManager | Recruiter messaging | Draft multilingual intros, interview request, follow-up, and company-specific angles | content/social/drafts/2026-04-s0015-uoc-fair-outreach.md | Drafts ready; sending remains user-controlled | none | content/social/drafts/2026-04-s0015-uoc-fair-outreach.md |
+| 7 | Execution checklist | Orchestrator | GitHub/account operations | Separate local work from external account actions requiring confirmation | state/summaries/s0015-execution-checklist.md | Human can apply changes without guessing | none | state/summaries/s0015-execution-checklist.md |
+| 8 | PairCheck | PairCheck | Evidence + public safety | Review site, CV, state sync, and public-copy kits | state/logs/S-001-5/pc-*.md | No fabricated metrics, stale links, missing curriculum, or unsupported claims | none | state/logs/S-001-5/ |
+| 9 | Sprint closure | Orchestrator | State update | Update state/current, roadmap, backlog, public status | state files, data/public-status.json | S-001.5 reviewed; deploy remains pending until commit/push and GitHub Pages check | none | state/current.md |
 
 ## Pair-check assignments
 
 | Task # | PairCheck-A | PairCheck-B | Verdict |
 |--------|-------------|-------------|---------|
-| 1 | pc-t1-a.md (build reproducibility) | pc-t1-b.md (preamble conformance) | PARTIAL → defects fixed → PASS |
-| 2 | pc-t2-a.md (mission alignment) | pc-t2-b.md (technical correctness) | PASS / PASS |
-| 3 | pc-t3-a.md (YAML correctness) | pc-t3-b.md (security) | PASS / PASS |
-| 6 | pc-t6-a.md (brand compliance) | pc-t6-b.md (evidence integrity) | PARTIAL → defects fixed → PASS |
+| 3, 5, 6 | pc-public-copy.md (public copy + evidence) | n/a | PASS |
+| 4 | pc-site.md (landing page + links) | n/a | PASS |
 
 ## Closure artifacts
 
-- [x] Repository artifact(s) — content/reports/tex/**, .github/workflows/latex-build.yml, content/social/**
-- [x] Website / repo update trace — CI workflow added; roadmap and current state updated
-- [x] Social / LinkedIn-ready artifact — content/social/drafts/2026-04-s000-kickoff-options.md (3 options, user to select)
-- [x] Formal engineering documentation — content/reports/tex/sprints/s000-agentic-os-bootstrap.tex
+- [x] Repository artifact(s) — S-001.5 research, profile kits, outreach kit, execution checklist, site pages, CV source/PDF
+- [ ] Website / repo update trace — recruiter landing page rebuilt in `site/starter/` and `content/site/`; GitHub Pages deploy pending push
+- [x] Social / LinkedIn-ready artifact — LinkedIn/JobTeaser kit and fair outreach messages
+- [x] Formal engineering documentation — S-001 report source plus S-001.5 formal CV PDF
 - [x] Condensed technical backlog — see below
 - [x] Condensed narrative backlog — see below
 
@@ -40,19 +40,18 @@
 
 ### Technical
 
-- T-003 CLOSED: LaTeX build toolchain configured (content/reports/tex/ + latex-build.yml)
-- T-004 NEW: Decide whether published LaTeX PDFs should also be mirrored into GitHub Pages (repo publication handled in CI)
-- T-005 NEW: Architecture diagram screenshot collection (user to replace \screenshotfig placeholders)
-- T-001 UPDATE: LinkedIn scheduling tool decision still open; style-book.md §7 recommends 2x/week cadence
+- T-009 NEW: Apply GitHub profile/repo metadata cleanup from S-001.5 checklist through user-controlled account actions
+- T-010 NEW: Complete full S-002 site rebuild with deeper project pages, CV hardening, and stable asset pipeline
+- T-008 UPDATE: S-001 LaTeX report PDF promoted locally into `content/reports/build/`; CI promotion still needs verification after push
 
 ### Narrative
 
-- N-001 RESOLVED: English confirmed for operational reports (per brand.md language policy)
-- N-004 NEW: Post-publication A/B tracking strategy (which option performed best, iterate)
-- N-005 NEW: Decide whether the kickoff post becomes a recurring series or standalone
-- N-006 NEW: Pre-posting network-seeding via BCN Engineering Slack and GDG Barcelona (T4 recommendation)
+- N-007 RESOLVED: Public posture chosen for event — ML/Data primary, Agentic Systems differentiator
+- N-012 NEW: Apply LinkedIn and JobTeaser profile copy manually before/during UOC fair
+- N-013 NEW: Track UOC fair company contacts, interview requests, and follow-ups
+- N-014 NEW: Verify PUE full name, Escola Massana details, specific UOC coursework, professional email, and MemPalace contribution scope
 
 ## CI trace
 
 - Commit(s): _(pending user commit)_
-- Workflow run: GitHub Actions history for `latex-build.yml` on `main`
+- Workflow run: local checks run before commit; GitHub Actions pending push

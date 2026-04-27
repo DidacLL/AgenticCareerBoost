@@ -1,0 +1,1042 @@
+\documentclass[a4paper,11pt,openany]{report}
+\usepackage{../preamble/agenticboost}
+
+\renewcommand{\sprintId}{S-001}
+
+\title{%
+  \textsc{AgenticCareerBoost}\\[0.4em]
+  \Large Sprint S-001: Profile Audit \& Strategic Positioning\\[0.3em]
+  \large Barcelona IT Market $\cdot$ Hiring Landscape $\cdot$ Career-Changer Strategy%
+}
+\author{Dídac Llorens \\ \small \href{https://github.com/DidacLL}{github.com/DidacLL}}
+\date{April 2026 --- v1.0}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+% ============================================================================
+\chapter{Executive Summary}
+\label{ch:executive}
+% ============================================================================
+
+\takeaway{At 36, Dídac Llorens sits in the peak hiring bracket for Spanish
+tech (Manfred data: 33\% of placements are age 36--40). His strongest
+competitive advantage is not Java backend experience---it is the combination
+of a formal CS degree with ML/AI specialization, 15 years of regulated-industry
+discipline, and a portfolio of systems-level work that no other junior candidate
+in Barcelona can replicate.}
+
+\section{Mission}
+
+This report synthesizes four parallel research streams executed during Sprint
+S-001 of the \projectName{} system. The objective: transform a fragmented,
+outdated public profile into a strategically positioned engineering identity
+capable of competing in Barcelona's bifurcated tech labour market. Every claim
+in this document traces to evidence from the source research (T1--T4) or is
+explicitly flagged as inference.
+
+\section{Key Findings}
+
+\begin{description}[style=nextline]
+  \item[T1 --- Barcelona IT Job Market]
+    The market is sharply bifurcated: generalist junior positions are
+    oversupplied while specialized ML/AI and infrastructure roles face talent
+    scarcity. ML/Data Engineering offers the strongest credential
+    differentiation (UOC ML/AI mention) in a growing, less-saturated lane.
+    Realistic first-job salary range: \textbf{€24,000--€30,000} gross/year.
+
+  \item[T2 --- Social, Press \& Legal Landscape]
+    The 36--40 age bracket is the \emph{mode} of all Spanish tech hires, not a
+    penalty zone (Manfred, 240+ placements). The EU AI Act creates demand for
+    ML engineers who understand compliance. The EU Pay Transparency Directive
+    (transposition deadline June 2026) prohibits salary-history anchoring---directly
+    beneficial for career changers.
+
+  \item[T3 --- Profile Audit]
+    LinkedIn completeness: $\sim$25\%. GitHub bio: empty. Legacy portfolio
+    site: net negative. Three surfaces present three contradictory identities.
+    A recruiter searching ``Dídac Llorens Barcelona developer'' today finds
+    zero evidence of the agentic systems work, the degree progress, or the ML
+    specialization.
+
+  \item[T4 --- Positioning Synthesis]
+    Four positioning angles evaluated. \textbf{ML/Data Engineering with Domain
+    Depth} ranked primary (60\% of applications). \textbf{Agentic Systems
+    Engineer} ranked secondary (20\%, differentiator). Research Engineering
+    tertiary (10\%, targeted). Backend/Platform deprioritized (10\%, fallback
+    only at product companies).
+\end{description}
+
+\section{Ranked Positioning Recommendation}
+
+\begin{enumerate}
+  \item \textbf{Primary:} ML/Data Engineering with Domain Depth
+  \item \textbf{Secondary:} Agentic Systems Engineer (differentiator within
+    ML positioning; lead for BSC/HP-specific applications)
+  \item \textbf{Tertiary:} Research Engineer / Applied AI (targeted RE1
+    openings)
+  \item \textbf{Fallback:} Backend + Platform (product companies only; never
+    body-shop consulting)
+\end{enumerate}
+
+\section{Top Three Immediate Actions}
+
+\begin{enumerate}
+  \item \textbf{Unify the narrative} across LinkedIn, GitHub, and the public
+    site---eliminate the three contradictory identities (GP-01).
+  \item \textbf{Make Python visible} as a primary skill on all surfaces
+    (GP-03).
+  \item \textbf{Begin LinkedIn posting cadence} (2$\times$/month) to reverse
+    two years of platform silence (M6).
+\end{enumerate}
+
+\pitfall{The single most damaging finding is not any individual weakness---it
+is the \emph{cross-surface inconsistency}. LinkedIn says ``Java backend,''
+GitHub says nothing, the legacy site says ``90s visual artist.'' Until this is
+resolved, every other improvement is undermined.}
+
+
+% ============================================================================
+\chapter{Barcelona IT Job Market}
+\label{ch:market}
+% ============================================================================
+
+\takeaway{The most realistic entry vectors, in order of strategic value:
+(1)~ML/Data Engineering---strongest credential differentiation;
+(2)~Platform/Infrastructure---avoids the junior backend bloodbath;
+(3)~Research Engineering---niche but accessible with a CS degree;
+(4)~Backend---viable but requires standing out from a saturated pool.}
+
+\section{Market Structure: The Two-Speed Bifurcation}
+
+Barcelona's tech sector employs $\sim$150,000 workers across $\sim$12,000
+companies (figures vary by source: 11,000--12,000+) in the 22@ district
+alone~[S01, R6]. KiTalent's 2026 analysis documents a critical
+\keyterm{two-speed market}: venture capital fell 43\% from the 2021 peak, but
+average deal size rose from €3.2M to €4.8M. Capital concentrated into fewer,
+later-stage companies (Series~B+) all competing for the same senior
+specialists. Seed funding declined 34\%, starving the pipeline of early-stage
+companies that normally absorb and develop junior talent~[R6].
+
+\begin{itemize}
+  \item \textbf{Loosening segment:} Generalist software development, frontend,
+    operational roles---larger candidate pools as VC contracted.
+  \item \textbf{Intensifying segment:} AI/ML engineers, cybersecurity
+    architects, senior product leaders---180--240 day time-to-fill for senior
+    ML roles.
+\end{itemize}
+
+\section{Role-Family Demand Map}
+
+\Cref{tab:role-demand} presents the role-family assessment calibrated for
+Dídac's profile. Composite scores are from the priority-fit matrix in T1,
+weighted across six user-stated priorities.
+
+\begin{table}[htbp]
+\centering
+\caption{Role-family demand and profile fit (Barcelona, 2026).}
+\label{tab:role-demand}
+\small
+\begin{tabularx}{\textwidth}{l c c X}
+\toprule
+\textbf{Role Family} & \textbf{Demand} & \textbf{Composite} & \textbf{Fit Assessment} \\
+\midrule
+ML / Data Eng.         & High $\uparrow$  & 4.2/5 & Strongest credential differentiation (UOC ML/AI mention). Data \& AI salaries grew 10\% YoY~[S04]. \\
+Research Eng.          & Medium (niche)    & 4.2/5 & BSC, i2CAT, CVC post RE1 positions. LaTeX native. Art + ML = creative AI angle. \\
+Platform / Infra.      & High              & 4.0/5 & Linux SysAdmin + systems interest. Less flooded than backend; €26K--€34K junior~[S05]. \\
+Agentic / AI Eng.      & High (senior)     & 4.3/5 & Highest priority alignment but almost exclusively senior hiring. Portfolio differentiator. \\
+Developer Tooling      & Medium            & 3.8/5 & Dynatrace R\&D expansion (180 positions)~[S07]. Niche, slower progression. \\
+DevOps / SRE           & High              & 3.3/5 & 179 openings on LinkedIn BCN, 26 entry-level~[S09]. \\
+Backend Eng.           & Med-High          & 2.3/5 & Saturating at junior level. Demand fell 7\% in 2025~[S04]. CRUD trap risk. \\
+QA / Test Eng.         & Medium            & 2.2/5 & Viable entry point but limited ceiling. Most positions require 3+ years~[S08]. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Salary Bands}
+
+All figures are gross annual in euros. Barcelona salaries sit 5--10\% above
+the Spanish average but 20--40\% below Madrid for equivalent roles at
+international companies~[S10, S11].
+
+\begin{table}[htbp]
+\centering
+\caption{Entry salary bands---Barcelona tech sector (2025--2026).}
+\label{tab:salaries}
+\begin{tabular}{l r@{--}l r@{--}l l}
+\toprule
+\textbf{Role} & \multicolumn{2}{c}{\textbf{Junior (0--2\,yr)}} &
+  \multicolumn{2}{c}{\textbf{Mid (2--5\,yr)}} & \textbf{Source} \\
+\midrule
+Backend Developer    & €20K & €28K & €31K & €40K & Manfred, BI~[S05,S10] \\
+Full-Stack Developer & €22K & €28K & €30K & €42K & BI, Manfred~[S05,S10] \\
+DevOps / SRE         & €26K & €34K & €38K & €55K & BI, LinkedIn~[S05,S09] \\
+ML / Data Engineer   & €24K & €32K & €40K & €55K & BI, ESD~[S05,S12] \\
+Data Scientist       & €25K & €35K & €40K & €55K & PayScale, ESD~[S12,S13] \\
+Research Eng.\ (RE1) & €25K & €32K & €32K & €42K & BSC listings~[S14] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Career-changer premium/penalty.} Dídac's realistic first-job range is
+\textbf{€24,000--€30,000}. Below €24K signals exploitation; above €30K
+requires exceptional positioning or a bidding war. The 18-month trajectory:
+with degree conferred + first production experience, €32K--€40K is realistic
+within 12--18 months~[S10].
+
+\section{Named Employer Shortlist (Tier~1)}
+
+\begin{table}[htbp]
+\centering
+\caption{Tier~1 high-fit employers---Barcelona (selected).}
+\label{tab:employers-t1}
+\small
+\begin{tabularx}{\textwidth}{r l l X}
+\toprule
+\textbf{\#} & \textbf{Employer} & \textbf{Type} & \textbf{Why Fit} \\
+\midrule
+1  & BSC-CNS          & Public research      & RE1 Junior AI Software Research Engineer (agentic AI, LLM-RAG)~[S14]. \\
+2  & HP (Sant Cugat)  & Multinational R\&D   & Graduate AI Engineer, Junior ML Engineer (GenAI)~[S16]. \\
+3  & Dynatrace        & Dev tooling          & 180 new positions in Barcelona; Java JVM stack~[S07]. \\
+4  & i2CAT            & Research center      & RE1 positions; 5G/IoT/AI; Catalan language advantage~[S17]. \\
+5  & CaixaBank Tech   & Fintech              & 500 hires/quarter; banking domain overlap~[R7]. \\
+6  & Red Points       & ML / Brand protection& Junior ML Engineer (multimodal AI); B~Corp~[R14]. \\
+7  & Wallapop         & Marketplace          & MLOps, recommendation systems; hybrid model~[S20]. \\
+8  & N26              & Fintech (neobank)    & JVM + Spring Boot; banking domain advantage; above-market~[S20]. \\
+9  & Typeform         & SaaS / Product       & Product-focused culture; innovation over credentials~[S19]. \\
+10 & Worldsensing     & IoT / Deep Tech      & Small team (20~eng); resource-aware programming~[S21]. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\noindent\textit{Note: This shortlist substitutes King and Satellogic (T1 Tier~1) with CaixaBank Tech and Red Points based on T2 evidence of stronger hiring activity and profile fit.}
+
+\section{Hybrid/Remote Baseline}
+
+\begin{table}[htbp]
+\centering
+\caption{Work model distribution---Barcelona tech sector (2026).}
+\label{tab:remote}
+\begin{tabular}{l c l}
+\toprule
+\textbf{Model} & \textbf{Est.\ \%} & \textbf{Trend (2024$\to$2026)} \\
+\midrule
+Hybrid (2--3 days office) & 60--65\% & $\uparrow$ Consolidating as default \\
+Fully on-site             & 20--25\% & $\uparrow$ Slight increase (RTO wave) \\
+Fully remote              & 15--20\% & $\downarrow$ Declining from pandemic peak \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+70\% of 22@ professionals prefer hybrid work; 91\% prioritize workspace
+flexibility~[S25]. For a career changer targeting a first role, on-site
+willingness increases employability---hybrid is the realistic baseline.
+
+\pitfall{Junior backend engineering is the most competitive lane in Barcelona.
+Hundreds of bootcamp graduates compete for each opening, and backend demand
+fell 7\% in 2025~[S04]. Entering this lane without differentiation is the
+``junior backend bloodbath.''}
+
+
+% ============================================================================
+\chapter{Social, Press \& Legal Landscape}
+\label{ch:social}
+% ============================================================================
+
+\takeaway{Manfred's data shows 36 is the peak hiring age in Spanish tech, not
+a liability. The 36--40 bracket accounts for 33\% of all placements---the
+single largest cohort. The age-penalty cliff begins at 41+ and becomes severe
+at 45+.}
+
+\section{Recruiter Hiring Discourse}
+
+\subsection{The Manfred Ageism Report}
+
+Manfred's survey of 240+ managed hires (2021--2025) reveals the following age
+distribution~[R1]:
+
+\begin{table}[htbp]
+\centering
+\caption{Age distribution of Manfred-managed tech hires (Spain).}
+\label{tab:manfred-age}
+\begin{tabular}{l r l}
+\toprule
+\textbf{Age Bracket} & \textbf{\% of Hires} & \textbf{Interpretation} \\
+\midrule
+20--30  & 14\% & Smallest cohort---youth $\neq$ default \\
+31--35  & 26\% & Peak of first-career maturity \\
+\textbf{36--40}  & \textbf{33\%} & \textbf{Highest hiring rate (mode)} \\
+41--45  & 13\% & Bias begins to increase \\
+45+     & 13\% & Documented discrimination \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Manfred's conclusion: ``Solamente un 13\% de las personas contratadas tiene 45
+años o más. Hay edadismo.'' The mean hiring age was 37; the maximum recorded
+was 58. At 36, Dídac sits squarely in the highest-placement bracket.
+
+\subsection{The El~País Feature (April 2026)}
+
+El~País reported on AI-driven career reinvention for senior workers~[R2]:
+Spain's unemployment rate for workers over 55 stands at 11.2\%---more than
+double France's 5.2\% and far above Germany's 2.1\%. However, AI and digital
+transformation are creating unexpected advantages for experienced career
+changers who combine domain knowledge with new technical skills.
+
+\subsection{UOC Research on Age Discrimination}
+
+A study led by Andrea Rosales (IN3, UOC) found that in the ICT industry, a
+programmer is considered ``old'' at 35+---compared to 55+ in other
+sectors~[R3]. Companies overvalue youth-associated ``passion'' and deprioritize
+the rigor of older professionals. Workspaces designed around gaming culture and
+extended social events structurally exclude workers with family
+responsibilities.
+
+\section{Barcelona Tech-Scene Company Philosophies}
+
+\begin{table}[htbp]
+\centering
+\caption{Key Barcelona employer hiring philosophies (selected).}
+\label{tab:company-philosophy}
+\small
+\begin{tabularx}{\textwidth}{l l X}
+\toprule
+\textbf{Employer} & \textbf{Culture Signal} & \textbf{Relevance} \\
+\midrule
+CaixaBank Tech & 500 hires/Q1 2025; Rookies League & Most natural fit: 15yr banking domain overlap~[R7]. \\
+Glovo & ``Gas, Deep Dive, Glownership'' & 400+ engineers in 22@; Airflow/Aurora MySQL stack~[R8]. \\
+Factorial & 20--40 deploys/day; end-to-end ownership & Barcelona unicorn; curiosity + candor culture~[R9]. \\
+Typeform & ``Swarms'' (autonomous teams) & Passion, intelligence, humility; rejected Spotify Model~[R10]. \\
+BSC-CNS & Agentic AI + LLM-RAG role posted & Direct alignment with \projectName{}~[R11]. \\
+Red Points & B~Corp; Junior ML Engineer posting & Multimodal AI (CV + NLP); woman CEO; 30+ nationalities~[R14]. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Regulatory Landscape}
+
+\subsection{EU AI Act---New Compliance Roles}
+
+The \keyterm{EU AI Act} classifies most employment-related AI systems as
+\textbf{high-risk}, including tools for recruitment, application filtering, and
+candidate evaluation~[R16]. Compliance costs are estimated at
+€150,000--€500,000 per AI-deploying scale-up for algorithmic auditing and
+documentation. New role categories emerging: AI Compliance Specialist, Chief AI
+Officer (CAIO), Responsible AI Advisor~[R17].
+
+Dídac's combination of banking regulatory experience + ML/AI specialization
+positions him for the emerging ``AI compliance engineering'' space, particularly
+at CaixaBank Tech or fintech firms where AI compliance intersects with
+financial regulation.
+
+\subsection{Teletrabajo Law and Pay Transparency}
+
+\textbf{Ley 10/2021} (Spanish remote work law) requires a written remote work
+agreement when $\geq$30\% of work is remote over a 3-month reference period.
+Employers must provide or compensate remote work costs~[R18, R19].
+
+The \textbf{EU Pay Transparency Directive} (2023/970), to be transposed by
+7~June 2026~[R20, R21]:
+\begin{itemize}
+  \item Job postings must include salary ranges.
+  \item Employers \textbf{cannot ask candidates about salary history}.
+  \item Burden of proof shifts to employers for pay-difference justification.
+\end{itemize}
+
+The salary-history prohibition is directly beneficial for career changers:
+it prevents anchoring tech offers to lower non-tech salaries.
+
+\subsection{Upskilling Programs}
+
+\begin{table}[htbp]
+\centering
+\caption{Active public upskilling programs (Catalonia/Spain, 2025--2026).}
+\label{tab:upskilling}
+\begin{tabularx}{\textwidth}{l r X l}
+\toprule
+\textbf{Program} & \textbf{Budget} & \textbf{Focus} & \textbf{Status} \\
+\midrule
+Més Talent Cat (SOC) & €15M & High-qualification digital training (L4--L5) & Active \\
+Forma i Insereix 2026 & €7.5M & Training for unemployed; Feb--Oct 2026 & Open \\
+SOC-FPOAN & Variable & Data Scientist, Cloud Deployer, Web Dev & Active \\
+Kit Digital & €3.067B & SME digital adoption (concluded Oct 2025) & Closed \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Cultural Hiring Patterns for Career Changers}
+
+Official discourse celebrates career changers: Spain's bootcamp ecosystem
+(Ironhack, KeepCoding, Adalab, Hack a Boss) has normalized career transitions.
+Ironhack Barcelona reports 94\% employment at 180 days~[R41]; Adalab
+reports 90\% insertion across 10 cohorts~[R36]. However, the
+\keyterm{seed-funding decline} ($-$34\% YoY) is starving early-stage companies
+that traditionally absorb junior/career-change talent---the pipeline is
+``thinning from the bottom''~[R6].
+
+At 36, Dídac is positioned in the cultural sweet spot: young enough to avoid
+the age cliff, old enough to leverage experience credibly. The strategy must
+avoid ``junior'' framing entirely and lead with the 15-year domain expertise.
+
+\pitfall{The ageism cliff in Spanish tech begins at 41--45 and becomes severe
+at 45+, where only 13\% of placements occur and 50\%+ face long-term
+unemployment nationally. While 36 is currently safe, the window is finite---career
+entry should not be delayed.}
+
+
+% ============================================================================
+\chapter{Profile Audit Findings}
+\label{ch:audit}
+% ============================================================================
+
+\takeaway{The strongest portfolio candidates are \projectName{} (systems
+thinking, agentic engineering, documentation discipline) and P3CTeX (LaTeX
+mastery, OSS discipline, package architecture). Both are invisible on every
+surface except their own GitHub repos.}
+
+\section{LinkedIn Audit Summary}
+
+\Cref{tab:linkedin-audit} presents the field-by-field assessment of the
+LinkedIn profile. Severity levels: \textbf{Critical} (blocks hiring),
+\textbf{Major} (significantly weakens profile), \textbf{Minor} (polish item).
+
+\begin{table}[htbp]
+\centering
+\caption{LinkedIn profile audit (as of 2026-04-20).}
+\label{tab:linkedin-audit}
+\small
+\begin{tabularx}{\textwidth}{l c c X}
+\toprule
+\textbf{Field} & \textbf{Score} & \textbf{Severity} & \textbf{Finding / Recommendation} \\
+\midrule
+Headline & 1/5 & Critical & ``MicroServices $\|$ Back-End Developer \&\& Java lover.'' Frozen in 2022 bootcamp language; invisible to search. \\
+About & 1/5 & Critical & Likely missing or stale. Highest-impact free-text field is wasted. \\
+Featured & 0/5 & Major & Empty. No links to \projectName{}, P3CTeX, or engineering artifacts. \\
+Experience & 2/5 & Critical & No ``Independent Engineering Projects'' entry. 15yr banking reads as career-changer risk. \\
+Education & 3/5 & Major & UOC end date shows 2026 (actual: Feb 2027). ML/AI mention invisible. \\
+Skills & 2/5 & Major & Likely bootcamp-era only (Java, Spring, HTML/CSS). Missing Python, LaTeX, ML. \\
+Recommendations & 0/5 & Major & Zero recommendations despite 15+ years of professional experience. \\
+Activity & 1/5 & Major & No original posts since $\sim$2023. Zero evidence of current engineering work. \\
+\midrule
+\multicolumn{2}{l}{\textbf{Overall}} & & \textbf{$\sim$25\% completeness} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{GitHub Audit Summary}
+
+\subsection{Profile-Level Issues}
+
+\begin{itemize}
+  \item \textbf{Bio}: Empty (Critical). First text a visitor reads---currently
+    says nothing.
+  \item \textbf{Profile README} (\fname{DidacLL/DidacLL}): 4~lines of broken
+    English---``Software engineer on process!''---links to the legacy site,
+    references a mysterious ``VladScv'' account (Critical).
+  \item \textbf{Website/Social links}: All empty. No LinkedIn link, no
+    hireable flag, no website (Major).
+  \item \textbf{Topics/Tags}: 0/12 repos have any topics set (Major).
+\end{itemize}
+
+\subsection{Per-Repo Scorecard}
+
+\begin{table}[htbp]
+\centering
+\caption{GitHub repository scorecard (abbreviated).}
+\label{tab:repo-scorecard}
+\small
+\begin{tabularx}{\textwidth}{r l c c c l}
+\toprule
+\textbf{\#} & \textbf{Repo} & \textbf{README} & \textbf{Commits} & \textbf{Showcase} & \textbf{Verdict} \\
+\midrule
+1  & AgenticCareerBoost    & 5/5 & 4/5 & 4/5 & \textbf{Enhance}---flagship \\
+2  & P3CTeX                & 5/5 & 4/5 & 4/5 & \textbf{Enhance}---flagship \\
+3  & p3cTeX-UMLST          & 1/5 & 2/5 & 2/5 & Enhance (minor) \\
+4  & Ironhack-IronBank     & 2/5 & 2/5 & 2/5 & Enhance (if needed) \\
+5  & FPP2024\_TIPorHANG    & 2/5 & 1/5 & 1/5 & Archive \\
+6  & TXTO                  & 1/5 & 1/5 & 1/5 & Archive \\
+7  & Didac-dev-project     & 0/5 & 1/5 & 0/5 & Archive \\
+8  & art-scv-website       & 0/5 & 1/5 & 0/5 & Archive \\
+9  & scv-calculator        & 1/5 & 1/5 & 0/5 & Archive \\
+10 & DxM\_Game\_v3         & 0/5 & 1/5 & 0/5 & Archive \\
+11 & FileSaver.js          & N/A & N/A & 0/5 & Archive (fork) \\
+12 & DidacLL (profile)     & 1/5 & 1/5 & 0/5 & \textbf{Rewrite immediately} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Cross-cutting issues: 4/12 repos contain self-deprecating descriptions
+(``just a\ldots'', ``only for test\ldots''); 6/12 have no README or a
+single-line README; 4/12 lack a license.
+
+\section{Legacy Site Assessment}
+
+The legacy site (\texttt{didacll.github.io/Didac-dev-project/}) is a 2022
+artifact that \textbf{actively undermines} current positioning:
+
+\begin{itemize}
+  \item Self-description: ``I'm a 90s younger, professional visual Artist who
+    started coding during the lockdown in 2020.''
+  \item Positioning: ``I'm looking for a company who could lead me to the
+    proper way to start what would be, for sure, a great Tech career.''
+  \item Skills frozen at 2022. Multiple grammar errors. No structured data,
+    no SEO, no contact information.
+  \item Brand alignment: violates every principle---tone is casual, junior,
+    apologetic; zero evidence of systems thinking or agentic work.
+\end{itemize}
+
+\textbf{Verdict}: Net negative. Must be unlinked from all controlled surfaces
+immediately and replaced in S-002/S-003.
+
+\screenshotfig{figures/screenshots/legacy-site-2022.png}%
+  {Legacy portfolio site (2022)---frozen content, apologetic tone, no evidence of current work.}%
+  {fig:legacy-site}
+
+\section{Cross-Surface Consistency}
+
+\begin{table}[htbp]
+\centering
+\caption{Cross-surface narrative consistency check.}
+\label{tab:consistency}
+\small
+\begin{tabularx}{\textwidth}{l l l l c}
+\toprule
+\textbf{Dimension} & \textbf{LinkedIn} & \textbf{GitHub} & \textbf{Legacy Site} & \textbf{OK?} \\
+\midrule
+Identity     & Java backend dev   & (empty)         & Visual artist who codes & \textbf{No} \\
+Current work & Not visible        & TeX-dominated   & ``Looking for company'' & \textbf{No} \\
+UOC degree   & 2021--2026         & Not mentioned   & ``Current''             & \textbf{No} \\
+ML/AI        & Invisible          & Invisible       & Not mentioned           & \textbf{No} \\
+Experience   & Not visible        & Not mentioned   & ``+10 years''           & \textbf{No} \\
+Key projects & Not linked         & Repos exist     & Not mentioned           & \textbf{No} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+A recruiter checking all three surfaces would encounter three completely
+different people. This is the single most damaging finding of the entire audit.
+
+\screenshotfig{figures/screenshots/github-profile-before.png}%
+  {GitHub profile (2026-04-20)---empty bio, stale README, no pinned showcase repos.}%
+  {fig:github-before}
+
+\screenshotfig{figures/screenshots/linkedin-headline-before.png}%
+  {LinkedIn headline (2026-04-20)---2022 bootcamp language, code-syntax gimmicks, ``Java lover'' framing.}%
+  {fig:linkedin-before}
+
+\pitfall{The LinkedIn headline ``MicroServices $\|$ Back-End Developer \&\&
+Java lover'' uses programmer-humor syntax invisible to LinkedIn search, is
+unprofessional for a 36-year-old targeting engineering roles, and freezes the
+candidate in 2022 bootcamp language. It must be replaced immediately.}
+
+
+% ============================================================================
+\chapter{Positioning Synthesis \& Option Trees}
+\label{ch:positioning}
+% ============================================================================
+
+\takeaway{Four positioning angles were evaluated against market data, profile
+assets, and user priorities. ML/Data Engineering with Domain Depth is the
+primary recommendation---it combines the strongest credential differentiation,
+highest salary floor, and fastest-growing demand in Barcelona.}
+
+\section{Angle A: ML/Data Engineering with Domain Depth}
+
+\textbf{Pitch}: ML engineering candidate with formal AI specialization, 15
+years of regulated-industry experience, and OSS portfolio discipline---not a
+bootcamp retread.
+
+\begin{table}[htbp]
+\centering
+\caption{Angle A---Pros and cons.}
+\label{tab:angle-a}
+\small
+\begin{tabularx}{\textwidth}{c X}
+\toprule
+\multicolumn{2}{c}{\textbf{Pros}} \\
+\midrule
+1 & UOC ML/AI mention is the strongest credential differentiator vs.\ bootcamp-only candidates~[T1\,§1]. \\
+2 & Lower competition than backend; fewer candidates hold formal ML qualifications at junior level~[T1\,§1, T2\,§2.2]. \\
+3 & Highest salary floor among realistic lanes (€24K--€32K junior)~[T1\,§2]. \\
+4 & Fastest-growing demand (10\% YoY salary growth)~[S04]. \\
+5 & Banking domain creates genuine advantage at fintech employers~[T2\,§2.3, T2\,§3.1]. \\
+\midrule
+\multicolumn{2}{c}{\textbf{Cons}} \\
+\midrule
+1 & Degree not conferred until Feb 2027---some HR auto-filters~[T1\,§2]. \\
+2 & No production ML deployment; only coursework and portfolio~[T1\,App.]. \\
+3 & Python not yet visible as primary language; strongest language is Java. \\
+4 & Entry-level ML roles are fewer in absolute numbers than backend~[T1\,§1]. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\textbf{Target employers}: HP (Sant Cugat), BSC-CNS, Red Points, Wallapop,
+CaixaBank Tech, Glovo.
+
+\section{Angle B: Agentic Systems Engineer}
+
+\textbf{Pitch}: Systems engineer building model-agnostic agentic workflows
+with formal documentation discipline---demonstrated by a live, inspectable,
+multi-agent operating system.
+
+\begin{table}[htbp]
+\centering
+\caption{Angle B---Pros and cons.}
+\label{tab:angle-b}
+\small
+\begin{tabularx}{\textwidth}{c X}
+\toprule
+\multicolumn{2}{c}{\textbf{Pros}} \\
+\midrule
+1 & \projectName{} is a live, public, inspectable system---the strongest portfolio artifact for any agentic role in BCN~[T3\,§4]. \\
+2 & BSC-CNS has posted a Junior AI Research Engineer role for agentic AI + LLM-RAG---direct alignment~[T2\,§2.3]. \\
+3 & Model-agnostic design differentiates from vendor-locked candidates~[T1\,§5]. \\
+4 & Highest priority alignment (4.3/5 composite) across all role families~[T1\,§5]. \\
+\midrule
+\multicolumn{2}{c}{\textbf{Cons}} \\
+\midrule
+1 & Almost exclusively senior hiring---entry barrier is the highest of all angles~[T1\,§1]. \\
+2 & Tiny market: very few junior-accessible agentic roles exist in Barcelona (2026). \\
+3 & Single project is thin evidence for a specialization claim. \\
+4 & Risk of ``AI-hype'' perception if positioning is not disciplined. \\
+5 & No production deployment of any agentic system; the project is a portfolio artifact, not a deployed service~[T3\,§4]. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\textbf{Target employers}: BSC-CNS, HP GenAI Lab, Dynatrace, Worldsensing.
+
+\section{Angle C: Research Engineer / Applied AI}
+
+\textbf{Pitch}: CS graduate with ML/AI specialization, investigation-driven
+mindset, and documented engineering discipline---targeting funded research
+positions.
+
+\begin{table}[htbp]
+\centering
+\caption{Angle C---Pros and cons.}
+\label{tab:angle-c}
+\small
+\begin{tabularx}{\textwidth}{c X}
+\toprule
+\multicolumn{2}{c}{\textbf{Pros}} \\
+\midrule
+1 & CS degree meets minimum requirement directly~[T1\,§1]. \\
+2 & LaTeX is native to research---P3CTeX demonstrates production-grade competence~[T3\,§4]. \\
+3 & Art + ML creates unusual profile for computer vision or creative AI research. \\
+4 & BSC AI4Science Fellowships: 158 positions across 4-year program~[T2\,§2.3]. \\
+\midrule
+\multicolumn{2}{c}{\textbf{Cons}} \\
+\midrule
+1 & Project-funded contracts (1--3 years); no renewal guarantee~[T1\,§1]. \\
+2 & Salary range mid-market with slower growth than private sector~[T1\,§2]. \\
+3 & No research publications or conference presentations. \\
+4 & Career progression beyond RE1 often requires Master's or PhD. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\textbf{Target employers}: BSC-CNS, i2CAT, CVC (UAB), UOC IN3, Eurecat, UPC.
+
+\section{Angle D: Backend + Platform Engineer (Deprioritized)}
+
+This angle offers the widest funnel of openings and the most direct credential
+match (Java bootcamp, IronBank project, Linux SysAdmin). However, it carries
+the \textbf{highest risk of the CRUD consulting trap}, wastes the ML/AI
+differentiation, and scores lowest on priority alignment (2.3/5).
+
+\textbf{Deploy only as fallback} after 4+ months without offers, and
+\textbf{exclusively at product companies} (Typeform, Wallapop, N26, Factorial,
+Worldsensing)---never at body-shop consultancies.
+
+\section{Ranked Recommendation}
+
+\begin{table}[htbp]
+\centering
+\caption{Positioning angle ranking and application distribution.}
+\label{tab:ranking}
+\begin{tabular}{c l l r}
+\toprule
+\textbf{Rank} & \textbf{Angle} & \textbf{Use As} & \textbf{Volume} \\
+\midrule
+1 & A: ML/Data Eng.\ + Domain Depth & Default posture       & 60\% \\
+2 & B: Agentic Systems Engineer     & Differentiator        & 20\% \\
+3 & C: Research Eng.\ / Applied AI  & Targeted RE1 openings & 10\% \\
+4 & D: Backend + Platform           & Fallback (product co. only) & 10\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Gap-to-Remediation Map}
+
+\begin{table}[htbp]
+\centering
+\caption{Critical-path gaps requiring closure before active applications.}
+\label{tab:gaps}
+\small
+\begin{tabularx}{\textwidth}{l l X l}
+\toprule
+\textbf{ID} & \textbf{Angle} & \textbf{Gap $\to$ Remediation} & \textbf{Sprint} \\
+\midrule
+GP-01 & All & Profile surfaces fragmented $\to$ Unify narrative (GitHub + LinkedIn + unlink legacy site) & S-001 \\
+GP-02 & A, C & No deployed ML project $\to$ End-to-end pipeline: data $\to$ train $\to$ serve $\to$ monitor & S-002 \\
+GP-03 & A, B, C & Python invisible $\to$ Add Python projects; update all surfaces & S-001 \\
+GP-04 & B & No agentic benchmarks $\to$ Publish task completion rates, token costs, quality metrics & S-002 \\
+GP-05 & D & IronBank stale/forked $\to$ Clean repo with polished README (only if Angle D activates) & S-002 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Rejection List}
+
+The following categories should be declined in first-pass applications:
+
+\begin{itemize}
+  \item \textbf{Body-shop consulting / staff augmentation}: Capgemini,
+    Accenture, NTT Data, Indra, Sopra Steria in staff-aug mode.
+  \item \textbf{Generic CRUD backend at outsourcing firms}: Inetum, Aubay,
+    Altran, NEORIS junior tiers.
+  \item \textbf{Unpaid internships}: Economically unsustainable at 36 with
+    15 years of experience.
+  \item \textbf{Roles requiring relocation outside Barcelona}.
+  \item \textbf{Offers below €22,000 gross}: Exploitation threshold.
+  \item \textbf{Pre-seed ``equity-only'' startups}: Seed funding declined
+    34\% YoY; equity is statistically worthless.
+\end{itemize}
+
+\section{Positioning Decision Tree}
+
+\screenshotfig{figures/screenshots/role-fit-radar.png}%
+  {Role-fit radar chart across six user priorities (placeholder---replace with generated chart).}%
+  {fig:role-radar}
+
+\Cref{fig:decision-tree} presents the positioning decision logic as a flowchart.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  node distance=1.4cm and 1.8cm,
+  decision/.style={diamond, draw=accentblue, fill=accentblue!8,
+    text=black, minimum width=3cm, minimum height=1.5cm,
+    font=\small\sffamily, align=center, thick, inner sep=2pt},
+  outcome/.style={rectangle, rounded corners=4pt, draw=accentblue,
+    fill=accentblue!15, text=black, minimum width=2.8cm,
+    minimum height=1.2cm, font=\small\sffamily\bfseries, align=center, thick},
+  reject/.style={rectangle, rounded corners=4pt, draw=red!60!black,
+    fill=red!10, text=black, minimum width=2.4cm, minimum height=1cm,
+    font=\small\sffamily, align=center, thick},
+  ymark/.style={font=\scriptsize\sffamily, text=accentblue},
+  nmark/.style={font=\scriptsize\sffamily, text=red!60!black},
+]
+  \node[decision] (d1) {Role involves\\building systems?};
+  \node[reject, left=2.5cm of d1] (r1) {Reject};
+  \node[decision, below=1.6cm of d1] (d2) {Touches ML,\\data, or AI?};
+  \node[decision, right=3cm of d2] (d3) {Infra / tooling /\\platform?};
+  \node[outcome, below left=1.6cm and 0.5cm of d2] (a) {Angle A\\ML/Data Eng.};
+  \node[decision, below=1.6cm of a] (d4) {Agentic AI\\or LLM role?};
+  \node[outcome, below left=1.4cm and 0.3cm of d4] (b) {Angle B\\Agentic Sys.};
+  \node[outcome, below right=1.4cm and 0.3cm of d4] (a2) {Angle A\\(default)};
+  \node[decision, below=1.6cm of d3] (d5) {Product co.\\(not body-shop)?};
+  \node[outcome, below left=1.4cm and 0.3cm of d5] (d) {Angle D\\Backend+Plat.};
+  \node[reject, below right=1.4cm and 0.3cm of d5] (r2) {Reject};
+  \node[decision, below right=1.6cm and 0.5cm of d2] (d6) {Research center\\(BSC, i2CAT)?};
+  \node[outcome, below=1.4cm of d6] (c) {Angle C\\Research Eng.};
+
+  \draw[flowedge] (d1) -- node[ymark, above]{No} (r1);
+  \draw[flowedge] (d1) -- node[ymark, right]{Yes} (d2);
+  \draw[flowedge] (d2) -- node[ymark, below left]{Yes} (a);
+  \draw[flowedge] (d2) -- node[nmark, above]{No} (d3);
+  \draw[flowedge] (d2) -- node[ymark, below right]{Research?} (d6);
+  \draw[flowedge] (a) -- (d4);
+  \draw[flowedge] (d4) -- node[ymark, below left]{Yes} (b);
+  \draw[flowedge] (d4) -- node[nmark, below right]{No} (a2);
+  \draw[flowedge] (d3) -- node[ymark, right]{Yes} (d5);
+  \draw[flowedge] (d3) -- node[nmark, left]{No} (r1);
+  \draw[flowedge] (d5) -- node[ymark, below left]{Yes} (d);
+  \draw[flowedge] (d5) -- node[nmark, below right]{No} (r2);
+  \draw[flowedge] (d6) -- node[ymark, right]{Yes} (c);
+\end{tikzpicture}
+\caption{Positioning decision tree for evaluating job opportunities.}
+\label{fig:decision-tree}
+\end{figure}
+
+\pitfall{Angle B (Agentic Systems) scores highest on priority alignment
+(4.3/5) but has the highest entry barrier. Using it as the \emph{primary}
+application posture would target a near-empty market. Deploy it as a
+differentiator \emph{within} the ML positioning, not as a standalone strategy.}
+
+
+% ============================================================================
+\chapter{Priority-Tiered Action Plan}
+\label{ch:actions}
+% ============================================================================
+
+\takeaway{The remediation waterfall has four tiers. Tier~1 (this sprint) is
+entirely about profile unification---no new projects, no new skills, just
+making existing assets visible and consistent.}
+
+\section{Immediate Actions (S-001 / This Sprint)}
+
+\begin{table}[htbp]
+\centering
+\caption{Immediate actions---S-001.}
+\label{tab:actions-immediate}
+\small
+\begin{tabularx}{\textwidth}{l l X}
+\toprule
+\textbf{ID} & \textbf{Surface} & \textbf{Action} \\
+\midrule
+GP-01 & All      & Unify narrative: rewrite GitHub bio + profile README; rewrite LinkedIn headline + About; stop linking legacy site. \\
+GP-03 & All      & Make Python visible: add to LinkedIn Skills (top 3); mention in GitHub bio; update CV. \\
+C1    & LinkedIn & Headline: ``Software Engineering (UOC, ML/AI) · Agentic Systems · Python · Java · Barcelona.'' \\
+C2    & LinkedIn & Write 3-paragraph About section aligned with Angle A positioning. \\
+C3    & LinkedIn & Add ``Independent Engineering Projects'' experience entry (2020--present). \\
+M2    & GitHub   & Archive 6--7 dead repos. Pin: \projectName{}, P3CTeX, (future ML project slot). \\
+M3    & GitHub   & Add topics to all kept repos. Rewrite repo descriptions. \\
+GS-03 & GitHub   & Add GitHub Actions CI to \projectName{} and P3CTeX. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Short-Term Actions (S-002 / Next 1--3 Sprints)}
+
+\begin{table}[htbp]
+\centering
+\caption{Short-term actions---S-002/S-003.}
+\label{tab:actions-short}
+\small
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+\textbf{ID} & \textbf{Action} \\
+\midrule
+GP-02 & Build and deploy an end-to-end ML pipeline project (Python, scikit-learn/PyTorch, FastAPI, Docker). \\
+GP-04 & Publish \projectName{} benchmarks: task completion rates, token costs, quality metrics. \\
+GS-02 & Add RAG component to \projectName{} or build standalone RAG demo. \\
+GN-05 & Request 3--5 LinkedIn recommendations (bootcamp instructor, banking colleagues, UOC peer). \\
+M6    & Begin LinkedIn posting cadence: 2$\times$/month (Tuesday narrative + Thursday technical artifact). \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Medium-Term Actions (Next 3--6 Months)}
+
+\begin{itemize}
+  \item \textbf{GS-01}: Build a project using free-tier cloud ML (AWS
+    SageMaker Studio Lab, GCP Vertex AI Workbench).
+  \item \textbf{GS-04}: Build a creative AI project bridging the art
+    background with ML skills (style transfer, generative visualization).
+  \item \textbf{GS-06}: Build a second agentic project in a different domain
+    to strengthen Angle B depth.
+  \item \textbf{GN-01}: Consider AWS Cloud Practitioner or GCP Associate
+    certification ($\sim$€150, self-paced).
+  \item \textbf{GS-05}: Attend BSC open days, i2CAT events, local AI/ML
+    meetups. Consider submitting a poster to a local workshop.
+\end{itemize}
+
+\section{Deferred Items (Post-Degree / Post-First-Job)}
+
+\begin{itemize}
+  \item \textbf{GP-05}: IronBank cleanup---only if Angle D activates as
+    fallback.
+  \item \textbf{GN-02}: Kaggle competition submissions (low priority unless
+    targeting data science roles specifically).
+  \item \textbf{GN-03}: C++/HPC exposure (only if targeting BSC HPC
+    positions).
+  \item \textbf{GN-04}: Go/Rust exposure (only if targeting specific platform
+    roles).
+  \item Replace legacy site with AI-readable, SEO-optimized portfolio
+    (JSON-LD structured data, recruiter-optimized layout).
+\end{itemize}
+
+\pitfall{Do not build new projects before unifying the profile. A deployed ML
+pipeline is useless if the GitHub bio is empty, the LinkedIn headline says
+``Java lover,'' and the legacy site tells recruiters you are a ``90s visual
+artist looking for a company.'' Visibility first, then substance.}
+
+
+% ============================================================================
+\chapter{Conclusions \& Next Steps}
+\label{ch:conclusions}
+% ============================================================================
+
+\takeaway{The path is viable but requires targeted execution, not spray-and-pray
+applications. Dídac's profile is stronger than the median career changer
+entering Barcelona's tech market, primarily due to the formal CS degree with
+ML specialization.}
+
+\section{Strategic Direction}
+
+The evidence converges on a clear strategy:
+
+\begin{enumerate}
+  \item \textbf{Lead with ML/Data Engineering.} The UOC CS degree with ML/AI
+    mention is the single asset that separates Dídac from the bootcamp-only
+    candidate pool. In a market where specialist ML demand is intensifying
+    while generalist supply is loosening, this is the most defensible position.
+
+  \item \textbf{Use Agentic Systems as the differentiator, not the label.}
+    \projectName{} is the portfolio centerpiece regardless of which angle is
+    deployed. It demonstrates systems thinking, documentation discipline, and
+    AI engineering practice that set the candidate apart from other
+    juniors---without requiring the nonexistent ``Junior Agentic Engineer''
+    job title.
+
+  \item \textbf{Frame the 15 years as domain depth, not career baggage.}
+    Banking/insurance experience is a genuine advantage at CaixaBank Tech,
+    N26, Ebury, Payhawk, and any employer navigating EU AI Act compliance in
+    financial services.
+
+  \item \textbf{Fix the surfaces before anything else.} The profile audit
+    revealed that the current public presence actively works against the
+    candidate. No amount of skill-building compensates for three contradictory
+    identities and a 25\%-complete LinkedIn.
+\end{enumerate}
+
+\section{Feed into S-002 and S-003}
+
+\begin{description}[style=nextline]
+  \item[S-002 --- Site Rebuild]
+    Replace the legacy portfolio with an AI-readable, SEO-optimized site
+    built from \projectName{} GitHub Pages. Include structured data
+    (JSON-LD), recruiter-facing layout, and the formal report PDFs as
+    downloadable artifacts. Execute GP-02 (deployed ML project).
+
+  \item[S-003 --- Case Study]
+    Produce a formal case study documenting the agentic system's design,
+    implementation, and measurable outcomes (token costs, task completion
+    rates, sprint velocity). This becomes the primary evidence artifact for
+    Angle B applications. Execute GS-04 (creative AI project) and GS-06
+    (second agentic project).
+\end{description}
+
+\section{Open Decisions for User}
+
+\begin{enumerate}
+  \item \textbf{SOC registration}: Verify eligibility for Més Talent Cat and
+    SOC-FPOAN programs. If registered as unemployed/in transition, these
+    offer funded training in Data Science and Cloud.
+  \item \textbf{MemPalace contribution}: The contribution to MemPalace
+    (48K+ stars) is invisible on all surfaces. If substantive, it should be
+    prominently featured.
+  \item \textbf{VladScv reference}: The GitHub profile README references a
+    ``VladScv'' account. Clarify whether this is an alt account, a contact
+    redirect, or an error. Remove if unexplained.
+  \item \textbf{Escola Massana framing}: The fine arts diploma can be a
+    differentiator for computer vision / creative AI research roles (Angle C)
+    if framed as ``design/visual thinking background.'' Decide whether to
+    surface it or minimize it.
+  \item \textbf{Salary floor}: The recommended minimum is €24K gross. The
+    user should decide whether to accept research fellowships (BSC AI4Science)
+    that may pay at the lower end but offer exceptional learning value.
+\end{enumerate}
+
+\pitfall{The most dangerous failure mode for this strategy is delay.
+At 36, Dídac is in the peak hiring bracket---but the ageism cliff begins at
+41. Every sprint of profile work that does not culminate in active
+applications narrows the window. The system must shift from preparation to
+execution within 2--3 sprints.}
+
+
+% ============================================================================
+\appendix
+\chapter{Source Registry}
+\label{app:sources}
+% ============================================================================
+
+\takeaway{This appendix consolidates all sources cited across T1 (34 sources),
+T2 (40 sources), T3 (3-surface audit), and T4 (synthesis). Sources are grouped
+by research stream.}
+
+\section{T1 --- Barcelona IT Job Market Sources}
+
+{\small
+\begin{longtable}{l p{5cm} p{6.5cm}}
+\toprule
+\textbf{ID} & \textbf{Source} & \textbf{URL} \\
+\midrule
+\endhead
+S01 & KiTalent---BCN ICT Two-Speed Market & \url{https://kitalent.com/article-barcelona-ict-two-speed-market} \\
+S02 & Agency Partners---Hire Devs in BCN & \url{https://agency-partners.com/reports/market-insights/spain-barcelona-software} \\
+S03 & TechStaq---2026 Spain Talent Report & \url{https://techstaq.io/the-2026-spain-talent-report/} \\
+S04 & Michael Page---Tech Salary Trends & \url{https://www.michaelpage.es/seleccion-personal/empresas/tendencia-salarial-sector-tecnologico} \\
+S05 & BusinessInsider---Junior Salary Guide & \url{https://www.businessinsider.es/tecnologia/salario-un-programador-junior-espana-guia-2026_6953011_0.html} \\
+S07 & Catalonia.com---Dynatrace BCN Jobs & \url{https://catalonia.com/w/north-american-technology-company-dynatrace-announces-the-creation-of-up-to-180-new-jobs-in-barcelona} \\
+S09 & LinkedIn---DevOps BCN & \url{https://www.linkedin.com/jobs/devops-engineer-jobs-barcelona} \\
+S10 & Manfred---Salary Guide 2026 & \url{https://getmanfred.com/en/blog/salary-guide-2026-salaries-in-technology-spain-manfred/} \\
+S11 & Manfred---BCN vs MAD Salaries & \url{https://getmanfred.com/en/blog/salaries-barcelona-vs-madrid-vs-rest-of-spain/} \\
+S12 & EngineerSalaryData---ML/Data BCN & \url{https://engineersalarydata.com/machine-learning-engineer-salary-in-barcelona/} \\
+S13 & PayScale---Junior SE Spain & \url{https://www.payscale.com/research/ES/Job=Junior_Software_Engineer/Salary} \\
+S14 & BSC-CNS---Job Opportunities & \url{https://www.bsc.es/join-us/job-opportunities/} \\
+S16 & HP Careers---Graduate AI Engineer & \url{https://apply.hp.com/careers/} \\
+S17 & i2CAT---Talent Portal & \url{https://i2cat.net/talent/} \\
+S19 & Landing.Jobs / Factorial Careers & Multiple aggregated \\
+S20 & N26 Careers + Wallapop & \url{https://n26.com/en-eu/careers/} \\
+S21 & Worldsensing / Satellogic & \url{https://www.worldsensing.com/work-with-us/} \\
+S23 & Amazon---€33.7B Spain Investment & \url{https://www.aboutamazon.com/news/company-news/amazon-spain-investment} \\
+S25 & GironaNoticies---22@ Hybrid Work & \url{https://www.gironanoticies.com/comunicado/265366} \\
+\bottomrule
+\end{longtable}
+}
+
+\section{T2 --- Social, Press \& Legal Sources}
+
+{\small
+\begin{longtable}{l p{5cm} p{6.5cm}}
+\toprule
+\textbf{ID} & \textbf{Source} & \textbf{URL} \\
+\midrule
+\endhead
+R1  & Manfred---Ageism Report & \url{https://www.getmanfred.com/es/blog/hay-edadismo-en-el-sector-tecnologico} \\
+R2  & El País---AI \& Older Workers & \url{https://english.elpais.com/technology/2026-04-10/when-ai-offers-older-workers-a-second-chance-it-has-given-us-superpowers.html} \\
+R3  & UOC---Age Discrimination in ICT & \url{https://www.uoc.edu/es/news/2022/112-sector-TIC-programadores} \\
+R6  & KiTalent---BCN Two-Speed Market & \url{https://kitalent.com/article-barcelona-ict-two-speed-market} \\
+R7  & CaixaBank Tech---500 Developers & \url{https://www.caixabank.com/en/headlines/news/caixabank-tech-will-hire-500-developers-in-the-first-quarter-of-2025-surpassing-1-600-employees} \\
+R8  & Glovo Engineering BCN & \url{https://engineering.glovoapp.com/tech-hubs/barcelona/} \\
+R9  & Factorial Labs + Careers & \url{https://labs.factorialhr.com/} \\
+R10 & Typeform---Eng.\ Org & \url{https://www.typeform.com/blog/inside-story/engineering-org/} \\
+R11 & BSC-CNS---Agentic AI Role & \url{https://www.bsc.es/join-us/job-opportunities/9126casewpr} \\
+R14 & Red Points---Built In & \url{https://builtin.com/company/red-points} \\
+R16 & Eversheds---EU AI Act Employment & \url{https://www.eversheds-sutherland.com/es/spain/insights/eu-ai-act-high-risk-ai-systems-in-employment} \\
+R17 & dev.to---EU AI Act Technical Guide & \url{https://dev.to/mbit/eu-ai-act-compliance-2026-a-technical-guide-for-developers-and-integrators-2n86} \\
+R18 & Ikelma---Teletrabajo 2026 & \url{https://www.ikelma.com/blog/teletrabajo-espana-guia-completa} \\
+R19 & Remote Laws---Spain 2026 & \url{https://remotelaws.com/remote-work-laws/countries/europe/spain/} \\
+R20 & Payslip---EU Pay Transparency & \url{https://payslip.com/resources/blog/eu-pay-transparency-directive-what-it-means-for-spain} \\
+R21 & Europa Press---Salary Transparency & \url{https://www.europapress.es/eseuropa/noticia-comunicado-cuenta-atras-ley-transparencia-salarial-obligaciones-clave-antes-junio-2026-20260407100811.html} \\
+R28 & RemoDevs---CV Red Flags & \url{https://remodevs.com/blog/recruitment-strategies/the-top-3-red-flags-in-a-developers-cv/} \\
+R29 & Git to Hire---GitHub Profile 2026 & \url{https://gittohire.com/blog/optimize-github-profile-job-hunting-2026} \\
+R36 & Adalab---90\% Insertion & \url{https://adalab.es/blog/90-de-insercion/} \\
+R37 & MigraCode BCN & \url{https://migracode.org/recruit/} \\
+R41 & Ironhack Barcelona---94\% Placement & \url{https://www.ironhack.com/es-en/barcelona} \\
+\bottomrule
+\end{longtable}
+}
+
+\section{T3 --- Profile Audit Sources}
+
+The T3 audit was conducted directly against public profiles:
+\begin{itemize}
+  \item LinkedIn: \url{https://www.linkedin.com/in/didacllorens/}
+  \item GitHub: \url{https://github.com/DidacLL}
+  \item Legacy site: \url{https://didacll.github.io/Didac-dev-project/}
+\end{itemize}
+
+Recruiter signal data sourced from Git to Hire (87\% of recruiters check
+GitHub)~[R29], IBTimes (junior devs with portfolio land interviews
+3$\times$ faster), and RKY Careers (90-second initial review window).
+
+\section{T4 --- Positioning Synthesis Sources}
+
+T4 is a synthesis document. All evidence traces to T1, T2, or T3 sources
+listed above, plus:
+\begin{itemize}
+  \item \pathref{docs/core/brand.md} --- positioning and tone constraints.
+  \item \pathref{docs/core/mission.md} --- project goal and scope.
+  \item User background data (\fname{user\_data.md}) --- personal priorities
+    and constraints.
+\end{itemize}
+
+\end{document}

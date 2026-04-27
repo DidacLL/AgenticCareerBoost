@@ -54,7 +54,7 @@ Every public artifact must foreground at least one of these priorities. Each is 
 | Rule | Example | Source |
 |------|---------|--------|
 | Lead with what you built, not who you are | "I designed a 6-agent system with formal truth hierarchy" not "Hi, I'm a career changer" | T4 §5.1: "Lead with the system, not the person" |
-| Use concrete tool names and metrics | "Built with pdflatex, latexmk, and GitHub Actions. 12 files, 6 roles, 5 workflows." | T4 §4.1: concrete tool names signal technical authenticity |
+| Use concrete tool names and metrics | "Built with pdflatex, latexmk, and GitHub Actions. 12 files, 6 roles, 7 workflows." | T4 §4.1: concrete tool names signal technical authenticity |
 | Acknowledge the career transition honestly | "I have 15 years of experience that no recruiter asked for. So I'm engineering new ones." | T4 §4.3: self-aware irony about age/transition |
 | Back every claim with a link | "The full system design: [link in first comment]" | marketing.md §Artifact rules: "evidence over adjectives" |
 | Write in first person, conversational register | "I spent three days on this. Here's what I learned." not "One should consider..." | T4 §4.1: first-person specificity; S6: conversation > broadcast |

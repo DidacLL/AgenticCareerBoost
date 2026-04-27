@@ -11,4 +11,6 @@ the repository after CI completes.
 - Expected public outputs include:
   - `agentic-system-guide.pdf` — human-facing manual
   - `s000-agentic-os-bootstrap.pdf` — technical bootstrap case study
+  - `s001-profile-audit-positioning.pdf` — profile audit and strategic positioning report
+  - `didac-llorens-cv.pdf` — recruiter-facing formal CV
 - `smoke.pdf` is a CI compile check only and is not part of the published set.

@@ -14,9 +14,19 @@ Canonical social plan maintained by `SocialMediaPlanner` and reviewed by
 
 ## Current sequence
 
-1. Post 1 — S-000 contradiction hook for recruiters first, peers second
-2. Post 2 — S-000 document reveal with the published PDF as proof
-3. Post 3 — governance / review loop proof or anti-hype angle after evidence is visible
+1. Post 1 — S-001 headline/profile audit reveal after GitHub profile and site are live
+2. Post 2 — S-001.5 UOC fair readiness post with recruiter landing page and CV as proof
+3. Post 3 — S-001 report reveal after the PDF is published in `content/reports/build/`
+4. Post 4 — S-000/S-001 governance and review-loop proof once the public surfaces are synced
+
+## Publication prerequisites
+
+- Do not post the UOC fair profile/CV narrative until GitHub Pages has deployed
+  the landing page, curriculum page, and PDF CV link.
+- Do not post the S-001 report reveal until
+  `content/reports/build/s001-profile-audit-positioning.pdf` exists.
+- Keep external links out of LinkedIn post bodies; use first comment or
+  Featured/profile surfaces.
 
 ## Operating rules
 
@@ -33,3 +43,4 @@ Canonical social plan maintained by `SocialMediaPlanner` and reviewed by
 - N-004 — A/B tracking after publication
 - N-005 — recurring series vs standalone kickoff
 - N-006 — pre-posting network seeding
+- N-013 — UOC fair contact/follow-up tracking

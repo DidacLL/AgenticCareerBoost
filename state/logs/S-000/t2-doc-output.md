@@ -17,7 +17,7 @@ engineering peers without requiring them to read every Markdown file.
 
 A single master LaTeX document (`content/reports/tex/sprints/s000-agentic-os-bootstrap.tex`)
 covering 12 chapters: preface, architectural overview, truth hierarchy,
-canonical truth (6 core files), workflow contracts (5 workflows), agent roles
+canonical truth (6 core files), workflow contracts (7 workflows), agent roles
 (6 roles), output templates (4 templates), state machinery, public surfaces,
 CI/CD automation, lessons and invariants, and a file manifest appendix.
 

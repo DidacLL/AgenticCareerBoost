@@ -32,6 +32,8 @@ status, workflows, and published outputs.
 
 This README is the quick human entrypoint. The formal human manual is the
 Agentic System Guide PDF. The S-000 PDF is the deeper technical case study.
+For recruiters, the GitHub Pages site and downloadable CV are the fastest
+profile surfaces.
 
 ## How To Use This Project
 
@@ -119,11 +121,12 @@ flowchart LR
 
 | Field | Value |
 |-------|-------|
-| Current workflow | None (ready for Plan or Chat) |
-| Next sprint seed | S-001: Portfolio audit + positioning draft |
+| Current workflow | Review complete; S-001.5 deploy pending |
+| Next sprint seed | S-002: Full site rebuild and CV hardening |
 | Human guide | [Agentic System Guide](content/reports/build/agentic-system-guide.pdf) |
-| Latest case study | [Sprint S-000 PDF](content/reports/build/s000-agentic-os-bootstrap.pdf) |
+| Latest case study | [Sprint S-001 PDF](content/reports/build/s001-profile-audit-positioning.pdf) |
 | Site | [didacll.github.io/AgenticCareerBoost](https://didacll.github.io/AgenticCareerBoost/) |
+| Downloadable CV | [didac-llorens-cv.pdf](content/reports/build/didac-llorens-cv.pdf) |
 
 ## Mission In One Line
 
@@ -134,7 +137,8 @@ and make that work readable by both humans and models.
 
 - [GitHub profile](https://github.com/DidacLL)
 - [LinkedIn](https://www.linkedin.com/in/didacllorens/)
-- [Legacy resume site](https://didacll.github.io/Didac-dev-project/)
+- [Recruiter landing page](https://didacll.github.io/AgenticCareerBoost/)
+- [Downloadable CV](content/reports/build/didac-llorens-cv.pdf)
 
 ## License
 
