@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dídac Llorens - Software Engineering · ML/AI · Agentic Systems</title>
+  <meta name="description" content="Software Engineering student at UOC specializing in ML/AI, building agentic systems, LaTeX tooling, and data-oriented software from Barcelona.">
+  <meta property="og:title" content="Dídac Llorens - Software Engineering · ML/AI · Barcelona">
+  <meta property="og:description" content="Recruiter-ready profile with projects, curriculum, public evidence, and downloadable PDF CV.">
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://didacll.github.io/AgenticCareerBoost/">
+  <meta property="og:image" content="https://raw.githubusercontent.com/DidacLL/AgenticCareerBoost/main/assets/diagrams/routing-architecture.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Dídac Llorens",
+    "alternateName": "Didac Llorens",
+    "url": "https://didacll.github.io/AgenticCareerBoost/",
+    "jobTitle": "Software Engineering Student",
+    "description": "Software Engineering student at UOC specializing in Machine Learning and Artificial Intelligence, building agentic systems and LaTeX tooling. Based in Barcelona.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Barcelona",
+      "addressRegion": "Catalonia",
+      "addressCountry": "ES"
+    },
+    "alumniOf": [
+      { "@type": "EducationalOrganization", "name": "Universitat Oberta de Catalunya" },
+      { "@type": "EducationalOrganization", "name": "IronHack" }
+    ],
+    "knowsAbout": [
+      "Machine Learning",
+      "Artificial Intelligence",
+      "Agentic Systems",
+      "Python",
+      "Java",
+      "LaTeX",
+      "Systems Design",
+      "GitHub Actions"
+    ],
+    "sameAs": [
+      "https://github.com/DidacLL",
+      "https://www.linkedin.com/in/didacllorens/"
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --fg: #172033;
+      --muted: #536175;
+      --surface: #ffffff;
+      --ink: #0f172a;
+      --blue: #1d4ed8;
+      --green: #047857;
+      --amber: #b45309;
+      --border: #d7dee8;
+      --soft: #eef4fb;
+      --shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.58;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .shell { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(247, 249, 252, 0.94);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .site-nav .shell {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      font-weight: 800;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.95rem;
+    }
+    .nav-links a { color: var(--muted); font-weight: 650; }
+    .nav-links a.primary-link { color: var(--blue); }
+    main { padding-bottom: 56px; }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: 32px;
+      align-items: center;
+      padding: 54px 0 32px;
+    }
+    .eyebrow {
+      color: var(--green);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 0;
+      margin-bottom: 12px;
+    }
+    h1 {
+      color: var(--ink);
+      font-size: clamp(2.2rem, 6vw, 4.6rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+      margin: 0 0 18px;
+    }
+    h2 {
+      color: var(--ink);
+      font-size: clamp(1.45rem, 3vw, 2.1rem);
+      letter-spacing: 0;
+      margin: 0 0 16px;
+    }
+    h3 {
+      color: var(--ink);
+      font-size: 1.08rem;
+      letter-spacing: 0;
+      margin: 0 0 8px;
+    }
+    p { margin: 0 0 16px; }
+    .lead {
+      font-size: clamp(1.04rem, 2vw, 1.24rem);
+      max-width: 66ch;
+      color: var(--muted);
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 24px 0 0;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0 14px;
+      background: var(--surface);
+      color: var(--ink);
+      font-weight: 750;
+      box-shadow: var(--shadow);
+    }
+    .button.primary {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+    .visual {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin: 0;
+    }
+    .visual img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: var(--soft);
+    }
+    .caption {
+      padding: 10px 12px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+    }
+    section {
+      padding: 34px 0;
+      border-top: 1px solid var(--border);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 28px;
+      align-items: start;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 9px;
+      border-radius: 5px;
+      background: var(--soft);
+      color: var(--ink);
+      font-size: 0.88rem;
+      font-weight: 680;
+    }
+    .metric {
+      color: var(--amber);
+      font-weight: 850;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      display: block;
+      overflow-x: auto;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { color: var(--ink); background: var(--soft); }
+    footer {
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      padding: 24px 0 36px;
+      font-size: 0.92rem;
+    }
+    @media (max-width: 820px) {
+      .site-nav .shell { align-items: flex-start; flex-direction: column; padding: 12px 0; }
+      .hero, .two-col, .grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 34px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="shell">
+      <a class="brand" href="#top">Dídac Llorens</a>
+      <div class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#curriculum">Curriculum</a>
+        <a href="#contact">Contact</a>
+        <a class="primary-link" href="https://github.com/DidacLL/AgenticCareerBoost">GitHub</a>
+        <a class="primary-link" href="https://www.linkedin.com/in/didacllorens/">LinkedIn</a>
+      </div>
+    </div>
+  </nav>
+  <main id="top" class="shell">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">UOC Software Engineering · Barcelona</div>
+        <h1>Dídac Llorens</h1>
+        <p class="lead">Software Engineering student specializing in ML/AI, building agentic systems and LaTeX tooling. 15 years of banking and insurance operations before engineering: regulated processes, high-volume problem solving, and failure-mode discipline included.</p>
+        <div class="actions">
+          <a class="button primary" href="https://github.com/DidacLL/AgenticCareerBoost">View GitHub Proof</a>
+          <a class="button" href="#projects">Scan Projects</a>
+          <a class="button" href="#curriculum">Curriculum</a>
+          <a class="button" href="https://github.com/DidacLL/AgenticCareerBoost/raw/main/content/reports/build/didac-llorens-cv.pdf">Download CV</a>
+        </div>
+      </div>
+      <figure class="visual">
+        <img src="https://raw.githubusercontent.com/DidacLL/AgenticCareerBoost/main/assets/diagrams/routing-architecture.png" alt="AgenticCareerBoost routing architecture diagram">
+        <figcaption class="caption">The public profile is built through an inspectable, path-based agentic workflow.</figcaption>
+      </figure>
+    </div>
+
+    <section>
+      <div class="two-col">
+        <div>
+          <h2>Brief Introduction</h2>
+          <p>I am completing Software Engineering at UOC with a Machine Learning and Artificial Intelligence specialization, expected February 2027. My public work currently focuses on agentic systems, data/ML-oriented software direction, and technical documentation that can be inspected rather than merely asserted.</p>
+          <p>For the UOC employment fair, I am looking for conversations around ML/data, agentic AI, tooling, platform, research engineering, and regulated-domain software.</p>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <h3>ML/Data Direction</h3>
+            <p>UOC ML/AI specialization, Python/data learning path, and regulated-domain context for data quality, compliance, and automation work.</p>
+          </div>
+          <div class="card">
+            <h3>Agentic Systems</h3>
+            <p>Path-based orchestration, 6 agent roles, 7 workflow contracts, truth hierarchy, and model-agnostic execution.</p>
+          </div>
+          <div class="card">
+            <h3>LaTeX Tooling</h3>
+            <p>Document classes, package ecosystems, formal reports, and build pipelines for technical communication that survives inspection.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects And Repositories</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>AgenticCareerBoost</h3>
+          <p>A path-based, model-agnostic multi-agent operating system for engineering career development. It contains role definitions, workflow contracts, public reports, and the site you are reading.</p>
+          <p><span class="metric">6 roles · 7 workflows · public evidence trail</span></p>
+          <div class="tag-list">
+            <span class="tag">Markdown</span>
+            <span class="tag">LaTeX</span>
+            <span class="tag">Python</span>
+            <span class="tag">GitHub Actions</span>
+          </div>
+          <p><a href="https://github.com/DidacLL/AgenticCareerBoost">Repository</a> · <a href="https://github.com/DidacLL/AgenticCareerBoost/raw/main/content/reports/build/agentic-system-guide.pdf">Guide PDF</a></p>
+        </article>
+        <article class="card">
+          <h3>P3CTeX</h3>
+          <p>A custom LaTeX document class and package ecosystem for academic document production, with package architecture and documentation depth.</p>
+          <div class="tag-list">
+            <span class="tag">LaTeX</span>
+            <span class="tag">expl3</span>
+            <span class="tag">latexmk</span>
+            <span class="tag">Open source</span>
+          </div>
+          <p><a href="https://github.com/DidacLL/P3CTeX">Repository</a></p>
+        </article>
+        <article class="card">
+          <h3>p3cTeX-UMLST</h3>
+          <p>Standalone UML diagram and code-listing packages extracted from the P3CTeX ecosystem. This is supporting evidence for modular LaTeX tooling work.</p>
+          <div class="tag-list">
+            <span class="tag">LaTeX</span>
+            <span class="tag">UML</span>
+            <span class="tag">Listings</span>
+            <span class="tag">Package extraction</span>
+          </div>
+          <p><a href="https://github.com/DidacLL/p3cTeX-UMLST">Repository</a></p>
+        </article>
+        <article class="card">
+          <h3>IronBank</h3>
+          <p>Java/Spring Boot microservices banking simulation from IronHack. Older bootcamp capstone, useful as backend evidence after README cleanup.</p>
+          <div class="tag-list">
+            <span class="tag">Java</span>
+            <span class="tag">Spring Boot</span>
+            <span class="tag">Microservices</span>
+            <span class="tag">Keycloak</span>
+          </div>
+          <p><a href="https://github.com/DidacLL/Ironhack-IronBank_FinalProject_vBNKsys">Repository</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="curriculum">
+      <h2>Formal Curriculum</h2>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/DidacLL/AgenticCareerBoost/raw/main/content/reports/build/didac-llorens-cv.pdf">Download PDF CV</a>
+        <a class="button" href="https://github.com/DidacLL/AgenticCareerBoost">Inspect Repository</a>
+      </div>
+      <table>
+        <tbody>
+          <tr>
+            <th>Profile</th>
+            <td>Software Engineering student at UOC specializing in Machine Learning and Artificial Intelligence, graduating in February 2027. Building public engineering artifacts around agentic systems, LaTeX tooling, and data/ML-oriented software.</td>
+          </tr>
+          <tr>
+            <th>Target roles</th>
+            <td>ML engineering, data engineering, agentic AI, platform/tooling, research engineering, fintech/regtech software, and documentation-heavy engineering roles.</td>
+          </tr>
+          <tr>
+            <th>Technical stack</th>
+            <td>Python, Java, Kotlin, SQL, LaTeX, JavaScript, Bash, Spring Boot, Git, GitHub Actions, Maven, latexmk, Linux, REST APIs.</td>
+          </tr>
+          <tr>
+            <th>Education</th>
+            <td>Universitat Oberta de Catalunya, Software Engineering with ML/AI specialization, expected Feb 2027. IronHack Java Backend Development bootcamp. Additional Android/Kotlin, FullStack React, and Linux administration training.</td>
+          </tr>
+          <tr>
+            <th>Operations background</th>
+            <td>15 years in customer-facing banking and insurance operations: team leadership, case triage, regulated processes, stakeholder communication, and high-volume problem resolution.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <div class="two-col">
+        <div>
+          <h2>Why The Previous Career Matters</h2>
+          <p>Banking and insurance operations taught what happens when systems fail in front of users, auditors, and business constraints. That background is useful for data quality, compliance-aware automation, platform work, and fintech/regtech environments.</p>
+        </div>
+        <div class="card">
+          <h3>Current Role Fit</h3>
+          <div class="tag-list">
+            <span class="tag">ML Engineering</span>
+            <span class="tag">Data Engineering</span>
+            <span class="tag">Agentic AI</span>
+            <span class="tag">Platform / Tooling</span>
+            <span class="tag">Research Engineering</span>
+            <span class="tag">Fintech / Regtech</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>I am based in Barcelona and open to UOC fair conversations about junior/student-accessible roles in ML/data, agentic AI, tooling, platform engineering, research engineering, and regulated-domain software.</p>
+      <div class="actions">
+        <a class="button primary" href="https://www.linkedin.com/in/didacllorens/">Message on LinkedIn</a>
+        <a class="button" href="https://github.com/DidacLL">GitHub Profile</a>
+        <a class="button" href="https://github.com/DidacLL/AgenticCareerBoost/raw/main/content/reports/build/didac-llorens-cv.pdf">Download CV</a>
+        <a class="button" href="https://github.com/DidacLL/AgenticCareerBoost/raw/main/content/reports/build/s001-profile-audit-positioning.pdf">Profile Audit PDF</a>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="shell">
+      <p>Software Engineering · ML/AI · Agentic Systems · Barcelona. Public proof first, claims second.</p>
+    </div>
+  </footer>
+</body>
+</html>
