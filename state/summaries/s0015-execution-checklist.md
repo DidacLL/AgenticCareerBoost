@@ -18,13 +18,14 @@
 
 ## Deploy Site
 
-Requires repository publication.
+Requires repository publication and owner-level GitHub Pages settings.
 
 1. Review local changes.
-2. Commit S-001 and S-001.5 artifacts.
-3. Push to `main` so `.github/workflows/site-build.yml` deploys GitHub Pages.
-4. After deployment, open `https://didacll.github.io/AgenticCareerBoost/`.
-5. Confirm landing page, projects page, curriculum page, contact page, and CV PDF link.
+2. Commit and push S-001 and S-001.5 artifacts. **Done**: `a1db91d`, `8642f6d`, `10bb463`.
+3. Enable GitHub Pages in repository settings: Settings → Pages → Build and deployment → Source: GitHub Actions.
+4. Re-run `Build and deploy site` or push a small `content/site/**` change.
+5. After deployment, open `https://didacll.github.io/AgenticCareerBoost/`.
+6. Confirm landing page, projects page, curriculum page, contact page, and CV PDF link.
 
 ## Apply On GitHub Profile
 
@@ -61,6 +62,7 @@ Requires user-controlled account action.
 
 ## External Actions Needing Confirmation
 
+- Enable GitHub Pages for the repository with Source set to GitHub Actions.
 - GitHub profile/settings save.
 - GitHub repository metadata changes.
 - GitHub repository archive confirmations.

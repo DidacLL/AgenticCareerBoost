@@ -4,7 +4,7 @@
 
 - **Sprint ID**: S-001.5
 - **Goal**: Make the public profile event-ready for the VI Fira Virtual d'Ocupacio de la UOC by applying the S-001 positioning to GitHub, site, LinkedIn/JobTeaser copy, event outreach, and target-company triage.
-- **Status**: reviewed / deploy pending
+- **Status**: reviewed / Pages settings blocked
 
 ## Tasks
 
@@ -18,7 +18,7 @@
 | 6 | Event outreach kit | CommunityManager | Recruiter messaging | Draft multilingual intros, interview request, follow-up, and company-specific angles | content/social/drafts/2026-04-s0015-uoc-fair-outreach.md | Drafts ready; sending remains user-controlled | none | content/social/drafts/2026-04-s0015-uoc-fair-outreach.md |
 | 7 | Execution checklist | Orchestrator | GitHub/account operations | Separate local work from external account actions requiring confirmation | state/summaries/s0015-execution-checklist.md | Human can apply changes without guessing | none | state/summaries/s0015-execution-checklist.md |
 | 8 | PairCheck | PairCheck | Evidence + public safety | Review site, CV, state sync, and public-copy kits | state/logs/S-001-5/pc-*.md | No fabricated metrics, stale links, missing curriculum, or unsupported claims | none | state/logs/S-001-5/ |
-| 9 | Sprint closure | Orchestrator | State update | Update state/current, roadmap, backlog, public status | state files, data/public-status.json | S-001.5 reviewed; deploy remains pending until commit/push and GitHub Pages check | none | state/current.md |
+| 9 | Sprint closure | Orchestrator | State update | Update state/current, roadmap, backlog, public status | state files, data/public-status.json | S-001.5 reviewed; deploy remains pending until GitHub Pages is enabled in repository settings and workflow is rerun | none | state/current.md |
 
 ## Pair-check assignments
 
@@ -30,7 +30,7 @@
 ## Closure artifacts
 
 - [x] Repository artifact(s) — S-001.5 research, profile kits, outreach kit, execution checklist, site pages, CV source/PDF
-- [ ] Website / repo update trace — recruiter landing page rebuilt in `site/starter/` and `content/site/`; GitHub Pages deploy pending push
+- [ ] Website / repo update trace — recruiter landing page rebuilt and pushed; GitHub Pages enablement is blocked by repository settings
 - [x] Social / LinkedIn-ready artifact — LinkedIn/JobTeaser kit and fair outreach messages
 - [x] Formal engineering documentation — S-001 report source plus S-001.5 formal CV PDF
 - [x] Condensed technical backlog — see below
@@ -42,7 +42,7 @@
 
 - T-009 NEW: Apply GitHub profile/repo metadata cleanup from S-001.5 checklist through user-controlled account actions
 - T-010 NEW: Complete full S-002 site rebuild with deeper project pages, CV hardening, and stable asset pipeline
-- T-008 UPDATE: S-001 LaTeX report PDF promoted locally into `content/reports/build/`; CI promotion still needs verification after push
+- T-008 UPDATE: S-001 LaTeX report PDF promoted into `content/reports/build/`; prior CI compile succeeded, auto-commit failure was made non-blocking
 
 ### Narrative
 
@@ -53,5 +53,5 @@
 
 ## CI trace
 
-- Commit(s): _(pending user commit)_
-- Workflow run: local checks run before commit; GitHub Actions pending push
+- Commit(s): `a1db91d`, `8642f6d`, `10bb463`
+- Workflow runs: docs lint passed for `8642f6d` and `10bb463`; site workflow blocked at Pages enablement (`Resource not accessible by integration`)
