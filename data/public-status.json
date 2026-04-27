@@ -1,7 +1,7 @@
 {
   "sprint_id": "S-001.5",
   "workflow": "review (S-001.5 public-profile cleanup)",
-  "status": "reviewed / Pages settings blocked",
+  "status": "reviewed / static Pages deployment in progress",
   "last_closure_at": "2026-04-27",
   "last_closure_type": "Review S-001.5",
   "artifacts": [
@@ -11,7 +11,7 @@
     },
     {
       "complete": false,
-      "label": "Website / repo update trace — recruiter landing page rebuilt and pushed; GitHub Pages enablement is blocked by repository settings"
+      "label": "Website / repo update trace — recruiter landing page rebuilt as static HTML; `gh-pages` publish pending verification"
     },
     {
       "complete": true,
@@ -31,7 +31,7 @@
     }
   ],
   "blockers": [
-    "GitHub Pages must be enabled in repository settings with Source set to GitHub Actions; external account/profile actions require user-controlled confirmation and application"
+    "Static `gh-pages` deployment must be pushed and verified; external account/profile actions require user-controlled confirmation and application"
   ],
   "next_sprint_seed": "S-002: Site rebuild (Jekyll)"
 }

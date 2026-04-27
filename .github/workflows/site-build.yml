@@ -1,4 +1,4 @@
-name: Build and deploy site
+name: Publish static site
 
 on:
   workflow_dispatch:
@@ -6,41 +6,39 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/site-build.yml"
-      - "site/starter/**"
-      - "content/site/**"
+      - "site/public/**"
       - "content/reports/build/**"
       - "README.md"
 
 permissions:
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: pages
+  group: static-site
   cancel-in-progress: true
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Merge content/site into site/starter
-        run: rsync -a --exclude='README.md' content/site/ site/starter/
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
-      - uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./site/starter
-          destination: ./_site
-      - uses: actions/upload-pages-artifact@v3
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Validate static site files
+        run: |
+          test -f site/public/index.html
+          test -f site/public/.nojekyll
+
+      - name: Upload static site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-site
+          path: site/public
+          if-no-files-found: error
+
+      - name: Publish to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: site/public
+          force_orphan: true
