@@ -26,7 +26,7 @@
 
 - [ ] Repository artifact(s)
 - [ ] Website / repo update trace
-- [ ] Social / LinkedIn-ready artifact
+- [ ] Public-narrative decision
 - [ ] Formal engineering documentation
 - [ ] Condensed technical backlog
 - [ ] Condensed narrative backlog

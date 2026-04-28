@@ -41,11 +41,11 @@ After applying all verdicts, pin these repos in this order:
 |-------|---------|---------|
 | **Verdict** | **Enhance** — flagship | |
 | **Description** | `Agentic Engineering setup to update my public profile and boost my tech career` | `Path-based, model-agnostic multi-agent operating system for engineering career development — formal reports, public site, inspectable evidence trail` |
-| **Website** | [Verify current] | `https://didacll.github.io/AgenticCareerBoost/` |
+| **Website** | Current public site | `https://didacll.github.io/AgenticCareerBoost/` |
 | **Topics** | None | `agentic-systems` · `multiagent` · `model-agnostic` · `career-development` · `documentation` · `latex` · `python` · `systems-design` |
 
 **Additional actions**:
-- Verify the GitHub Pages site is polished and accessible
+- Confirm the GitHub Pages site is polished and accessible
 - Consider adding an architecture diagram or screenshot directly in the README for visual impact (style-book.md §5: "prefer diagrams over selfies")
 - The description change reframes the repo for external audiences — "boost my tech career" is too casual for recruiter scanning
 
@@ -59,11 +59,11 @@ After applying all verdicts, pin these repos in this order:
 |-------|---------|---------|
 | **Verdict** | **Enhance** — flagship | |
 | **Description** | `Ultimate Latex Repository for PEC solving at UOC` | `Custom LaTeX document class and package ecosystem for academic document production — test suites, agentic dev workflow, multi-language docs` |
-| **Website** | None | `[TODO: add if a demo page or PDF gallery exists]` |
+| **Website** | None | Add only after a demo page or PDF gallery exists |
 | **Topics** | None | `latex` · `tex` · `document-class` · `expl3` · `academic` · `open-source` · `agentic-workflow` · `uoc` |
 
 **Additional actions**:
-- Consider toning down or moving the ASCII art header ("PROCRASTRINAR ES LA UNICA ESPERANZA") — it is charming but unprofessional for a recruiter audience. Options: (a) move it below the professional lead-in paragraph, (b) reduce its visual dominance, (c) keep it as a cultural signal if the user values it
+- Consider toning down or moving the ASCII art header ("PROCRASTRINAR ES LA UNICA ESPERANZA") — it is charming but unprofessional for a recruiter audience. Options: (a) move it below the professional lead-in paragraph, (b) reduce its visual dominance, (c) keep it as a deliberate cultural signal if that tradeoff is accepted.
 - Add a "Gallery" or "Example Output" section with a PDF screenshot showing what P3CTeX-produced documents look like
 - The description change removes UOC jargon ("PEC") that means nothing to non-UOC readers
 
@@ -103,7 +103,7 @@ After applying all verdicts, pin these repos in this order:
 - Add a license (MIT or Apache 2.0 recommended for portfolio projects)
 - The repo name is unprofessional and unsearchable, but cannot be changed since it is a fork
 
-**Priority**: Medium. Execute only if the user activates Angle D (Backend + Platform) applications, or if a recruiter specifically asks about Java/Spring experience.
+**Priority**: Medium. Execute only if Backend + Platform applications become active, or if a recruiter specifically asks about Java/Spring experience.
 
 **Source**: T3 §3 (repo #4), T3 §4 (Candidate 3).
 
@@ -123,7 +123,7 @@ After applying all verdicts, pin these repos in this order:
 **Actions**:
 1. Replace the entire README.md content with the draft from `github-profile-readme.md`
 2. Remove the topics `config` and `github-config`
-3. Verify the profile renders correctly after push
+3. Confirm the profile renders correctly after push
 
 **Source**: T3 §3 (repo #12), T3 §2.2, T4 §5.3 C2.
 
@@ -235,7 +235,7 @@ These actions apply to ALL kept repos:
 | 1 | **Add topics/tags** (as specified above) | AgenticCareerBoost, P3CTeX, p3cTeX-UMLST, IronBank | High — 0/12 repos currently have topics |
 | 2 | **Remove self-deprecating descriptions** | FPP2024 ("just my first"), scv-calculator ("only for test"), DxM ("just a") — all being archived, so descriptions become moot | Resolved by archiving |
 | 3 | **Add license to repos missing one** | IronBank (no license), p3cTeX-UMLST (has GPL-3.0 — OK) | Low |
-| 4 | **Verify MemPalace contribution** | Profile README, LinkedIn | Medium — `[TODO: check contribution scope at github.com/MemPalace/mempalace and document]` |
+| 4 | **MemPalace contribution deferred** | Profile README, LinkedIn | Medium — use only after contribution scope is documented precisely |
 | 5 | **Update AgenticCareerBoost language detection** | AgenticCareerBoost | Low — GitHub detects TeX as primary language due to LaTeX files. Consider adding a `.gitattributes` file to classify `.tex` files or ensure Python files are prominent enough for detection. |
 
 ---
@@ -253,7 +253,7 @@ These actions apply to ALL kept repos:
    - Archive: FPP2024_TIPorHANG, TXTO, art-scv-website, scv-calculator, DxM_Game_v3, FileSaver.js
    - Update p3cTeX-UMLST description and topics
    - Update IronBank description and topics
-   - Verify MemPalace contribution scope
+   - Confirm MemPalace contribution scope before using it publicly
 
 3. **When replacement site is live (S-002)**:
    - Archive Didac-dev-project
@@ -273,4 +273,4 @@ These actions apply to ALL kept repos:
 
 ---
 
-*Draft produced by CommunityManager agent, S-001 T5. All archiving and metadata changes require user review before execution.*
+*Draft produced by CommunityManager agent, S-001 T5. All archiving and metadata changes require explicit review before execution.*

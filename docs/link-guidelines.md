@@ -18,7 +18,7 @@ Rules for including links in documentation, research artifacts, and site content
 Always use **relative Markdown paths** to reference files within this repository.
 
 ```markdown
-<!-- ✅ correct – relative path from site/starter/projects/index.md to repo root -->
+<!-- ✅ correct – relative path from site/projects/index.md to repo root -->
 Check the [roadmap](../../../state/roadmap.md) for upcoming work.
 
 <!-- ❌ wrong – absolute GitHub blob URL may 404 on non-main branches -->

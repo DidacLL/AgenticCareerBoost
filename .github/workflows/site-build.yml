@@ -1,4 +1,4 @@
-name: Publish static site
+name: Deploy GitHub Pages
 
 on:
   workflow_dispatch:
@@ -6,39 +6,56 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/site-build.yml"
-      - "site/public/**"
+      - "site/**"
       - "content/reports/build/**"
       - "README.md"
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
-  group: static-site
-  cancel-in-progress: true
+  group: github-pages
+  cancel-in-progress: false
 
 jobs:
-  publish:
+  build:
+    name: Build Pages artifact
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Validate static site files
-        run: |
-          test -f site/public/index.html
-          test -f site/public/.nojekyll
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
-      - name: Upload static site artifact
-        uses: actions/upload-artifact@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          name: static-site
-          path: site/public
-          if-no-files-found: error
+          ruby-version: "3.2"
+          bundler-cache: true
+          working-directory: site
 
-      - name: Publish to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Build Jekyll site
+        working-directory: site
+        run: bundle exec jekyll build
+
+      - name: Validate built site
+        run: test -f site/_site/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: site/public
-          force_orphan: true
+          path: site/_site
+
+  deploy:
+    name: Deploy Pages
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

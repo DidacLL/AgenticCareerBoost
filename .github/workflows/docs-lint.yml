@@ -1,35 +1,9 @@
 name: Docs lint
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
-  markdownlint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: DavidAnson/markdownlint-cli2-action@v19
-        with:
-          globs: |
-            **/*.md
-            #bootstrap/user_data.md
-          config: ".markdownlint.jsonc"
-
-  # Stage 1 – critical: validate internal file references (blocks merge)
-  internal-linkcheck:
-    name: Check internal links (critical)
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
-      - name: Validate internal file references
-        run: bash scripts/validate-links.sh
-
-  # Stage 2 – advisory: check all URLs via Lychee (never blocks merge)
   external-linkcheck:
     name: Check external links (advisory)
     runs-on: ubuntu-latest

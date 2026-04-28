@@ -40,4 +40,4 @@ body:
     id: closure_artifacts
     attributes:
       label: Expected closure artifacts
-      placeholder: Which of the 6 sprint closure artifacts does this task produce?
+      placeholder: Which sprint closure output does this task produce?

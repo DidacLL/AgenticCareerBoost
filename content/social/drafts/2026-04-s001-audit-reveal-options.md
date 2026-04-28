@@ -82,7 +82,7 @@ Three findings that reframed my own job search:
 → ML/Data Engineering demand grew 10% YoY with significantly lower competition — most bootcamp grads in Barcelona lack any formal ML credential
 → At 36, I assumed age was a liability. Manfred placement data says 36–40 is the peak hiring bracket in Spain — 33% of all placements. The anxiety was a story, not a statistic
 
-The research also identified 6 employers in Barcelona with concrete junior-accessible openings in ML/Data or agentic AI — BSC-CNS, HP Sant Cugat, Red Points, CaixaBank Tech, Wallapop, Glovo. Role types and evidence for each are in the full report.
+The research also identified 6 Barcelona-area employer targets worth tracking for ML/Data, agentic AI, or adjacent engineering paths — BSC-CNS, HP Sant Cugat, Red Points, CaixaBank Tech, Wallapop, Glovo. Role types and evidence for each are in the full report.
 
 The system runs on Markdown files, a formal truth hierarchy, and whatever LLM you bring. Zero vendor lock-in. Full methodology and the 40-page LaTeX report are in the repo.
 
@@ -197,4 +197,4 @@ What's the one line on your profile you wrote years ago, never updated — and k
 
 ---
 
-*Draft produced by CommunityManager (SocialMediaWriter mandate), S-001 T8. All content requires user review and approval before publishing. No post should be published without explicit user sign-off.*
+*Draft produced by CommunityManager (SocialMediaWriter mandate), S-001 T8. All content requires explicit review before publishing. No post should be published without sender approval.*

@@ -3,6 +3,9 @@
 - **Sprint**: S-001.5
 - **Date**: 2026-04-27
 - **Purpose**: Human-applied public profile cleanup sequence before the UOC fair
+- **S-001.5R status**: Superseded for deployment. The `gh-pages` / `site/public`
+  instructions below are retained as historical evidence only. Current Pages
+  deployment builds the canonical `site/` Jekyll source through GitHub Actions.
 
 ## Local Repo Changes
 

@@ -115,8 +115,8 @@ These are the signature themes that should recur across posts to build a recogni
 | Channel | Format | Length | Cadence | Adaptation rule |
 |---------|--------|--------|---------|-----------------|
 | **LinkedIn** (primary) | Text post + companion image/PDF | 1,000–1,500 chars (sweet spot per T4 §3.3) | 2x/week: Tuesday (narrative) + Thursday (technical artifact) | Story in the post body. Link in first comment. Never external link in body. |
-| **GitHub** (canonical) | README updates, PR descriptions, release notes | As needed by engineering completeness | Every sprint closure | Technical precision. Dense. No narrative padding. |
-| **Site** (mirror) | Blog-style Markdown → Jekyll | 500–1,500 words | Monthly summary or per-sprint highlight | Curated and edited. Designed for recruiter scanning. AI-readable metadata. |
+| **GitHub** (canonical) | README updates, PR descriptions, release notes | As needed by engineering completeness | Every campaign/public-profile closure | Technical precision. Dense. No narrative padding. |
+| **Site** (mirror) | Blog-style Markdown → Jekyll | 500–1,500 words | Monthly summary or campaign highlight | Curated and edited. Designed for recruiter scanning. AI-readable metadata. |
 
 **Source:** marketing.md §Channels (priority order) + §Cadence rule. T4 §3.3 (length data) + §5.3 (consistency > volume).
 

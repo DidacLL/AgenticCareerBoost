@@ -1,14 +1,22 @@
-name: Export status
+name: Check exported status
 
 on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "state/**"
+      - "data/public-status.json"
+      - ".github/scripts/export_status.py"
   push:
     branches: [main]
     paths:
       - "state/**"
+      - "data/public-status.json"
+      - ".github/scripts/export_status.py"
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   export:
@@ -24,7 +32,5 @@ jobs:
       - name: Export status JSON
         run: python .github/scripts/export_status.py
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "chore: update public-status.json [auto]"
-          file_pattern: data/public-status.json
+      - name: Check generated status is committed
+        run: git diff --exit-code -- data/public-status.json

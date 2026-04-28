@@ -1,0 +1,288 @@
+\documentclass[a4paper,11pt,openany]{report}
+\usepackage{../preamble/agenticboost}
+
+\renewcommand{\sprintId}{S-001.5R}
+
+\title{%
+  \textsc{AgenticCareerBoost}\\[0.4em]
+  \Large Sprint S-001.5R: System Review and Publication Governance\\[0.3em]
+  \large Missing S-001.5 Documentation $\cdot$ Failure Analysis $\cdot$ Next Controls%
+}
+\author{Didac Llorens \\ \small \href{https://github.com/DidacLL}{github.com/DidacLL}}
+\date{April 2026 --- v0.1}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+% ============================================================================
+\chapter{Executive Summary}
+\label{ch:executive}
+% ============================================================================
+
+\takeaway{S-001.5 achieved the urgent public-profile objective: a recruiter
+landing surface, CV, GitHub cleanup package, LinkedIn/JobTeaser copy, outreach
+drafts, and event target shortlist were produced. The review also exposed a
+governance problem: publication, site architecture, generated artifacts, and
+social planning were coupled too tightly for the system to remain clean under
+deadline pressure.}
+
+S-001.5 was the UOC fair readiness sprint. Its purpose was practical rather
+than architectural: make the public profile coherent enough for recruiter
+inspection before the VI Fira Virtual d'Ocupacio de la UOC. The sprint closed
+with local artifacts and green build checks, but GitHub Pages still required a
+repository setting change outside the workspace.
+
+S-001.5R is the system review that documents what happened after that closure.
+It fills the missing formal documentation gap for S-001.5 and records the
+flaws found during the human review:
+
+\begin{itemize}
+  \item direct commits reached \fname{main} without an enforced review gate;
+  \item the site existed in more than one implementation shape;
+  \item generated files appeared in source-oriented folders;
+  \item the Pages publishing model and repository settings did not match;
+  \item sprint execution and social publishing plans became coupled;
+  \item public-tone safeguards had to be repeatedly rechecked.
+\end{itemize}
+
+The corrective direction is not to erase S-001.5. It delivered useful public
+material. The correction is to separate source, build output, publication, and
+social distribution so future sprints can move quickly without blurring the
+truth hierarchy.
+
+\pitfall{The mistake would be treating S-001.5 as a failed sprint. It was an
+effective deadline sprint with insufficient publication governance. The
+artifact value should be kept; the workflow leak should be fixed.}
+
+
+% ============================================================================
+\chapter{What S-001.5 Produced}
+\label{ch:s0015}
+% ============================================================================
+
+\takeaway{S-001.5 converted the S-001 positioning work into concrete public
+assets: profile copy, event outreach, a fair-ready site, a CV, and a checklist
+for user-controlled account actions.}
+
+\section{Sprint Goal}
+
+The sprint goal was to make the public profile event-ready by applying the
+S-001 positioning across GitHub, the public site, LinkedIn/JobTeaser copy,
+outreach messaging, and target-company triage. The core positioning remained:
+ML/Data Engineering as the primary lane, Agentic Systems as the differentiator,
+and documented systems work as the proof surface.
+
+\section{Completed Artifact Set}
+
+\begin{table}[htbp]
+\centering
+\caption{S-001.5 artifact map.}
+\label{tab:s0015-artifacts}
+\small
+\begin{tabularx}{\textwidth}{l X X}
+\toprule
+\textbf{Area} & \textbf{Artifact} & \textbf{Purpose} \\
+\midrule
+Research & \pathref{state/research/s0015-uoc-fair-targets.md} & Rank UOC fair targets by fit, message angle, and risk. \\
+GitHub profile & \pathref{content/social/drafts/2026-04-s0015-github-cleanup.md} & Prepare README, bio, repo descriptions, topics, pin order, and archive guidance. \\
+Site & \pathref{site/} & Provide a 90-second recruiter scan with JSON-LD, project evidence, CV link, and contact route. \\
+CV & \pathref{content/reports/tex/guides/didac-llorens-cv.tex} & Produce a formal CV aligned with the ML/Data plus Agentic Systems posture. \\
+LinkedIn/JobTeaser & \pathref{content/social/drafts/2026-04-s0015-linkedin-jobteaser-kit.md} & Supply paste-ready profile copy without unsupported credentials. \\
+Outreach & \pathref{content/social/drafts/2026-04-s0015-uoc-fair-outreach.md} & Draft event intros, interview requests, follow-ups, and company-specific angles. \\
+Execution & \pathref{state/summaries/s0015-execution-checklist.md} & Separate local repository work from user-controlled external account actions. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Review Status}
+
+PairCheck passed the public copy and recruiter site review. The checks confirmed
+that the copy avoided the legacy site, unsupported credentials, fabricated
+metrics, and apology framing. The site review confirmed the recruiter scan,
+project evidence, curriculum page, and CV link. The remaining blocker was not
+content quality. It was publication state: the build path had to be made
+consistent with GitHub Pages settings.
+
+
+% ============================================================================
+\chapter{Detected Flaws}
+\label{ch:flaws}
+% ============================================================================
+
+\takeaway{The failures were system-boundary failures. Different agents solved
+urgent local problems, but the repository did not yet enforce the boundaries
+between reviewed source, generated output, deployable site artifact, and public
+campaign planning.}
+
+\section{Direct-Main Commit}
+
+The git history shows S-001.5 closure and publication commits present directly
+on \fname{main}, including \fname{a1db91d}, \fname{8642f6d}, \fname{10bb463},
+\fname{e812508}, \fname{f601700}, and \fname{4abef07}. That is evidence of a
+missing governance gate, not evidence that those commits were useless.
+
+The practical risk is simple: a sprint can be declared reviewed after the fact
+even when the repository never forced a review-before-merge path. For a project
+whose public claim is disciplined agentic workflow design, that weakens the
+claim. S-001.5R therefore treats branch protection and one aggregate required
+CI check as publication infrastructure, not administrative polish.
+
+\section{Duplicate Site Implementations}
+
+The repository accumulated multiple site shapes:
+\pathref{site/starter/} as the original Jekyll scaffold,
+\pathref{content/site/} as Markdown content intended for the site, and
+\pathref{site/public/} as a static deadline artifact. The static path was a
+valid emergency adaptation because the fair deadline was immediate and the
+Pages Actions setup failed. It still left the next sprint with a design
+question: which tree is canonical?
+
+The answer should be explicit. S-002 should keep one site source model and one
+deployable output model. Until then, documentation must say when a file is
+source, generated mirror, or emergency static artifact.
+
+\section{Generated Files in Source Folders}
+
+Generated PDFs appeared under source-oriented TeX directories, while the
+intended publication folder is \pathref{content/reports/build/} and local TeX
+output belongs under \pathref{content/reports/tex/build/}. This matters because
+source review becomes noisy when build artifacts sit beside editable report
+sources.
+
+The right invariant is already present in the LaTeX infrastructure: source
+files live under \pathref{content/reports/tex/}; local build output goes to
+\fname{content/reports/tex/build/}; promoted public PDFs go to
+\pathref{content/reports/build/}. S-001.5R should preserve that separation.
+
+\section{Pages Publishing Mismatch}
+
+The review logs record two different Pages models. The original workflow used
+GitHub Pages Actions, but \fname{actions/configure-pages} could not create or
+configure the Pages site with the default token. The deadline workaround
+published static HTML to \fname{gh-pages}. After that, the repository still
+returned 404 until the human enabled Pages with the matching source setting.
+
+The flaw was not GitHub Pages itself. The flaw was a mismatch between local CI
+design, remote repository settings, and sprint closure language. A green build
+does not mean a live site unless the configured Pages source matches the
+workflow's publishing model.
+
+\section{Sprint/Social Coupling}
+
+S-001.5 mixed sprint execution with public-distribution readiness: GitHub
+cleanup, LinkedIn/JobTeaser copy, outreach drafts, social plan updates, and
+site deployment all moved in the same deadline window. That was useful for the
+fair, but it made state synchronization fragile. The ContentSync review found
+that the social plan still sequenced only S-000 posts until it was corrected.
+
+The rule for future sprints should be stricter: sprint artifacts can be created
+inside the sprint, but publication scheduling should remain gated by verified
+artifact availability, live links, and CommunityManager review.
+
+\section{Public-Tone Drift}
+
+The brand allows a controlled edge in public-facing artifacts, but the review
+history shows recurring tone risks: hype-adjacent language, excess sarcasm,
+unsupported statistics, and junior-coded legacy copy. S-001.5 public copy
+passed the final check, but only because PairCheck explicitly revalidated the
+tone and evidence constraints.
+
+The system should treat tone as a testable public-safety condition. Public copy
+must remain technical, direct, evidence-backed, and free of generic AI hype,
+founder-LARP framing, apology framing, and unsupported metrics.
+
+
+% ============================================================================
+\chapter{What S-001.5R Changed}
+\label{ch:changes}
+% ============================================================================
+
+\takeaway{S-001.5R does not rewrite the sprint artifacts. It records the review
+findings and defines the controls required before the next public push is
+treated as complete.}
+
+The companion governance log, \pathref{state/logs/S-001.5R/ci-pages-governance.md},
+records the local CI/Pages changes under review:
+
+\begin{itemize}
+  \item a stable aggregate workflow named \fname{required-ci};
+  \item validation for pytest, markdown lint, internal links, static site root,
+    and LaTeX compilation;
+  \item a shift away from direct \fname{gh-pages} branch commits and toward
+    GitHub Pages Actions that build Jekyll from \pathref{site/} and deploy
+    \fname{site/\_site/}.
+\end{itemize}
+
+Those changes still require remote repository settings that cannot be applied
+from the local workspace:
+
+\begin{enumerate}
+  \item enable Pages with source \textbf{GitHub Actions};
+  \item protect \fname{main} or add an equivalent ruleset;
+  \item require the aggregate \fname{required-ci} status before merge;
+  \item remove fragmented required checks after the aggregate check has run.
+\end{enumerate}
+
+\pitfall{A required check is useful only if it is required by repository
+settings. A workflow file in the repo is evidence of intent; branch protection
+is the enforcement mechanism.}
+
+
+% ============================================================================
+\chapter{Next Steps}
+\label{ch:next}
+% ============================================================================
+
+\takeaway{The next sprint should not add more surfaces before stabilizing the
+ones that already exist. S-002 should choose the canonical site architecture,
+clean generated artifacts out of source paths, and keep publication gated by
+live verification.}
+
+\section{Immediate Human Actions}
+
+\begin{enumerate}
+  \item Set repository Pages to the model selected by S-001.5R. If the workflow
+    uses GitHub Pages Actions, the remote setting must also use GitHub Actions.
+  \item Add branch protection or a repository ruleset for \fname{main}.
+  \item Require the aggregate \fname{required-ci} check once it has run on the
+    default branch.
+  \item Keep external profile changes user-controlled: LinkedIn, JobTeaser,
+    GitHub profile settings, and recruiter outreach should not be automated.
+\end{enumerate}
+
+\section{S-002 Constraints}
+
+\begin{itemize}
+  \item Keep \pathref{site/} as the canonical site source tree.
+  \item Keep generated PDFs out of editable TeX source folders.
+  \item Keep \fname{site/\_site/} as generated build output, not checked-in
+    source.
+  \item Do not mark the public site complete until the URL has been verified
+    live.
+  \item Keep social publication blocked until the linked artifacts exist and
+    tone checks pass.
+\end{itemize}
+
+\section{Closure Standard}
+
+Future sprint closure should distinguish four states:
+
+\begin{description}[style=nextline]
+  \item[Source complete]
+    The repo contains the intended source artifact.
+  \item[Build green]
+    CI has built and validated the artifact.
+  \item[Published]
+    The public surface is live at the intended URL.
+  \item[Distributed]
+    Social or external profile copy has been applied by the user.
+\end{description}
+
+S-001.5 reached source complete and build green. It did not fully reach
+published until the Pages source setting matched the workflow. It did not reach
+distributed automatically, by design, because external profile changes remain
+human-controlled.
+
+\end{document}

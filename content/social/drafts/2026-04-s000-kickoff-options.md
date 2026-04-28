@@ -290,7 +290,7 @@ for agentic AI?
 - Post 2 (Thursday): Option B — the document reveal, referencing Post 1
 - Post 3 (following Tuesday): Option C — the opinion piece, now backed by two prior evidence-linked posts
 
-**But the user decides.** All three options are brand-compliant and evidence-backed.
+Final publication choice remains manual. All three options are brand-compliant and evidence-backed.
 
 ---
 

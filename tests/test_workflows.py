@@ -57,7 +57,7 @@ def test_workflow_steps_are_numbered() -> None:
 
 
 def test_sprint_workflow_closure_outputs() -> None:
-    """For the sprint workflow, validate that six closure artifacts are enumerated."""
+    """For the sprint workflow, validate that six closure outputs are enumerated."""
     root = Path(__file__).resolve().parents[1]
     sprint_file = root / "docs/workflows/sprint.md"
     if not sprint_file.exists():
@@ -70,5 +70,5 @@ def test_sprint_workflow_closure_outputs() -> None:
         outputs_section = match.group(1)
         checkboxes = re.findall(r"- \[[ xX]\]", outputs_section)
         assert len(checkboxes) >= 6, (
-            "Sprint workflow Outputs section should enumerate at least six closure artifacts"
+            "Sprint workflow Outputs section should enumerate at least six closure outputs"
         )

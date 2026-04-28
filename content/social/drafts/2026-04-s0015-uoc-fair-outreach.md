@@ -3,7 +3,7 @@
 - **Sprint**: S-001.5
 - **Date**: 2026-04-27
 - **Purpose**: Recruiter messages and interview-request templates for the UOC fair
-- **Rule**: Drafts only. Sending requires user confirmation in the platform.
+- **Rule**: Drafts only. Sending requires explicit sender confirmation in the platform.
 
 ## 280-Character Intro
 
@@ -32,7 +32,7 @@ Hello,
 
 I am attending the UOC Virtual Employment Fair and would like to speak with your team about junior/student-accessible roles in data, ML, platform/tooling, research engineering, or regulated-domain software.
 
-I am finishing Software Engineering at UOC with an ML/AI specialization (Feb 2027). My public work includes AgenticCareerBoost, a model-agnostic multi-agent operating system with formal documentation, and P3CTeX, a LaTeX package ecosystem. I also bring 15 years of banking and insurance operations experience, which is especially relevant for compliance-aware systems and data-quality work.
+I am finishing Software Engineering at UOC with an ML/AI specialization (Feb 2027). My public work includes AgenticCareerBoost, a model-agnostic multi-agent operating system with formal documentation, and P3CTeX, a LaTeX package ecosystem. I also bring 15 years of banking and insurance operations experience, which gives me practical context for compliance-aware systems and data-quality work.
 
 Public profile: https://didacll.github.io/AgenticCareerBoost/
 GitHub: https://github.com/DidacLL

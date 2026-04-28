@@ -1,37 +1,37 @@
 {
-  "sprint_id": "S-001.5",
-  "workflow": "review (S-001.5 public-profile cleanup)",
-  "status": "reviewed / build green / Pages source setting blocked",
-  "last_closure_at": "2026-04-27",
-  "last_closure_type": "Review S-001.5",
+  "sprint_id": "S-001.5R",
+  "workflow": "system-review (S-001.5R remediation)",
+  "status": "implemented locally / PR validation and remote settings pending",
+  "last_closure_at": "2026-04-28",
+  "last_closure_type": "System Review S-001.5R",
   "artifacts": [
     {
       "complete": true,
-      "label": "Repository artifact(s) — S-001.5 research, profile kits, outreach kit, execution checklist, site pages, CV source/PDF"
+      "label": "Repository artifact(s) — canonical `site/`, workflow updates, report-source cleanup, contract updates"
     },
     {
       "complete": false,
-      "label": "Website / repo update trace — recruiter landing page rebuilt as static HTML; `gh-pages` branch published and build green; Pages source setting still required"
+      "label": "Website / repo update trace — Pages workflow now builds Jekyll from `site/`; remote Pages deploy evidence pending"
     },
     {
       "complete": true,
-      "label": "Social / LinkedIn-ready artifact — LinkedIn/JobTeaser kit and fair outreach messages"
+      "label": "Public-narrative decision — campaign remains evidence-gated; system-review social output deferred until public surfaces are synced"
     },
     {
       "complete": true,
-      "label": "Formal engineering documentation — S-001 report source plus S-001.5 formal CV PDF"
+      "label": "Formal engineering documentation — S-001.5R report source added"
     },
     {
       "complete": true,
-      "label": "Condensed technical backlog — see below"
+      "label": "Condensed technical backlog — branch protection and Pages remote settings remain explicit pending actions"
     },
     {
       "complete": true,
-      "label": "Condensed narrative backlog — see below"
+      "label": "Condensed narrative backlog — campaign sequencing decoupled from sprint numbering"
     }
   ],
   "blockers": [
-    "`gh-pages` branch exists and build tasks pass, but GitHub Pages still returns 404 until repository Pages source is set to `gh-pages` / root; external account/profile actions require user-controlled confirmation and application"
+    "repository Pages source must be set to GitHub Actions after merge; `main` needs a branch protection/ruleset requiring PRs and `required-ci`; final closure requires PR workflow and Pages deploy evidence"
   ],
   "next_sprint_seed": "S-002: Site rebuild (Jekyll)"
 }

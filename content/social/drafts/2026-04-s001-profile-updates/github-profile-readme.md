@@ -73,11 +73,11 @@ Currently completing a CS degree with ML/AI specialization at UOC (Feb 2027). Pr
 | No legacy site link | The legacy site is a net negative (T3 §5). All links now point to AgenticCareerBoost site. | T3 §5, T4 §5.4 |
 | Background section included | Reframes the 15 years as an asset, not a gap. Uses the same framing as LinkedIn About section but adapted for GitHub's technical audience (denser, less narrative). | T4 §5.2 C3, marketing.md: "do not clone identical content across channels" |
 | ML/AI mentioned in first line | Aligns with Primary Angle A (ML/Data Engineering). The degree and specialization are the strongest credential differentiators. | T4 §2 |
-| MemPalace contribution not included | Pending verification of contribution scope (T3 §2.5). Add when confirmed. | T3 §2.5, `[TODO: verify and add if substantive]` |
+| MemPalace contribution not included | Pending verification of contribution scope (T3 §2.5). Add only if a substantive contribution can be documented. | T3 §2.5 |
 
 ## Alternative: Angle B Lead (Agentic Systems Forward)
 
-If the user prefers Angle B positioning, replace the first line with:
+If Agentic Systems becomes the lead positioning, replace the first line with:
 
 ```markdown
 Software engineering student (UOC, ML/AI — Feb 2027) designing model-agnostic agentic systems. 15 years of regulated-industry operations reframed as engineering discipline. Barcelona.
@@ -96,9 +96,9 @@ And reorder "Current Focus" to lead with agentic system design (already first in
 - [x] Reflects T4 positioning (Primary: ML/Data, Secondary: Agentic Systems)
 - [x] No legacy site link
 - [x] No VladScv reference
-- [x] Every claim links to evidence or marked `[TODO]`
+- [x] Every claim links to evidence or is explicitly deferred from public copy
 - [x] Content adapted for GitHub (denser than LinkedIn, no narrative padding)
 
 ---
 
-*Draft produced by CommunityManager agent, S-001 T5. Requires user review before pushing to DidacLL/DidacLL repo.*
+*Draft produced by CommunityManager agent, S-001 T5. Requires explicit review before pushing to the DidacLL/DidacLL repo.*

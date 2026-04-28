@@ -57,7 +57,7 @@ Systems design · ML/AI · Agentic workflows · Technical documentation · Resou
 
 Before engineering: 15 years in banking and insurance operations: team leadership, complex case resolution, regulated processes, stakeholder management. I treat process discipline and failure-mode thinking as engineering skills, not soft skills.
 
-Currently completing a CS degree with ML/AI specialization at UOC (Feb 2027). Previous training includes Java Backend (IronHack), Android/Kotlin (Fundacion Francisco Puerto), FullStack React (ITAcademy), and Linux administration (PUE; full institution name to verify before using in formal profile copy).
+Currently completing a CS degree with ML/AI specialization at UOC (Feb 2027). Previous training includes Java Backend (IronHack), Android/Kotlin (Fundacion Francisco Puerto), FullStack React (ITAcademy), and Linux administration. The public profile can omit the PUE institution detail until the exact formal name is confirmed.
 
 ## Contact
 

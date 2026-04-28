@@ -12,7 +12,7 @@ I am based in Barcelona and open to conversations about:
 - Agentic AI and model-agnostic workflow systems
 - Platform, tooling, and automation
 - Research engineering and documentation-heavy technical work
-- Fintech, regtech, insurance, and other regulated-domain software
+- Regulated-domain software where banking and insurance operations context is useful
 
 ## Links
 

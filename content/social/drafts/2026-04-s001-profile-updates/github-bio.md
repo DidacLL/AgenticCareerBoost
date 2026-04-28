@@ -48,7 +48,7 @@ CS + ML/AI (UOC, 2027) · Agentic workflows · LaTeX · Python · Java · System
 |-------|---------------|-------------------|-----------|
 | **Name** | Didac Ll. | **Dídac Ll.** (add accent) | Correct Catalan orthography. "Dídac Ll." is acceptable per brand.md — abbreviated surname is fine on GitHub. T3 §6.1. |
 | **Bio** | (empty) | See options above | Critical fix. T3 §2.1. |
-| **Pronouns** | (not set) | **he/him** (optional) | Standard professional practice. Set only if the user is comfortable. |
+| **Pronouns** | (not set) | **he/him** (optional) | Standard professional practice. Set only if explicitly preferred. |
 | **Company** | (empty) | **UOC (Software Engineering)** | Signals current academic affiliation. Acceptable since "self-employed" or "independent" can look ambiguous. |
 | **Location** | Barcelona | **Barcelona, Catalonia** | Already set. Minor refinement to add "Catalonia" for geographic specificity. |
 | **Website** | (empty) | **https://didacll.github.io/AgenticCareerBoost/** | Critical. Links to the best public-facing artifact. T3 §2.4, T4 §5.3 M1. |
@@ -85,4 +85,4 @@ CS + ML/AI (UOC, 2027) · Agentic workflows · LaTeX · Python · Java · System
 
 ---
 
-*Draft produced by CommunityManager agent, S-001 T5. Requires user review before applying to GitHub settings.*
+*Draft produced by CommunityManager agent, S-001 T5. Requires explicit review before applying to GitHub settings.*
