@@ -2,15 +2,13 @@ name: Build LaTeX reports
 
 on:
   push:
-    paths:
-      - 'content/reports/tex/**'
-  pull_request:
+    branches: [main]
     paths:
       - 'content/reports/tex/**'
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
@@ -43,10 +41,3 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-      - name: Commit published PDFs
-        if: github.event_name == 'push'
-        continue-on-error: true
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "chore: publish latest LaTeX PDFs [auto]"
-          file_pattern: content/reports/build/*.pdf

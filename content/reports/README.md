@@ -20,9 +20,9 @@ the formal PDFs and their source tree.
 ## Build notes
 
 - Catalan is permitted per `docs/core/brand.md` language policy.
-- Build with TeX Live: `pdflatex` or `lualatex`.
-- Local build output lands in `content/reports/tex/build/`.
-- CI refreshes `content/reports/build/` on pushes that update
-  `content/reports/tex/`, promoting the guide and sprint PDFs while excluding
-  the smoke test.
+- Build with TeX Live through the scripts in `content/reports/tex/`.
+- Local build output lands in `content/reports/tex/build/` and stays ignored.
+- PRs refresh `content/reports/build/`, the only tracked PDF publication
+  folder, while CI uploads the compiled PDFs as artifacts and excludes the
+  smoke test from publication.
 - Source template: [`docs/templates/documentation-output.md`](../../docs/templates/documentation-output.md)

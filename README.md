@@ -62,8 +62,8 @@ prompt is needed.
 - **Workflow contracts**: allowed action modes in `docs/workflows/`
 - **Roles and specialties**: who owns the work and in what execution mode
 - **Volatile state**: current status, backlog, logs, and memory in `state/`
-- **Published proof**: formal PDFs, a static public site, and public artifacts
-  under `content/`, `site/public/`, and `data/`
+- **Published proof**: formal PDFs, the Jekyll site source, and public artifacts
+  under `content/`, `site/`, and `data/`
 
 ## System Mental Model
 
@@ -80,7 +80,7 @@ flowchart LR
     end
     subgraph outputs [Public surfaces]
         Content[content/]
-        Site[site/public/]
+        Site[site/]
         Data[data/]
     end
 
@@ -113,7 +113,7 @@ flowchart LR
 | `docs/templates/` | Fillable output templates for sprints, reviews, docs, social |
 | `state/` | Current status, active sprint, roadmap, backlog, logs, memory |
 | `content/` | Formal reports, social artifacts, and published proof |
-| `site/public/` | Static recruiter site published to the `gh-pages` branch |
+| `site/` | Canonical Jekyll source for the recruiter site |
 | `data/` | Machine-readable status and curated links |
 | `bootstrap/` | Historical bootstrap prompts (read-only archive) |
 
@@ -121,7 +121,7 @@ flowchart LR
 
 | Field | Value |
 |-------|-------|
-| Current workflow | Review complete; S-001.5 static site deployment in progress |
+| Current workflow | S-001.5R system review and remediation |
 | Next sprint seed | S-002: Full site rebuild and CV hardening |
 | Human guide | [Agentic System Guide](content/reports/build/agentic-system-guide.pdf) |
 | Latest case study | [Sprint S-001 PDF](content/reports/build/s001-profile-audit-positioning.pdf) |

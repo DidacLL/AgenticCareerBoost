@@ -48,18 +48,18 @@ A populated `state/active-sprint.md` exists with `status: planned`.
 - No agent instance works on more than one task contract simultaneously.
 - PairCheck agents are always fresh — no prior review history.
 
-## Outputs (all six required for closure)
+## Outputs
 
 - [ ] Repository artifact(s) — committed code, configs, or docs
 - [ ] Website / repo update trace — site deploy or visible repo change
-- [ ] Social / LinkedIn-ready artifact — in `content/social/`
+- [ ] Public-narrative decision — social candidate, defer note, or explicit waiver
 - [ ] Formal engineering documentation — in `content/reports/` or inline
 - [ ] Condensed technical backlog — appended to `state/backlog.md`
 - [ ] Condensed narrative backlog — appended to `state/backlog.md`
 
 ## Exit criteria
 
-- All six closure artifacts exist or are explicitly waived in backlog.
+- All six closure outputs exist or are explicitly waived in backlog.
 - `state/active-sprint.md` marked `status: closed`.
 - `state/current.md` updated with closure summary.
 - No orphan work: every artifact connects to repo, site, or social trace.

@@ -45,11 +45,11 @@ make clean   # remove build artifacts
 
 Local output lands in `build/`.
 
-On pushes that update `content/reports/tex/`, `.github/workflows/latex-build.yml`
-refreshes `content/reports/build/`, copies the published PDFs into it, and
-commits them so the latest guide and report documents are visible in the
-repository without opening a workflow run. The smoke test still compiles in CI
-but is not promoted as a public artifact.
+CI compiles the report sources and uploads the PDF bundle as an artifact. Public
+PDFs in `content/reports/build/` are updated by the same PR that changes their
+sources, so protected `main` never needs a bot auto-commit. The smoke test
+compiles in CI but is not promoted as a public artifact. Generated PDFs and
+auxiliary files must not be tracked inside `content/reports/tex/`.
 
 ## Architecture
 
@@ -65,11 +65,16 @@ but is not promoted as a public artifact.
 
 - `guides/agentic-system-guide.tex` — the formal human-facing manual for how to
   read and use the system.
+- `guides/didac-llorens-cv.tex` — the public downloadable CV source.
 - `sprints/s000-agentic-os-bootstrap.tex` — the bootstrap case study and
   evidence trail.
+- `sprints/s001-profile-audit-positioning.tex` — profile audit and positioning.
+- `sprints/s0015r-system-review.tex` — corrective system-review report.
 
 ## Rules
 
 - **Never use `\includegraphics` directly.** Use `\screenshotfig` or `\safeincludegraphics`.
 - **Any recurring macro must be promoted to the shared preamble.**
 - **Each sprint document is self-contained** (single PDF, single `.tex` entry point).
+- **Only `content/reports/build/` stores tracked PDFs.** Source folders stay
+  source-only.

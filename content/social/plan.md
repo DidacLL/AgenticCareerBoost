@@ -12,18 +12,34 @@ Canonical social plan maintained by `SocialMediaPlanner` and reviewed by
 - `content/social/research/`
 - Approved public artifacts in the repo
 
-## Current sequence
+## Current campaign sequence
 
-1. Post 1 — S-001 headline/profile audit reveal after GitHub profile and site are live
-2. Post 2 — S-001.5 UOC fair readiness post with recruiter landing page and CV as proof
-3. Post 3 — S-001 report reveal after the PDF is published in `content/reports/build/`
-4. Post 4 — S-000/S-001 governance and review-loop proof once the public surfaces are synced
+Campaign planning follows publishable evidence, not sprint numbering. Sprint IDs
+may appear in supporting artifacts, but public scheduling is based on whether
+the evidence exists and is recruiter-safe.
+
+1. Profile audit reveal — use the headline/profile audit narrative after the
+   GitHub profile, recruiter landing page, and profile copy are synced.
+   Evidence: `content/social/drafts/2026-04-s001-audit-reveal-options.md`,
+   `content/reports/build/s001-profile-audit-positioning.pdf`.
+2. UOC fair readiness — use the fair profile/CV narrative when the landing
+   page, curriculum page, and PDF CV link are deployed. Evidence:
+   `content/social/drafts/2026-04-s0015-linkedin-jobteaser-kit.md`,
+   `content/social/drafts/2026-04-s0015-uoc-fair-outreach.md`,
+   `content/reports/build/didac-llorens-cv.pdf`.
+3. Report/document reveal — use the native-document/PDF angle after the report
+   artifact exists in the build folder and links are stable. Evidence:
+   `content/reports/build/s001-profile-audit-positioning.pdf`.
+4. Governance proof — use the workflow/truth-hierarchy angle only after public
+   surfaces are synced and the diagrams or docs selected for the post exist.
+   Evidence: `docs/core/truth-hierarchy.md`, `docs/workflows/`,
+   `assets/diagrams/`.
 
 ## Publication prerequisites
 
 - Do not post the UOC fair profile/CV narrative until GitHub Pages has deployed
   the landing page, curriculum page, and PDF CV link.
-- Do not post the S-001 report reveal until
+- Do not post the report/document reveal until
   `content/reports/build/s001-profile-audit-positioning.pdf` exists.
 - Keep external links out of LinkedIn post bodies; use first comment or
   Featured/profile surfaces.

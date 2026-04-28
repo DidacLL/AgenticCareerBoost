@@ -1,28 +1,26 @@
-# LaTeX build artifacts
+# Local LaTeX build directory.
 build/
+
+# LaTeX auxiliary files that may appear beside a source during manual runs.
 *.aux
-*.log
-*.out
-*.toc
-*.lof
-*.lot
 *.bbl
 *.bcf
 *.blg
 *.fdb_latexmk
 *.fls
-*.synctex.gz
+*.lof
+*.log
+*.lot
+*.out
 *.run.xml
-*.nav
-*.snm
-*.vrb
-*.idx
-*.ilg
-*.ind
-*.glo
-*.gls
-*.glg
-*.ist
-*.acn
-*.acr
-*.alg
+*.synctex.gz
+*.toc
+
+# Editor backups.
+*.bak
+*.backup
+*.sav
+*.swp
+*~
+
+# Public PDFs are intentionally tracked only in content/reports/build/.

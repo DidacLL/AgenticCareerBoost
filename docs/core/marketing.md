@@ -11,10 +11,17 @@
 2. **Website** — curated public mirror; recruiter landing page
 3. **LinkedIn / social** — selective distribution of narrative artifacts
 
-## Cadence rule
+## Campaign cadence
 
-Every sprint closure should produce **at least one narrative candidate** suitable
-for social distribution. Hotfixes are exempt.
+The social campaign has its own plan in `content/social/plan.md`. Sprints may
+feed that campaign, but sprint numbering and social publication order are not
+coupled.
+
+- Campaign or public-profile sprints should produce at least one narrative
+  candidate suitable for social distribution.
+- Internal, governance, documentation, or system-review sprints may close with a
+  public-narrative decision: candidate, defer, or explicit waiver.
+- Hotfixes are exempt.
 
 ## Artifact rules
 

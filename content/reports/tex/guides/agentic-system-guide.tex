@@ -142,7 +142,7 @@ canonical truth when it conflicts with core rules.
 
 \section{Published outputs}
 
-Outputs live under \pathref{content/}, \pathref{site/starter/}, and
+Outputs live under \pathref{content/}, \pathref{site/}, and
 \pathref{data/}. The formal PDFs are part of that surface: they are meant to be
 read, cited, and inspected.
 
@@ -308,7 +308,7 @@ obvious next files.}
 \pathref{docs/agents/} & Understand who owns the work \\
 \pathref{state/} & Read current status, backlog, and recent activity \\
 \pathref{content/reports/} & Read published formal documentation \\
-\pathref{site/starter/} & Inspect the public mirror \\
+\pathref{site/} & Inspect the public mirror source \\
 \bottomrule
 \end{tabularx}
 
@@ -357,7 +357,7 @@ $\rightarrow$ optional public adaptation by \role{CommunityManager}.
   \node[filenode] (readme) {README.md};
   \node[filenode, right=2.8cm of readme] (guide) {agentic-system-guide.pdf};
   \node[filenode, right=2.8cm of guide] (case) {S-000 case study};
-  \node[filenode, below=of guide] (site) {site/starter/};
+  \node[filenode, below=of guide] (site) {site/};
   \node[filenode, below=of case] (build) {content/reports/build/};
 
   \draw[flowedge] (readme) -- node[above,font=\scriptsize]{quick entry} (guide);

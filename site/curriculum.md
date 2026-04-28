@@ -19,7 +19,7 @@ Software Engineering student at UOC specializing in Machine Learning and Artific
 
 ## Target Roles
 
-ML engineering, data engineering, agentic AI, platform/tooling, research engineering, fintech/regtech software, and documentation-heavy engineering roles where systems thinking and investigation matter.
+ML engineering, data engineering, agentic AI, platform/tooling, research engineering, regulated-domain software, and documentation-heavy engineering roles where systems thinking and investigation matter.
 
 ## Projects
 

@@ -120,9 +120,9 @@
 >
 > **Description**: A custom LaTeX document class and package ecosystem for academic document production. Multi-package architecture with expl3 internals, automated test suites, and an agentic development workflow. 2 GitHub stars (organic).
 >
-> **Stack**: LaTeX (expl3) · latexmk · Bash · GitHub Actions `[TODO: verify CI]`
+> **Stack**: LaTeX (expl3) · latexmk · Bash · GitHub Actions if CI evidence is confirmed
 >
-> **Links**: [GitHub Repository] [Example Output (PDF)] `[TODO: create example output]`
+> **Links**: [GitHub Repository] [Example Output (PDF) when available]
 >
 > **Evidence signal**: Active development. GPL-3.0 licensed. Documentation in English and Catalan.
 
@@ -136,19 +136,19 @@
 >
 > **Links**: [GitHub Repository]
 >
-> **Evidence signal**: Demonstrates backend engineering fundamentals. `[TODO: enhance README before featuring]`
+> **Evidence signal**: Demonstrates backend engineering fundamentals. Feature only after the README is improved.
 
 **Note**: Only feature Card 3 if the IronBank README has been improved (see `repo-metadata-updates.md`). Until then, display only Cards 1 and 2.
 
-#### Card 4: Future ML Project (placeholder)
+#### Card 4: Future ML Project (deferred until built)
 
-> **Title**: `[TODO: ML Pipeline Project]`
+> **Title**: ML Pipeline Project
 >
-> **Description**: End-to-end ML pipeline — data ingestion, training, model serving, monitoring. Python, scikit-learn/PyTorch, FastAPI, Docker. `[TODO: build in S-002/S-003 per T4 GP-02]`
+> **Description**: Reserve this card for a built project with inspectable data ingestion, training, model serving, and monitoring evidence.
 >
 > **Stack**: Python · scikit-learn/PyTorch · FastAPI · Docker
 >
-> **Links**: `[TODO]`
+> **Links**: Add only after a public repository or demo exists.
 
 ---
 
@@ -160,11 +160,11 @@
 
 **Languages**: Python · Java · Kotlin · SQL · LaTeX · JavaScript · Bash
 
-**Frameworks & Tools**: Spring Boot · React · FastAPI `[TODO: add when ML project is built]` · Docker · Git · GitHub Actions · latexmk · Maven
+**Frameworks & Tools**: Spring Boot · React · Docker · Git · GitHub Actions · latexmk · Maven. Add FastAPI only when an ML/data project provides evidence.
 
 **Domains**: Machine Learning · Agentic Systems · Systems Design · Microservices · REST APIs · Technical Documentation · Linux Administration
 
-**Methodologies**: Agile / Scrum · OOP · Design Patterns · Test-Driven Development `[TODO: verify TDD practice evidence]`
+**Methodologies**: Agile / Scrum · OOP · Design Patterns. Add Test-Driven Development only where project evidence supports it.
 
 **Copy constraint**: No self-assessment bars or percentage ratings (e.g., "Java: 85%"). These are meaningless and unprofessional. List skills as flat tags grouped by category. Let the projects section provide evidence of depth.
 
@@ -178,19 +178,19 @@
 >
 > I spent 15 years in customer-facing operations across banking and insurance before writing my first production line of code. Here is what that experience means for engineering:
 >
-> **Process discipline under regulation** — I operated in environments where compliance failures have legal consequences. When I design systems, I think about audit trails, data quality controls, and failure cascades — because I have seen what happens when those are missing.
+> **Process discipline under regulation** — I operated in environments where documentation, controls, and escalation paths mattered. When I design systems, I think about audit trails, data quality controls, and failure cascades because I have seen what happens when those are missing.
 >
 > **Complex problem resolution at scale** — I resolved high-volume customer cases involving multi-system interactions, regulatory edge cases, and stakeholder conflicts. Debugging production issues is structurally similar to debugging production customer problems.
 >
 > **Team leadership in high-pressure environments** — I led and mentored teams handling real-time customer operations. Incident management, escalation protocols, and under-pressure decision-making are not soft skills I claim — they are operational reflexes.
 >
-> **Domain knowledge as competitive advantage** — In a market where ML systems are increasingly regulated (EU AI Act, financial data directives), understanding how compliance works from the inside is not a transferable skill — it is a technical advantage. Particularly at fintech employers (CaixaBank Tech, N26, Ebury) and research centers working on AI governance.
+> **Regulated-domain context** — Banking and insurance operations give me practical context for data quality, compliance-aware automation, and documentation-heavy engineering. Use regulated-domain positioning only when the role asks for that awareness and the claim is tied to concrete project or work evidence.
 
 **Copy constraints**:
 - Must NOT read as defensive or apologetic
 - Each paragraph opens with the engineering benefit, not the banking history
 - Specific enough to be credible, not so specific that it reads as a resume dump
-- The EU AI Act reference adds strategic currency without being AI-hype
+- Regulatory references should appear only when tied to a specific role, artifact, or documented research source
 
 ---
 
@@ -200,12 +200,12 @@
 
 | Institution | Program | Duration | Key Details |
 |-------------|---------|----------|-------------|
-| **UOC** (Universitat Oberta de Catalunya) | Software Engineering (Grau en Enginyeria Informàtica) — ML/AI Specialization Mention | 2021 – Feb 2027 | Coursework: ML, neural networks, algorithms, OS, software architecture. Capstone in progress. `[TODO: verify specific UOC coursework list with user]` |
+| **UOC** (Universitat Oberta de Catalunya) | Software Engineering (Grau en Enginyeria Informàtica) — ML/AI Specialization Mention | 2021 – Feb 2027 | Coursework list should include only confirmed UOC subjects. Capstone in progress. |
 | **IronHack** (Barcelona) | Java Backend Development Bootcamp | 2022 | Capstone: IronBank microservices banking simulation (Java, Spring Boot, Keycloak). |
-| **BCN ITAcademy** | FullStack React Development | `[TODO: verify year]` | Full-stack web development with React. |
-| **PUE** | Linux System Administration | `[TODO: verify year]` | Server management, shell scripting, networking, security. |
+| **BCN ITAcademy** | FullStack React Development | Year omitted until confirmed | Full-stack web development with React. |
+| **PUE** | Linux System Administration | Year omitted until confirmed | Server management, shell scripting, networking, security. |
 | **Fundación Francisco Puerto** | Android Development (Kotlin) | 2024 | Mobile development fundamentals. |
-| **Escola Massana** (Centre d'Art i Disseny) | Art & Design | 2013 – 2016 | Visual thinking, spatial reasoning, iterative creative process. Informs current work in systems visualization and documentation aesthetics. `[TODO: verify institution name, dates, and skill characterizations with user]` |
+| **Escola Massana** (Centre d'Art i Disseny) | Art & Design | 2013 – 2016 if confirmed | Visual thinking, spatial reasoning, iterative creative process. Use only after institution name, dates, and credential are confirmed. |
 
 ---
 
@@ -219,7 +219,7 @@
 >
 > → **LinkedIn**: [linkedin.com/in/didacllorens](https://www.linkedin.com/in/didacllorens/)
 > → **GitHub**: [github.com/DidacLL](https://github.com/DidacLL)
-> → **Email**: `[TODO: add professional email — consider creating a didacllorens@domain or using a professional alias]`
+> → **Email**: Add a professional email address only after the preferred address is confirmed.
 >
 > For formal inquiries, LinkedIn messaging is preferred.
 
@@ -243,7 +243,7 @@ I am 36, based in Barcelona, and finishing a Software Engineering degree at UOC 
 
 **The transition**
 
-I did not start in engineering. I spent 15 years in customer-facing roles across banking and insurance — managing production teams, resolving complex cases in regulated environments, and building the kind of process discipline that most engineers only encounter through postmortem culture. I started coding seriously in 2020 `[TODO: confirm coding start date with user]`, during the lockdown, and I have not stopped since.
+I did not start in engineering. I spent 15 years in customer-facing roles across banking and insurance — managing production teams, resolving complex cases in regulated environments, and building process discipline under pressure. I started coding seriously in 2020 if that date is confirmed, and I have not stopped since.
 
 I do not frame this as a career change. It is a career extension. The same thinking that made me effective in production operations — systematic troubleshooting, failure-mode awareness, stakeholder communication under pressure, and respect for audit trails — is what I bring to software engineering. The systems changed; the thinking did not.
 
@@ -274,7 +274,7 @@ Place in the `<head>` of every page. This is what AI recruiter bots, Google, and
   "name": "Dídac Llorens",
   "alternateName": "Didac Llorens",
   "url": "https://didacll.github.io/AgenticCareerBoost/",
-  "image": "[TODO: professional headshot URL]",
+  "image": "Add confirmed professional headshot URL before publishing JSON-LD",
   "jobTitle": "Software Engineering Student",
   "description": "Software engineering student (UOC, ML/AI specialization, Feb 2027) building model-agnostic agentic systems and LaTeX tooling. 15 years of regulated-industry operations. Based in Barcelona.",
   "address": {
@@ -337,7 +337,7 @@ Place in the `<head>` of every page for social media previews (LinkedIn, Slack, 
 ```
 og:title        → "Dídac Llorens — Software Engineering · ML/AI · Barcelona"
 og:description  → "Software engineering student building model-agnostic agentic systems and ML pipelines. UOC CS degree with ML/AI specialization (Feb 2027). 15 years of regulated-industry experience."
-og:image        → [TODO: create a branded OG image — 1200x630px, dark background, name + tagline + key project screenshots]
+og:image        → add a reviewed branded OG image URL before publishing
 og:url          → "https://didacll.github.io/AgenticCareerBoost/"
 og:type         → "profile"
 og:locale       → "en_US"
@@ -458,9 +458,9 @@ Per marketing.md: "do not clone identical content across channels."
 - [x] Content differentiated from LinkedIn and GitHub (not cloned)
 - [x] Tone consistent with brand.md
 - [x] No forbidden-tone checklist violations
-- [x] Every claim links to evidence or marked `[TODO]`
+- [x] Every claim links to evidence or is explicitly deferred from public copy
 - [x] Alternatives provided for hero section (Angle A vs Angle B)
 
 ---
 
-*Blueprint produced by CommunityManager agent, S-001 T5. Implementation (Jekyll/HTML/CSS) deferred to S-002. All copy requires user review before implementation.*
+*Blueprint produced by CommunityManager agent, S-001 T5. Implementation (Jekyll/HTML/CSS) deferred. All copy requires explicit review before implementation.*

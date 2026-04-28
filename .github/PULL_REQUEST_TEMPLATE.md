@@ -6,7 +6,7 @@
 - [ ] Closure artifacts updated (sprint only):
   - [ ] Repository artifact committed
   - [ ] Site / repo trace visible
-  - [ ] Social artifact drafted or waived in backlog
+  - [ ] Public-narrative decision recorded
   - [ ] Documentation artifact committed or waived
   - [ ] Technical backlog updated in `state/backlog.md`
   - [ ] Narrative backlog updated in `state/backlog.md`

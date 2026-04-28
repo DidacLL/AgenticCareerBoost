@@ -43,7 +43,7 @@ def test_required_directories_exist() -> None:
         "docs/templates",
         "state",
         "content",
-        "site/starter",
+        "site",
         "data",
     ]
     for rel in required_dirs:

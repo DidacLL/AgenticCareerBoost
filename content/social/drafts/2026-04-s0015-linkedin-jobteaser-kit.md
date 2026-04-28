@@ -16,7 +16,7 @@ Software Engineering · ML/AI (UOC, 2027) · Data & Systems · Python · Java ·
 ```text
 I build systems that solve problems I care about, and I document the reasoning so the work can be inspected. I am completing a Software Engineering degree at UOC with a specialization in Machine Learning and Artificial Intelligence, graduating in February 2027. My current work spans agentic system design, LaTeX tooling architecture, and applied ML learning, all visible through public GitHub artifacts.
 
-Before software engineering, I spent 15 years in customer-facing operations across banking and insurance: team leadership, high-volume case resolution, regulated processes, and stakeholder communication under pressure. I do not treat that as a detour. In domains where data, automation, compliance, and user trust collide, knowing how regulated systems behave in practice is a technical advantage.
+Before software engineering, I spent 15 years in customer-facing operations across banking and insurance: team leadership, high-volume case resolution, regulated processes, and stakeholder communication under pressure. I do not treat that as a detour. In domains where data, automation, compliance, and user trust collide, that background gives me practical context for building software with stronger process discipline and documentation.
 
 My main public project is AgenticCareerBoost: a path-based, model-agnostic multi-agent operating system that produces formal reports, profile updates, and a recruiter-facing site through auditable Markdown workflows. I also maintain P3CTeX, a LaTeX document class and package ecosystem for academic document production. I am based in Barcelona and looking for roles in ML/data engineering, agentic AI, platform/tooling, or research engineering where investigation matters more than ticket velocity.
 ```
@@ -74,7 +74,7 @@ Software Engineering student at UOC, specializing in Machine Learning and Artifi
 
 My flagship project is AgenticCareerBoost, a path-based, model-agnostic multi-agent operating system that uses Markdown workflows, a formal truth hierarchy, and LaTeX reports to produce public career artifacts. I also maintain P3CTeX, a custom LaTeX document class and package ecosystem for academic document production.
 
-Before engineering, I spent 15 years in banking and insurance operations, leading teams and resolving complex cases in regulated environments. I am especially interested in ML/data engineering, agentic AI, platform/tooling, research engineering, and fintech/regtech contexts where technical work benefits from process discipline and compliance awareness.
+Before engineering, I spent 15 years in banking and insurance operations, leading teams and resolving complex cases in regulated environments. I am especially interested in ML/data engineering, agentic AI, platform/tooling, research engineering, and regulated-domain software where technical work benefits from process discipline and compliance awareness.
 ```
 
 ## Short Event Pitch

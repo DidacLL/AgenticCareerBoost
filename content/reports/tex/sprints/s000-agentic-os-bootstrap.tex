@@ -88,7 +88,7 @@ through the agent system to published outputs.
   \node[statenode, left=2cm of outputs] (logs) {state/logs/};
   \node[agentnode, below=of outputs] (ci) {.github/workflows/};
   \node[filenode, below left=1.2cm and 1cm of ci] (status) {data/};
-  \node[filenode, below right=1.2cm and 1cm of ci] (site) {site/starter/};
+  \node[filenode, below right=1.2cm and 1cm of ci] (site) {site/};
 
   % Edges
   \draw[flowedge] (user) -- (agents);
@@ -335,7 +335,7 @@ verifies closure.
 \begin{enumerate}
   \item Repository artifact(s) --- committed code, configs, or docs.
   \item Website / repo update trace.
-  \item Social / LinkedIn-ready artifact.
+  \item Public-narrative decision.
   \item Formal engineering documentation.
   \item Condensed technical backlog.
   \item Condensed narrative backlog.
@@ -589,16 +589,15 @@ bridge the internal repository to its public-facing outputs.}
 \begin{description}[style=nextline]
   \item[\pathref{content/social/}] Platform-adapted post drafts. Naming
     convention: \fname{YYYY-MM-DD-<channel>-<slug>.md}.
-  \item[\pathref{content/site/}] Markdown sources that Jekyll pulls into the
-    public site.
+  \item[\pathref{site/}] Jekyll source for the public site.
   \item[\pathref{content/reports/}] Formal \LaTeX{} engineering documents.
     This directory hosts the \fname{tex/} subtree with shared preamble and
     per-sprint documents.
 \end{description}
 
-\section{site/starter/ --- Jekyll scaffold}
+\section{site/ --- Jekyll scaffold}
 
-\pathref{site/starter/} contains a minimal Jekyll site: \fname{\_config.yml}
+\pathref{site/} contains the canonical Jekyll site: \fname{\_config.yml}
 (base URL \texttt{/AgenticCareerBoost}, plugins: \texttt{jekyll-feed},
 \texttt{jekyll-seo-tag}), \fname{Gemfile}, \fname{index.md} (landing page
 derived from the README), \fname{\_layouts/default.html} (semantic HTML, dark-mode
@@ -644,10 +643,10 @@ checking with retries and mail exclusion.
 
 \subsection{site-build.yml}
 
-Triggers on push to main affecting \fname{site/starter/}, \fname{content/site/},
+Triggers on push to main affecting \fname{site/},
 or \fname{README.md}. Uses the official GitHub Pages actions
 (\texttt{actions/configure-pages}, \texttt{actions/jekyll-build-pages},
-\texttt{actions/deploy-pages}) with source at \fname{./site/starter/}.
+\texttt{actions/deploy-pages}) with source at \fname{./site/}.
 Permissions: \texttt{pages: write}, \texttt{id-token: write}.
 
 \subsection{export-status.yml}
@@ -786,7 +785,7 @@ purpose and approximate size.}
 \bottomrule
 \end{longtable}
 
-Additional infrastructure files (\fname{.github/}, \fname{site/starter/},
+Additional infrastructure files (\fname{.github/}, \fname{site/},
 \fname{data/}, \fname{bootstrap/}, \fname{assets/}) are documented in their
 respective chapters above.
 

@@ -14,7 +14,9 @@
 | T-008 | Verify S-001 LaTeX report PDF publication through CI after push | S-001 / S-001.5 review | high |
 | T-009 | Apply GitHub profile/repo metadata cleanup from S-001.5 checklist through user-controlled account actions | S-001.5 | **high** |
 | T-010 | Complete full S-002 site rebuild with project detail pages, CV hardening, stable assets, and post-deploy checks | S-001.5 | high |
-| T-011 | Enable GitHub Pages from branch `gh-pages` / root, then verify `https://didacll.github.io/AgenticCareerBoost/` | S-001.5 review | **high** |
+| T-011 | Set GitHub Pages source to GitHub Actions after S-001.5R merges, then verify `https://didacll.github.io/AgenticCareerBoost/` | S-001.5R | **high** |
+| T-012 | Enable `main` branch protection/ruleset requiring PRs and aggregate `required-ci` | S-001.5R | **high** |
+| T-013 | Keep S-002 on canonical `site/` source root and avoid reintroducing rendered-source duplicates | S-001.5R | high |
 
 ## Narrative backlog
 
@@ -35,3 +37,5 @@
 | N-013 | Track UOC fair company contacts, interview requests, applications, and follow-ups | S-001.5 |
 | N-014 | Verify PUE full name, Escola Massana details, specific UOC coursework, professional email, and MemPalace contribution scope | S-001.5 |
 | N-015 | Review formal CV wording and add a professional email before broad distribution | S-001.5 review |
+| N-016 | Use S-001.5R governance story only after PR, Pages deploy, and PDF report exist | S-001.5R |
+| N-017 | Keep social campaign sequence evidence-gated, not sprint-number-gated | S-001.5R |
