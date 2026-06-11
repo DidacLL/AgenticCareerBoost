@@ -2,12 +2,13 @@
 
 Canonical source for the public GitHub Pages site.
 
-The site is a Jekyll project built from this directory and deployed by GitHub
-Actions after changes reach `main` through a passing pull request.
+The site is plain static HTML/CSS/JS. GitHub Actions validates the source files
+and uploads this directory directly as the Pages artifact.
 
 ## Rules
 
-- Edit Markdown, layouts, and assets here.
-- Do not edit rendered HTML as source.
+- Edit HTML, CSS, and JavaScript here.
+- Do not add a site generator unless a future sprint proves it is worth the
+  dependency.
 - Published PDFs remain in `content/reports/build/`.
 - S-002 owns the full visual rebuild; this folder is the stable source root.

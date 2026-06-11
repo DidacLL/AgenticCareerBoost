@@ -1,45 +1,41 @@
 {
   "sprint_id": "S-002R",
   "workflow": "sprint / S-002R bounded remediation",
-  "status": "PARTIAL / profile and social artifacts exist; site gates blocked",
+  "status": "PARTIAL / profile/social accepted; CI/static-site gates pass locally; browser/print preview still unproven",
   "last_closure_at": "2026-06-11",
   "last_closure_type": "Plan S-002R",
   "artifacts": [
     {
-      "complete": true,
-      "label": "Agentic framework review — risk-tiered sprint and consolidated trace proposal"
-    },
-    {
-      "complete": true,
-      "label": "Site rebuild review — topic-led landing plus repo-backed project pages selected"
-    },
-    {
-      "complete": true,
-      "label": "LinkedIn reactivation review — three-post low-heat restart selected"
-    },
-    {
-      "complete": true,
-      "label": "Public site live check — https://didacll.github.io/AgenticCareerBoost/"
-    },
-    {
-      "complete": true,
-      "label": "Profile consistency package and LinkedIn reactivation drafts prepared for human review"
-    },
-    {
-      "complete": true,
-      "label": "Social research refreshed with 2026 agentic engineering source anchors"
+      "complete": false,
+      "label": "Repository artifact(s) — PARTIAL: Profile/social artifacts exist; site artifacts now use plain static HTML"
     },
     {
       "complete": false,
-      "label": "Site rebuild remains PARTIAL — Jekyll/browser/print gates blocked by missing Ruby/Bundler"
+      "label": "Website / repo update trace — PARTIAL: Static-site, markdownlint, tests, links, and JSON gates pass locally; rendered browser and print-preview gates remain unproven"
+    },
+    {
+      "complete": false,
+      "label": "Public-narrative decision — PARTIAL: Reactivation sequence drafted; human publication and profile-consistency gates remain"
+    },
+    {
+      "complete": false,
+      "label": "Formal engineering documentation — deferred: S-002R may close with report links unless framework refactor lands"
+    },
+    {
+      "complete": false,
+      "label": "Condensed technical backlog — pending: Task 8 not closed here"
+    },
+    {
+      "complete": false,
+      "label": "Condensed narrative backlog — pending: Task 8 not closed here"
     }
   ],
   "blockers": [
     "LinkedIn profile content cannot be externally verified due to authwall",
-    "GitHub profile README and account metadata need manual/account-level cleanup",
-    "Jekyll/browser/print verification blocked by missing Ruby/Bundler",
-    "Professional email remains unconfirmed",
-    "Branch protection/ruleset requiring required-ci still needs remote verification"
+    "GitHub profile README and metadata need manual/account-level cleanup",
+    "browser screenshot and print-preview gates remain unproven because no browser automation tool is available in this workspace",
+    "professional email is still unconfirmed",
+    "branch protection/ruleset requiring `required-ci` still needs remote verification"
   ],
-  "next_sprint_seed": "Finish S-002R validation once Ruby/Bundler and human-owned account gates are available"
+  "next_sprint_seed": "S-002: Static site rebuild"
 }

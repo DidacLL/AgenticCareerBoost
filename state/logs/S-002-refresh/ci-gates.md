@@ -6,25 +6,29 @@
 ## Passed
 
 - `py -m json.tool data/public-status.json`
-- `py -B -m pytest tests` — 8 passed
-- Scoped `markdownlint-cli2` over files changed by S-002R — 0 errors
-- Internal link validation via `scripts/validate-links.sh` — 49 references valid
+- `py -m pytest tests` — 8 passed
+- Full-repo `markdownlint-cli2 "**/*.md" "#bootstrap/user_data.md"` — 0 errors
+- Internal link validation via `scripts/validate-links.sh` — 49 references valid across 116 files
 - `git diff --check` — no whitespace errors
+- Static-site file check — all required HTML/CSS/JS files exist
+- Local HTTP route check under `/AgenticCareerBoost/` — landing, project pages, dashboard, CV variants, contact, CSS, and JS returned HTTP 200
+- Static route resolver — 71 internal `/AgenticCareerBoost/` references across 8 HTML pages, 0 broken targets
+- CI static validator — `.github/scripts/validate_static_site.py` checks required files and internal `/AgenticCareerBoost/` references with no external dependencies
+- `data/public-status.json` regeneration is idempotent
 - Private-name scan over changed public/social/site/status scope — no private project name found
 
 ## Known Limits
 
-- Full-repo markdownlint is blocked by pre-existing untracked
-  `content/social/drafts/brandingPlan.md` lint errors.
-- Jekyll build cannot run locally because `ruby`, `bundle`, and `jekyll` are
-  not available on PATH.
-- Browser/mobile/print checks are therefore not proven in this environment.
+- The site no longer depends on Ruby, Bundler, Jekyll, or generated `_site`
+  output.
+- Browser/mobile/print-preview checks still need final proof. The Browser tool
+  did not surface through tool discovery, and Playwright is not installed in
+  the workspace.
 - Pytest emits a cache warning because `.pytest_cache` cannot be written, but
   tests still pass.
 
 ## Required Before Site Closure
 
-- Run `bundle exec jekyll build` from `site/`.
 - Inspect landing, project pages, dashboard, and CV variants at desktop/mobile
   widths.
 - Print-preview `/curriculum/?view=print`.

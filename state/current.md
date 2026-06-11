@@ -1,8 +1,8 @@
 # Current state
 
 - **Active workflow**: sprint / S-002R bounded remediation
-- **Active sprint**: S-002R - PARTIAL; profile/social artifacts exist, site gates still blocked
-- **Blockers**: LinkedIn profile content cannot be externally verified due to authwall; GitHub profile README and metadata need manual/account-level cleanup; Jekyll/browser/print gates are blocked by missing Ruby/Bundler; professional email is still unconfirmed; branch protection/ruleset requiring `required-ci` still needs remote verification.
+- **Active sprint**: S-002R - PARTIAL; profile/social artifacts exist, CI/static-site remediation validated locally
+- **Blockers**: LinkedIn profile content cannot be externally verified due to authwall; GitHub profile README and metadata need manual/account-level cleanup; browser screenshot and print-preview gates remain unproven because no browser automation tool is available in this workspace; professional email is still unconfirmed; branch protection/ruleset requiring `required-ci` still needs remote verification.
 
 ## Current evidence
 
@@ -13,7 +13,7 @@
 - Orchestrator decision ledger: `state/logs/S-002-refresh/orchestrator-decision-ledger.md`.
 - Profile consistency package and LinkedIn reactivation drafts now exist as human-gated candidate artifacts.
 - Social research now includes 2026 source anchors for agentic oversight, repository usage, backend workflows, and domain-specific benchmark difficulty.
-- Site status remains PARTIAL until Ruby/Bundler-dependent Jekyll, browser, and print gates can run.
+- Site status remains PARTIAL until rendered browser and print-preview gates pass.
 
 ## Recent closures
 

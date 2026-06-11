@@ -62,7 +62,7 @@ prompt is needed.
 - **Workflow contracts**: allowed action modes in `docs/workflows/`
 - **Roles and specialties**: who owns the work and in what execution mode
 - **Volatile state**: current status, backlog, logs, and memory in `state/`
-- **Published proof**: formal PDFs, the Jekyll site source, and public artifacts
+- **Published proof**: formal PDFs, the static site source, and public artifacts
   under `content/`, `site/`, and `data/`
 
 ## System Mental Model
@@ -113,7 +113,7 @@ flowchart LR
 | `docs/templates/` | Fillable output templates for sprints, reviews, docs, social |
 | `state/` | Current status, active sprint, roadmap, backlog, logs, memory |
 | `content/` | Formal reports, social artifacts, and published proof |
-| `site/` | Canonical Jekyll source for the recruiter site |
+| `site/` | Canonical static HTML/CSS/JS source for the recruiter site |
 | `data/` | Machine-readable status and curated links |
 | `bootstrap/` | Historical bootstrap prompts (read-only archive) |
 

@@ -68,30 +68,19 @@ jobs:
         run: git diff --exit-code -- data/public-status.json
 
   site-build:
-    name: site build
+    name: static site
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.2"
-          bundler-cache: true
-          working-directory: site
-
-      - name: Build Jekyll site
-        working-directory: site
-        run: bundle exec jekyll build
-
-      - name: Validate built site
-        run: test -f site/_site/index.html
+      - name: Validate static site
+        run: python .github/scripts/validate_static_site.py
 
       - name: Upload static site artifact
         uses: actions/upload-artifact@v4
         with:
           name: required-ci-site
-          path: site/_site
+          path: site
           if-no-files-found: error
 
   latex-build:

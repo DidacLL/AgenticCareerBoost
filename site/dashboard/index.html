@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AgenticCareerBoost Dashboard</title>
+  <meta name="description" content="Public S-002R dashboard for AgenticCareerBoost status, blockers, artifacts, and implementation links.">
+  <link rel="stylesheet" href="/AgenticCareerBoost/assets/css/site.css">
+</head>
+<body>
+  <nav class="site-nav"><div class="shell"><a class="brand" href="/AgenticCareerBoost/">Dídac Llorens</a><div class="nav-links"><a href="/AgenticCareerBoost/projects/">Projects</a><a href="/AgenticCareerBoost/dashboard/">Dashboard</a><a href="/AgenticCareerBoost/curriculum/?view=agentic">CV</a><a href="/AgenticCareerBoost/contact/">Contact</a><a class="primary-link" href="https://github.com/DidacLL">GitHub</a></div></div></nav>
+  <main class="shell">
+    <div class="hero slim">
+      <div>
+        <div class="eyebrow">Public status snapshot · 2026-06-11</div>
+        <h1>S-002R Dashboard</h1>
+        <p class="lead">A static snapshot of the current sprint state. The canonical status lives in <code>data/public-status.json</code>; this page keeps the human-readable copy inside <code>site/</code> without a build dependency.</p>
+      </div>
+    </div>
+    <section>
+      <h2>Status</h2>
+      <div class="grid">
+        <article class="card"><h3>Sprint</h3><p><span class="metric">S-002R</span></p><p>Restart review and implementation foundation after the college-assignment pause.</p></article>
+        <article class="card"><h3>Workflow</h3><p><span class="metric">sprint / S-002R bounded remediation</span></p><p>Viewpoint reviews complete; implementation and CI repairs are in progress.</p></article>
+        <article class="card"><h3>Last Closure</h3><p><span class="metric">2026-06-11</span></p><p>Plan S-002R.</p></article>
+      </div>
+    </section>
+    <section>
+      <h2>Artifacts</h2>
+      <ul class="status-list">
+        <li><span class="status-ok">Complete:</span> Agentic framework review: risk-tiered sprint and consolidated trace proposal.</li>
+        <li><span class="status-ok">Complete:</span> Site rebuild review: topic-led landing plus repo-backed project pages selected.</li>
+        <li><span class="status-ok">Complete:</span> LinkedIn reactivation review: three-post low-heat restart selected.</li>
+        <li><span class="status-pending">In progress:</span> Static-site conversion, CI repair, final browser check, and print CV inspection.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Blockers</h2>
+      <ul class="status-list">
+        <li><span class="status-blocked">External:</span> LinkedIn profile content cannot be externally verified due to authwall.</li>
+        <li><span class="status-blocked">Account-level:</span> GitHub profile README and account metadata need manual cleanup.</li>
+        <li><span class="status-pending">Decision:</span> Professional email remains unconfirmed.</li>
+        <li><span class="status-pending">Remote gate:</span> Branch protection/ruleset requiring required-ci still needs remote verification.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Navigation</h2>
+      <div class="grid two">
+        <article class="card"><h3>Implementation Pages</h3><p><a href="/AgenticCareerBoost/">Landing</a> · <a href="/AgenticCareerBoost/projects/">Projects</a> · <a href="/AgenticCareerBoost/curriculum/?view=agentic">Agentic CV</a> · <a href="/AgenticCareerBoost/curriculum/?view=print">Print CV</a></p></article>
+        <article class="card"><h3>Canonical Sources</h3><p><a href="https://github.com/DidacLL/AgenticCareerBoost">Repository</a> · <a href="https://github.com/DidacLL/AgenticCareerBoost/blob/main/data/public-status.json">public-status.json</a> · <a href="https://github.com/DidacLL/AgenticCareerBoost/tree/main/content/reports/build">Reports</a></p></article>
+      </div>
+    </section>
+  </main>
+  <footer><div class="shell">Source: <a href="https://github.com/DidacLL/AgenticCareerBoost">AgenticCareerBoost</a>.</div></footer>
+</body>
+</html>
