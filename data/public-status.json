@@ -1,37 +1,40 @@
 {
-  "sprint_id": "S-001.5R",
-  "workflow": "system-review (S-001.5R remediation)",
-  "status": "implemented locally / PR validation and remote settings pending",
-  "last_closure_at": "2026-04-28",
-  "last_closure_type": "System Review S-001.5R",
+  "sprint_id": "S-002R",
+  "workflow": "sprint / S-002R bounded remediation",
+  "status": "PARTIAL / framework, profile/social, static-site, browser, and print gates pass; human/account closure remains",
+  "last_closure_at": "2026-06-11",
+  "last_closure_type": "Plan S-002R",
   "artifacts": [
     {
+      "complete": false,
+      "label": "Repository artifact(s) — PARTIAL: Framework simplification, profile/social artifacts, and plain static site exist"
+    },
+    {
       "complete": true,
-      "label": "Repository artifact(s) — canonical `site/`, workflow updates, report-source cleanup, contract updates"
+      "label": "Website / repo update trace — done: Static-site, route, desktop/mobile browser, configurable CV, print PDF, markdownlint, tests, links, JSON, and PR CI gates pass"
     },
     {
       "complete": false,
-      "label": "Website / repo update trace — Pages workflow now builds Jekyll from `site/`; remote Pages deploy evidence pending"
+      "label": "Public-narrative decision — PARTIAL: Reactivation sequence drafted; human publication and profile-consistency gates remain"
     },
     {
-      "complete": true,
-      "label": "Public-narrative decision — campaign remains evidence-gated; system-review social output deferred until public surfaces are synced"
+      "complete": false,
+      "label": "Formal engineering documentation — PARTIAL: Framework simplification proposal exists with source review; formal report deferred unless sprint closure needs it"
     },
     {
-      "complete": true,
-      "label": "Formal engineering documentation — S-001.5R report source added"
+      "complete": false,
+      "label": "Condensed technical backlog — pending: Task 8 not closed here"
     },
     {
-      "complete": true,
-      "label": "Condensed technical backlog — branch protection and Pages remote settings remain explicit pending actions"
-    },
-    {
-      "complete": true,
-      "label": "Condensed narrative backlog — campaign sequencing decoupled from sprint numbering"
+      "complete": false,
+      "label": "Condensed narrative backlog — pending: Task 8 not closed here"
     }
   ],
   "blockers": [
-    "repository Pages source must be set to GitHub Actions after merge; `main` needs a branch protection/ruleset requiring PRs and `required-ci`; final closure requires PR workflow and Pages deploy evidence"
+    "LinkedIn profile content cannot be externally verified due to authwall",
+    "GitHub profile README and metadata need manual/account-level cleanup",
+    "professional email is still unconfirmed",
+    "branch protection/ruleset requiring `required-ci` still needs remote verification"
   ],
-  "next_sprint_seed": "S-002: Site rebuild (Jekyll)"
+  "next_sprint_seed": "S-002: Static site rebuild"
 }

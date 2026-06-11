@@ -8,6 +8,7 @@ maintenance pass.
 ## Inputs
 
 - The specific request or backlog item
+- `docs/core/constraints.md` — bounded contract fields
 - `docs/core/*` — stable truth (read-only)
 - One role file from `docs/agents/` or `docs/agents/autoagents.md`
 - `state/current.md` — current project status
@@ -15,8 +16,7 @@ maintenance pass.
 
 ## Steps
 
-1. Write one contract with target, specialty, scope, writes, acceptance, and
-   memory path or `none`.
+1. Write one bounded contract using `docs/core/constraints.md`.
 2. Dispatch exactly one named role or AutoAgent.
 3. Execute within the declared scope and writes only.
 4. Update memory only with durable heuristics that help future runs.

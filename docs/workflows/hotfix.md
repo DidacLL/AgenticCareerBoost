@@ -7,13 +7,13 @@ A small, focused change is needed outside a full sprint cycle.
 ## Inputs
 
 - The specific issue or request
+- `docs/core/constraints.md` — bounded contract fields
 - `docs/core/*` — stable truth (read-only)
 - `state/current.md` — current project status
 
 ## Steps
 
-1. Write one bounded contract with target, specialty, scope, writes,
-   acceptance, and memory path or `none`.
+1. Write one bounded contract using `docs/core/constraints.md`.
 2. One specialist agent executes the fix (usually **Developer**; one commit).
 3. Verify the change does not violate `docs/core/*` constraints.
 4. Append a minimal backlog note to `state/backlog.md`.

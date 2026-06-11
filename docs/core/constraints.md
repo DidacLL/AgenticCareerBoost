@@ -20,3 +20,14 @@
 - Prefer small reusable templates over bespoke formats
 - Avoid repeated context across files
 - Avoid decorative complexity and premature over-formalization
+
+## Bounded Contract
+
+Every mutating workflow uses the same compact contract fields:
+
+- target and specialty
+- scope and writes
+- acceptance gates
+- review depth: `skip`, `one`, or `two`
+- trace target: run ledger, specialist report, or `none`
+- memory path: one family path or `none`

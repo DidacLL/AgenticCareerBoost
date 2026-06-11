@@ -62,7 +62,7 @@ prompt is needed.
 - **Workflow contracts**: allowed action modes in `docs/workflows/`
 - **Roles and specialties**: who owns the work and in what execution mode
 - **Volatile state**: current status, backlog, logs, and memory in `state/`
-- **Published proof**: formal PDFs, the Jekyll site source, and public artifacts
+- **Published proof**: formal PDFs, the static site source, and public artifacts
   under `content/`, `site/`, and `data/`
 
 ## System Mental Model
@@ -113,7 +113,7 @@ flowchart LR
 | `docs/templates/` | Fillable output templates for sprints, reviews, docs, social |
 | `state/` | Current status, active sprint, roadmap, backlog, logs, memory |
 | `content/` | Formal reports, social artifacts, and published proof |
-| `site/` | Canonical Jekyll source for the recruiter site |
+| `site/` | Canonical static HTML/CSS/JS source for the recruiter site |
 | `data/` | Machine-readable status and curated links |
 | `bootstrap/` | Historical bootstrap prompts (read-only archive) |
 
@@ -121,8 +121,8 @@ flowchart LR
 
 | Field | Value |
 |-------|-------|
-| Current workflow | S-001.5R system review and remediation |
-| Next sprint seed | S-002: Full site rebuild and CV hardening |
+| Current workflow | S-002R restart implementation |
+| Next sprint seed | Profile consistency, site rebuild foundation, and LinkedIn reactivation drafts |
 | Human guide | [Agentic System Guide](content/reports/build/agentic-system-guide.pdf) |
 | Latest case study | [Sprint S-001 PDF](content/reports/build/s001-profile-audit-positioning.pdf) |
 | Site | [didacll.github.io/AgenticCareerBoost](https://didacll.github.io/AgenticCareerBoost/) |

@@ -33,7 +33,39 @@ def extract_closure_artifacts(text: str) -> list[dict[str, str | bool]]:
         checked = match.group(1) == "x"
         label = match.group(2).strip()
         artifacts.append({"complete": checked, "label": label})
+    if artifacts:
+        return artifacts
+
+    in_section = False
+    for line in text.splitlines():
+        if line.strip() == "## Closure matrix":
+            in_section = True
+            continue
+        if in_section and line.startswith("## "):
+            break
+        if not in_section:
+            continue
+        match = re.match(r"\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|", line)
+        if not match:
+            continue
+        dimension, state, evidence = (part.strip() for part in match.groups())
+        if dimension in {"Dimension", "---"} or set(dimension) == {"-"}:
+            continue
+        state_normalized = state.lower()
+        complete = state_normalized in {"done", "complete", "completed", "pass", "passed", "closed"}
+        artifacts.append(
+            {
+                "complete": complete,
+                "label": f"{dimension} — {state}: {evidence}",
+            }
+        )
     return artifacts
+
+
+def split_blockers(value: str) -> list[str]:
+    if value.lower() in ("none", ""):
+        return []
+    return [part.strip().rstrip(".") for part in value.split(";") if part.strip()]
 
 
 def main() -> None:
@@ -52,8 +84,7 @@ def main() -> None:
     last_closure_at = closures[0][0] if closures else str(date.today())
     last_closure_type = closures[0][1] if closures else "unknown"
 
-    blockers_field = extract_field(current, "Blockers")
-    blockers = [] if blockers_field.lower() in ("none", "") else [blockers_field]
+    blockers = split_blockers(extract_field(current, "Blockers"))
 
     roadmap = (ROOT / "state" / "roadmap.md").read_text(encoding="utf-8")
     next_seed = ""

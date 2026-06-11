@@ -57,7 +57,7 @@ def test_workflow_steps_are_numbered() -> None:
 
 
 def test_sprint_workflow_closure_outputs() -> None:
-    """For the sprint workflow, validate that six closure outputs are enumerated."""
+    """For the sprint workflow, validate the closure matrix contract."""
     root = Path(__file__).resolve().parents[1]
     sprint_file = root / "docs/workflows/sprint.md"
     if not sprint_file.exists():
@@ -65,10 +65,15 @@ def test_sprint_workflow_closure_outputs() -> None:
         pytest.skip("docs/workflows/sprint.md not found; skipping sprint outputs test")
         return
     content = sprint_file.read_text(encoding="utf-8")
-    match = re.search(r"## Outputs.*?\n([\s\S]+?)(\n##|$)", content)
-    if match:
-        outputs_section = match.group(1)
-        checkboxes = re.findall(r"- \[[ xX]\]", outputs_section)
-        assert len(checkboxes) >= 6, (
-            "Sprint workflow Outputs section should enumerate at least six closure outputs"
-        )
+    assert "## Closure Matrix" in content
+    for state in ("done", "deferred", "waived", "not applicable"):
+        assert state in content
+    for dimension in (
+        "Repository artifact(s)",
+        "Website / repo update trace",
+        "Public-narrative decision",
+        "Formal engineering documentation",
+        "Condensed technical backlog",
+        "Condensed narrative backlog",
+    ):
+        assert dimension in content

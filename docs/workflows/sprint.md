@@ -9,57 +9,85 @@ A populated `state/active-sprint.md` exists with `status: planned`.
 - `state/active-sprint.md` — task contracts and acceptance criteria
 - `docs/agents/*` — role definitions for instantiated agents
 - `docs/agents/autoagents.md` — fixed routines when the sprint contract names one
+- `docs/core/constraints.md` — bounded contract fields
 - `docs/core/*` — stable truth (read-only during sprint)
 
 ## Steps
 
 1. **Orchestrator** reads the sprint contract and decomposes into task
-   contracts. Each mutating contract specifies: target, specialty, scope,
-   writes, acceptance, and memory path or `none`. The Orchestrator writes
-   contracts only — it does not implement.
+   contracts using the bounded-contract fields in `docs/core/constraints.md`.
+   The Orchestrator is dispatcher-first; it may apply low-risk mechanical
+   integration edits only when already inside the declared sprint scope.
 2. **Orchestrator** delegates each task to a **separate agent instance**:
    - Implementation tasks → **Developer** agent (one task per instance)
    - Documentation tasks → **Documentation** agent
    - Narrative tasks → **CommunityManager** agent
    - Fixed maintenance tasks → named **AutoAgent** from the registry
 3. Each agent executes its contract, tests where appropriate, and reports
-   back to the Orchestrator with output + assumptions log.
-4. **Orchestrator** sends each non-trivial output to **two fresh PairCheck**
-   agents (independent reviews, no shared context).
-5. PairCheck resolution:
-   - Both pass → output accepted, proceed to integration.
-   - One or both return PARTIAL/FAIL → **Orchestrator creates a new
+   back to the Orchestrator with output, assumptions, gates, and trace path.
+4. Review depth is risk-tiered:
+   - Trivial/mechanical: self-check plus relevant CI gate.
+   - Standard: one fresh PairCheck or equivalent source review.
+   - High-risk/public/core: two fresh PairCheck agents.
+5. PairCheck/source-review resolution:
+   - Required reviews pass → output accepted, proceed to integration.
+   - Required review returns PARTIAL/FAIL → **Orchestrator creates a new
      Developer agent** with a remediation contract containing only the
-     defect list and affected file paths. The Orchestrator must **never
-     apply fixes itself**.
-   - Remediated output goes to **two fresh PairCheck agents** (round 2).
+     defect list and affected file paths, unless the defect is a low-risk
+     mechanical integration edit already in Orchestrator scope.
+   - Remediated output repeats the declared review depth.
    - If round 2 also fails → **escalate to user**. Do not loop further.
    - Two conflicting verdicts → Orchestrator resolves by reading only
      the verdict summaries, or escalates to user if unclear.
 6. **CI/CD** agent integrates accepted work into repository flow.
-7. **Orchestrator** verifies all six closure artifacts and closes the sprint.
+7. **Orchestrator** verifies the closure matrix and closes the sprint only
+   when each dimension is done, deferred, waived, or not applicable.
 
 ## Agent isolation rules
 
-- The Orchestrator must not read full file contents for analysis. It reads
-  contracts, verdicts, and status — then delegates deeper work.
+- The Orchestrator keeps context narrow. It reads contracts, verdicts, status,
+  and enough source to integrate safely; deeper analysis remains delegated.
 - Every agent instance receives only the files it needs (context budget).
 - A mutating task may read at most one declared family memory path.
 - No agent instance works on more than one task contract simultaneously.
-- PairCheck agents are always fresh — no prior review history.
+- PairCheck agents are fresh when review depth requires PairCheck.
+
+## Trace Policy
+
+- Prefer one compact run ledger plus specialist reports that are needed for
+  handoff, review, or future audit.
+- Do not create a Markdown file only to narrate obvious command output.
+- Human-facing status belongs in `site/` dashboard pages or concise summaries;
+  Markdown logs are primarily inter-agent memory and planning evidence.
+
+## Human Approval Gates
+
+Human approval is required for publication, account-owned profile changes,
+private/sensitive disclosure, destructive repository actions, and unresolved
+second-round review failures. Routine CI, lint, static-site, and status repairs
+should proceed autonomously inside the declared scope.
 
 ## Outputs
 
-- [ ] Repository artifact(s) — committed code, configs, or docs
-- [ ] Website / repo update trace — site deploy or visible repo change
-- [ ] Public-narrative decision — social candidate, defer note, or explicit waiver
-- [ ] Formal engineering documentation — in `content/reports/` or inline
-- [ ] Condensed technical backlog — appended to `state/backlog.md`
-- [ ] Condensed narrative backlog — appended to `state/backlog.md`
+Sprint outputs are represented by the closure matrix instead of mandatory
+artifact files. Evidence can be a repository artifact, dashboard entry, report,
+social decision, backlog delta, or explicit waiver.
+
+## Closure Matrix
+
+Each sprint closes with a matrix whose dimensions are marked `done`,
+`deferred`, `waived`, or `not applicable`:
+
+- Repository artifact(s)
+- Website / repo update trace
+- Public-narrative decision
+- Formal engineering documentation
+- Condensed technical backlog
+- Condensed narrative backlog
 
 ## Exit criteria
 
-- All six closure outputs exist or are explicitly waived in backlog.
+- Each closure-matrix dimension has a state and evidence link.
 - `state/active-sprint.md` marked `status: closed`.
 - `state/current.md` updated with closure summary.
 - No orphan work: every artifact connects to repo, site, or social trace.
