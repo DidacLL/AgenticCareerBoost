@@ -3,9 +3,10 @@
 ## Purpose
 
 Coordinate multiagent workflows. Decompose work, delegate to specialists,
-enforce pair-check, and verify sprint closure. The Orchestrator is a
-**dispatcher, not an implementer** — it reads contracts, writes contracts,
-and routes work. It never produces artifacts directly.
+enforce risk-tiered review, and verify sprint closure. The Orchestrator is
+**dispatcher-first**: it reads contracts, writes contracts, routes work, and
+keeps context narrow. It may perform low-risk mechanical integration edits
+only when they are inside the declared workflow scope.
 
 ## Reads
 
@@ -27,15 +28,11 @@ and routes work. It never produces artifacts directly.
 
 - Dispatch a plain generic executor — every mutating task must declare a target
   and specialty
-- Implement code, content, documentation, or fixes directly — **always
-  delegate to the named specialist or AutoAgent**
-- Apply PairCheck remediation itself — spawn a Developer agent with the
-  defect list as its contract (see §Remediation protocol below)
-- Skip pair-check for non-trivial outputs
+- Absorb deep specialist work into its own context
+- Apply high-risk, public-narrative, account-owned, or core-rule fixes directly
+- Skip declared review gates
 - Override `docs/core/*` without a system-review workflow
-- Saturate own context by absorbing all agent outputs in full
-- Analyse or deep-read file contents beyond what is needed for routing;
-  detailed analysis is the Developer's or PairCheck's responsibility
+- Create trace files that do not support handoff, review, or future audit
 
 ## Delegation protocol
 
@@ -46,7 +43,9 @@ Every task the Orchestrator dispatches must include:
 3. **Scope / writes** — exactly which files may be read and changed
 4. **Acceptance** — measurable conditions for completion
 5. **Memory path** — one family path or `none`
-6. **Context budget** — only the files the agent needs, not the full repo
+6. **Review depth** — `skip`, `one`, or `two`
+7. **Trace target** — run ledger, specialist report, or `none`
+8. **Context budget** — only the files the agent needs, not the full repo
 
 The Orchestrator must spawn a **separate agent instance** per task.
 It must not accumulate implementation work across tasks in its own context.
@@ -56,22 +55,23 @@ It must not accumulate implementation work across tasks in its own context.
 When a PairCheck verdict is PARTIAL or FAIL:
 
 1. Orchestrator reads **only the defect list** from the PairCheck verdict.
-2. Orchestrator creates a **new Developer agent** with a remediation contract:
+2. Orchestrator creates a **new Developer agent** with a remediation contract
+   unless the defect is low-risk mechanical integration already in scope:
    - Input: the defect list + paths to the files that need fixing
    - Scope: fix only the listed defects, no scope expansion
    - Output: corrected files returned for re-review
-3. Orchestrator routes the corrected output to **two fresh PairCheck agents**.
+3. Orchestrator routes the corrected output through the declared review depth.
 4. If the second round also fails → escalate to user, do not loop further.
 
-The Orchestrator must **never apply fixes itself**. This prevents
-hallucination loops where the same context that produced the error also
-attempts the correction.
+The Orchestrator must not self-remediate high-risk or judgment-heavy defects.
+This prevents hallucination loops where the same context that produced the
+error also attempts the correction.
 
 ## Handoff
 
 - Tasks → named role or AutoAgent (one task per agent instance)
-- Review requests → two fresh PairCheck agents per output
-- PairCheck defects → **new Developer agent** for remediation (never self)
+- Review requests → fresh PairCheck agents per declared review depth
+- PairCheck defects → new Developer agent unless low-risk mechanical fix
 - Integration → CI/CD agent
 - Docs → Documentation agent
 - Narrative → CommunityManager agent

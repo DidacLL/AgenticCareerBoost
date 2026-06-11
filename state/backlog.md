@@ -17,8 +17,8 @@
 | T-011 | Set GitHub Pages source to GitHub Actions after S-001.5R merges, then verify `https://didacll.github.io/AgenticCareerBoost/` | S-001.5R | **high** |
 | T-012 | Enable `main` branch protection/ruleset requiring PRs and aggregate `required-ci` | S-001.5R | **high** |
 | T-013 | Keep S-002 on canonical `site/` source root and avoid reintroducing rendered-source duplicates | S-001.5R | high |
-| T-014 | Add risk and review-depth fields to sprint contracts after system-review approval | S-002R | high |
-| T-015 | Convert sprint closure checklist into a closure matrix with done/deferred/waived/not-applicable states after system-review approval | S-002R | high |
+| T-014 | ~~Add risk and review-depth fields to sprint contracts after system-review approval~~ | S-002R | **IMPLEMENTED** (S-002R framework simplification) |
+| T-015 | ~~Convert sprint closure checklist into a closure matrix with done/deferred/waived/not-applicable states after system-review approval~~ | S-002R | **IMPLEMENTED** (S-002R framework simplification) |
 | T-016 | Rebuild site with topic-led landing, repo-backed project pages, AgenticCareerBoost dashboard, URL-param CV, and print CSS | S-002R | **high** |
 | T-017 | Prepare GitHub profile README and account metadata cleanup package; apply account-level fields manually | S-002R | **high** |
 | T-018 | Verify branch protection/ruleset and Pages source remotely after S-002R implementation branch is ready | S-002R | medium |

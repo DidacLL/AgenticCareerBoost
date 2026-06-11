@@ -1,13 +1,13 @@
 {
   "sprint_id": "S-002R",
   "workflow": "sprint / S-002R bounded remediation",
-  "status": "PARTIAL / profile/social accepted; CI/static-site gates pass locally; browser/print preview still unproven",
+  "status": "PARTIAL / framework, profile/social, and static-site gates pass locally; browser/print preview still unproven",
   "last_closure_at": "2026-06-11",
   "last_closure_type": "Plan S-002R",
   "artifacts": [
     {
       "complete": false,
-      "label": "Repository artifact(s) — PARTIAL: Profile/social artifacts exist; site artifacts now use plain static HTML"
+      "label": "Repository artifact(s) — PARTIAL: Framework simplification, profile/social artifacts, and plain static site exist"
     },
     {
       "complete": false,
@@ -19,7 +19,7 @@
     },
     {
       "complete": false,
-      "label": "Formal engineering documentation — deferred: S-002R may close with report links unless framework refactor lands"
+      "label": "Formal engineering documentation — PARTIAL: Framework simplification proposal exists with source review; formal report deferred unless sprint closure needs it"
     },
     {
       "complete": false,

@@ -4,14 +4,14 @@
 
 - **Sprint ID**: S-002R
 - **Goal**: Restart the career campaign after the college-assignment pause by reviewing the agentic framework, rebuilding the public site plan, refreshing profile consistency, and preparing LinkedIn reactivation.
-- **Status**: PARTIAL / profile/social accepted; CI/static-site gates pass locally; browser/print preview still unproven
+- **Status**: PARTIAL / framework, profile/social, and static-site gates pass locally; browser/print preview still unproven
 - **Run ledger**: `state/logs/S-002-refresh/orchestrator-decision-ledger.md`
 
 ## Tasks
 
 | # | Task | Target | Specialty | Risk | Scope | Writes | Acceptance | Memory | Evidence link |
 |---|------|--------|-----------|------|-------|--------|------------|--------|---------------|
-| 1 | Framework simplification proposal | Developer | SystemReview | high | Stable workflow cost, trace model, closure model | `state/logs/S-002-refresh/framework-change-proposal.md` | Concrete stable-doc diffs proposed, not applied, with migration notes and tests | none | `state/logs/S-002-refresh/agentic-framework-review.md` |
+| 1 | Framework simplification proposal | Developer | SystemReview | high | Stable workflow cost, trace model, closure model | `docs/core/constraints.md`, `docs/workflows/sprint.md`, `docs/workflows/operate.md`, `docs/workflows/hotfix.md`, `docs/agents/orchestrator.md`, `state/logs/S-002-refresh/framework-change-proposal.md` | Stable-doc simplification applied with migration notes and tests | none | `state/logs/S-002-refresh/framework-change-proposal.md` |
 | 2 | Public profile consistency package | ContentSync | Public profile sync | standard | README/status/profile drafts, deprecated links, GitHub profile README draft | `README.md`, `data/public-status.json`, `content/social/drafts/2026-06-profile-consistency.md` | No public-facing stale status; GitHub profile update draft exists; manual account actions listed | `state/memory/review/` | `state/logs/S-002-refresh/linkedin-reactivation-review.md` |
 | 3 | Static site rebuild foundation | Developer | plain static site | high | Landing, project pages, dashboard, configurable CV | `site/**` | Topic-led landing, repo-backed project pages, `/dashboard/`, `curriculum` URL views, print CSS, no new dependencies | none | `state/logs/S-002-refresh/site-rebuild-review.md` |
 | 4 | Social research refresh | SocialMediaInvestigator | Current discourse | standard | June 2026 agentic AI / computational discourse sources | `content/social/research/2026-06-linkedin-reactivation.md` | Current primary/high-credibility sources cited; no unpublished project details | `state/memory/social/` | `state/logs/S-002-refresh/linkedin-reactivation-review.md` |
@@ -24,7 +24,7 @@
 
 | Output | PairCheck-A | PairCheck-B | Verdict |
 |--------|-------------|-------------|---------|
-| Framework simplification proposal | required | required | pending |
+| Framework simplification proposal | required | required | PASS source review; follow-up gates pending |
 | Static site rebuild foundation | required | required | PARTIAL; source review passed, static-site/browser/print gates pending |
 | Public profile consistency package | required | optional if low-risk | PASS after remediation; human account gates remain |
 | Social research + drafts | required | optional if low-risk | PASS after remediation; publication gate remains |
@@ -33,10 +33,10 @@
 
 | Dimension | State | Evidence |
 |---|---|---|
-| Repository artifact(s) | PARTIAL | Profile/social artifacts exist; site artifacts now use plain static HTML |
+| Repository artifact(s) | PARTIAL | Framework simplification, profile/social artifacts, and plain static site exist |
 | Website / repo update trace | PARTIAL | Static-site, markdownlint, tests, links, and JSON gates pass locally; rendered browser and print-preview gates remain unproven |
 | Public-narrative decision | PARTIAL | Reactivation sequence drafted; human publication and profile-consistency gates remain |
-| Formal engineering documentation | deferred | S-002R may close with report links unless framework refactor lands |
+| Formal engineering documentation | PARTIAL | Framework simplification proposal exists with source review; formal report deferred unless sprint closure needs it |
 | Condensed technical backlog | pending | Task 8 not closed here |
 | Condensed narrative backlog | pending | Task 8 not closed here |
 
