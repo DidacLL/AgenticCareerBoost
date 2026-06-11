@@ -17,6 +17,11 @@
 | T-011 | Set GitHub Pages source to GitHub Actions after S-001.5R merges, then verify `https://didacll.github.io/AgenticCareerBoost/` | S-001.5R | **high** |
 | T-012 | Enable `main` branch protection/ruleset requiring PRs and aggregate `required-ci` | S-001.5R | **high** |
 | T-013 | Keep S-002 on canonical `site/` source root and avoid reintroducing rendered-source duplicates | S-001.5R | high |
+| T-014 | Add risk and review-depth fields to sprint contracts after system-review approval | S-002R | high |
+| T-015 | Convert sprint closure checklist into a closure matrix with done/deferred/waived/not-applicable states after system-review approval | S-002R | high |
+| T-016 | Rebuild site with topic-led landing, repo-backed project pages, AgenticCareerBoost dashboard, URL-param CV, and print CSS | S-002R | **high** |
+| T-017 | Prepare GitHub profile README and account metadata cleanup package; apply account-level fields manually | S-002R | **high** |
+| T-018 | Verify branch protection/ruleset and Pages source remotely after S-002R implementation branch is ready | S-002R | medium |
 
 ## Narrative backlog
 
@@ -39,3 +44,7 @@
 | N-015 | Review formal CV wording and add a professional email before broad distribution | S-001.5 review |
 | N-016 | Use S-001.5R governance story only after PR, Pages deploy, and PDF report exist | S-001.5R |
 | N-017 | Keep social campaign sequence evidence-gated, not sprint-number-gated | S-001.5R |
+| N-018 | Run three low-heat LinkedIn reactivation posts before launching the profile-audit campaign, unless explicitly waived | S-002R |
+| N-019 | Refresh April social research with June 2026 agentic AI sources before drafting publication-ready posts | S-002R |
+| N-020 | Keep the private reference stance private; publish only abstract public-safe principles about model agnosticism, governance, and user sovereignty | S-002R |
+| N-021 | Manually verify LinkedIn headline/About/Featured because the public page is authwalled | S-002R |

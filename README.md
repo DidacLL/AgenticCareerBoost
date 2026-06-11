@@ -121,8 +121,8 @@ flowchart LR
 
 | Field | Value |
 |-------|-------|
-| Current workflow | S-001.5R system review and remediation |
-| Next sprint seed | S-002: Full site rebuild and CV hardening |
+| Current workflow | S-002R restart implementation |
+| Next sprint seed | Profile consistency, site rebuild foundation, and LinkedIn reactivation drafts |
 | Human guide | [Agentic System Guide](content/reports/build/agentic-system-guide.pdf) |
 | Latest case study | [Sprint S-001 PDF](content/reports/build/s001-profile-audit-positioning.pdf) |
 | Site | [didacll.github.io/AgenticCareerBoost](https://didacll.github.io/AgenticCareerBoost/) |

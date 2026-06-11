@@ -1,31 +1,64 @@
 ---
 layout: default
 title: "Projects - Dídac Llorens"
-description: "Project evidence for Dídac Llorens: AgenticCareerBoost, P3CTeX, IronBank, and formal engineering reports."
+description: "Repo-backed project evidence for Dídac Llorens: AgenticCareerBoost, P3CTeX, IronBank, and formal engineering reports."
 ---
 
-# Projects
+<div class="hero slim">
+  <div>
+    <div class="eyebrow">Repo-backed evidence</div>
+    <h1>Projects</h1>
+    <p class="lead">The project pages are written for two readers: recruiters who need fast role-fit signals, and engineers who want links to the artifact trail.</p>
+  </div>
+</div>
 
-These are the current recruiter-facing projects. The order is intentional: current systems work first, technical depth second, older backend evidence third.
+<section>
+  <div class="grid">
+    <article class="card project-card">
+      <h3>AgenticCareerBoost</h3>
+      <p>A path-based, model-agnostic multi-agent operating system for rebuilding a public technical profile through visible engineering work.</p>
+      <p><span class="metric">Best evidence: systems thinking, workflow design, public traceability.</span></p>
+      <div class="tag-list"><span class="tag">Markdown</span><span class="tag">Jekyll</span><span class="tag">LaTeX</span><span class="tag">GitHub Actions</span></div>
+      <div class="actions">
+        <a class="button primary" href="{{ '/projects/agentic-career-boost/' | relative_url }}">Open Page</a>
+        <a class="button" href="https://github.com/DidacLL/AgenticCareerBoost">Repository</a>
+      </div>
+    </article>
+    <article class="card project-card">
+      <h3>P3CTeX</h3>
+      <p>A custom LaTeX document class and package ecosystem for academic document production and reusable technical-document tooling.</p>
+      <p><span class="metric">Best evidence: tooling depth, package design, documentation craft.</span></p>
+      <div class="tag-list"><span class="tag">LaTeX</span><span class="tag">expl3</span><span class="tag">latexmk</span><span class="tag">Open source</span></div>
+      <div class="actions">
+        <a class="button primary" href="{{ '/projects/p3ctex/' | relative_url }}">Open Page</a>
+        <a class="button" href="https://github.com/DidacLL/P3CTeX">Repository</a>
+      </div>
+    </article>
+    <article class="card project-card">
+      <h3>IronBank</h3>
+      <p>Older Java/Spring Boot banking simulation from IronHack. Kept as backend evidence, not as the center of the profile.</p>
+      <p><span class="metric">Best evidence: Java backend fundamentals and regulated-domain framing.</span></p>
+      <div class="tag-list"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Microservices</span><span class="tag">Keycloak</span></div>
+      <div class="actions">
+        <a class="button primary" href="{{ '/projects/ironbank/' | relative_url }}">Open Page</a>
+        <a class="button" href="https://github.com/DidacLL/Ironhack-IronBank_FinalProject_vBNKsys">Repository</a>
+      </div>
+    </article>
+  </div>
+</section>
 
-| Project | Why it matters | Evidence |
-|---|---|---|
-| AgenticCareerBoost | Path-based, model-agnostic agentic system with 6 roles, 7 workflows, formal truth hierarchy, public reports, and this site. | [Repository](https://github.com/DidacLL/AgenticCareerBoost), [Guide PDF](https://github.com/DidacLL/AgenticCareerBoost/raw/main/content/reports/build/agentic-system-guide.pdf) |
-| P3CTeX | Custom LaTeX document class and package ecosystem for academic document production. Shows tooling depth and documentation discipline. | [Repository](https://github.com/DidacLL/P3CTeX) |
-| p3cTeX-UMLST | Extracted UML diagram and code listing packages from P3CTeX. Shows modularization and package extraction. | [Repository](https://github.com/DidacLL/p3cTeX-UMLST) |
-| IronBank | Java/Spring Boot microservices banking simulation. Older bootcamp capstone, useful as backend evidence after README cleanup. | [Repository](https://github.com/DidacLL/Ironhack-IronBank_FinalProject_vBNKsys) |
-
-## Curriculum
-
-- [Formal curriculum page](https://didacll.github.io/AgenticCareerBoost/curriculum/)
-- [Downloadable PDF CV](https://github.com/DidacLL/AgenticCareerBoost/raw/main/content/reports/build/didac-llorens-cv.pdf)
-
-## Formal Reports
-
-- [Agentic System Guide](https://github.com/DidacLL/AgenticCareerBoost/raw/main/content/reports/build/agentic-system-guide.pdf)
-- [S-000 Agentic OS Bootstrap](https://github.com/DidacLL/AgenticCareerBoost/raw/main/content/reports/build/s000-agentic-os-bootstrap.pdf)
-- [S-001 Profile Audit & Strategic Positioning](https://github.com/DidacLL/AgenticCareerBoost/raw/main/content/reports/build/s001-profile-audit-positioning.pdf)
-
-## Current Portfolio Gap
-
-The largest planned gap is a public ML/Data project using Python. That is tracked for S-005 as the dedicated portfolio gap-closure sprint.
+<section>
+  <h2>Formal Reports</h2>
+  <div class="grid two">
+    <article class="card">
+      <h3>Agentic System Guide</h3>
+      <p>The formal guide explains the path-based agentic system as an engineering artifact: routes, roles, workflow contracts, review points, and public evidence surfaces.</p>
+      <p><a href="https://github.com/DidacLL/AgenticCareerBoost/raw/main/content/reports/build/agentic-system-guide.pdf">Open PDF</a></p>
+    </article>
+    <article class="card">
+      <h3>Profile Audit and Positioning</h3>
+      <p>The S-001 report records the career-positioning audit and the rationale behind a public, evidence-first technical profile.</p>
+      <p><a href="https://github.com/DidacLL/AgenticCareerBoost/raw/main/content/reports/build/s001-profile-audit-positioning.pdf">Open PDF</a></p>
+    </article>
+  </div>
+</section>

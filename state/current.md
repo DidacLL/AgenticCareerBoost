@@ -1,13 +1,25 @@
 # Current state
 
-- **Active workflow**: system-review (S-001.5R remediation)
-- **Active sprint**: S-001.5R — implemented locally / PR validation and remote settings pending
-- **Blockers**: repository Pages source must be set to GitHub Actions after merge; `main` needs a branch protection/ruleset requiring PRs and `required-ci`; final closure requires PR workflow and Pages deploy evidence
+- **Active workflow**: sprint / S-002R bounded remediation
+- **Active sprint**: S-002R - PARTIAL; profile/social artifacts exist, site gates still blocked
+- **Blockers**: LinkedIn profile content cannot be externally verified due to authwall; GitHub profile README and metadata need manual/account-level cleanup; Jekyll/browser/print gates are blocked by missing Ruby/Bundler; professional email is still unconfirmed; branch protection/ruleset requiring `required-ci` still needs remote verification.
+
+## Current evidence
+
+- Public site is live at `https://didacll.github.io/AgenticCareerBoost/`.
+- Framework review: `state/logs/S-002-refresh/agentic-framework-review.md`.
+- Site rebuild review: `state/logs/S-002-refresh/site-rebuild-review.md`.
+- LinkedIn reactivation review: `state/logs/S-002-refresh/linkedin-reactivation-review.md`.
+- Orchestrator decision ledger: `state/logs/S-002-refresh/orchestrator-decision-ledger.md`.
+- Profile consistency package and LinkedIn reactivation drafts now exist as human-gated candidate artifacts.
+- Social research now includes 2026 source anchors for agentic oversight, repository usage, backend workflows, and domain-specific benchmark difficulty.
+- Site status remains PARTIAL until Ruby/Bundler-dependent Jekyll, browser, and print gates can run.
 
 ## Recent closures
 
 | Date | Type | Summary |
 |------|------|---------|
+| 2026-06-11 | Plan S-002R | Restart review completed across agentic framework, site rebuild, and LinkedIn reactivation; new sprint contract opened |
 | 2026-04-28 | System Review S-001.5R | Corrected site/report architecture, added aggregate CI, moved Pages workflow to GitHub Actions, decoupled sprint and social cadence, added formal S-001.5R report source |
 | 2026-04-27 | Review S-001.5 | Full sprint review found sync/site/CV gaps; static site build was green but Pages source setting was blocked |
 | 2026-04-27 | Sprint S-001.5 | UOC fair public profile cleanup: event targets, GitHub cleanup package, recruiter landing page, curriculum/CV, LinkedIn/JobTeaser kit, outreach kit |

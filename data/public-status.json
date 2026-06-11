@@ -1,37 +1,45 @@
 {
-  "sprint_id": "S-001.5R",
-  "workflow": "system-review (S-001.5R remediation)",
-  "status": "implemented locally / PR validation and remote settings pending",
-  "last_closure_at": "2026-04-28",
-  "last_closure_type": "System Review S-001.5R",
+  "sprint_id": "S-002R",
+  "workflow": "sprint / S-002R bounded remediation",
+  "status": "PARTIAL / profile and social artifacts exist; site gates blocked",
+  "last_closure_at": "2026-06-11",
+  "last_closure_type": "Plan S-002R",
   "artifacts": [
     {
       "complete": true,
-      "label": "Repository artifact(s) — canonical `site/`, workflow updates, report-source cleanup, contract updates"
+      "label": "Agentic framework review — risk-tiered sprint and consolidated trace proposal"
+    },
+    {
+      "complete": true,
+      "label": "Site rebuild review — topic-led landing plus repo-backed project pages selected"
+    },
+    {
+      "complete": true,
+      "label": "LinkedIn reactivation review — three-post low-heat restart selected"
+    },
+    {
+      "complete": true,
+      "label": "Public site live check — https://didacll.github.io/AgenticCareerBoost/"
+    },
+    {
+      "complete": true,
+      "label": "Profile consistency package and LinkedIn reactivation drafts prepared for human review"
+    },
+    {
+      "complete": true,
+      "label": "Social research refreshed with 2026 agentic engineering source anchors"
     },
     {
       "complete": false,
-      "label": "Website / repo update trace — Pages workflow now builds Jekyll from `site/`; remote Pages deploy evidence pending"
-    },
-    {
-      "complete": true,
-      "label": "Public-narrative decision — campaign remains evidence-gated; system-review social output deferred until public surfaces are synced"
-    },
-    {
-      "complete": true,
-      "label": "Formal engineering documentation — S-001.5R report source added"
-    },
-    {
-      "complete": true,
-      "label": "Condensed technical backlog — branch protection and Pages remote settings remain explicit pending actions"
-    },
-    {
-      "complete": true,
-      "label": "Condensed narrative backlog — campaign sequencing decoupled from sprint numbering"
+      "label": "Site rebuild remains PARTIAL — Jekyll/browser/print gates blocked by missing Ruby/Bundler"
     }
   ],
   "blockers": [
-    "repository Pages source must be set to GitHub Actions after merge; `main` needs a branch protection/ruleset requiring PRs and `required-ci`; final closure requires PR workflow and Pages deploy evidence"
+    "LinkedIn profile content cannot be externally verified due to authwall",
+    "GitHub profile README and account metadata need manual/account-level cleanup",
+    "Jekyll/browser/print verification blocked by missing Ruby/Bundler",
+    "Professional email remains unconfirmed",
+    "Branch protection/ruleset requiring required-ci still needs remote verification"
   ],
-  "next_sprint_seed": "S-002: Site rebuild (Jekyll)"
+  "next_sprint_seed": "Finish S-002R validation once Ruby/Bundler and human-owned account gates are available"
 }
