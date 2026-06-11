@@ -1,7 +1,7 @@
 {
   "sprint_id": "S-002R",
   "workflow": "sprint / S-002R bounded remediation",
-  "status": "PARTIAL / framework, profile/social, and static-site gates pass locally; browser/print preview still unproven",
+  "status": "PARTIAL / framework, profile/social, static-site, browser, and print gates pass; human/account closure remains",
   "last_closure_at": "2026-06-11",
   "last_closure_type": "Plan S-002R",
   "artifacts": [
@@ -10,8 +10,8 @@
       "label": "Repository artifact(s) — PARTIAL: Framework simplification, profile/social artifacts, and plain static site exist"
     },
     {
-      "complete": false,
-      "label": "Website / repo update trace — PARTIAL: Static-site, markdownlint, tests, links, and JSON gates pass locally; rendered browser and print-preview gates remain unproven"
+      "complete": true,
+      "label": "Website / repo update trace — done: Static-site, route, desktop/mobile browser, configurable CV, print PDF, markdownlint, tests, links, JSON, and PR CI gates pass"
     },
     {
       "complete": false,
@@ -33,7 +33,6 @@
   "blockers": [
     "LinkedIn profile content cannot be externally verified due to authwall",
     "GitHub profile README and metadata need manual/account-level cleanup",
-    "browser screenshot and print-preview gates remain unproven because no browser automation tool is available in this workspace",
     "professional email is still unconfirmed",
     "branch protection/ruleset requiring `required-ci` still needs remote verification"
   ],

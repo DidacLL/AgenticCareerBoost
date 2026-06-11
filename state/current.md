@@ -1,8 +1,8 @@
 # Current state
 
 - **Active workflow**: sprint / S-002R bounded remediation
-- **Active sprint**: S-002R - PARTIAL; framework/profile/social artifacts exist, CI/static-site remediation validated locally
-- **Blockers**: LinkedIn profile content cannot be externally verified due to authwall; GitHub profile README and metadata need manual/account-level cleanup; browser screenshot and print-preview gates remain unproven because no browser automation tool is available in this workspace; professional email is still unconfirmed; branch protection/ruleset requiring `required-ci` still needs remote verification.
+- **Active sprint**: S-002R - PARTIAL; framework/profile/social/site artifacts exist and implementation gates pass
+- **Blockers**: LinkedIn profile content cannot be externally verified due to authwall; GitHub profile README and metadata need manual/account-level cleanup; professional email is still unconfirmed; branch protection/ruleset requiring `required-ci` still needs remote verification.
 
 ## Current evidence
 
@@ -14,7 +14,7 @@
 - Profile consistency package and LinkedIn reactivation drafts now exist as human-gated candidate artifacts.
 - Social research now includes 2026 source anchors for agentic oversight, repository usage, backend workflows, and domain-specific benchmark difficulty.
 - Framework simplification now applies risk-tiered review, compact trace policy, bounded contracts, and closure matrix rules.
-- Site status remains PARTIAL until rendered browser and print-preview gates pass.
+- Site rebuild foundation now passes source, route, browser, mobile, print, and CI gates.
 
 ## Recent closures
 

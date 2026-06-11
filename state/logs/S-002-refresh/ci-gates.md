@@ -14,6 +14,8 @@
 - Local HTTP route check under `/AgenticCareerBoost/` — landing, project pages, dashboard, CV variants, contact, CSS, and JS returned HTTP 200
 - Static route resolver — 71 internal `/AgenticCareerBoost/` references across 8 HTML pages, 0 broken targets
 - CI static validator — `.github/scripts/validate_static_site.py` checks required files and internal `/AgenticCareerBoost/` references with no external dependencies
+- Rendered browser gates — Edge/CDP desktop landing, mobile landing, dashboard, and CV `?view=ml` screenshots passed
+- Print gate — Edge/CDP generated nonempty PDF for `/curriculum/?view=print`
 - `data/public-status.json` regeneration is idempotent
 - Private-name scan over changed public/social/site/status scope — no private project name found
 
@@ -21,15 +23,12 @@
 
 - The site no longer depends on Ruby, Bundler, Jekyll, or generated `_site`
   output.
-- Browser/mobile/print-preview checks still need final proof. The Browser tool
-  did not surface through tool discovery, and Playwright is not installed in
-  the workspace.
+- Browser/mobile/print-preview checks passed through installed Edge headless
+  CDP, without adding project dependencies.
 - Pytest emits a cache warning because `.pytest_cache` cannot be written, but
   tests still pass.
 
 ## Required Before Site Closure
 
-- Inspect landing, project pages, dashboard, and CV variants at desktop/mobile
-  widths.
-- Print-preview `/curriculum/?view=print`.
-- Reconfirm dashboard snapshot matches `data/public-status.json`.
+- Reconfirm dashboard snapshot matches `data/public-status.json` whenever
+  sprint status changes.

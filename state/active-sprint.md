@@ -4,7 +4,7 @@
 
 - **Sprint ID**: S-002R
 - **Goal**: Restart the career campaign after the college-assignment pause by reviewing the agentic framework, rebuilding the public site plan, refreshing profile consistency, and preparing LinkedIn reactivation.
-- **Status**: PARTIAL / framework, profile/social, and static-site gates pass locally; browser/print preview still unproven
+- **Status**: PARTIAL / framework, profile/social, static-site, browser, and print gates pass; human/account closure remains
 - **Run ledger**: `state/logs/S-002-refresh/orchestrator-decision-ledger.md`
 
 ## Tasks
@@ -25,7 +25,7 @@
 | Output | PairCheck-A | PairCheck-B | Verdict |
 |--------|-------------|-------------|---------|
 | Framework simplification proposal | required | required | PASS source review; follow-up gates pending |
-| Static site rebuild foundation | required | required | PARTIAL; source review passed, static-site/browser/print gates pending |
+| Static site rebuild foundation | required | required | PASS; source, static-site, browser, mobile, and print gates passed |
 | Public profile consistency package | required | optional if low-risk | PASS after remediation; human account gates remain |
 | Social research + drafts | required | optional if low-risk | PASS after remediation; publication gate remains |
 
@@ -34,7 +34,7 @@
 | Dimension | State | Evidence |
 |---|---|---|
 | Repository artifact(s) | PARTIAL | Framework simplification, profile/social artifacts, and plain static site exist |
-| Website / repo update trace | PARTIAL | Static-site, markdownlint, tests, links, and JSON gates pass locally; rendered browser and print-preview gates remain unproven |
+| Website / repo update trace | done | Static-site, route, desktop/mobile browser, configurable CV, print PDF, markdownlint, tests, links, JSON, and PR CI gates pass |
 | Public-narrative decision | PARTIAL | Reactivation sequence drafted; human publication and profile-consistency gates remain |
 | Formal engineering documentation | PARTIAL | Framework simplification proposal exists with source review; formal report deferred unless sprint closure needs it |
 | Condensed technical backlog | pending | Task 8 not closed here |
@@ -61,7 +61,7 @@
 - PairCheck-B current-source finding: remediated by adding verified 2026 arXiv anchors to `content/social/research/2026-06-linkedin-reactivation.md` and first-comment bundles in `content/social/drafts/2026-06-linkedin-reactivation.md`.
 - Fresh remediation reviews `pc-social-c.md` and `pc-social-d.md`: PASS.
 - Publication remains blocked on human-owned LinkedIn/GitHub account verification.
-- Site remains PARTIAL until rendered browser and print-preview gates pass.
+- Site rebuild foundation passes source, route, browser, mobile, print, and CI gates.
 
 ## Current gates
 

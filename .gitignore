@@ -22,3 +22,4 @@ site/_site/
 site/.jekyll-cache/
 site/.sass-cache/
 site/Gemfile.lock
+/.codex-tmp
