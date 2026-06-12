@@ -20,7 +20,7 @@
 | T-014 | ~~Add risk and review-depth fields to sprint contracts after system-review approval~~ | S-002R | **IMPLEMENTED** (S-002R framework simplification) |
 | T-015 | ~~Convert sprint closure checklist into a closure matrix with done/deferred/waived/not-applicable states after system-review approval~~ | S-002R | **IMPLEMENTED** (S-002R framework simplification) |
 | T-016 | ~~Rebuild site with topic-led landing, repo-backed project pages, AgenticCareerBoost dashboard, URL-param CV, and print CSS~~ | S-002R | **CLOSED** (PR #12) |
-| T-017 | Prepare GitHub profile README and account metadata cleanup package; apply account-level fields manually | S-002R | **PARTIAL** - README PR opened; account metadata remains manual |
+| T-017 | Prepare GitHub profile README and account metadata cleanup package; apply account-level fields manually | S-002R | **PARTIAL** - README merged; account metadata remains manual |
 | T-018 | Verify branch protection/ruleset requiring PRs and aggregate `required-ci` | S-002R | medium; **account/admin-gated** |
 
 ## Narrative backlog
