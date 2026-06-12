@@ -2,7 +2,7 @@
 
 - **Sprint**: S-002R Task 2
 - **Date**: 2026-06-11
-- **Status**: draft for human/account-owner action
+- **Status**: profile README PR opened; account metadata remains human-owned
 - **Scope**: GitHub profile README draft, GitHub account metadata checklist,
   deprecated-link cleanup, and LinkedIn manual verification
 - **Do not publish from this file**: account changes remain human-owned.
@@ -22,10 +22,10 @@
 
 ## Current Gaps
 
+- GitHub profile README replacement is opened for review:
+  <https://github.com/DidacLL/DidacLL/pull/1>.
 - GitHub account metadata is incomplete: `bio`, `blog`, and `hireable` need
   account-owner review.
-- GitHub profile README needs a current replacement that points to the
-  AgenticCareerBoost proof loop and avoids legacy links.
 - Deprecated surfaces still exist in `data/links.json` for tracking:
   `legacy_site_deprecated` and `legacy_repo_deprecated`.
 - LinkedIn content cannot be externally verified because the public page is
@@ -69,8 +69,9 @@ Selected: **A**. Keep profile fields factual, short, and tied to public proof.
 
 ## Proposed GitHub Profile README Replacement
 
-Copy only the Markdown block below into `DidacLL/DidacLL/README.md` after human
-review.
+The cleaned public README is proposed in
+<https://github.com/DidacLL/DidacLL/pull/1>. The branch intentionally avoids
+direct publication to `main`.
 
 ```markdown
 # Dídac Llorens
@@ -92,7 +93,7 @@ Barcelona.
 | Surface | What to inspect |
 |---|---|
 | [AgenticCareerBoost](https://github.com/DidacLL/AgenticCareerBoost) | Git-based multiagent operating system, sprint records, formal reports, public site source |
-| [Public site](https://didacll.github.io/AgenticCareerBoost/) | Recruiter-facing mirror of the current technical profile |
+| [Public site](https://didacll.github.io/AgenticCareerBoost/) | Human-facing overview of the current technical profile and selected projects |
 | [S-001 profile audit](https://github.com/DidacLL/AgenticCareerBoost/blob/main/content/reports/build/s001-profile-audit-positioning.pdf) | Positioning audit and evidence-backed profile rebuild |
 | [Agentic System Guide](https://github.com/DidacLL/AgenticCareerBoost/blob/main/content/reports/build/agentic-system-guide.pdf) | Human-facing manual for the path-based agentic system |
 
@@ -155,5 +156,5 @@ ML/AI learning, and agentic workflow design.
 ## Publication Gate
 
 Ready for human review after local Markdown/JSON checks. Not ready for account
-publication until the GitHub metadata fields and LinkedIn profile are manually
-verified by the account owner.
+publication until the GitHub profile PR, metadata fields, and LinkedIn profile
+are manually verified by the account owner.
