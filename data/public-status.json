@@ -1,33 +1,33 @@
 {
   "sprint_id": "S-002R",
   "workflow": "sprint / S-002R bounded remediation",
-  "status": "PARTIAL / framework, profile/social, static-site, browser, and print gates pass; human/account closure remains",
-  "last_closure_at": "2026-06-11",
-  "last_closure_type": "Plan S-002R",
+  "status": "REPO-LOCAL CLOSED / framework, profile/social drafts, static site, browser, print, and CI gates pass; external account/publication gates remain human-owned",
+  "last_closure_at": "2026-06-12",
+  "last_closure_type": "Repo-local S-002R closure",
   "artifacts": [
     {
-      "complete": false,
-      "label": "Repository artifact(s) — PARTIAL: Framework simplification, profile/social artifacts, and plain static site exist"
+      "complete": true,
+      "label": "Repository artifact(s) — closed: Framework simplification, profile/social artifacts, plain static site, dashboard, configurable CV, and closure audit exist"
     },
     {
       "complete": true,
-      "label": "Website / repo update trace — done: Static-site, route, desktop/mobile browser, configurable CV, print PDF, markdownlint, tests, links, JSON, and PR CI gates pass"
+      "label": "Website / repo update trace — closed: PR #12 merged; static-site, route, desktop/mobile browser, configurable CV, print PDF, markdownlint, tests, links, JSON, and PR CI gates pass"
     },
     {
       "complete": false,
-      "label": "Public-narrative decision — PARTIAL: Reactivation sequence drafted; human publication and profile-consistency gates remain"
+      "label": "Public-narrative decision — human-gated: Reactivation sequence drafted; LinkedIn profile verification, publication approval, and account consistency remain human-owned"
     },
     {
       "complete": false,
-      "label": "Formal engineering documentation — PARTIAL: Framework simplification proposal exists with source review; formal report deferred unless sprint closure needs it"
+      "label": "Formal engineering documentation — deferred: Framework review and simplification proposal are sufficient for this bounded sprint; formal case-study report remains S-003"
     },
     {
-      "complete": false,
-      "label": "Condensed technical backlog — pending: Task 8 not closed here"
+      "complete": true,
+      "label": "Condensed technical backlog — closed: Site rebuild items closed; account/branch-protection actions preserved as human-owned backlog"
     },
     {
-      "complete": false,
-      "label": "Condensed narrative backlog — pending: Task 8 not closed here"
+      "complete": true,
+      "label": "Condensed narrative backlog — closed: Reactivation research/drafts closed; publication and profile verification remain human-owned backlog"
     }
   ],
   "blockers": [
@@ -36,5 +36,5 @@
     "professional email is still unconfirmed",
     "branch protection/ruleset requiring `required-ci` still needs remote verification"
   ],
-  "next_sprint_seed": "S-002: Static site rebuild"
+  "next_sprint_seed": "S-003: Formal case study of this system"
 }
