@@ -32,7 +32,6 @@
   ],
   "blockers": [
     "LinkedIn profile content cannot be externally verified due to authwall",
-    "GitHub profile README PR awaits human merge",
     "GitHub account metadata needs manual/account-level cleanup",
     "professional email is still unconfirmed",
     "branch protection/ruleset requiring `required-ci` still needs remote verification"
