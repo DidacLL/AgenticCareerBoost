@@ -2,7 +2,7 @@
 
 - **Active workflow**: sprint / S-002R bounded remediation
 - **Active sprint**: S-002R - REPO-LOCAL CLOSED; framework/profile/social/site artifacts exist and implementation gates pass; external account/publication gates remain human-owned
-- **Blockers**: LinkedIn profile content cannot be externally verified due to authwall; GitHub account metadata needs manual/account-level cleanup; professional email is still unconfirmed; branch protection/ruleset requiring `required-ci` still needs remote verification.
+- **Blockers**: LinkedIn profile content cannot be externally verified due to authwall; LinkedIn update and GitHub profile/account update are in progress; publication approval remains human-owned.
 
 ## Current evidence
 
@@ -16,6 +16,8 @@
 - Framework simplification now applies risk-tiered review, compact trace policy, bounded contracts, and closure matrix rules.
 - Site rebuild foundation now passes source, route, browser, mobile, print, and CI gates; PR #12 is merged.
 - GitHub profile README cleanup is merged via `https://github.com/DidacLL/DidacLL/pull/1`; remaining GitHub account metadata changes are manual settings.
+- Professional email decision is resolved: keep `didacllorensbravo@hotmail.com` as the current public email.
+- Branch protection/ruleset requiring aggregate `required-ci` is applied, and the CI pipeline is working.
 
 ## Recent closures
 
