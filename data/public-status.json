@@ -15,7 +15,7 @@
     },
     {
       "complete": false,
-      "label": "Public-narrative decision — human-gated: Reactivation sequence drafted; LinkedIn profile verification, publication approval, and account consistency remain human-owned"
+      "label": "Public-narrative decision — human-gated: Reactivation sequence drafted; LinkedIn and GitHub profile updates are in progress; publication approval remains human-owned"
     },
     {
       "complete": false,
@@ -23,7 +23,7 @@
     },
     {
       "complete": true,
-      "label": "Condensed technical backlog — closed: Site rebuild items closed; account/branch-protection actions preserved as human-owned backlog"
+      "label": "Condensed technical backlog — closed: Site rebuild items closed; branch protection and CI are working; account profile updates remain human-owned"
     },
     {
       "complete": true,
@@ -32,9 +32,8 @@
   ],
   "blockers": [
     "LinkedIn profile content cannot be externally verified due to authwall",
-    "GitHub account metadata needs manual/account-level cleanup",
-    "professional email is still unconfirmed",
-    "branch protection/ruleset requiring `required-ci` still needs remote verification"
+    "LinkedIn update and GitHub profile/account update are in progress",
+    "publication approval remains human-owned"
   ],
   "next_sprint_seed": "S-003: Formal case study of this system"
 }

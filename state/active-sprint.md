@@ -35,9 +35,9 @@
 |---|---|---|
 | Repository artifact(s) | closed | Framework simplification, profile/social artifacts, plain static site, dashboard, configurable CV, and closure audit exist |
 | Website / repo update trace | closed | PR #12 merged; static-site, route, desktop/mobile browser, configurable CV, print PDF, markdownlint, tests, links, JSON, and PR CI gates pass |
-| Public-narrative decision | human-gated | Reactivation sequence drafted; LinkedIn profile verification, publication approval, and account consistency remain human-owned |
+| Public-narrative decision | human-gated | Reactivation sequence drafted; LinkedIn and GitHub profile updates are in progress; publication approval remains human-owned |
 | Formal engineering documentation | deferred | Framework review and simplification proposal are sufficient for this bounded sprint; formal case-study report remains S-003 |
-| Condensed technical backlog | closed | Site rebuild items closed; account/branch-protection actions preserved as human-owned backlog |
+| Condensed technical backlog | closed | Site rebuild items closed; branch protection and CI are working; account profile updates remain human-owned |
 | Condensed narrative backlog | closed | Reactivation research/drafts closed; publication and profile verification remain human-owned backlog |
 
 ## Backlog deltas planned
@@ -60,10 +60,10 @@
 - PairCheck-A stale public status finding: remediated in `data/public-status.json` and `state/current.md` without closing the sprint.
 - PairCheck-B current-source finding: remediated by adding verified 2026 arXiv anchors to `content/social/research/2026-06-linkedin-reactivation.md` and first-comment bundles in `content/social/drafts/2026-06-linkedin-reactivation.md`.
 - Fresh remediation reviews `pc-social-c.md` and `pc-social-d.md`: PASS.
-- Publication remains blocked on human-owned LinkedIn/GitHub account verification.
+- Publication remains blocked on human-owned LinkedIn/GitHub profile verification and approval.
 - Site rebuild foundation passes source, route, browser, mobile, print, and CI gates.
 
 ## Current gates
 
 - Repo-local closure gates passed: `pytest`, markdownlint, internal links, JSON validation, static-site validation, desktop/mobile inspection, print CV check, source-safety review, and PR CI.
-- Human-owned gates: LinkedIn profile verification, publication approval, professional email decision, GitHub account metadata changes, branch protection/ruleset settings.
+- Human-owned gates: LinkedIn profile verification, publication approval, and GitHub account/profile update completion.
