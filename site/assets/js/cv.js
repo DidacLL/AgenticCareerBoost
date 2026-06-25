@@ -14,7 +14,7 @@
     node.hidden = !appliesTo(node);
   });
 
-  document.querySelectorAll("[data-cv-view]").forEach((button) => {
+  document.querySelectorAll("button[data-cv-view]").forEach((button) => {
     const target = button.dataset.cvView;
     button.setAttribute("aria-pressed", String(target === view));
     button.addEventListener("click", () => {
@@ -28,7 +28,7 @@
   if (label) {
     label.textContent = {
       ml: "ML/Data",
-      agentic: "Agentic systems",
+      agentic: "Workflow systems",
       backend: "Backend/tooling",
       print: "Print"
     }[view];
