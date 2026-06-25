@@ -58,6 +58,88 @@
     });
   }
 
+  const gallerySlides = [
+    {
+      label: "portrait.feed",
+      image: "assets/img/me.png",
+      alt: "Dídac Llorens portrait rendered as a retro monitor feed",
+      title: "Dídac Llorens",
+      copy: "Software Engineering · UOC<br>ML/AI · workflow systems · tooling<br>Barcelona · GitHub-first profile<br>Former banking and insurance operations",
+      href: "contact/index.html",
+      caption: "portrait / default signal",
+      project: false,
+    },
+    {
+      label: "work.shortcut",
+      image: "assets/img/routing-map.png",
+      alt: "Routing map preview for selected work",
+      title: "Selected work",
+      copy: "AgenticCareerBoost · P3CTeX · IronBank<br>Project pages with source routes and real artifacts<br>Start here for the technical map.",
+      href: "projects/index.html",
+      caption: "shortcut / work module",
+      project: true,
+    },
+    {
+      label: "cv.download",
+      image: "assets/img/screenshot001.png",
+      alt: "CV artifact preview",
+      title: "Professional CV",
+      copy: "PDF and TeX artifacts<br>ML/Data · workflow systems · backend views<br>Current professional curriculum.",
+      href: "assets/curriculum/DidacLL_SoftwareEngineer_CV.pdf",
+      caption: "shortcut / download CV",
+      project: true,
+    },
+    {
+      label: "notes.queue",
+      image: "assets/img/sprint-paircheck-loop.png",
+      alt: "Notes and review loop preview",
+      title: "Notes queue",
+      copy: "Future article index and LinkedIn mirrors<br>Project logs · technical decisions · tooling notes<br>Kept source-backed, not fake-filled.",
+      href: "notes/index.html",
+      caption: "shortcut / notes module",
+      project: true,
+    },
+  ];
+
+  function applyGallerySlide(windowNode, index) {
+    const nextIndex = (index + gallerySlides.length) % gallerySlides.length;
+    const slide = gallerySlides[nextIndex];
+    windowNode.dataset.galleryIndex = String(nextIndex);
+
+    const image = windowNode.querySelector("[data-gallery-image]");
+    const screen = windowNode.querySelector(".holo-screen");
+    const label = windowNode.querySelector("[data-gallery-label]");
+    const title = windowNode.querySelector("[data-gallery-title]");
+    const copy = windowNode.querySelector("[data-gallery-copy]");
+    const link = windowNode.querySelector("[data-gallery-link]");
+    const caption = windowNode.querySelector("[data-gallery-caption]");
+
+    if (image) {
+      image.src = slide.image;
+      image.alt = slide.alt;
+    }
+    if (screen) screen.classList.toggle("is-gallery-project", slide.project);
+    if (label) label.textContent = slide.label;
+    if (title) title.textContent = slide.title;
+    if (copy) copy.innerHTML = slide.copy;
+    if (link) link.href = slide.href;
+    if (caption) caption.textContent = slide.caption;
+  }
+
+  function wireSignalGalleries(root = document) {
+    root.querySelectorAll("[data-holo-window]").forEach((windowNode) => {
+      if (!windowNode.dataset.galleryIndex) applyGallerySlide(windowNode, 0);
+      windowNode.querySelectorAll("[data-gallery-prev], [data-gallery-next]").forEach((button) => {
+        if (button.dataset.osReady === "gallery") return;
+        button.dataset.osReady = "gallery";
+        button.addEventListener("click", () => {
+          const current = Number(windowNode.dataset.galleryIndex || "0");
+          applyGallerySlide(windowNode, current + (button.hasAttribute("data-gallery-next") ? 1 : -1));
+        });
+      });
+    });
+  }
+
   function wireHoloWindows(root = document) {
     root.querySelectorAll("[data-holo-toggle]").forEach((button) => {
       if (button.dataset.osReady === "holo") return;
@@ -66,6 +148,7 @@
         const windowNode = button.closest("[data-holo-window]");
         if (!windowNode) return;
         const expanded = windowNode.classList.toggle("is-expanded");
+        if (!expanded) applyGallerySlide(windowNode, 0);
         button.setAttribute("aria-expanded", String(expanded));
         button.textContent = expanded ? "minimize" : "maximize";
       });
@@ -126,6 +209,7 @@
     if (nextMeta && currentMeta) currentMeta.replaceWith(document.importNode(nextMeta, true));
     setTheme(document.documentElement.dataset.theme, false);
     wireThemeToggles();
+    wireSignalGalleries();
     wireHoloWindows();
     secureExternalLinks();
     wireSoftNavigation();
@@ -155,6 +239,7 @@
 
   setTheme(preferredTheme(), false);
   wireThemeToggles();
+  wireSignalGalleries();
   wireHoloWindows();
   secureExternalLinks();
   wireSoftNavigation();

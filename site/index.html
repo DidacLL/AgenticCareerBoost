@@ -68,7 +68,7 @@
       <div class="rail-links" aria-label="External links">
         <a href="https://github.com/DidacLL" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/didacllorens/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://didacll.github.io/AgenticCareerBoost/" target="_blank" rel="noopener noreferrer">Live site</a>
+        <a href="https://github.com/DidacLL/AgenticCareerBoost" target="_blank" rel="noopener noreferrer">Source repo</a>
       </div>
     </aside>
 
@@ -109,14 +109,20 @@
             </div>
             <figure class="holo-window" data-holo-window>
               <div class="holo-toolbar">
-                <span>portrait.feed</span>
+                <button type="button" class="holo-step" data-gallery-prev aria-label="Previous signal">‹</button>
+                <span data-gallery-label>portrait.feed</span>
+                <button type="button" class="holo-step" data-gallery-next aria-label="Next signal">›</button>
                 <button type="button" data-holo-toggle aria-expanded="false">maximize</button>
               </div>
               <div class="holo-screen">
-                <img src="assets/img/me.png" alt="Dídac Llorens portrait rendered as a retro monitor feed">
-                <div class="holo-overlay" aria-hidden="true"><strong>Dídac Llorens</strong>Software Engineering · UOC<br>ML/AI · workflow systems · tooling<br>Barcelona · GitHub-first profile</div>
+                <img data-gallery-image src="assets/img/me.png" alt="Dídac Llorens portrait rendered as a retro monitor feed">
+                <div class="holo-overlay" aria-hidden="true">
+                  <strong data-gallery-title>Dídac Llorens</strong>
+                  <span data-gallery-copy>Software Engineering · UOC<br>ML/AI · workflow systems · tooling<br>Barcelona · GitHub-first profile<br>Former banking and insurance operations</span>
+                  <a data-gallery-link href="contact/index.html">open signal</a>
+                </div>
               </div>
-              <figcaption>CSS monitor filter. Motion reduced when the system asks for calm.</figcaption>
+              <figcaption><span data-gallery-caption>portrait / default signal</span></figcaption>
             </figure>
           </div>
           <div class="os-section">

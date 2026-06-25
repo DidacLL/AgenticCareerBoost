@@ -282,23 +282,40 @@ code {
   margin: 0;
   overflow: hidden;
   border-bottom: 1px solid var(--ink);
-  background: #061009;
+  background: #101412;
 }
 
 .system-banner img {
   display: block;
   width: 100%;
-  height: clamp(58px, 8vh, 92px);
+  height: auto;
+  max-height: clamp(84px, 13vh, 142px);
   object-fit: cover;
-  filter: grayscale(0.35) contrast(1.08) brightness(0.82);
+  object-position: top;
+  opacity: 0.74;
+  filter: grayscale(1) contrast(1.05) brightness(0.9);
+}
+
+.system-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(245, 247, 240, 0.11) 0 1px, transparent 1px 6px),
+    radial-gradient(ellipse at center, transparent 0 62%, rgba(245, 247, 240, 0.12) 100%);
+  mix-blend-mode: screen;
+  animation: banner-scan 18s linear infinite;
 }
 
 .system-banner::after {
   content: "visual channel / 418";
   position: absolute;
+  z-index: 2;
   right: 0.65rem;
   bottom: 0.45rem;
-  color: rgba(156, 240, 181, 0.78);
+  color: rgba(238, 239, 232, 0.72);
   font-family: var(--mono);
   font-size: 0.68rem;
   font-weight: 800;
@@ -306,18 +323,19 @@ code {
 
 .doc-tabs {
   display: flex;
+  flex-wrap: wrap;
   position: sticky;
   top: 0;
   z-index: 4;
   min-width: 0;
-  overflow-x: auto;
+  overflow-x: hidden;
   border-bottom: 1px solid var(--ink);
   background: var(--surface-2);
 }
 
 .doc-tabs a {
-  flex: 0 0 auto;
-  min-width: 5.2rem;
+  flex: 1 1 5.2rem;
+  min-width: 0;
   border-right: 1px solid var(--ink);
   color: var(--ink);
   font-family: var(--mono);
@@ -360,6 +378,10 @@ code {
   display: grid;
 }
 
+.os-panel > .os-section {
+  grid-column: 1 / -1;
+}
+
 .intro-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(180px, 0.42fr);
@@ -380,7 +402,8 @@ code {
 .banner-strip {
   margin: 0;
   overflow: hidden;
-  border: 1px solid var(--ink);
+  object-position: top;
+  /* border: 1px solid var(--ink); */
   background: #061009;
 }
 
@@ -595,8 +618,8 @@ code {
 }
 
 .holo-toolbar {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
   gap: 0.5rem;
   align-items: center;
   border-bottom: 1px solid rgba(156, 240, 181, 0.35);
@@ -616,6 +639,20 @@ code {
   cursor: pointer;
   font: inherit;
   padding: 0.12rem 0.4rem;
+}
+
+.holo-toolbar span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.holo-step {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.45rem;
+  min-height: 1.45rem;
+  padding: 0;
 }
 
 .holo-screen {
@@ -683,6 +720,50 @@ code {
 
 .holo-window.is-expanded .holo-overlay {
   display: block;
+}
+
+.holo-overlay a {
+  display: inline-flex;
+  width: max-content;
+  margin-top: 0.45rem;
+  border: 1px solid rgba(156, 240, 181, 0.42);
+  color: #d0ffd8;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.16rem 0.4rem;
+  text-decoration: none;
+}
+
+.holo-overlay a:hover {
+  background: rgba(156, 240, 181, 0.12);
+  color: #f1fff4;
+}
+
+.holo-window:not(.is-expanded) .holo-overlay {
+  inset: auto 0.45rem 0.45rem;
+  padding: 0.42rem;
+  font-size: 0.68rem;
+}
+
+.holo-window:not(.is-expanded) .holo-overlay span,
+.holo-window:not(.is-expanded) .holo-overlay a {
+  display: none;
+}
+
+.holo-window:not(.is-expanded) .holo-overlay strong {
+  margin-bottom: 0;
+}
+
+.holo-screen.is-gallery-project img {
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+  padding: 0.65rem;
+  background: #061009;
+}
+
+.holo-window.is-expanded .holo-screen.is-gallery-project img {
+  object-fit: contain;
 }
 
 .holo-window figcaption {
@@ -861,6 +942,15 @@ code {
   }
   90% {
     transform: scale(1.014) translate(-1px, 1px);
+  }
+}
+
+@keyframes banner-scan {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 0 -96px, 0 0;
   }
 }
 
@@ -1488,10 +1578,6 @@ footer {
     z-index: 1;
   }
 
-  .system-banner {
-    display: none;
-  }
-
   .os-nav {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -1607,6 +1693,11 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  .doc-tabs a {
+    flex-basis: 33.333%;
+    padding-inline: 0.45rem;
+  }
+
   .doc-header p:last-child {
     text-align: left;
   }
@@ -1643,6 +1734,7 @@ footer {
   }
 
   .holo-screen::before,
+  .system-banner::before,
   .monitor-strip::after,
   .monitor-thumb::after,
   .mini-monitor::after {
