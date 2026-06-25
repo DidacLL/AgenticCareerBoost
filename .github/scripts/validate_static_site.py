@@ -30,15 +30,23 @@ REQUIRED_FILES = [
 REF_PATTERN = re.compile(r"""(?:href|src)=["']([^"']+)["']""")
 
 
-def route_target(ref: str) -> Path | None:
+def route_target(ref: str, source: Path) -> Path | None:
     parsed = urlsplit(ref)
-    if not parsed.path.startswith(f"{BASE_PATH}/") and parsed.path != f"{BASE_PATH}/":
+    if parsed.scheme or parsed.netloc or not parsed.path:
         return None
 
-    relative = unquote(parsed.path.removeprefix(BASE_PATH)) or "/"
+    if parsed.path.startswith(f"{BASE_PATH}/") or parsed.path == f"{BASE_PATH}/":
+        relative = unquote(parsed.path.removeprefix(BASE_PATH)) or "/"
+        base = SITE
+    elif parsed.path.startswith("/"):
+        return (ROOT / "__invalid_root_relative_static_site_ref__").resolve()
+    else:
+        relative = unquote(parsed.path)
+        base = source.parent
+
     if relative.endswith("/"):
         relative = f"{relative}index.html"
-    return (SITE / relative.lstrip("/")).resolve()
+    return (base / relative.lstrip("/")).resolve()
 
 
 def html_files() -> list[Path]:
@@ -57,7 +65,7 @@ def main() -> int:
     for html_file in html_files():
         text = html_file.read_text(encoding="utf-8")
         for match in REF_PATTERN.finditer(text):
-            target = route_target(match.group(1))
+            target = route_target(match.group(1), html_file)
             if target is None:
                 continue
             ref_count += 1

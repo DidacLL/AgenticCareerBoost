@@ -28,7 +28,7 @@
   if (label) {
     label.textContent = {
       ml: "ML/Data",
-      agentic: "Agentic systems",
+      agentic: "Workflow systems",
       backend: "Backend/tooling",
       print: "Print"
     }[view];

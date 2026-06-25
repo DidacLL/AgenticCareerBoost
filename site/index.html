@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dídac Llorens - Developer Desk</title>
-  <meta name="description" content="Dídac Llorens is a software engineering student in Barcelona building agentic workflows, technical tooling, ML/data direction, backend systems, and written engineering artifacts.">
+  <title>Dídac Llorens - Developer OS</title>
+  <meta name="description" content="Dídac Llorens: software engineering student in Barcelona focused on ML/data, workflow systems, technical tooling, backend systems, and documentation.">
   <link rel="stylesheet" href="assets/css/site.css">
+  <script defer src="assets/js/os.js"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -14,7 +15,7 @@
     "alternateName": "Didac Llorens",
     "url": "https://didacll.github.io/AgenticCareerBoost/",
     "jobTitle": "Software Engineering Student",
-    "description": "Software engineering student at UOC in Barcelona, focused on ML/data direction, agentic workflow systems, technical tooling, backend fundamentals, and engineering documentation.",
+    "description": "Software engineering student at UOC in Barcelona, focused on ML/data, workflow systems, technical tooling, backend systems, and documentation.",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Barcelona",
@@ -28,8 +29,7 @@
     "knowsAbout": [
       "Software Engineering",
       "Machine Learning",
-      "Artificial Intelligence",
-      "Agentic Systems",
+      "Workflow Systems",
       "Backend Systems",
       "Technical Writing",
       "LaTeX",
@@ -44,128 +44,188 @@
   }
   </script>
 </head>
-<body>
-  <div class="site-grid" aria-hidden="true"></div>
-  <header class="site-header">
-    <nav class="shell nav-shell" aria-label="Primary navigation">
-      <a class="brand" href="./" aria-current="page">
-        <span class="brand-mark">DL</span>
-        <span class="brand-text">Dídac Llorens</span>
-      </a>
-      <div class="nav-links">
-        <a href="projects/">Work</a>
-        <a href="curriculum/?view=ml">CV</a>
-        <a href="contact/">Contact</a>
-        <a class="primary-link" href="https://github.com/DidacLL">GitHub</a>
-      </div>
-    </nav>
-  </header>
-
-  <main id="main">
-    <section class="desk-hero shell" aria-labelledby="intro-title">
-      <div class="desk-copy">
-        <p class="eyebrow">Barcelona / software engineering / no theatre</p>
-        <h1 id="intro-title">Dídac Llorens</h1>
-        <p class="lead">
-          Software engineering student at UOC. ML/AI direction. Ex-banking and insurance operations. I like systems, documents, tests, and tools that can survive being opened by somebody else.
-        </p>
-        <p>
-          This page is a table of work, not a pitch deck. If something sounds too shiny, it probably needs a repository link or a rewrite.
-        </p>
-        <div class="actions">
-          <a class="button primary" href="projects/">Work</a>
-          <a class="button" href="curriculum/?view=ml">CV</a>
-          <a class="button" href="https://github.com/DidacLL">GitHub</a>
-        </div>
+<body class="os-home">
+  <main class="os-frame" aria-labelledby="identity-title">
+    <aside class="os-rail" aria-label="Identity and commands">
+      <div class="identity-block">
+        <span class="os-mark">DL</span>
+        <h1 id="identity-title">Dídac Llorens</h1>
+        <p>Software Engineering · UOC</p>
+        <p>Barcelona</p>
       </div>
 
-      <aside class="desk-panel" aria-label="Current desk status">
-        <div class="panel-line">
-          <span>desk.status</span>
-          <strong>working</strong>
-        </div>
-        <dl class="signal-list">
-          <div>
-            <dt>Current axis</dt>
-            <dd>ML/data direction, tooling, agentic workflow systems</dd>
+      <nav class="os-nav" aria-label="Command palette">
+        <a class="is-active" href="index.html" data-panel-link="intro"><span>00</span> Intro</a>
+        <a href="index.html?panel=work" data-panel-link="work"><span>01</span> Work</a>
+        <a href="index.html?panel=now" data-panel-link="now"><span>02</span> Now</a>
+        <a href="index.html?panel=cv" data-panel-link="cv"><span>03</span> CV</a>
+        <a href="index.html?panel=contact" data-panel-link="contact"><span>04</span> Contact</a>
+      </nav>
+
+      <div class="rail-links" aria-label="External links">
+        <a href="https://github.com/DidacLL">GitHub</a>
+        <a href="https://www.linkedin.com/in/didacllorens/">LinkedIn</a>
+        <a href="https://didacll.github.io/AgenticCareerBoost/">Live site</a>
+      </div>
+    </aside>
+
+    <section class="os-document" aria-label="Developer OS document">
+      <nav class="doc-tabs" aria-label="Document commands">
+        <a class="is-active" href="index.html" data-panel-link="intro">Intro</a>
+        <a href="index.html?panel=work" data-panel-link="work">Work</a>
+        <a href="index.html?panel=now" data-panel-link="now">Now</a>
+        <a href="index.html?panel=cv" data-panel-link="cv">CV</a>
+        <a href="index.html?panel=notes" data-panel-link="notes">Notes</a>
+        <a href="index.html?panel=hire" data-panel-link="hire">Hire</a>
+        <a href="index.html?panel=contact" data-panel-link="contact">Contact</a>
+      </nav>
+
+      <div class="doc-surface" aria-live="polite">
+        <header class="doc-header">
+          <p class="os-label">INDEX / <span data-active-panel-label>INTRO</span></p>
+          <h2 data-active-panel-title>Operator file</h2>
+          <p>Static HTML/CSS/JS. File-preview safe. Repository first.</p>
+        </header>
+
+        <section class="os-panel is-active" data-panel="intro" aria-labelledby="intro-title">
+          <div class="section-title">
+            <p class="os-label">00 / INTRO</p>
+            <h3 id="intro-title">Presentation</h3>
           </div>
-          <div>
-            <dt>Strong proof</dt>
-            <dd><a href="projects/agentic-career-boost/">AgenticCareerBoost</a>, <a href="projects/p3ctex/">P3CTeX</a>, reports, CI, diagrams</dd>
+          <div class="intro-grid">
+            <div class="intro-copy">
+              <p class="lead">Software engineering student in Barcelona. Machine learning track. Former banking and insurance operations. I build small systems, documents, tools, and public traces that can be opened without ceremony.</p>
+              <dl class="os-facts">
+                <div><dt>Current</dt><dd>ML/data engineering · workflow systems · platform/tooling</dd></div>
+                <div><dt>Background</dt><dd>15 years in regulated operations before engineering</dd></div>
+                <div><dt>Preference</dt><dd>Readable source, boring reliability, sharp edges only where they help</dd></div>
+              </dl>
+            </div>
+            <figure class="holo-window" data-holo-window>
+              <div class="holo-toolbar">
+                <span>portrait.feed</span>
+                <button type="button" data-holo-toggle aria-expanded="false">maximize</button>
+              </div>
+              <div class="holo-screen">
+                <img src="assets/img/418_informal_banner.jpg" alt="Dídac Llorens portrait rendered as a retro monitor feed">
+              </div>
+              <figcaption>CSS monitor filter. Decorative, but real enough to inspect.</figcaption>
+            </figure>
           </div>
-          <div>
-            <dt>Not doing</dt>
-            <dd>AI hype, founder cosplay, decorative complexity</dd>
+        </section>
+
+        <section class="os-panel" data-panel="work" aria-labelledby="work-title">
+          <div class="section-title">
+            <p class="os-label">01 / WORK</p>
+            <h3 id="work-title">Projects and reports</h3>
           </div>
+          <div class="os-table">
+            <a href="projects/agentic-career-boost/index.html"><span>AgenticCareerBoost</span><small>workflow routing, state files, static site, reports</small></a>
+            <a href="projects/p3ctex/index.html"><span>P3CTeX</span><small>LaTeX class and package tooling</small></a>
+            <a href="projects/ironbank/index.html"><span>IronBank</span><small>Java/Spring banking simulation</small></a>
+            <a href="projects/index.html"><span>Project index</span><small>all public project pages</small></a>
+          </div>
+        </section>
+
+        <section class="os-panel" data-panel="now" aria-labelledby="now-title">
+          <div class="section-title">
+            <p class="os-label">02 / NOW</p>
+            <h3 id="now-title">Current status</h3>
+          </div>
+          <dl class="os-facts">
+            <div><dt>Study</dt><dd>UOC Software Engineering · ML specialization · expected February 2027</dd></div>
+            <div><dt>Direction</dt><dd>ML/data engineering · workflow systems · platform/tooling · backend systems</dd></div>
+            <div><dt>Public work</dt><dd>Project pages, CV routes, technical reports, and source repositories</dd></div>
+            <div><dt>Next public route</dt><dd>Case-study writing and notes index</dd></div>
+          </dl>
+        </section>
+
+        <section class="os-panel" data-panel="cv" aria-labelledby="cv-title">
+          <div class="section-title">
+            <p class="os-label">03 / CV</p>
+            <h3 id="cv-title">Curriculum</h3>
+          </div>
+          <div class="os-table compact">
+            <a href="assets/curriculum/DidacLL_SoftwareEngineer_CV.pdf"><span>PDF CV</span><small>new professional version</small></a>
+            <a href="curriculum/index.html?view=ml"><span>ML/Data</span><small>current web route</small></a>
+            <a href="curriculum/index.html?view=agentic"><span>Workflow systems</span><small>automation and documentation route</small></a>
+            <a href="curriculum/index.html?view=backend"><span>Backend/tooling</span><small>Java/Spring and tooling route</small></a>
+          </div>
+        </section>
+
+        <section class="os-panel" data-panel="notes" aria-labelledby="notes-title">
+          <div class="section-title">
+            <p class="os-label">04 / NOTES</p>
+            <h3 id="notes-title">Notes index</h3>
+          </div>
+          <dl class="os-facts">
+            <div><dt>Use</dt><dd>Project logs, technical decisions, article drafts, tooling notes.</dd></div>
+            <div><dt>Policy</dt><dd>Only source-backed notes get listed.</dd></div>
+            <div><dt>Route</dt><dd><a href="notes/index.html">notes/index.html</a></dd></div>
+          </dl>
+        </section>
+
+        <section class="os-panel" data-panel="hire" aria-labelledby="hire-title">
+          <div class="section-title">
+            <p class="os-label">05 / HIRE</p>
+            <h3 id="hire-title">Role routes</h3>
+          </div>
+          <dl class="os-facts">
+            <div><dt>Routes</dt><dd>ML/Data · Workflow systems · Platform/tooling · Backend systems</dd></div>
+            <div><dt>Use</dt><dd>Secondary recruiter entry point. The homepage stays personal and project-led.</dd></div>
+            <div><dt>Route</dt><dd><a href="hire/index.html">hire/index.html</a></dd></div>
+          </dl>
+        </section>
+
+        <section class="os-panel" data-panel="contact" aria-labelledby="contact-title">
+          <div class="section-title">
+            <p class="os-label">06 / CONTACT</p>
+            <h3 id="contact-title">Direct links</h3>
+          </div>
+          <dl class="os-facts">
+            <div><dt>Location</dt><dd>Barcelona</dd></div>
+            <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/didacllorens/">linkedin.com/in/didacllorens</a></dd></div>
+            <div><dt>GitHub</dt><dd><a href="https://github.com/DidacLL">github.com/DidacLL</a></dd></div>
+            <div><dt>Route</dt><dd><a href="contact/index.html">contact/index.html</a></dd></div>
+          </dl>
+        </section>
+      </div>
+    </section>
+
+    <aside class="os-meta" aria-label="Metadata and controls">
+      <section>
+        <p class="os-label">SYSTEM</p>
+        <dl class="meta-list">
+          <div><dt>Mode</dt><dd>Student / builder</dd></div>
+          <div><dt>View</dt><dd data-active-panel-meta>Intro</dd></div>
+          <div><dt>Theme</dt><dd><button class="theme-toggle" type="button" data-theme-toggle>dark mode</button></dd></div>
+          <div><dt>Source</dt><dd><a href="https://github.com/DidacLL/AgenticCareerBoost">AgenticCareerBoost</a></dd></div>
         </dl>
-      </aside>
-    </section>
+      </section>
 
-    <section class="shell desk-section" aria-labelledby="work-title">
-      <div class="section-head">
-        <p class="kicker">Work</p>
-        <h2 id="work-title">Artifacts, not ornaments.</h2>
-      </div>
-      <div class="artifact-grid">
-        <article class="artifact-card">
-          <p class="artifact-type">agentic systems</p>
-          <h3>AgenticCareerBoost</h3>
-          <p>A public repo used to plan, execute, review, and publish work. The interesting part is the routing, not the word “agentic.”</p>
-          <p class="artifact-links"><a href="projects/agentic-career-boost/">Case study</a> <a href="https://github.com/DidacLL/AgenticCareerBoost">Repository</a></p>
-        </article>
-        <article class="artifact-card">
-          <p class="artifact-type">tooling / documents</p>
-          <h3>P3CTeX</h3>
-          <p>LaTeX tooling and document infrastructure. Patient work. Not glamorous. Usually a better signal than a demo video.</p>
-          <p class="artifact-links"><a href="projects/p3ctex/">Project page</a> <a href="https://github.com/DidacLL/P3CTeX">Repository</a></p>
-        </article>
-        <article class="artifact-card">
-          <p class="artifact-type">backend / operations</p>
-          <h3>Applied systems work</h3>
-          <p>Java/Spring, data modeling, security labs, and regulated-domain instincts. Useful background, not the whole identity.</p>
-          <p class="artifact-links"><a href="projects/">Project index</a> <a href="curriculum/?view=backend">Backend CV view</a></p>
-        </article>
-      </div>
-    </section>
+      <section>
+        <p class="os-label">STACK TAGS</p>
+        <div class="tag-list">
+          <span class="tag">ML/Data</span>
+          <span class="tag">Workflow systems</span>
+          <span class="tag">Java</span>
+          <span class="tag">Python</span>
+          <span class="tag">LaTeX</span>
+          <span class="tag">GitHub Actions</span>
+        </div>
+      </section>
 
-    <section class="desk-band">
-      <div class="shell desk-columns">
-        <section aria-labelledby="method-title">
-          <p class="kicker">Working style</p>
-          <h2 id="method-title">Boring evidence. Strange taste.</h2>
-          <p>
-            The useful part is not that an agent wrote something. The useful part is whether the work has boundaries, source files, review, failures, and enough shape to inspect without a séance.
-          </p>
-        </section>
-        <section aria-labelledby="direction-title" class="desk-note">
-          <p class="kicker">Current direction</p>
-          <h2 id="direction-title">Current direction.</h2>
-          <p>
-            ML/data direction, agentic workflow design, tooling, documentation, and regulated-domain instincts. The target is coherence, not a keyword pile.
-          </p>
-        </section>
-      </div>
-    </section>
-
-    <section class="shell desk-section compact" aria-labelledby="routes-title">
-      <div class="section-head">
-        <p class="kicker">Routes</p>
-        <h2 id="routes-title">Other doors.</h2>
-      </div>
-      <div class="route-list">
-        <a href="projects/"><span>Work</span><small>project pages and repo-backed proof</small></a>
-        <a href="notes/"><span>Notes</span><small>future articles and shared posts</small></a>
-        <a href="hire/"><span>Hire paths</span><small>role-focused routes without hijacking the homepage</small></a>
-        <a href="contact/"><span>Contact</span><small>links, location, current conversation targets</small></a>
-      </div>
-    </section>
+      <section>
+        <p class="os-label">DIRECT FILES</p>
+        <ul class="file-list">
+          <li><a href="projects/index.html">projects/index.html</a></li>
+          <li><a href="curriculum/index.html?view=ml">curriculum/index.html</a></li>
+          <li><a href="assets/curriculum/DidacLL_SoftwareEngineer_CV.pdf">SoftwareEngineer_CV.pdf</a></li>
+          <li><a href="notes/index.html">notes/index.html</a></li>
+          <li><a href="hire/index.html">hire/index.html</a></li>
+        </ul>
+      </section>
+    </aside>
   </main>
-
-  <footer class="site-footer">
-    <div class="shell footer-shell">
-      <span>Developer desk for Dídac Llorens.</span>
-      <a href="https://github.com/DidacLL/AgenticCareerBoost">Source repository</a>
-    </div>
-  </footer>
 </body>
 </html>
