@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "updated": "2026-06-25",
+  "source": "notes/index.html",
+  "policy": "Drafts are listed only as planned slots until there is a real post, source file, or public LinkedIn URL.",
+  "slots": [
+    {
+      "id": "agentic-engineering-without-fog",
+      "status": "draft",
+      "title": "Agentic engineering, without the religious fog",
+      "summary": "How agents can be used as engineering instruments while source files, tests, reviews, and personal judgment stay in control.",
+      "canonical": "notes/index.html"
+    },
+    {
+      "id": "static-sites-as-workbenches",
+      "status": "draft",
+      "title": "Static sites as public workbenches",
+      "summary": "Why this site behaves as a small OS surface instead of a recruiter funnel or generic portfolio stack.",
+      "canonical": "notes/index.html"
+    },
+    {
+      "id": "linkedin-mirrors",
+      "status": "link-slot",
+      "title": "LinkedIn mirrors",
+      "summary": "Future public LinkedIn posts can be mirrored here with a short local summary and outbound URL.",
+      "canonical": "notes/index.html"
+    }
+  ]
+}

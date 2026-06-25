@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "updated": "2026-06-25",
+  "site": {
+    "title": "Dídac Llorens - Developer OS",
+    "description": "Personal developer OS for Dídac Llorens: ML/data direction, workflow systems, technical tooling, backend systems, documentation, and public project traces.",
+    "basePath": "/AgenticCareerBoost",
+    "canonical": "https://didacll.github.io/AgenticCareerBoost/",
+    "language": "en",
+    "owner": {
+      "name": "Dídac Llorens",
+      "sameAs": [
+        "https://github.com/DidacLL",
+        "https://www.linkedin.com/in/didacllorens/"
+      ]
+    }
+  },
+    "assets": {
+        "stylesheet": "assets/css/site.css",
+        "scripts": [
+            "assets/js/os.js",
+            "assets/js/cv.js"
+        ],
+        "notesIndex": "assets/data/notes-index.json",
+        "heroImage": "assets/img/418_informal_banner.jpg",
+    "portraitImage": "assets/img/me.png",
+    "cvPdf": "assets/curriculum/DidacLL_SoftwareEngineer_CV.pdf",
+    "cvTex": "assets/curriculum/DidacLL_SoftwareEngineer_CV.tex"
+  },
+  "panels": [
+    {
+      "id": "intro",
+      "order": 0,
+      "label": "INTRO",
+      "title": "Operator file",
+      "route": "index.html",
+      "summary": "Presentation, current direction, background, and portrait monitor feed.",
+      "assets": [
+        "assets/img/me.png",
+        "assets/img/418_informal_banner.jpg"
+      ],
+      "links": [
+        { "label": "GitHub", "href": "https://github.com/DidacLL", "kind": "profile" },
+        { "label": "LinkedIn", "href": "https://www.linkedin.com/in/didacllorens/", "kind": "profile" }
+      ]
+    },
+    {
+      "id": "work",
+      "order": 1,
+      "label": "WORK",
+      "title": "Projects and reports",
+      "route": "projects/index.html",
+      "summary": "Selected project pages and source-backed engineering artifacts.",
+      "assets": [
+        "assets/img/routing-map.png",
+        "assets/img/P3CTeXLogo.png",
+        "assets/img/routing-architecture.png"
+      ],
+      "links": [
+        { "label": "AgenticCareerBoost", "href": "projects/agentic-career-boost/index.html", "kind": "project" },
+        { "label": "P3CTeX", "href": "projects/p3ctex/index.html", "kind": "project" },
+        { "label": "IronBank", "href": "projects/ironbank/index.html", "kind": "project" }
+      ]
+    },
+    {
+      "id": "cv",
+      "order": 2,
+      "label": "CV",
+      "title": "Curriculum",
+      "route": "curriculum/index.html?view=ml",
+      "summary": "Professional PDF CV plus web CV views for ML/Data, workflow systems, backend, and print.",
+      "assets": [
+        "assets/curriculum/DidacLL_SoftwareEngineer_CV.pdf",
+        "assets/curriculum/DidacLL_SoftwareEngineer_CV.tex"
+      ],
+      "links": [
+        { "label": "PDF CV", "href": "assets/curriculum/DidacLL_SoftwareEngineer_CV.pdf", "kind": "cv" },
+        { "label": "Web CV", "href": "curriculum/index.html?view=ml", "kind": "route" }
+      ]
+    },
+    {
+      "id": "notes",
+      "order": 3,
+      "label": "NOTES",
+      "title": "Notes index",
+      "route": "notes/index.html",
+      "summary": "Writing queue for project logs, technical decisions, article drafts, and tooling notes.",
+      "assets": [
+        "assets/img/sprint-paircheck-loop.png"
+      ],
+      "links": [
+        { "label": "Notes", "href": "notes/index.html", "kind": "route" }
+      ]
+    },
+    {
+      "id": "hire",
+      "order": 4,
+      "label": "HIRE",
+      "title": "Role routes",
+      "route": "hire/index.html",
+      "summary": "Recruiter-facing route paths for ML/Data, workflow systems, backend/tooling, and contact.",
+      "assets": [
+        "assets/img/screenshot001.png",
+        "assets/img/routing-map.png"
+      ],
+      "links": [
+        { "label": "Hire", "href": "hire/index.html", "kind": "route" },
+        { "label": "Contact", "href": "contact/index.html", "kind": "route" }
+      ]
+    },
+    {
+      "id": "contact",
+      "order": 5,
+      "label": "CONTACT",
+      "title": "Direct links",
+      "route": "contact/index.html",
+      "summary": "LinkedIn, GitHub, PDF CV, and contact routing.",
+      "assets": [
+        "assets/img/me.png"
+      ],
+      "links": [
+        { "label": "LinkedIn", "href": "https://www.linkedin.com/in/didacllorens/", "kind": "profile" },
+        { "label": "GitHub", "href": "https://github.com/DidacLL", "kind": "profile" }
+      ]
+    }
+  ],
+  "routes": [
+    { "id": "intro", "title": "Intro", "href": "index.html", "description": "Main OS presentation." },
+    { "id": "projects", "title": "Work", "href": "projects/index.html", "description": "Selected projects and reports." },
+    { "id": "curriculum", "title": "CV", "href": "curriculum/index.html?view=ml", "description": "Curriculum views and PDF/TEX artifacts." },
+    { "id": "notes", "title": "Notes", "href": "notes/index.html", "description": "Writing queue and source-backed notes route." },
+    { "id": "hire", "title": "Hire", "href": "hire/index.html", "description": "Role-specific recruiter paths." },
+    { "id": "contact", "title": "Contact", "href": "contact/index.html", "description": "Direct contact and profile links." }
+  ]
+}
