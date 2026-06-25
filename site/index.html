@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dídac Llorens - Software Engineering · ML/Data · Tooling</title>
-  <meta name="description" content="Dídac Llorens is a Software Engineering student in Barcelona focused on ML/data, agentic systems, technical tooling, and regulated-domain software.">
-  <link rel="stylesheet" href="/AgenticCareerBoost/assets/css/site.css">
+  <title>Dídac Llorens - Developer Desk</title>
+  <meta name="description" content="Dídac Llorens is a software engineering student in Barcelona building agentic workflows, technical tooling, ML/data direction, backend systems, and written engineering artifacts.">
+  <link rel="stylesheet" href="assets/css/site.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -14,101 +14,158 @@
     "alternateName": "Didac Llorens",
     "url": "https://didacll.github.io/AgenticCareerBoost/",
     "jobTitle": "Software Engineering Student",
-    "description": "Software Engineering student at UOC specializing in Machine Learning and Artificial Intelligence, building inspectable agentic systems and technical tooling from Barcelona.",
-    "address": { "@type": "PostalAddress", "addressLocality": "Barcelona", "addressRegion": "Catalonia", "addressCountry": "ES" },
-    "alumniOf": [{ "@type": "EducationalOrganization", "name": "Universitat Oberta de Catalunya" }, { "@type": "EducationalOrganization", "name": "IronHack" }],
-    "knowsAbout": ["Machine Learning", "Artificial Intelligence", "Agentic Systems", "Python", "Java", "LaTeX", "Systems Design", "Technical Writing", "GitHub Actions"],
-    "sameAs": ["https://github.com/DidacLL", "https://www.linkedin.com/in/didacllorens/"]
+    "description": "Software engineering student at UOC in Barcelona, focused on ML/data direction, agentic workflow systems, technical tooling, backend fundamentals, and engineering documentation.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Barcelona",
+      "addressRegion": "Catalonia",
+      "addressCountry": "ES"
+    },
+    "alumniOf": [
+      { "@type": "EducationalOrganization", "name": "Universitat Oberta de Catalunya" },
+      { "@type": "EducationalOrganization", "name": "IronHack" }
+    ],
+    "knowsAbout": [
+      "Software Engineering",
+      "Machine Learning",
+      "Artificial Intelligence",
+      "Agentic Systems",
+      "Backend Systems",
+      "Technical Writing",
+      "LaTeX",
+      "Java",
+      "Python",
+      "Systems Design"
+    ],
+    "sameAs": [
+      "https://github.com/DidacLL",
+      "https://www.linkedin.com/in/didacllorens/"
+    ]
   }
   </script>
 </head>
 <body>
-  <nav class="site-nav">
-    <div class="shell">
-      <a class="brand" href="/AgenticCareerBoost/">Dídac Llorens</a>
+  <div class="site-grid" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="shell nav-shell" aria-label="Primary navigation">
+      <a class="brand" href="./" aria-current="page">
+        <span class="brand-mark">DL</span>
+        <span class="brand-text">Dídac Llorens</span>
+      </a>
       <div class="nav-links">
-        <a href="/AgenticCareerBoost/projects/">Projects</a>
-        <a href="/AgenticCareerBoost/curriculum/?view=agentic">CV</a>
-        <a href="/AgenticCareerBoost/contact/">Contact</a>
+        <a href="projects/">Work</a>
+        <a href="curriculum/?view=ml">CV</a>
+        <a href="contact/">Contact</a>
         <a class="primary-link" href="https://github.com/DidacLL">GitHub</a>
       </div>
-    </div>
-  </nav>
-  <main class="shell">
-    <div class="hero">
-      <div>
-        <div class="eyebrow">UOC Software Engineering · Barcelona</div>
-        <h1>Dídac Llorens</h1>
-        <p class="lead">Software Engineering student specializing in ML/AI, with a background in banking and insurance operations. I build practical systems where data, tooling, documentation, and failure-mode thinking matter.</p>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="desk-hero shell" aria-labelledby="intro-title">
+      <div class="desk-copy">
+        <p class="eyebrow">Barcelona / software engineering / no theatre</p>
+        <h1 id="intro-title">Dídac Llorens</h1>
+        <p class="lead">
+          Software engineering student at UOC. ML/AI direction. Ex-banking and insurance operations. I like systems, documents, tests, and tools that can survive being opened by somebody else.
+        </p>
+        <p>
+          This page is a table of work, not a pitch deck. If something sounds too shiny, it probably needs a repository link or a rewrite.
+        </p>
         <div class="actions">
-          <a class="button primary" href="/AgenticCareerBoost/projects/">View Projects</a>
-          <a class="button" href="/AgenticCareerBoost/curriculum/?view=ml">ML/Data CV</a>
-          <a class="button" href="https://www.linkedin.com/in/didacllorens/">LinkedIn</a>
+          <a class="button primary" href="projects/">Work</a>
+          <a class="button" href="curriculum/?view=ml">CV</a>
+          <a class="button" href="https://github.com/DidacLL">GitHub</a>
         </div>
       </div>
-      <figure class="visual wide">
-        <img src="https://raw.githubusercontent.com/DidacLL/AgenticCareerBoost/main/assets/diagrams/routing-architecture.png" alt="Routing architecture diagram for the AgenticCareerBoost workflow">
-        <figcaption class="caption">I like systems that can be inspected, rebuilt, and improved without hiding the engineering work behind a polished claim.</figcaption>
-      </figure>
-    </div>
 
-    <section>
-      <h2>Engineering Focus</h2>
-      <div class="grid">
-        <article class="card tight">
-          <h3>ML/Data Direction</h3>
-          <p>UOC ML/AI specialization, Python/data trajectory, and regulated-domain operations context from years of banking and insurance work.</p>
-          <p><a href="/AgenticCareerBoost/curriculum/?view=ml">Open ML/Data CV view</a></p>
-        </article>
-        <article class="card tight">
-          <h3>Agentic Systems</h3>
-          <p>AgenticCareerBoost explores how small, auditable workflow systems can coordinate planning, implementation, review, and publication.</p>
-          <p><a href="/AgenticCareerBoost/projects/agentic-career-boost/">Inspect case study</a></p>
-        </article>
-        <article class="card tight">
-          <h3>Tooling and Documentation</h3>
-          <p>P3CTeX and the report pipeline show LaTeX package depth, documentation discipline, and buildable technical artifacts.</p>
-          <p><a href="/AgenticCareerBoost/projects/p3ctex/">Review tooling proof</a></p>
-        </article>
-      </div>
-    </section>
-
-    <section class="band">
-      <h2>Current Direction</h2>
-      <div class="grid">
-        <div class="card"><h3>Systems Thinking</h3><p>Work is easier to trust when the structure, tradeoffs, and review path are visible. That shows up in my projects, reports, and repositories.</p></div>
-        <div class="card"><h3>Operational Background</h3><p>Fifteen years in banking and insurance shaped how I think about data quality, compliance, edge cases, and software under real constraints.</p></div>
-        <div class="card"><h3>Technical Trajectory</h3><p>The current direction is ML/data and AI tooling, supported by backend fundamentals and a strong habit of building explainable artifacts.</p></div>
-      </div>
-    </section>
-
-    <section>
-      <div class="two-col">
-        <div>
-          <h2>Repo-Backed Projects</h2>
-          <p>Each project page explains the problem, the engineering choices, and the repository evidence. The order is intentional: current systems work first, tooling depth second, older backend evidence third.</p>
-          <div class="actions">
-            <a class="button primary" href="/AgenticCareerBoost/projects/">Open Projects</a>
-            <a class="button" href="https://github.com/DidacLL">GitHub Profile</a>
+      <aside class="desk-panel" aria-label="Current desk status">
+        <div class="panel-line">
+          <span>desk.status</span>
+          <strong>working</strong>
+        </div>
+        <dl class="signal-list">
+          <div>
+            <dt>Current axis</dt>
+            <dd>ML/data direction, tooling, agentic workflow systems</dd>
           </div>
-        </div>
-        <figure class="visual wide">
-          <img src="https://raw.githubusercontent.com/DidacLL/AgenticCareerBoost/main/assets/diagrams/synced-status-surfaces.png" alt="Diagram of synchronized repository, website, and project artifacts">
-          <figcaption class="caption">The portfolio favors inspectable artifacts: repositories, reports, diagrams, project pages, and a focused CV.</figcaption>
-        </figure>
+          <div>
+            <dt>Strong proof</dt>
+            <dd><a href="projects/agentic-career-boost/">AgenticCareerBoost</a>, <a href="projects/p3ctex/">P3CTeX</a>, reports, CI, diagrams</dd>
+          </div>
+          <div>
+            <dt>Not doing</dt>
+            <dd>AI hype, founder cosplay, decorative complexity</dd>
+          </div>
+        </dl>
+      </aside>
+    </section>
+
+    <section class="shell desk-section" aria-labelledby="work-title">
+      <div class="section-head">
+        <p class="kicker">Work</p>
+        <h2 id="work-title">Artifacts, not ornaments.</h2>
+      </div>
+      <div class="artifact-grid">
+        <article class="artifact-card">
+          <p class="artifact-type">agentic systems</p>
+          <h3>AgenticCareerBoost</h3>
+          <p>A public repo used to plan, execute, review, and publish work. The interesting part is the routing, not the word “agentic.”</p>
+          <p class="artifact-links"><a href="projects/agentic-career-boost/">Case study</a> <a href="https://github.com/DidacLL/AgenticCareerBoost">Repository</a></p>
+        </article>
+        <article class="artifact-card">
+          <p class="artifact-type">tooling / documents</p>
+          <h3>P3CTeX</h3>
+          <p>LaTeX tooling and document infrastructure. Patient work. Not glamorous. Usually a better signal than a demo video.</p>
+          <p class="artifact-links"><a href="projects/p3ctex/">Project page</a> <a href="https://github.com/DidacLL/P3CTeX">Repository</a></p>
+        </article>
+        <article class="artifact-card">
+          <p class="artifact-type">backend / operations</p>
+          <h3>Applied systems work</h3>
+          <p>Java/Spring, data modeling, security labs, and regulated-domain instincts. Useful background, not the whole identity.</p>
+          <p class="artifact-links"><a href="projects/">Project index</a> <a href="curriculum/?view=backend">Backend CV view</a></p>
+        </article>
       </div>
     </section>
 
-    <section>
-      <h2>Fast Contact</h2>
-      <p>Based in Barcelona. Open to technical conversations around ML/data, agentic systems, tooling, backend systems, and regulated-domain engineering.</p>
-      <div class="actions">
-        <a class="button primary" href="https://www.linkedin.com/in/didacllorens/">Message on LinkedIn</a>
-        <a class="button" href="https://github.com/DidacLL/AgenticCareerBoost/raw/main/content/reports/build/didac-llorens-cv.pdf">Download PDF CV</a>
-        <a class="button" href="/AgenticCareerBoost/curriculum/?view=print">Printable CV</a>
+    <section class="desk-band">
+      <div class="shell desk-columns">
+        <section aria-labelledby="method-title">
+          <p class="kicker">Working style</p>
+          <h2 id="method-title">Boring evidence. Strange taste.</h2>
+          <p>
+            The useful part is not that an agent wrote something. The useful part is whether the work has boundaries, source files, review, failures, and enough shape to inspect without a séance.
+          </p>
+        </section>
+        <section aria-labelledby="direction-title" class="desk-note">
+          <p class="kicker">Current direction</p>
+          <h2 id="direction-title">Current direction.</h2>
+          <p>
+            ML/data direction, agentic workflow design, tooling, documentation, and regulated-domain instincts. The target is coherence, not a keyword pile.
+          </p>
+        </section>
+      </div>
+    </section>
+
+    <section class="shell desk-section compact" aria-labelledby="routes-title">
+      <div class="section-head">
+        <p class="kicker">Routes</p>
+        <h2 id="routes-title">Other doors.</h2>
+      </div>
+      <div class="route-list">
+        <a href="projects/"><span>Work</span><small>project pages and repo-backed proof</small></a>
+        <a href="notes/"><span>Notes</span><small>future articles and shared posts</small></a>
+        <a href="hire/"><span>Hire paths</span><small>role-focused routes without hijacking the homepage</small></a>
+        <a href="contact/"><span>Contact</span><small>links, location, current conversation targets</small></a>
       </div>
     </section>
   </main>
-  <footer><div class="shell">Portfolio for Dídac Llorens. Project source: <a href="https://github.com/DidacLL/AgenticCareerBoost">AgenticCareerBoost</a>.</div></footer>
+
+  <footer class="site-footer">
+    <div class="shell footer-shell">
+      <span>Developer desk for Dídac Llorens.</span>
+      <a href="https://github.com/DidacLL/AgenticCareerBoost">Source repository</a>
+    </div>
+  </footer>
 </body>
 </html>

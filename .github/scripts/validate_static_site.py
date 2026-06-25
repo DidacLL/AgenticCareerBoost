@@ -20,6 +20,8 @@ REQUIRED_FILES = [
     "dashboard/index.html",
     "curriculum/index.html",
     "contact/index.html",
+    "notes/index.html",
+    "hire/index.html",
     "assets/css/site.css",
     "assets/js/cv.js",
     ".nojekyll",
