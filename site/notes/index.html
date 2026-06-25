@@ -5,34 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notes - Dídac Llorens</title>
   <meta name="description" content="Notes index for project logs, technical decisions, article drafts, and tooling notes by Dídac Llorens.">
+  <link rel="canonical" href="https://didacll.github.io/AgenticCareerBoost/notes/">
+  <link rel="me" href="https://github.com/DidacLL">
+  <link rel="me" href="https://www.linkedin.com/in/didacllorens/">
+  <link rel="alternate" type="application/json" title="Developer OS index" href="../assets/data/os-index.json">
   <link rel="stylesheet" href="../assets/css/site.css">
+  <script defer src="../assets/js/os.js"></script>
 </head>
-<body class="route-page">
-  <header class="site-header">
-    <nav class="shell nav-shell" aria-label="Primary navigation">
-      <a class="brand" href="../index.html"><span class="brand-mark">DL</span><span class="brand-text">Dídac Llorens</span></a>
-      <div class="nav-links"><a href="../projects/index.html">Work</a><a href="../curriculum/index.html?view=ml">CV</a><a href="../contact/index.html">Contact</a><a class="primary-link" href="https://github.com/DidacLL">GitHub</a></div>
-    </nav>
-  </header>
-  <main class="shell route-shell">
-    <header class="route-header">
-      <p class="os-label">NOTES / INDEX</p>
-      <h1>Notes</h1>
-      <p>Project logs, technical decisions, article drafts, and tooling notes. Listed only after a source draft exists.</p>
-    </header>
-
-    <section class="route-panel" aria-labelledby="notes-slots">
-      <div class="section-title">
-        <p class="os-label">SLOTS</p>
-        <h2 id="notes-slots">Writing queue</h2>
-      </div>
-      <div class="os-table">
-        <a href="../projects/agentic-career-boost/index.html"><span>Project logs</span><small>AgenticCareerBoost route and delivery notes</small></a>
-        <a href="../projects/p3ctex/index.html"><span>Tooling notes</span><small>LaTeX build tooling and document production</small></a>
-        <a href="../projects/index.html"><span>Technical decisions</span><small>Source-backed notes tied to public project pages</small></a>
+<body class="os-home">
+  <main class="os-shell os-frame" aria-labelledby="identity-title">
+    <aside class="os-rail" aria-label="Identity and commands">
+      <div class="identity-block"><span class="os-mark">DL</span><h1 id="identity-title">Dídac Llorens</h1><p>Software Engineering · UOC</p><p>Barcelona</p></div>
+      <nav class="os-nav" aria-label="Command palette"><a href="../index.html"><span>00</span> Intro</a><a href="../projects/index.html"><span>01</span> Work</a><a href="../curriculum/index.html?view=ml"><span>02</span> CV</a><a class="is-active" aria-current="page" href="index.html"><span>03</span> Notes</a><a href="../hire/index.html"><span>04</span> Hire</a><a href="../contact/index.html"><span>05</span> Contact</a></nav>
+      <div class="rail-links" aria-label="External links"><a href="https://github.com/DidacLL" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/didacllorens/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://didacll.github.io/AgenticCareerBoost/" target="_blank" rel="noopener noreferrer">Live site</a></div>
+    </aside>
+    <section class="os-document" aria-label="Notes module">
+      <figure class="system-banner" aria-hidden="true"><img src="../assets/img/418_informal_banner.jpg" alt=""></figure>
+      <nav class="doc-tabs" aria-label="Document commands"><a href="../index.html">Intro</a><a href="../projects/index.html">Work</a><a href="../curriculum/index.html?view=ml">CV</a><a class="is-active" aria-current="page" href="index.html">Notes</a><a href="../hire/index.html">Hire</a><a href="../contact/index.html">Contact</a></nav>
+      <div class="doc-surface">
+        <header class="doc-header"><p class="os-label">INDEX / NOTES</p><h2>Notes index</h2><p>Writing queue for source-backed notes and project logs.</p></header>
+        <section class="os-panel is-active" data-panel="notes" aria-labelledby="notes-title">
+          <div class="section-title"><p class="os-label">03 / NOTES</p><h3 id="notes-title">Writing slots</h3></div>
+          <div class="preview-list">
+            <a class="preview-row" href="../projects/agentic-career-boost/index.html"><span class="monitor-thumb"><img src="../assets/img/sprint-paircheck-loop.png" alt=""></span><span><strong>Project logs</strong><small>Delivery loops, review gates, and decisions from AgenticCareerBoost.</small></span></a>
+            <a class="preview-row" href="../projects/p3ctex/index.html"><span class="monitor-thumb"><img src="../assets/img/P3CTeXLogo.png" alt=""></span><span><strong>Tooling notes</strong><small>LaTeX build tooling and document production.</small></span></a>
+            <a class="preview-row" href="../projects/index.html"><span class="monitor-thumb"><img src="../assets/img/routing-architecture.png" alt=""></span><span><strong>Technical decisions</strong><small>Short notes tied to public project pages and source files.</small></span></a>
+          </div>
+          <div class="os-section">
+            <div class="section-title"><p class="os-label">03B / BLOG</p><h3>Post registry</h3></div>
+            <div class="note-list">
+              <article class="note-item"><span>draft</span><div><h3>Agentic engineering, without the religious fog</h3><p>Planned article: how I use agents as engineering instruments while keeping source files, tests, reviews, and personal judgment in control.</p></div></article>
+              <article class="note-item"><span>draft</span><div><h3>Static sites as public workbenches</h3><p>Planned article: why this site is a small OS surface instead of a recruiter funnel or a generic portfolio stack.</p></div></article>
+              <article class="note-item"><span>link slot</span><div><h3>LinkedIn mirrors</h3><p>Future LinkedIn posts can be mirrored here by adding one entry to <a href="../assets/data/notes-index.json">notes-index.json</a> and linking the public post.</p></div></article>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
+    <aside class="os-meta" aria-label="Metadata and controls">
+      <section><p class="os-label">SYSTEM</p><dl class="meta-list"><div><dt>Mode</dt><dd>Notes module</dd></div><div><dt>Policy</dt><dd>Source-backed only</dd></div><div><dt>Theme</dt><dd><button class="theme-toggle" type="button" data-theme-toggle>dark mode</button></dd></div><div><dt>Index</dt><dd><a href="../assets/data/os-index.json">os-index.json</a></dd></div></dl></section>
+      <section><p class="os-label">SLOTS</p><div class="tag-list"><span class="tag">Project logs</span><span class="tag">Technical decisions</span><span class="tag">Article drafts</span><span class="tag">Tooling notes</span></div></section>
+    </aside>
   </main>
-  <footer class="site-footer"><div class="shell footer-shell"><span>Notes index.</span><a href="../index.html">Back to index</a></div></footer>
 </body>
 </html>

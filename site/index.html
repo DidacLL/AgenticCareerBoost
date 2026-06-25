@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dídac Llorens - Developer OS</title>
   <meta name="description" content="Dídac Llorens: software engineering student in Barcelona focused on ML/data, workflow systems, technical tooling, backend systems, and documentation.">
+  <link rel="canonical" href="https://didacll.github.io/AgenticCareerBoost/">
+  <link rel="me" href="https://github.com/DidacLL">
+  <link rel="me" href="https://www.linkedin.com/in/didacllorens/">
+  <link rel="alternate" type="application/json" title="Developer OS index" href="assets/data/os-index.json">
   <link rel="stylesheet" href="assets/css/site.css">
   <script defer src="assets/js/os.js"></script>
   <script type="application/ld+json">
@@ -45,7 +49,7 @@
   </script>
 </head>
 <body class="os-home">
-  <main class="os-frame" aria-labelledby="identity-title">
+  <main class="os-shell os-frame" aria-labelledby="identity-title">
     <aside class="os-rail" aria-label="Identity and commands">
       <div class="identity-block">
         <span class="os-mark">DL</span>
@@ -53,37 +57,36 @@
         <p>Software Engineering · UOC</p>
         <p>Barcelona</p>
       </div>
-
       <nav class="os-nav" aria-label="Command palette">
-        <a class="is-active" href="index.html" data-panel-link="intro"><span>00</span> Intro</a>
-        <a href="index.html?panel=work" data-panel-link="work"><span>01</span> Work</a>
-        <a href="index.html?panel=now" data-panel-link="now"><span>02</span> Now</a>
-        <a href="index.html?panel=cv" data-panel-link="cv"><span>03</span> CV</a>
-        <a href="index.html?panel=contact" data-panel-link="contact"><span>04</span> Contact</a>
+        <a class="is-active" aria-current="page" href="index.html"><span>00</span> Intro</a>
+        <a href="projects/index.html"><span>01</span> Work</a>
+        <a href="curriculum/index.html?view=ml"><span>02</span> CV</a>
+        <a href="notes/index.html"><span>03</span> Notes</a>
+        <a href="hire/index.html"><span>04</span> Hire</a>
+        <a href="contact/index.html"><span>05</span> Contact</a>
       </nav>
-
       <div class="rail-links" aria-label="External links">
-        <a href="https://github.com/DidacLL">GitHub</a>
-        <a href="https://www.linkedin.com/in/didacllorens/">LinkedIn</a>
-        <a href="https://didacll.github.io/AgenticCareerBoost/">Live site</a>
+        <a href="https://github.com/DidacLL" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/didacllorens/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://didacll.github.io/AgenticCareerBoost/" target="_blank" rel="noopener noreferrer">Live site</a>
       </div>
     </aside>
 
     <section class="os-document" aria-label="Developer OS document">
+      <figure class="system-banner" aria-hidden="true"><img src="assets/img/418_informal_banner.jpg" alt=""></figure>
       <nav class="doc-tabs" aria-label="Document commands">
-        <a class="is-active" href="index.html" data-panel-link="intro">Intro</a>
-        <a href="index.html?panel=work" data-panel-link="work">Work</a>
-        <a href="index.html?panel=now" data-panel-link="now">Now</a>
-        <a href="index.html?panel=cv" data-panel-link="cv">CV</a>
-        <a href="index.html?panel=notes" data-panel-link="notes">Notes</a>
-        <a href="index.html?panel=hire" data-panel-link="hire">Hire</a>
-        <a href="index.html?panel=contact" data-panel-link="contact">Contact</a>
+        <a class="is-active" aria-current="page" href="index.html">Intro</a>
+        <a href="projects/index.html">Work</a>
+        <a href="curriculum/index.html?view=ml">CV</a>
+        <a href="notes/index.html">Notes</a>
+        <a href="hire/index.html">Hire</a>
+        <a href="contact/index.html">Contact</a>
       </nav>
 
-      <div class="doc-surface" aria-live="polite">
+      <div class="doc-surface">
         <header class="doc-header">
-          <p class="os-label">INDEX / <span data-active-panel-label>INTRO</span></p>
-          <h2 data-active-panel-title>Operator file</h2>
+          <p class="os-label">INDEX / INTRO</p>
+          <h2>Operator file</h2>
           <p>Static HTML/CSS/JS. File-preview safe. Repository first.</p>
         </header>
 
@@ -94,6 +97,9 @@
           </div>
           <div class="intro-grid">
             <div class="intro-copy">
+              <figure class="banner-strip monitor-strip">
+                <img src="assets/img/418_informal_banner.jpg" alt="418 banner artwork with Dídac Llorens visual identity">
+              </figure>
               <p class="lead">Software engineering student in Barcelona. Machine learning track. Former banking and insurance operations. I build small systems, documents, tools, and public traces that can be opened without ceremony.</p>
               <dl class="os-facts">
                 <div><dt>Current</dt><dd>ML/data engineering · workflow systems · platform/tooling</dd></div>
@@ -107,87 +113,19 @@
                 <button type="button" data-holo-toggle aria-expanded="false">maximize</button>
               </div>
               <div class="holo-screen">
-                <img src="assets/img/418_informal_banner.jpg" alt="Dídac Llorens portrait rendered as a retro monitor feed">
+                <img src="assets/img/me.png" alt="Dídac Llorens portrait rendered as a retro monitor feed">
+                <div class="holo-overlay" aria-hidden="true"><strong>Dídac Llorens</strong>Software Engineering · UOC<br>ML/AI · workflow systems · tooling<br>Barcelona · GitHub-first profile</div>
               </div>
-              <figcaption>CSS monitor filter. Decorative, but real enough to inspect.</figcaption>
+              <figcaption>CSS monitor filter. Motion reduced when the system asks for calm.</figcaption>
             </figure>
           </div>
-        </section>
-
-        <section class="os-panel" data-panel="work" aria-labelledby="work-title">
-          <div class="section-title">
-            <p class="os-label">01 / WORK</p>
-            <h3 id="work-title">Projects and reports</h3>
+          <div class="os-section">
+            <div class="section-title"><p class="os-label">00B / PAGE</p><h3>About this page</h3></div>
+            <div>
+              <p>This site is a static interface built through an agentic engineering workflow: architecture pass, visual/content pass, implementation, review, browser checks, and remediation.</p>
+              <p>I do not like “vibe coding” as a substitute for engineering. This page is closer to my actual position: use agents as fast instruments, keep the work inspectable, then reject whatever feels cheap, vague, or unearned.</p>
+            </div>
           </div>
-          <div class="os-table">
-            <a href="projects/agentic-career-boost/index.html"><span>AgenticCareerBoost</span><small>workflow routing, state files, static site, reports</small></a>
-            <a href="projects/p3ctex/index.html"><span>P3CTeX</span><small>LaTeX class and package tooling</small></a>
-            <a href="projects/ironbank/index.html"><span>IronBank</span><small>Java/Spring banking simulation</small></a>
-            <a href="projects/index.html"><span>Project index</span><small>all public project pages</small></a>
-          </div>
-        </section>
-
-        <section class="os-panel" data-panel="now" aria-labelledby="now-title">
-          <div class="section-title">
-            <p class="os-label">02 / NOW</p>
-            <h3 id="now-title">Current status</h3>
-          </div>
-          <dl class="os-facts">
-            <div><dt>Study</dt><dd>UOC Software Engineering · ML specialization · expected February 2027</dd></div>
-            <div><dt>Direction</dt><dd>ML/data engineering · workflow systems · platform/tooling · backend systems</dd></div>
-            <div><dt>Public work</dt><dd>Project pages, CV routes, technical reports, and source repositories</dd></div>
-            <div><dt>Next public route</dt><dd>Case-study writing and notes index</dd></div>
-          </dl>
-        </section>
-
-        <section class="os-panel" data-panel="cv" aria-labelledby="cv-title">
-          <div class="section-title">
-            <p class="os-label">03 / CV</p>
-            <h3 id="cv-title">Curriculum</h3>
-          </div>
-          <div class="os-table compact">
-            <a href="assets/curriculum/DidacLL_SoftwareEngineer_CV.pdf"><span>PDF CV</span><small>new professional version</small></a>
-            <a href="curriculum/index.html?view=ml"><span>ML/Data</span><small>current web route</small></a>
-            <a href="curriculum/index.html?view=agentic"><span>Workflow systems</span><small>automation and documentation route</small></a>
-            <a href="curriculum/index.html?view=backend"><span>Backend/tooling</span><small>Java/Spring and tooling route</small></a>
-          </div>
-        </section>
-
-        <section class="os-panel" data-panel="notes" aria-labelledby="notes-title">
-          <div class="section-title">
-            <p class="os-label">04 / NOTES</p>
-            <h3 id="notes-title">Notes index</h3>
-          </div>
-          <dl class="os-facts">
-            <div><dt>Use</dt><dd>Project logs, technical decisions, article drafts, tooling notes.</dd></div>
-            <div><dt>Policy</dt><dd>Only source-backed notes get listed.</dd></div>
-            <div><dt>Route</dt><dd><a href="notes/index.html">notes/index.html</a></dd></div>
-          </dl>
-        </section>
-
-        <section class="os-panel" data-panel="hire" aria-labelledby="hire-title">
-          <div class="section-title">
-            <p class="os-label">05 / HIRE</p>
-            <h3 id="hire-title">Role routes</h3>
-          </div>
-          <dl class="os-facts">
-            <div><dt>Routes</dt><dd>ML/Data · Workflow systems · Platform/tooling · Backend systems</dd></div>
-            <div><dt>Use</dt><dd>Secondary recruiter entry point. The homepage stays personal and project-led.</dd></div>
-            <div><dt>Route</dt><dd><a href="hire/index.html">hire/index.html</a></dd></div>
-          </dl>
-        </section>
-
-        <section class="os-panel" data-panel="contact" aria-labelledby="contact-title">
-          <div class="section-title">
-            <p class="os-label">06 / CONTACT</p>
-            <h3 id="contact-title">Direct links</h3>
-          </div>
-          <dl class="os-facts">
-            <div><dt>Location</dt><dd>Barcelona</dd></div>
-            <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/didacllorens/">linkedin.com/in/didacllorens</a></dd></div>
-            <div><dt>GitHub</dt><dd><a href="https://github.com/DidacLL">github.com/DidacLL</a></dd></div>
-            <div><dt>Route</dt><dd><a href="contact/index.html">contact/index.html</a></dd></div>
-          </dl>
         </section>
       </div>
     </section>
@@ -197,24 +135,19 @@
         <p class="os-label">SYSTEM</p>
         <dl class="meta-list">
           <div><dt>Mode</dt><dd>Student / builder</dd></div>
-          <div><dt>View</dt><dd data-active-panel-meta>Intro</dd></div>
+          <div><dt>View</dt><dd>Operator file</dd></div>
           <div><dt>Theme</dt><dd><button class="theme-toggle" type="button" data-theme-toggle>dark mode</button></dd></div>
-          <div><dt>Source</dt><dd><a href="https://github.com/DidacLL/AgenticCareerBoost">AgenticCareerBoost</a></dd></div>
+          <div><dt>Index</dt><dd><a href="assets/data/os-index.json">os-index.json</a></dd></div>
         </dl>
       </section>
-
       <section>
-        <p class="os-label">STACK TAGS</p>
-        <div class="tag-list">
-          <span class="tag">ML/Data</span>
-          <span class="tag">Workflow systems</span>
-          <span class="tag">Java</span>
-          <span class="tag">Python</span>
-          <span class="tag">LaTeX</span>
-          <span class="tag">GitHub Actions</span>
+        <p class="os-label">PREVIEWS</p>
+        <div class="preview-stack">
+          <a class="mini-monitor" href="projects/index.html"><img src="assets/img/routing-map.png" alt=""><span>Work</span></a>
+          <a class="mini-monitor" href="curriculum/index.html?view=ml"><img src="assets/img/screenshot001.png" alt=""><span>CV</span></a>
+          <a class="mini-monitor" href="notes/index.html"><img src="assets/img/sprint-paircheck-loop.png" alt=""><span>Notes</span></a>
         </div>
       </section>
-
       <section>
         <p class="os-label">DIRECT FILES</p>
         <ul class="file-list">

@@ -3,54 +3,37 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AgenticCareerBoost Dashboard</title>
-  <meta name="description" content="Public S-002R dashboard for AgenticCareerBoost status, blockers, artifacts, and implementation links.">
+  <title>Status Dashboard - Dídac Llorens</title>
+  <meta name="description" content="AgenticCareerBoost status dashboard inside the Retrofuture OS site shell.">
   <link rel="stylesheet" href="../assets/css/site.css">
+  <script defer src="../assets/js/os.js"></script>
 </head>
-<body>
-  <header class="site-header"><nav class="shell nav-shell" aria-label="Primary navigation"><a class="brand" href="../index.html"><span class="brand-mark">DL</span><span class="brand-text">Dídac Llorens</span></a><div class="nav-links"><a href="../projects/index.html">Work</a><a href="../curriculum/index.html?view=ml">CV</a><a href="../contact/index.html">Contact</a><a class="primary-link" href="https://github.com/DidacLL">GitHub</a></div></nav></header>
-  <main class="shell">
-    <div class="hero slim">
-      <div>
-        <div class="eyebrow">Public status snapshot · 2026-06-12</div>
-        <h1>S-002R Dashboard</h1>
-        <p class="lead">A static snapshot of the current sprint state. The canonical status lives in <code>data/public-status.json</code>; this page keeps the human-readable copy inside <code>site/</code> without a build dependency.</p>
-      </div>
-    </div>
-    <section>
-      <h2>Status</h2>
-      <div class="grid">
-        <article class="card"><h3>Sprint</h3><p><span class="metric">S-002R</span></p><p>Restart review and implementation foundation after the college-assignment pause.</p></article>
-        <article class="card"><h3>Workflow</h3><p><span class="metric">sprint / S-002R bounded remediation</span></p><p>Framework, profile/social, static-site, browser, print, and PR CI gates pass; human-owned account and publication gates remain.</p></article>
-        <article class="card"><h3>Last Closure</h3><p><span class="metric">2026-06-12</span></p><p>Repo-local S-002R closure.</p></article>
-      </div>
-    </section>
-    <section>
-      <h2>Artifacts</h2>
-      <ul class="status-list">
-        <li><span class="status-ok">Complete:</span> Agentic framework simplification: bounded contracts, risk-tiered review, compact traces, and closure matrix.</li>
-        <li><span class="status-ok">Complete:</span> Plain static site conversion with landing, project pages, dashboard, configurable CV, route validation, and no Jekyll dependency.</li>
-        <li><span class="status-ok">Complete:</span> LinkedIn reactivation review: three-post low-heat restart selected with first-comment source bundles.</li>
-        <li><span class="status-ok">Complete:</span> Rendered desktop/mobile browser checks and printable CV PDF capture.</li>
-      </ul>
-    </section>
-    <section>
-      <h2>Blockers</h2>
-      <ul class="status-list">
-        <li><span class="status-blocked">External:</span> LinkedIn profile content cannot be externally verified due to authwall.</li>
-        <li><span class="status-pending">Account-level:</span> LinkedIn update and GitHub profile/account update are in progress.</li>
-        <li><span class="status-ok">Resolved:</span> Professional email is confirmed as the current public email.</li>
-        <li><span class="status-ok">Resolved:</span> Branch protection/ruleset requiring required-ci is applied and CI is working.</li>
-      </ul>
-    </section>
-    <section>
-      <h2>Navigation</h2>
-      <div class="grid two">
-        <article class="card"><h3>Implementation Pages</h3><p><a href="../index.html">Index</a> · <a href="../projects/index.html">Projects</a> · <a href="../curriculum/index.html?view=agentic">Agentic CV</a> · <a href="../curriculum/index.html?view=print">Print CV</a></p></article>
-        <article class="card"><h3>Canonical Sources</h3><p><a href="https://github.com/DidacLL/AgenticCareerBoost">Repository</a> · <a href="https://github.com/DidacLL/AgenticCareerBoost/blob/main/data/public-status.json">public-status.json</a> · <a href="https://github.com/DidacLL/AgenticCareerBoost/tree/main/content/reports/build">Reports</a></p></article>
+<body class="os-home">
+  <main class="os-shell os-frame" aria-labelledby="identity-title">
+    <aside class="os-rail" aria-label="Identity and commands">
+      <div class="identity-block"><span class="os-mark">DL</span><h1 id="identity-title">Dídac Llorens</h1><p>Software Engineering · UOC</p><p>Barcelona</p></div>
+      <nav class="os-nav" aria-label="Command palette"><a href="../index.html"><span>00</span> Intro</a><a class="is-active" aria-current="page" href="../projects/index.html"><span>01</span> Work</a><a href="../curriculum/index.html?view=ml"><span>02</span> CV</a><a href="../notes/index.html"><span>03</span> Notes</a><a href="../hire/index.html"><span>04</span> Hire</a><a href="../contact/index.html"><span>05</span> Contact</a></nav>
+      <div class="rail-links" aria-label="External links"><a href="https://github.com/DidacLL" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/didacllorens/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://didacll.github.io/AgenticCareerBoost/" target="_blank" rel="noopener noreferrer">Live site</a></div>
+    </aside>
+    <section class="os-document" aria-label="Dashboard module">
+      <figure class="system-banner" aria-hidden="true"><img src="../assets/img/418_informal_banner.jpg" alt=""></figure>
+      <nav class="doc-tabs" aria-label="Document commands"><a href="../index.html">Intro</a><a class="is-active" aria-current="page" href="../projects/index.html">Work</a><a href="../curriculum/index.html?view=ml">CV</a><a href="../notes/index.html">Notes</a><a href="../hire/index.html">Hire</a><a href="../contact/index.html">Contact</a></nav>
+      <div class="doc-surface">
+        <header class="doc-header"><p class="os-label">WORK / STATUS</p><h2>Public status snapshot</h2><p>Historical S-002R snapshot, kept for traceability.</p></header>
+        <section class="os-panel is-active" data-panel="work" aria-labelledby="dash-title">
+          <div class="section-title"><p class="os-label">01D / DASHBOARD</p><h3 id="dash-title">Snapshot</h3></div>
+          <div class="preview-list">
+            <article class="note-item"><span>sprint</span><div><h3>S-002R</h3><p>Restart review and implementation foundation after the college-assignment pause.</p></div></article>
+            <article class="note-item"><span>status</span><div><h3>Repo-local closure</h3><p>Framework, profile/social, static-site, browser, print, and PR CI gates passed at the time of this snapshot.</p></div></article>
+            <article class="note-item"><span>source</span><div><h3>Canonical files</h3><p><a href="https://github.com/DidacLL/AgenticCareerBoost" target="_blank" rel="noopener noreferrer">Repository</a> · <a href="https://github.com/DidacLL/AgenticCareerBoost/blob/main/data/public-status.json" target="_blank" rel="noopener noreferrer">public-status.json</a> · <a href="https://github.com/DidacLL/AgenticCareerBoost/tree/main/content/reports/build" target="_blank" rel="noopener noreferrer">Reports</a></p></div></article>
+          </div>
+        </section>
       </div>
     </section>
+    <aside class="os-meta" aria-label="Metadata and controls">
+      <section><p class="os-label">SYSTEM</p><dl class="meta-list"><div><dt>Mode</dt><dd>Status module</dd></div><div><dt>Snapshot</dt><dd>2026-06-12</dd></div><div><dt>Theme</dt><dd><button class="theme-toggle" type="button" data-theme-toggle>dark mode</button></dd></div><div><dt>Index</dt><dd><a href="../assets/data/os-index.json">os-index.json</a></dd></div></dl></section>
+      <section><p class="os-label">FILES</p><ul class="file-list"><li><a href="../projects/agentic-career-boost/index.html">AgenticCareerBoost</a></li><li><a href="../projects/index.html">work index</a></li></ul></section>
+    </aside>
   </main>
-  <footer><div class="shell">Source: <a href="https://github.com/DidacLL/AgenticCareerBoost">AgenticCareerBoost</a>.</div></footer>
 </body>
 </html>
