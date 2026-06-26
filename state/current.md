@@ -1,17 +1,18 @@
 # Current state
 
-- **Active workflow**: sprint / S-004 documentation alignment
-- **Active sprint**: S-004 - CLOSED; career-direction guardrail, README, AGENTS routing, social plan, human task queue, relaunch calibration, and backlog updates are complete.
-- **Blockers**: Publication, LinkedIn/GitHub account metadata, company outreach, applications, and website implementation remain human-owned or separately assigned.
+- **Active workflow**: root-site URL finalization / post-merge validation
+- **Active sprint**: S-004 - CLOSED; follow-up cleanup is limited to public URL consistency, current-state documentation, and backlog coherence.
+- **Blockers**: Publication, LinkedIn/GitHub account metadata, company outreach, applications, and manual profile settings remain human-owned.
 
 ## Current evidence
 
+- Public site canonical root: `https://didacll.github.io/`.
+- AgenticCareerBoost remains the source project and public proof repository: `https://github.com/DidacLL/AgenticCareerBoost`.
+- Root URL migration follow-up branch: `codex/root-url-state-finalization`.
 - Career guardrail: `docs/core/career-direction.md`.
 - Human task queue: `state/human-actions.md`.
 - Relaunch calibration: `state/research/s004-relaunch-calibration.md`.
 - S-004 closure: `state/logs/S-004-docs-alignment/closure.md`.
-- Public site is live at `https://didacll.github.io/`.
-- AgenticCareerBoost remains the source project and public proof repository.
 - Website OS clarity closure: `state/logs/S-003-website-os-clarity/closure.md`.
 - Framework review: `state/logs/S-002-refresh/agentic-framework-review.md`.
 - Site rebuild review: `state/logs/S-002-refresh/site-rebuild-review.md`.
@@ -23,12 +24,20 @@
 - Site rebuild foundation passes source, route, browser, mobile, print, and CI gates; PR #12 is merged.
 - GitHub profile README cleanup is merged via `https://github.com/DidacLL/DidacLL/pull/1`; remaining GitHub account metadata changes are manual settings.
 - Professional email decision is resolved: keep `didacllorensbravo@hotmail.com` as the current public email.
-- Branch protection/ruleset requiring aggregate `required-ci` is applied, and the CI pipeline is working.
+- Branch protection/ruleset requiring aggregate `required-ci` is applied; direct pushes to `main` are blocked and changes must go through PR review.
+
+## Verification notes
+
+- `codex/contentupdate` has been merged into `main`; the branch is now behind `main` and has no unmerged commits.
+- Post-merge review found residual root URL drift in compatibility/static pages and the web CV page.
+- Direct `main` updates were blocked by branch protection, so the residual fixes and state updates are staged in `codex/root-url-state-finalization`.
+- No PR-triggered workflow runs were visible for commit `956ac4c2acda2ec78b97fc38961882390a5c1efd` through the connector, so final CI status must be confirmed from the pull request checks.
 
 ## Recent closures
 
 | Date | Type | Summary |
 |------|------|---------|
+| 2026-06-26 | Root URL migration | Main public site moved to `https://didacll.github.io/`; AgenticCareerBoost kept as source project/repository reference; residual live-site URL drift queued in follow-up branch |
 | 2026-06-26 | Sprint S-004 | Documentation alignment closed: career guardrails, agent routing, README, social plan, human actions, calibration note, and backlog updated; website excluded |
 | 2026-06-26 | Sprint S-003 | Website OS clarity sprint closed locally: simplified public route map, project pages, Blog scaffold, role paths, metadata, sitemap/manifest/robots, validator updates, and browser checks |
 | 2026-06-12 | Repo-local S-002R closure | Framework, profile/social draft package, static site, dashboard, configurable CV, browser/print gates, and PR CI closed locally; external actions remain human-owned |
