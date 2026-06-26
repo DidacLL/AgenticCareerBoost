@@ -22,6 +22,7 @@
 | T-016 | ~~Rebuild site with topic-led landing, repo-backed project pages, AgenticCareerBoost dashboard, URL-param CV, and print CSS~~ | S-002R | **CLOSED** (PR #12) |
 | T-017 | Prepare GitHub profile README and account metadata cleanup package; apply account-level fields manually | S-002R | **IN PROGRESS** - README merged; account/profile update underway |
 | T-018 | ~~Verify branch protection/ruleset requiring PRs and aggregate `required-ci`~~ | S-002R | **CLOSED** (applied; CI pipeline working) |
+| T-019 | Track whether the Website OS shell should be generated from shared templates instead of duplicated static page markup | Site hotfix | medium |
 
 ## Narrative backlog
 
