@@ -10,7 +10,7 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
 SITE = ROOT / "site"
-BASE_PATH = "/AgenticCareerBoost"
+BASE_PATH = "/"
 
 REQUIRED_FILES = [
     "index.html",
@@ -62,7 +62,7 @@ JSON_REF_KEYS = {
 }
 JSON_REF_LIST_KEYS = {"scripts", "assets", "sameAs"}
 ALLOWED_EXTERNAL_PREFIXES = (
-    "https://didacll.github.io/AgenticCareerBoost/",
+    "https://didacll.github.io/",
     "https://github.com/DidacLL",
     "https://www.linkedin.com/in/didacllorens/",
     "https://raw.githubusercontent.com/DidacLL/AgenticCareerBoost/main/assets/diagrams/",
@@ -79,18 +79,16 @@ def route_target(ref: str, source: Path) -> Path | None:
     if not parsed.path:
         return None
 
-    if parsed.path.startswith(f"{BASE_PATH}/") or parsed.path == f"{BASE_PATH}/":
-        relative = unquote(parsed.path.removeprefix(BASE_PATH)) or "/"
+    if parsed.path.startswith("/"):
+        relative = unquote(parsed.path.lstrip("/")) or "index.html"
         base = SITE
-    elif parsed.path.startswith("/"):
-        return (ROOT / "__invalid_root_relative_static_site_ref__").resolve()
     else:
         relative = unquote(parsed.path)
         base = source.parent
 
     if relative.endswith("/"):
         relative = f"{relative}index.html"
-    return (base / relative.lstrip("/")).resolve()
+    return (base / relative).resolve()
 
 
 def is_allowed_external(ref: str) -> bool:
@@ -108,7 +106,7 @@ def validate_local_ref(ref: str, source: Path, failures: list[str], context: str
         if not is_allowed_external(ref):
             failures.append(f"{context} references unapproved external URL: {ref}")
         return
-    if parsed.path.startswith("/") or ".." in Path(parsed.path).parts:
+    if ".." in Path(parsed.path).parts:
         failures.append(f"{context} uses unsafe local ref: {ref}")
         return
     target = route_target(ref, source)
@@ -240,9 +238,7 @@ def main() -> int:
                 failures.append(f"{html_file.relative_to(ROOT)} escapes site root: {match.group(1)}")
                 continue
             if not target.is_file():
-                failures.append(
-                    f"{html_file.relative_to(ROOT)} references missing route: {match.group(1)}"
-                )
+                failures.append(f"{html_file.relative_to(ROOT)} missing file for ref: {match.group(1)}")
 
     validate_os_index(failures)
     validate_slot_index(SITE / "assets/data/blog-index.json", failures)
@@ -250,17 +246,14 @@ def main() -> int:
     validate_manifest(failures)
 
     if failures:
-        print("Static site validation failed:", file=sys.stderr)
+        print("Static site validation failed:")
         for failure in failures:
-            print(f"- {failure}", file=sys.stderr)
+            print(f"- {failure}")
         return 1
 
-    print(
-        f"Static site validation passed: {len(REQUIRED_FILES)} required files, "
-        f"{len(html_files())} HTML files, {ref_count} internal refs."
-    )
+    print(f"Static site validation passed ({len(html_files())} HTML files, {ref_count} local refs).")
     return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    sys.exit(main())
