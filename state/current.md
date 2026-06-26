@@ -1,12 +1,13 @@
 # Current state
 
-- **Active workflow**: sprint / S-002R bounded remediation
-- **Active sprint**: S-002R - REPO-LOCAL CLOSED; framework/profile/social/site artifacts exist and implementation gates pass; external account/publication gates remain human-owned
-- **Blockers**: LinkedIn profile content cannot be externally verified due to authwall; LinkedIn update and GitHub profile/account update are in progress; publication approval remains human-owned.
+- **Active workflow**: sprint / S-003 website OS clarity
+- **Active sprint**: S-003 - CLOSED; Website OS public journey, project voice, Blog scaffold, role paths, metadata/headless surfaces, and validation gates are complete locally.
+- **Blockers**: None for the repo-local site sprint. External profile/publication actions remain human-owned.
 
 ## Current evidence
 
 - Public site is live at `https://didacll.github.io/AgenticCareerBoost/`.
+- Website OS clarity closure: `state/logs/S-003-website-os-clarity/closure.md`.
 - Framework review: `state/logs/S-002-refresh/agentic-framework-review.md`.
 - Site rebuild review: `state/logs/S-002-refresh/site-rebuild-review.md`.
 - LinkedIn reactivation review: `state/logs/S-002-refresh/linkedin-reactivation-review.md`.
@@ -23,6 +24,7 @@
 
 | Date | Type | Summary |
 |------|------|---------|
+| 2026-06-26 | Sprint S-003 | Website OS clarity sprint closed locally: simplified public route map, human project pages, Blog scaffold, role paths, social metadata, JSON indexes, sitemap/manifest/robots, validator updates, and browser checks |
 | 2026-06-12 | Repo-local S-002R closure | Framework, profile/social draft package, plain static site, dashboard, configurable CV, browser/print gates, and PR CI closed locally; LinkedIn/GitHub account actions remain human-owned |
 | 2026-06-11 | Plan S-002R | Restart review completed across agentic framework, site rebuild, and LinkedIn reactivation; new sprint contract opened |
 | 2026-04-28 | System Review S-001.5R | Corrected site/report architecture, added aggregate CI, moved Pages workflow to GitHub Actions, decoupled sprint and social cadence, added formal S-001.5R report source |

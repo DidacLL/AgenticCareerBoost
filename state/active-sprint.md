@@ -2,68 +2,34 @@
 
 ## Meta
 
-- **Sprint ID**: S-002R
-- **Goal**: Restart the career campaign after the college-assignment pause by reviewing the agentic framework, rebuilding the public site plan, refreshing profile consistency, and preparing LinkedIn reactivation.
-- **Status**: REPO-LOCAL CLOSED / framework, profile/social drafts, static site, browser, print, and CI gates pass; external account/publication gates remain human-owned
-- **Run ledger**: `state/logs/S-002-refresh/orchestrator-decision-ledger.md`
+- **Sprint ID**: S-003
+- **Goal**: Simplify the public Website OS journey, rewrite project pages in Dídac's voice, add Blog and role-path structure, finish metadata/headless surfaces, and close the site polish sprint with validation evidence.
+- **Status**: CLOSED / implementation, static validation, tests, links, and browser checks pass locally.
+- **Run ledger**: `state/logs/S-003-website-os-clarity/closure.md`
 
 ## Tasks
 
 | # | Task | Target | Specialty | Risk | Scope | Writes | Acceptance | Memory | Evidence link |
 |---|------|--------|-----------|------|-------|--------|------------|--------|---------------|
-| 1 | Framework simplification proposal | Developer | SystemReview | high | Stable workflow cost, trace model, closure model | `docs/core/constraints.md`, `docs/workflows/sprint.md`, `docs/workflows/operate.md`, `docs/workflows/hotfix.md`, `docs/agents/orchestrator.md`, `state/logs/S-002-refresh/framework-change-proposal.md` | Stable-doc simplification applied with migration notes and tests | none | `state/logs/S-002-refresh/framework-change-proposal.md` |
-| 2 | Public profile consistency package | ContentSync | Public profile sync | standard | README/status/profile drafts, deprecated links, GitHub profile README draft | `README.md`, `data/public-status.json`, `content/social/drafts/2026-06-profile-consistency.md` | No public-facing stale status; GitHub profile update draft exists; manual account actions listed | `state/memory/review/` | `state/logs/S-002-refresh/linkedin-reactivation-review.md` |
-| 3 | Static site rebuild foundation | Developer | plain static site | high | Landing, project pages, dashboard, configurable CV | `site/**` | Topic-led landing, repo-backed project pages, `/dashboard/`, `curriculum` URL views, print CSS, no new dependencies | none | `state/logs/S-002-refresh/site-rebuild-review.md` |
-| 4 | Social research refresh | SocialMediaInvestigator | Current discourse | standard | June 2026 agentic AI / computational discourse sources | `content/social/research/2026-06-linkedin-reactivation.md` | Current primary/high-credibility sources cited; no unpublished project details | `state/memory/social/` | `state/logs/S-002-refresh/linkedin-reactivation-review.md` |
-| 5 | LinkedIn reactivation drafts | SocialMediaWriter | LinkedIn drafts | standard | Three low-heat restart posts and source bundles | `content/social/drafts/2026-06-linkedin-reactivation.md` | Three differentiated draft posts, first-comment sources, safety notes, profile consistency gate | `state/memory/social/` | `state/logs/S-002-refresh/linkedin-reactivation-review.md` |
-| 6 | Site and social pair-check | PairCheck | Independent review | high | Tasks 2-5 outputs | `state/logs/S-002-refresh/pc-*.md` | Two fresh reviews for site; one focused review each for profile/social unless risk escalates | none | site PASS after source/browser/print/CI remediation; social/profile remediation PASS |
-| 7 | CI and local gates | CI/CD | Validation | standard | Tests, lint, links, static site, JSON, browser/print checks | `state/logs/S-002-refresh/ci-gates.md` | Gates run or skipped with reason; failures mapped to remediation tasks | none | `state/logs/S-002-refresh/ci-gates.md` |
-| 8 | Closure integration | Orchestrator | Status integration | standard | Sprint state, backlog, public status | `state/current.md`, `state/backlog.md`, `data/public-status.json` | Closure matrix updated; external human-owned blockers preserved | none | `state/logs/S-002-refresh/closure-audit.md` |
-
-## Pair-check assignments
-
-| Output | PairCheck-A | PairCheck-B | Verdict |
-|--------|-------------|-------------|---------|
-| Framework simplification proposal | required | required | PASS; stable-doc changes and tests complete |
-| Static site rebuild foundation | required | required | PASS; source, static-site, browser, mobile, and print gates passed |
-| Public profile consistency package | required | optional if low-risk | PASS after remediation; human account gates remain |
-| Social research + drafts | required | optional if low-risk | PASS after remediation; publication gate remains |
+| 1 | Public journey cleanup | Architecture Agent | IA/navigation | high | Home, Projects, Blog, CV, Contact, hire subroutes, notes alias | `site/**` | Primary nav is simplified; breadcrumbs/location state exist; `/notes/` remains compatible; `/hire/*` paths exist but are not primary commands | none | `state/logs/S-003-website-os-clarity/closure.md` |
+| 2 | Project/content rewrite | Content Voice Agent | Public copy | high | Homepage, project index/details, CV snippets, Blog, Contact, role paths | `site/**` | Project pages read like human explanations; internal jargon and template phrases removed from public copy | none | `state/logs/S-003-website-os-clarity/closure.md` |
+| 3 | OS visual polish | Frontend/Visual Agent | Static frontend | high | OS shell, monitor effects, responsive nav, CV behavior | `site/assets/css/site.css`, `site/assets/js/*.js` | No command/tab horizontal overflow; monitor mask is darker/subtler; CV views work after navigation | none | `state/logs/S-003-website-os-clarity/closure.md` |
+| 4 | Headless metadata | Headless/Metadata Agent | Static metadata | standard | JSON indexes, social previews, sitemap, robots, manifest, validator | `site/assets/data/**`, `site/manifest.json`, `site/robots.txt`, `site/sitemap.xml`, `.github/scripts/validate_static_site.py` | JSON references validate; metadata exists; validator understands the new route contract | none | `state/logs/S-003-website-os-clarity/closure.md` |
+| 5 | Sprint documentation | Documentation Agent | Closure state | standard | Active sprint, current state, run log | `state/active-sprint.md`, `state/current.md`, `state/logs/S-003-website-os-clarity/closure.md` | Sprint is ready to close with validation evidence and deferred items listed | none | `state/logs/S-003-website-os-clarity/closure.md` |
 
 ## Closure matrix
 
 | Dimension | State | Evidence |
 |---|---|---|
-| Repository artifact(s) | closed | Framework simplification, profile/social artifacts, plain static site, dashboard, configurable CV, and closure audit exist |
-| Website / repo update trace | closed | PR #12 merged; static-site, route, desktop/mobile browser, configurable CV, print PDF, markdownlint, tests, links, JSON, and PR CI gates pass |
-| Public-narrative decision | human-gated | Reactivation sequence drafted; LinkedIn and GitHub profile updates are in progress; publication approval remains human-owned |
-| Formal engineering documentation | deferred | Framework review and simplification proposal are sufficient for this bounded sprint; formal case-study report remains S-003 |
-| Condensed technical backlog | closed | Site rebuild items closed; branch protection and CI are working; account profile updates remain human-owned |
-| Condensed narrative backlog | closed | Reactivation research/drafts closed; publication and profile verification remain human-owned backlog |
+| Repository artifact(s) | done | `site/**`, `site/assets/data/**`, validator, manifest, sitemap, robots |
+| Website / repo update trace | done | Static validator, tests, link check, and browser verification pass |
+| Public-narrative decision | done | Project pages rewritten as human explanations; Blog scaffold present without fake archive |
+| Formal engineering documentation | deferred | No new PDF report required; `content/reports/websiteOS-report.md` was used as non-authoritative review input |
+| Condensed technical backlog | done | Deferred custom artwork/full blog migration remain future work |
+| Condensed narrative backlog | done | Future LinkedIn/blog mirrors tracked through `blog-index.json` |
 
-## Backlog deltas planned
+## Backlog deltas
 
-### Technical
-
-- Risk/review-depth fields are implemented in sprint contracts.
-- Mandatory six-output checklist is replaced by closure matrix states.
-- Plain HTML project detail pages, dashboard, URL-param CV, and print CSS are implemented and merged.
-- Fix stale GitHub profile README and profile metadata through user/account-controlled actions.
-
-### Narrative
-
-- Use a three-post LinkedIn reactivation before the main profile-audit campaign.
-- Refresh April social research with current June 2026 agentic AI sources.
-- Keep the private reference stance private; publish only abstract, public-safe principles.
-
-## PairCheck remediation status
-
-- PairCheck-A stale public status finding: remediated in `data/public-status.json` and `state/current.md` without closing the sprint.
-- PairCheck-B current-source finding: remediated by adding verified 2026 arXiv anchors to `content/social/research/2026-06-linkedin-reactivation.md` and first-comment bundles in `content/social/drafts/2026-06-linkedin-reactivation.md`.
-- Fresh remediation reviews `pc-social-c.md` and `pc-social-d.md`: PASS.
-- Publication remains blocked on human-owned LinkedIn/GitHub profile verification and approval.
-- Site rebuild foundation passes source, route, browser, mobile, print, and CI gates.
-
-## Current gates
-
-- Repo-local closure gates passed: `pytest`, markdownlint, internal links, JSON validation, static-site validation, desktop/mobile inspection, print CV check, source-safety review, and PR CI.
-- Human-owned gates: LinkedIn profile verification, publication approval, and GitHub account/profile update completion.
+- Future custom artwork can replace current avatar/preview assets without changing route structure.
+- Blog migration should add real posts or public LinkedIn URLs through `site/assets/data/blog-index.json`.
+- Full CV visual redesign remains separate from this sprint; current web CV and PDF access are functional.

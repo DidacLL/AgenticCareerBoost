@@ -3,67 +3,69 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dídac Llorens - Developer OS</title>
-  <meta name="description" content="Dídac Llorens: software engineering student in Barcelona focused on ML/data, workflow systems, technical tooling, backend systems, and documentation.">
+  <title>Dídac Llorens - Home</title>
+  <meta name="description" content="Dídac Llorens, software engineering student in Barcelona. ML/data direction, backend foundations, document tooling, and public project work.">
   <link rel="canonical" href="https://didacll.github.io/AgenticCareerBoost/">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/img/avatar.jpg">
+  <link rel="apple-touch-icon" href="assets/img/avatar.jpg">
   <link rel="me" href="https://github.com/DidacLL">
   <link rel="me" href="https://www.linkedin.com/in/didacllorens/">
-  <link rel="alternate" type="application/json" title="Developer OS index" href="assets/data/os-index.json">
+  <link rel="alternate" type="application/json" title="Site index" href="assets/data/os-index.json">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Dídac Llorens - Home">
+  <meta property="og:description" content="Personal developer site for projects, CV, writing, and contact.">
+  <meta property="og:url" content="https://didacll.github.io/AgenticCareerBoost/">
+  <meta property="og:image" content="https://didacll.github.io/AgenticCareerBoost/assets/img/avatar.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dídac Llorens - Home">
+  <meta name="twitter:description" content="Software engineering student in Barcelona. Projects, CV, writing, and contact.">
+  <meta name="twitter:image" content="https://didacll.github.io/AgenticCareerBoost/assets/img/avatar.jpg">
   <link rel="stylesheet" href="assets/css/site.css">
   <script defer src="assets/js/os.js"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Dídac Llorens",
-    "alternateName": "Didac Llorens",
+    "@type": "ProfilePage",
+    "name": "Dídac Llorens - Home",
     "url": "https://didacll.github.io/AgenticCareerBoost/",
-    "jobTitle": "Software Engineering Student",
-    "description": "Software engineering student at UOC in Barcelona, focused on ML/data, workflow systems, technical tooling, backend systems, and documentation.",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Barcelona",
-      "addressRegion": "Catalonia",
-      "addressCountry": "ES"
-    },
-    "alumniOf": [
-      { "@type": "EducationalOrganization", "name": "Universitat Oberta de Catalunya" },
-      { "@type": "EducationalOrganization", "name": "IronHack" }
-    ],
-    "knowsAbout": [
-      "Software Engineering",
-      "Machine Learning",
-      "Workflow Systems",
-      "Backend Systems",
-      "Technical Writing",
-      "LaTeX",
-      "Java",
-      "Python",
-      "Systems Design"
-    ],
-    "sameAs": [
-      "https://github.com/DidacLL",
-      "https://www.linkedin.com/in/didacllorens/"
-    ]
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Dídac Llorens",
+      "url": "https://didacll.github.io/AgenticCareerBoost/",
+      "image": "https://didacll.github.io/AgenticCareerBoost/assets/img/avatar.jpg",
+      "jobTitle": "Software Engineering Student",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Barcelona",
+        "addressRegion": "Catalonia",
+        "addressCountry": "ES"
+      },
+      "alumniOf": [
+        { "@type": "EducationalOrganization", "name": "Universitat Oberta de Catalunya" },
+        { "@type": "EducationalOrganization", "name": "IronHack" }
+      ],
+      "knowsAbout": ["Machine Learning", "Data Engineering", "Backend Systems", "Developer Tooling", "Technical Writing", "LaTeX"],
+      "sameAs": ["https://github.com/DidacLL", "https://www.linkedin.com/in/didacllorens/"]
+    }
   }
   </script>
 </head>
 <body class="os-home">
   <main class="os-shell os-frame" aria-labelledby="identity-title">
-    <aside class="os-rail" aria-label="Identity and commands">
+    <aside class="os-rail" aria-label="Identity and navigation">
       <div class="identity-block">
         <span class="os-mark">DL</span>
         <h1 id="identity-title">Dídac Llorens</h1>
         <p>Software Engineering · UOC</p>
         <p>Barcelona</p>
       </div>
-      <nav class="os-nav" aria-label="Command palette">
-        <a class="is-active" aria-current="page" href="index.html"><span>00</span> Intro</a>
-        <a href="projects/index.html"><span>01</span> Work</a>
-        <a href="curriculum/index.html?view=ml"><span>02</span> CV</a>
-        <a href="notes/index.html"><span>03</span> Notes</a>
-        <a href="hire/index.html"><span>04</span> Hire</a>
-        <a href="contact/index.html"><span>05</span> Contact</a>
+      <nav class="os-nav" aria-label="Primary navigation">
+        <a class="is-active" aria-current="page" href="index.html"><span>00</span> Home</a>
+        <a href="projects/index.html"><span>01</span> Projects</a>
+        <a href="blog/index.html"><span>02</span> Blog</a>
+        <a href="curriculum/index.html?view=ml"><span>03</span> CV</a>
+        <a href="contact/index.html"><span>04</span> Contact</a>
       </nav>
       <div class="rail-links" aria-label="External links">
         <a href="https://github.com/DidacLL" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -72,64 +74,67 @@
       </div>
     </aside>
 
-    <section class="os-document" aria-label="Developer OS document">
+    <section class="os-document" aria-label="Home document">
       <figure class="system-banner" aria-hidden="true"><img src="assets/img/418_informal_banner.jpg" alt=""></figure>
-      <nav class="doc-tabs" aria-label="Document commands">
-        <a class="is-active" aria-current="page" href="index.html">Intro</a>
-        <a href="projects/index.html">Work</a>
+      <nav class="doc-tabs" aria-label="Primary navigation tabs">
+        <a class="is-active" aria-current="page" href="index.html">Home</a>
+        <a href="projects/index.html">Projects</a>
+        <a href="blog/index.html">Blog</a>
         <a href="curriculum/index.html?view=ml">CV</a>
-        <a href="notes/index.html">Notes</a>
-        <a href="hire/index.html">Hire</a>
         <a href="contact/index.html">Contact</a>
       </nav>
 
       <div class="doc-surface">
         <header class="doc-header">
-          <p class="os-label">INDEX / INTRO</p>
-          <h2>Operator file</h2>
-          <p>Static HTML/CSS/JS. File-preview safe. Repository first.</p>
+          <p class="os-label">HOME</p>
+          <h2>Personal developer site</h2>
+          <p>Projects, CV, notes, contact. A small home base for my work.</p>
         </header>
 
-        <section class="os-panel is-active" data-panel="intro" aria-labelledby="intro-title">
+        <p class="breadcrumb">Home</p>
+
+        <section class="os-panel is-active" aria-labelledby="home-title">
           <div class="section-title">
-            <p class="os-label">00 / INTRO</p>
-            <h3 id="intro-title">Presentation</h3>
+            <p class="os-label">00 / PROFILE</p>
+            <h3 id="home-title">Presentation</h3>
           </div>
           <div class="intro-grid">
             <div class="intro-copy">
               <figure class="banner-strip monitor-strip">
                 <img src="assets/img/418_informal_banner.jpg" alt="418 banner artwork with Dídac Llorens visual identity">
               </figure>
-              <p class="lead">Software engineering student in Barcelona. Machine learning track. Former banking and insurance operations. I build small systems, documents, tools, and public traces that can be opened without ceremony.</p>
+              <p class="lead">I am a software engineering student in Barcelona, currently moving toward ML/data work while keeping a backend and tooling base. Before engineering I spent fifteen years around banking and insurance operations, which probably explains my taste for systems that can be inspected instead of merely admired.</p>
               <dl class="os-facts">
-                <div><dt>Current</dt><dd>ML/data engineering · workflow systems · platform/tooling</dd></div>
-                <div><dt>Background</dt><dd>15 years in regulated operations before engineering</dd></div>
-                <div><dt>Preference</dt><dd>Readable source, boring reliability, sharp edges only where they help</dd></div>
+                <div><dt>Current</dt><dd>ML/data learning path, project pages, technical writing</dd></div>
+                <div><dt>Older base</dt><dd>Java/Spring backend work and regulated operations context</dd></div>
+                <div><dt>Taste</dt><dd>Open source habits, readable files, small tools that survive being opened later</dd></div>
               </dl>
             </div>
             <figure class="holo-window" data-holo-window>
               <div class="holo-toolbar">
-                <button type="button" class="holo-step" data-gallery-prev aria-label="Previous signal">‹</button>
+                <button type="button" class="holo-step" data-gallery-prev aria-label="Previous shortcut">‹</button>
                 <span data-gallery-label>portrait.feed</span>
-                <button type="button" class="holo-step" data-gallery-next aria-label="Next signal">›</button>
+                <button type="button" class="holo-step" data-gallery-next aria-label="Next shortcut">›</button>
                 <button type="button" data-holo-toggle aria-expanded="false">maximize</button>
               </div>
               <div class="holo-screen">
                 <img data-gallery-image src="assets/img/me.png" alt="Dídac Llorens portrait rendered as a retro monitor feed">
                 <div class="holo-overlay" aria-hidden="true">
                   <strong data-gallery-title>Dídac Llorens</strong>
-                  <span data-gallery-copy>Software Engineering · UOC<br>ML/AI · workflow systems · tooling<br>Barcelona · GitHub-first profile<br>Former banking and insurance operations</span>
+                  <span data-gallery-copy>Software Engineering · UOC<br>ML/Data · Backend · Tooling<br>Barcelona · public projects<br>Former banking and insurance operations</span>
                   <a data-gallery-link href="contact/index.html">open signal</a>
                 </div>
               </div>
               <figcaption><span data-gallery-caption>portrait / default signal</span></figcaption>
             </figure>
           </div>
+
           <div class="os-section">
-            <div class="section-title"><p class="os-label">00B / PAGE</p><h3>About this page</h3></div>
-            <div>
-              <p>This site is a static interface built through an agentic engineering workflow: architecture pass, visual/content pass, implementation, review, browser checks, and remediation.</p>
-              <p>I do not like “vibe coding” as a substitute for engineering. This page is closer to my actual position: use agents as fast instruments, keep the work inspectable, then reject whatever feels cheap, vague, or unearned.</p>
+            <div class="section-title"><p class="os-label">00B / SITE</p><h3>About this page</h3></div>
+            <div class="prose-block">
+              <p>This page is static HTML, CSS, and a little JavaScript. I built it with agent help, but the final decisions are mine: what stays, what sounds wrong, what breaks in the browser, and what is too generic to publish.</p>
+              <p>I am not interested in pretending that a tool has taste. Agents are useful when they make iteration faster; they are dangerous when they make everything sound equally plausible. This site is partly a demonstration of keeping that under control.</p>
+              <p>The lists behind the site are plain JSON. <a href="assets/data/os-index.json">os-index.json</a> keeps pages and project previews tidy; <a href="assets/data/blog-index.json">blog-index.json</a> is where future posts or LinkedIn mirrors will be added.</p>
             </div>
           </div>
         </section>
@@ -140,28 +145,25 @@
       <section>
         <p class="os-label">SYSTEM</p>
         <dl class="meta-list">
-          <div><dt>Mode</dt><dd>Student / builder</dd></div>
-          <div><dt>View</dt><dd>Operator file</dd></div>
+          <div><dt>Mode</dt><dd>Home</dd></div>
           <div><dt>Theme</dt><dd><button class="theme-toggle" type="button" data-theme-toggle>dark mode</button></dd></div>
           <div><dt>Index</dt><dd><a href="assets/data/os-index.json">os-index.json</a></dd></div>
         </dl>
       </section>
       <section>
-        <p class="os-label">PREVIEWS</p>
+        <p class="os-label">SHORTCUTS</p>
         <div class="preview-stack">
-          <a class="mini-monitor" href="projects/index.html"><img src="assets/img/routing-map.png" alt=""><span>Work</span></a>
+          <a class="mini-monitor" href="projects/index.html"><img src="assets/img/routing-map.png" alt=""><span>Projects</span></a>
           <a class="mini-monitor" href="curriculum/index.html?view=ml"><img src="assets/img/screenshot001.png" alt=""><span>CV</span></a>
-          <a class="mini-monitor" href="notes/index.html"><img src="assets/img/sprint-paircheck-loop.png" alt=""><span>Notes</span></a>
+          <a class="mini-monitor" href="blog/index.html"><img src="assets/img/sprint-paircheck-loop.png" alt=""><span>Blog</span></a>
         </div>
       </section>
       <section>
-        <p class="os-label">DIRECT FILES</p>
+        <p class="os-label">FOCUS VIEWS</p>
         <ul class="file-list">
-          <li><a href="projects/index.html">projects/index.html</a></li>
-          <li><a href="curriculum/index.html?view=ml">curriculum/index.html</a></li>
-          <li><a href="assets/curriculum/DidacLL_SoftwareEngineer_CV.pdf">SoftwareEngineer_CV.pdf</a></li>
-          <li><a href="notes/index.html">notes/index.html</a></li>
-          <li><a href="hire/index.html">hire/index.html</a></li>
+          <li><a href="hire/ml/index.html">hire/ml</a></li>
+          <li><a href="hire/agentic/index.html">hire/agentic</a></li>
+          <li><a href="hire/backend/index.html">hire/backend</a></li>
         </ul>
       </section>
     </aside>
