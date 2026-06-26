@@ -1,9 +1,9 @@
 {
   "sprint_id": "S-004",
-  "workflow": "root-site URL finalization / post-merge validation",
+  "workflow": "site voice/content review",
   "status": "CLOSED / documentation alignment complete; website implementation excluded.",
   "last_closure_at": "2026-06-26",
-  "last_closure_type": "Root URL migration",
+  "last_closure_type": "Site voice content review",
   "artifacts": [
     {
       "complete": true,
