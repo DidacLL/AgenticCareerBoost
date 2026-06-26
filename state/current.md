@@ -39,6 +39,7 @@
 
 | Date | Type | Summary |
 |------|------|---------|
+| 2026-06-26 | Site voice content review | Website copy rewritten for a more personal technical voice; project explanations expanded; blog entries added for publication/project/sprint notes |
 | 2026-06-26 | Root URL migration | Main public site moved to `https://didacll.github.io/`; AgenticCareerBoost kept as source project/repository reference; PR #26 merged |
 | 2026-06-26 | Sprint S-004 | Documentation alignment closed: career guardrails, agent routing, README, social plan, human actions, calibration note, and backlog updated; website excluded |
 | 2026-06-26 | Sprint S-003 | Website OS clarity sprint closed locally: simplified public route map, project pages, Blog scaffold, role paths, metadata, sitemap/manifest/robots, validator updates, and browser checks |
