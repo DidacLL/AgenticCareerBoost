@@ -1,31 +1,32 @@
 {
-  "version": 1,
+  "version": 2,
   "updated": "2026-06-26",
   "source": "blog/index.html",
   "policy": "Posts are listed only when there is a source file, public URL, or explicit planned slot. LinkedIn mirrors should include the outbound URL when published.",
   "slots": [
     {
-      "id": "agentic-engineering-without-fog",
-      "status": "draft",
-      "title": "Using coding agents without the fog",
-      "summary": "How I use agents for speed while keeping source files, checks, and final judgment in human hands.",
-      "canonical": "blog/index.html",
+      "id": "agents-need-receipts",
+      "status": "publication-slot",
+      "title": "Agents need receipts",
+      "summary": "A LinkedIn-ready stance post about why agentic workflows need files touched, commands run, tests, assumptions, and human review.",
+      "canonical": "blog/agents-need-receipts/index.html",
       "source": "projects/agentic-career-boost/index.html"
     },
     {
       "id": "static-sites-as-workbenches",
-      "status": "draft",
+      "status": "project-note",
       "title": "Static sites as workbenches",
-      "summary": "Why I like this kind of site: simple files, easy inspection, and fewer moving parts than a portfolio stack needs.",
-      "canonical": "blog/index.html",
+      "summary": "Why this personal site stays static, inspectable, and boring in useful ways.",
+      "canonical": "blog/static-sites-as-workbenches/index.html",
       "source": "index.html"
     },
     {
-      "id": "linkedin-mirrors",
-      "status": "link-slot",
-      "title": "LinkedIn mirrors",
-      "summary": "Future LinkedIn posts can be mirrored here with a short local summary and outbound URL.",
-      "canonical": "blog/index.html"
+      "id": "sprint-review-agenticcareerboost",
+      "status": "sprint-review",
+      "title": "AgenticCareerBoost sprint review",
+      "summary": "A human-readable review of the recent root-site migration, public positioning cleanup, and state-file alignment.",
+      "canonical": "blog/sprint-review-agenticcareerboost/index.html",
+      "source": "projects/agentic-career-boost/index.html"
     }
   ]
 }
