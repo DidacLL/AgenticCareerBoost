@@ -12,6 +12,17 @@
 | T-006 | Build end-to-end ML systems project; avoid manual data-quality framing | S-001/S-004 | **high** |
 | T-007 | Add Python-based projects to GitHub to close Gap GP-03 | S-001 | **high** |
 | T-008 | Verify S-001 LaTeX report PDF publication through CI after push | S-001 / S-001.5 review | high |
+| T-009 | Apply GitHub profile/repo metadata cleanup from S-001.5 checklist through user-controlled account actions | S-001.5 | **high** |
+| T-010 | ~~Complete full S-002 site rebuild with project detail pages, CV hardening, stable assets, and post-deploy checks~~ | S-001.5 | **CLOSED** (S-002R / PR #12) |
+| T-011 | ~~Set GitHub Pages source to GitHub Actions after S-001.5R merges, then verify `https://didacll.github.io/AgenticCareerBoost/`~~ | S-001.5R | **CLOSED** (site live; PR #12 deployed source) |
+| T-012 | ~~Enable `main` branch protection/ruleset requiring PRs and aggregate `required-ci`~~ | S-001.5R | **CLOSED** (applied; CI pipeline working) |
+| T-013 | ~~Keep S-002 on canonical `site/` source root and avoid reintroducing rendered-source duplicates~~ | S-001.5R | **CLOSED** (plain static `site/` root) |
+| T-014 | ~~Add risk and review-depth fields to sprint contracts after system-review approval~~ | S-002R | **IMPLEMENTED** (S-002R framework simplification) |
+| T-015 | ~~Convert sprint closure checklist into a closure matrix with done/deferred/waived/not-applicable states after system-review approval~~ | S-002R | **IMPLEMENTED** (S-002R framework simplification) |
+| T-016 | ~~Rebuild site with topic-led landing, repo-backed project pages, AgenticCareerBoost dashboard, URL-param CV, and print CSS~~ | S-002R | **CLOSED** (PR #12) |
+| T-017 | Prepare GitHub profile README and account metadata cleanup package; apply account-level fields manually | S-002R | **IN PROGRESS** - README merged; account/profile update underway |
+| T-018 | ~~Verify branch protection/ruleset requiring PRs and aggregate `required-ci`~~ | S-002R | **CLOSED** (applied; CI pipeline working) |
+| T-019 | Track whether the Website OS shell should be generated from shared templates instead of duplicated static page markup | Site hotfix | medium |
 | T-009 | Apply GitHub profile/repo metadata cleanup from S-001.5 checklist manually | S-001.5 | **high** |
 | T-010 | ~~Complete full S-002 site rebuild with project detail pages and CV hardening~~ | S-001.5 | **CLOSED** (S-002R / PR #12) |
 | T-011 | ~~Set GitHub Pages source to GitHub Actions and verify public site~~ | S-001.5R | **CLOSED** |

@@ -146,7 +146,7 @@ code {
 .os-home {
   display: grid;
   min-height: 100vh;
-  padding: clamp(0.75rem, 2vw, 1.25rem);
+  padding: 0 clamp(0.75rem, 2vw, 1.25rem) clamp(0.75rem, 2vw, 1.25rem);
   background:
     linear-gradient(var(--grid-line-strong) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
@@ -159,8 +159,8 @@ code {
   grid-template-columns: minmax(176px, 220px) minmax(0, 1.2fr) minmax(210px, 260px);
   gap: 0;
   width: min(100%, 1500px);
-  min-height: calc(100vh - clamp(1.5rem, 4vw, 2.5rem));
-  margin: auto;
+  min-height: calc(100vh - clamp(0.75rem, 2vw, 1.25rem));
+  margin: 0 auto auto;
   border: 1px solid var(--ink);
   background: var(--paper);
   box-shadow:
@@ -224,6 +224,7 @@ code {
 .os-nav {
   display: grid;
   align-content: start;
+  overflow: hidden;
 }
 
 .os-nav a,
@@ -275,6 +276,8 @@ code {
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr);
   background: var(--surface);
+  padding: 0;
+  border-top: 0;
 }
 
 .system-banner {
@@ -328,7 +331,7 @@ code {
   top: 0;
   z-index: 4;
   min-width: 0;
-  overflow-x: visible;
+  overflow: hidden;
   border-bottom: 1px solid var(--ink);
   background: var(--surface-2);
 }
@@ -376,7 +379,8 @@ code {
 .doc-surface {
   min-width: 0;
   padding: clamp(0.9rem, 2vw, 1.25rem);
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   transition: opacity 120ms ease;
 }
 
@@ -1243,7 +1247,7 @@ main {
 }
 
 .desk-section,
-section {
+section:not(.os-document) {
   padding: clamp(1.7rem, 4vw, 2.8rem) 0;
   border-top: 1px solid var(--line);
 }
@@ -1573,7 +1577,7 @@ footer {
   }
 
   .os-home {
-    padding: 0.6rem;
+    padding: 0 0.6rem 0.6rem;
   }
 
   .os-frame {

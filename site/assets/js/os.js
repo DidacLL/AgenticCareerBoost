@@ -172,17 +172,6 @@
     return url;
   }
 
-  function syncRailState(nextDoc) {
-    const nextActive = nextDoc.querySelector(".os-nav a.is-active");
-    const currentLinks = document.querySelectorAll(".os-nav a");
-    currentLinks.forEach((link) => {
-      const isActive = nextActive && link.textContent.trim() === nextActive.textContent.trim();
-      link.classList.toggle("is-active", Boolean(isActive));
-      if (isActive) link.setAttribute("aria-current", "page");
-      else link.removeAttribute("aria-current");
-    });
-  }
-
   async function ensureCvScript() {
     if (!/\/curriculum\//.test(window.location.pathname)) return;
     if (window.initCvView) {
@@ -220,8 +209,10 @@
     if (!response.ok) throw new Error(`Route failed: ${response.status}`);
     const html = await response.text();
     const nextDoc = new DOMParser().parseFromString(html, "text/html");
+    const nextRail = nextDoc.querySelector(".os-rail");
     const nextDocument = nextDoc.querySelector(".os-document");
     const nextMeta = nextDoc.querySelector(".os-meta");
+    const currentRail = document.querySelector(".os-rail");
     const currentDocument = document.querySelector(".os-document");
     const currentMeta = document.querySelector(".os-meta");
     if (!nextDocument || !currentDocument) throw new Error("Route is not an OS document");
@@ -229,7 +220,8 @@
     if (push) window.history.pushState({ osRoute: url.href }, "", url.href);
     document.title = nextDoc.title;
     syncHead(nextDoc);
-    syncRailState(nextDoc);
+    if (nextDoc.body) document.body.className = nextDoc.body.className;
+    if (nextRail && currentRail) currentRail.replaceWith(document.importNode(nextRail, true));
     currentDocument.replaceWith(document.importNode(nextDocument, true));
     if (nextMeta && currentMeta) currentMeta.replaceWith(document.importNode(nextMeta, true));
     setTheme(document.documentElement.dataset.theme, false);
