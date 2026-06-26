@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "updated": "2026-06-27",
   "source": "blog/index.html",
   "policy": "Entries are listed when they exist as local site pages. External mirrors are added only after publication.",
@@ -8,7 +8,7 @@
       "id": "agents-need-receipts",
       "status": "entry",
       "title": "Agents need receipts",
-      "summary": "On agent-assisted work, files, decisions, and why a chat window is not a project memory.",
+      "summary": "Agent-assisted work, project files, review, and what remains after the chat is gone.",
       "canonical": "blog/agents-need-receipts/index.html",
       "source": "projects/agentic-career-boost/index.html"
     },
@@ -16,7 +16,7 @@
       "id": "static-sites-as-workbenches",
       "status": "entry",
       "title": "Static sites as workbenches",
-      "summary": "On plain files, small public surfaces, and why not every personal site needs a large stack.",
+      "summary": "Static publishing, simple route structures, and plain files for personal technical work.",
       "canonical": "blog/static-sites-as-workbenches/index.html",
       "source": "index.html"
     },
@@ -24,7 +24,7 @@
       "id": "sprint-review-agenticcareerboost",
       "status": "entry",
       "title": "Sprint review",
-      "summary": "On cleaning a project when the README, the site, and the state files start drifting apart.",
+      "summary": "Cleaning project state, public routes, site copy, and repository alignment.",
       "canonical": "blog/sprint-review-agenticcareerboost/index.html",
       "source": "projects/agentic-career-boost/index.html"
     }
