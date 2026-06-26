@@ -1,14 +1,16 @@
 # Current state
 
-- **Active workflow**: root-site URL finalization / post-merge validation
-- **Active sprint**: S-004 - CLOSED; follow-up cleanup is limited to public URL consistency, current-state documentation, and backlog coherence.
+- **Active workflow**: site voice/content review
+- **Active sprint**: S-004 - CLOSED; current follow-up is a site-content pass focused on voice, project explanations, blog entries, and public-surface coherence.
 - **Blockers**: Publication, LinkedIn/GitHub account metadata, company outreach, applications, and manual profile settings remain human-owned.
 
 ## Current evidence
 
 - Public site canonical root: `https://didacll.github.io/`.
 - AgenticCareerBoost remains the source project and public proof repository: `https://github.com/DidacLL/AgenticCareerBoost`.
-- Root URL migration follow-up branch: `codex/root-url-state-finalization`.
+- Root URL finalization PR #26 is merged.
+- Site voice/content branch: `codex/site-voice-content`.
+- Site voice/content review log: `state/logs/site-voice-content-review.md`.
 - Career guardrail: `docs/core/career-direction.md`.
 - Human task queue: `state/human-actions.md`.
 - Relaunch calibration: `state/research/s004-relaunch-calibration.md`.
@@ -28,16 +30,16 @@
 
 ## Verification notes
 
-- `codex/contentupdate` has been merged into `main`; the branch is now behind `main` and has no unmerged commits.
-- Post-merge review found residual root URL drift in compatibility/static pages and the web CV page.
-- Direct `main` updates were blocked by branch protection, so the residual fixes and state updates are staged in `codex/root-url-state-finalization`.
-- No PR-triggered workflow runs were visible for commit `956ac4c2acda2ec78b97fc38961882390a5c1efd` through the connector, so final CI status must be confirmed from the pull request checks.
+- Root URL migration is merged and no longer pending as a branch-only state.
+- Current content pass rewrites public website copy only; it does not change site architecture, CSS, deployment logic, account metadata, or publication status.
+- Public website voice target: informal technical, human, first-person where useful, evidence-led, and not student-first.
+- Blog entries are local publication/project/sprint slots; external LinkedIn URLs are not invented before publication.
 
 ## Recent closures
 
 | Date | Type | Summary |
 |------|------|---------|
-| 2026-06-26 | Root URL migration | Main public site moved to `https://didacll.github.io/`; AgenticCareerBoost kept as source project/repository reference; residual live-site URL drift queued in follow-up branch |
+| 2026-06-26 | Root URL migration | Main public site moved to `https://didacll.github.io/`; AgenticCareerBoost kept as source project/repository reference; PR #26 merged |
 | 2026-06-26 | Sprint S-004 | Documentation alignment closed: career guardrails, agent routing, README, social plan, human actions, calibration note, and backlog updated; website excluded |
 | 2026-06-26 | Sprint S-003 | Website OS clarity sprint closed locally: simplified public route map, project pages, Blog scaffold, role paths, metadata, sitemap/manifest/robots, validator updates, and browser checks |
 | 2026-06-12 | Repo-local S-002R closure | Framework, profile/social draft package, static site, dashboard, configurable CV, browser/print gates, and PR CI closed locally; external actions remain human-owned |
