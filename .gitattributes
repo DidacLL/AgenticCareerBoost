@@ -8,3 +8,8 @@
 *.tex text eol=lf
 *.sty text eol=lf
 *.json text eol=lf
+content/reports/** linguist-documentation=true
+state/logs/** linguist-documentation=true
+bootstrap/** linguist-vendored=true
+assets/generatedImages/** linguist-generated=true
+*.pdf binary linguist-generated=true

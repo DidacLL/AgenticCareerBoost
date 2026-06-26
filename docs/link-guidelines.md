@@ -58,7 +58,8 @@ they fail reliably in CI for reasons outside our control:
 | `linkedin.com` | Blocks automated traffic (403/429) |
 | `humaneer.me` | TLS handshake failure in CI |
 | `tiaeastwood.com` | Connection reset by peer |
-| `didacll.github.io/AgenticCareerBoost` | Site not yet deployed |
+`didacll.github.io/AgenticCareerBoost` | Public site is live; keep external checks advisory/non-blocking because GitHub Pages and automated link checks may still be unreliable in CI
+`didacll.github.io` | Public site is live; keep external checks advisory/non-blocking because GitHub Pages and automated link checks may still be unreliable in CI
 
 To add a new exclusion, append a regex pattern to the `exclude` list in
 [`lychee.toml`](../lychee.toml).
