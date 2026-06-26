@@ -1,9 +1,9 @@
 {
   "sprint_id": "S-004",
-  "workflow": "site voice/content review",
+  "workflow": "site copy dehype pass",
   "status": "CLOSED / documentation alignment complete; website implementation excluded.",
   "last_closure_at": "2026-06-26",
-  "last_closure_type": "Site voice content review",
+  "last_closure_type": "Site copy dehype pass",
   "artifacts": [
     {
       "complete": true,
