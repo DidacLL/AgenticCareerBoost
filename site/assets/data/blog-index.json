@@ -1,30 +1,30 @@
 {
-  "version": 3,
-  "updated": "2026-06-26",
+  "version": 4,
+  "updated": "2026-06-27",
   "source": "blog/index.html",
-  "policy": "Posts are listed only when there is a source file, public URL, or explicit planned slot. LinkedIn mirrors should include the outbound URL when published.",
+  "policy": "Entries are listed when they exist as local site pages. External mirrors are added only after publication.",
   "slots": [
     {
       "id": "agents-need-receipts",
-      "status": "publication-slot",
+      "status": "entry",
       "title": "Agents need receipts",
-      "summary": "A short technical note on assisted engineering work, evidence, checks, assumptions, and review gates.",
+      "summary": "On agent-assisted work, files, decisions, and why a chat window is not a project memory.",
       "canonical": "blog/agents-need-receipts/index.html",
       "source": "projects/agentic-career-boost/index.html"
     },
     {
       "id": "static-sites-as-workbenches",
-      "status": "project-note",
+      "status": "entry",
       "title": "Static sites as workbenches",
-      "summary": "Why this personal site stays static, inspectable, and simple enough to review as files.",
+      "summary": "On plain files, small public surfaces, and why not every personal site needs a large stack.",
       "canonical": "blog/static-sites-as-workbenches/index.html",
       "source": "index.html"
     },
     {
       "id": "sprint-review-agenticcareerboost",
-      "status": "sprint-review",
-      "title": "AgenticCareerBoost sprint review",
-      "summary": "A short review of the root-site migration, public copy cleanup, source structure, and state alignment.",
+      "status": "entry",
+      "title": "Sprint review",
+      "summary": "On cleaning a project when the README, the site, and the state files start drifting apart.",
       "canonical": "blog/sprint-review-agenticcareerboost/index.html",
       "source": "projects/agentic-career-boost/index.html"
     }
