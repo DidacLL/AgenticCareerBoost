@@ -4,11 +4,12 @@ Upcoming sprint seeds. Each becomes a full plan via the Plan workflow.
 
 | Sprint | Working title | Key focus |
 |--------|---------------|-----------|
-| S-000 | Bootstrap retro-doc + campaign kickoff | **CLOSED** — LaTeX infrastructure, master document, CI pipeline, LinkedIn research, style book, 3 post options |
-| S-001 | Portfolio audit + positioning draft | **CLOSED** — 4 research reports (BCN market, hiring discourse, profile audit, positioning synthesis), profile update drafts for all surfaces, LaTeX multidisciplinary report, 3 social post options |
-| S-001.5 | UOC fair public profile cleanup | **REVIEWED / BUILD GREEN / PAGES SOURCE SETTING BLOCKED** — event target shortlist, GitHub cleanup package, static recruiter landing page, curriculum/CV, LinkedIn/JobTeaser kit, outreach kit |
-| S-001.5R | System review and remediation | **IMPLEMENTED LOCALLY / REMOTE SETTINGS PENDING** — branch-protection evidence, aggregate CI, canonical site root, report-source cleanup, sprint/social decoupling, formal review report |
-| S-002 | Static site rebuild | **CLOSED / IMPLEMENTED (S-002R / PR #12)** — plain static site, project subpages, dashboard, configurable CV, print CSS, and CI/browser gates |
-| S-003 | Formal case study of this system | LaTeX engineering report documenting the agentic OS as a case study |
-| S-004 | LinkedIn campaign kickoff | First wave of platform-adapted posts, campaign cadence established |
-| S-005 | Portfolio gap closure | Build ML pipeline project + Python showcase; close T-006, T-007 gaps from S-001 positioning |
+| S-000 | Bootstrap retro-doc + campaign kickoff | **CLOSED** — LaTeX infrastructure, CI, LinkedIn research, style book, post options |
+| S-001 | Portfolio audit + positioning draft | **CLOSED** — market research, profile audit, positioning synthesis, profile drafts |
+| S-001.5 | UOC fair public profile cleanup | **REVIEWED** — event targets, cleanup package, landing page, CV, outreach kit |
+| S-001.5R | System review and remediation | **IMPLEMENTED** — branch protection, aggregate CI, canonical site root, review report |
+| S-002 | Static site rebuild | **CLOSED** — static site, project pages, dashboard, configurable CV, browser gates |
+| S-003 | Website OS clarity | **CLOSED** — public journey, project voice, Blog scaffold, role paths, metadata |
+| S-004 | Documentation alignment | **CLOSED** — career guardrail, README, AGENTS routing, social plan, human tasks |
+| S-005 | LinkedIn campaign kickoff | Human-approved low-heat reactivation and first evidence-backed posts |
+| S-006 | Portfolio gap closure | Build ML/research/agentic proof project and Python showcase |

@@ -2,34 +2,35 @@
 
 ## Meta
 
-- **Sprint ID**: S-003
-- **Goal**: Simplify the public Website OS journey, rewrite project pages in Dídac's voice, add Blog and role-path structure, finish metadata/headless surfaces, and close the site polish sprint with validation evidence.
-- **Status**: CLOSED / implementation, static validation, tests, links, and browser checks pass locally.
-- **Run ledger**: `state/logs/S-003-website-os-clarity/closure.md`
+- **Sprint ID**: S-004
+- **Goal**: Correct AgenticCareerBoost documentation after market-research drift, preserve the documented career strategy, and separate human-only publication/application tasks.
+- **Status**: CLOSED / documentation alignment complete; website implementation excluded.
+- **Run ledger**: `state/logs/S-004-docs-alignment/closure.md`
 
 ## Tasks
 
 | # | Task | Target | Specialty | Risk | Scope | Writes | Acceptance | Memory | Evidence link |
 |---|------|--------|-----------|------|-------|--------|------------|--------|---------------|
-| 1 | Public journey cleanup | Architecture Agent | IA/navigation | high | Home, Projects, Blog, CV, Contact, hire subroutes, notes alias | `site/**` | Primary nav is simplified; breadcrumbs/location state exist; `/notes/` remains compatible; `/hire/*` paths exist but are not primary commands | none | `state/logs/S-003-website-os-clarity/closure.md` |
-| 2 | Project/content rewrite | Content Voice Agent | Public copy | high | Homepage, project index/details, CV snippets, Blog, Contact, role paths | `site/**` | Project pages read like human explanations; internal jargon and template phrases removed from public copy | none | `state/logs/S-003-website-os-clarity/closure.md` |
-| 3 | OS visual polish | Frontend/Visual Agent | Static frontend | high | OS shell, monitor effects, responsive nav, CV behavior | `site/assets/css/site.css`, `site/assets/js/*.js` | No command/tab horizontal overflow; monitor mask is darker/subtler; CV views work after navigation | none | `state/logs/S-003-website-os-clarity/closure.md` |
-| 4 | Headless metadata | Headless/Metadata Agent | Static metadata | standard | JSON indexes, social previews, sitemap, robots, manifest, validator | `site/assets/data/**`, `site/manifest.json`, `site/robots.txt`, `site/sitemap.xml`, `.github/scripts/validate_static_site.py` | JSON references validate; metadata exists; validator understands the new route contract | none | `state/logs/S-003-website-os-clarity/closure.md` |
-| 5 | Sprint documentation | Documentation Agent | Closure state | standard | Active sprint, current state, run log | `state/active-sprint.md`, `state/current.md`, `state/logs/S-003-website-os-clarity/closure.md` | Sprint is ready to close with validation evidence and deferred items listed | none | `state/logs/S-003-website-os-clarity/closure.md` |
+| 1 | Career guardrail | Documentation Agent | Strategy docs | high | Career direction | `docs/core/career-direction.md` | Generic backend/data-quality drift is blocked | none | `state/logs/S-004-docs-alignment/closure.md` |
+| 2 | Agent routing | Orchestrator | Agent entry | standard | Entry docs | `AGENTS.md` | Career tasks route through guardrail | none | `state/logs/S-004-docs-alignment/closure.md` |
+| 3 | README refresh | Documentation Agent | Repo entry | standard | Human entrypoint | `README.md` | Outdated direction is corrected | none | `state/logs/S-004-docs-alignment/closure.md` |
+| 4 | Social plan correction | CommunityManager | Campaign docs | high | Relaunch plan | `content/social/plan.md` | Campaign avoids generic data/backend framing | none | `state/logs/S-004-docs-alignment/closure.md` |
+| 5 | Human task queue | Documentation Agent | Manual gates | standard | Human actions | `state/human-actions.md` | Manual tasks are clear and separate | none | `state/logs/S-004-docs-alignment/closure.md` |
+| 6 | Backlog/state closure | Orchestrator | Sprint state | standard | Volatile state | `state/**` | Closure matrix and backlog updated | none | `state/logs/S-004-docs-alignment/closure.md` |
 
 ## Closure matrix
 
 | Dimension | State | Evidence |
 |---|---|---|
-| Repository artifact(s) | done | `site/**`, `site/assets/data/**`, validator, manifest, sitemap, robots |
-| Website / repo update trace | done | Static validator, tests, link check, and browser verification pass |
-| Public-narrative decision | done | Project pages rewritten as human explanations; Blog scaffold present without fake archive |
-| Formal engineering documentation | deferred | No new PDF report required; `content/reports/websiteOS-report.md` was used as non-authoritative review input |
-| Condensed technical backlog | done | Deferred custom artwork/full blog migration remain future work |
-| Condensed narrative backlog | done | Future LinkedIn/blog mirrors tracked through `blog-index.json` |
+| Repository artifact(s) | done | `docs/core/career-direction.md`, `AGENTS.md`, `README.md`, social/state docs |
+| Website / repo update trace | done | no `site/**` files changed |
+| Public-narrative decision | done | relaunch correction recorded |
+| Formal engineering documentation | not applicable | no PDF required |
+| Condensed technical backlog | done | `state/backlog.md` |
+| Condensed narrative backlog | done | `state/backlog.md` |
 
 ## Backlog deltas
 
-- Future custom artwork can replace current avatar/preview assets without changing route structure.
-- Blog migration should add real posts or public LinkedIn URLs through `site/assets/data/blog-index.json`.
-- Full CV visual redesign remains separate from this sprint; current web CV and PDF access are functional.
+- Future market research must read `docs/core/career-direction.md` before recommending roles or companies.
+- Human publication and application actions live in `state/human-actions.md`.
+- Website implementation remains assigned to the separate website LLM.
