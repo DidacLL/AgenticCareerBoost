@@ -7,12 +7,12 @@ must review, decide, publish, contact, or apply manually.
 
 1. Review the public LinkedIn headline and About section.
    - Confirm they do not frame the profile as generic backend, data quality, BI,
-     dashboarding, or junior CRUD.
+     dashboarding, junior CRUD, or a primarily student profile.
    - Confirm they foreground agentic systems, systems thinking, ML/AI study,
      technical documentation, and regulated-domain maturity.
 
 2. Review GitHub account metadata.
-   - Confirm public website points to `https://didacll.github.io/AgenticCareerBoost/`.
+   - Confirm public website points to `https://didacll.github.io/`.
    - Confirm the public bio is aligned with `docs/core/career-direction.md`.
    - Confirm pinned repositories prioritize AgenticCareerBoost, MADRE, P3CTeX,
      and one supporting engineering project.
@@ -20,7 +20,10 @@ must review, decide, publish, contact, or apply manually.
 3. Review old public surfaces.
    - Remove links to the 2022 `Didac-dev-project` site from controlled profiles.
    - Mark legacy repositories clearly, archive them, or keep them unpinned.
-   - Do not ask the website LLM to modify the current site through this sprint.
+   - Remove stale `https://didacll.github.io/AgenticCareerBoost/` links where the
+     intended target is the main public site.
+   - Keep AgenticCareerBoost references when the intended target is the project
+     repository or project page.
 
 4. Approve the first publication batch.
    - Pick three low-heat LinkedIn posts.
@@ -42,6 +45,7 @@ For every post:
 - [ ] No AI-hype language.
 - [ ] No self-pity or just-a-junior framing.
 - [ ] No generic backend/data-quality positioning.
+- [ ] No repeated student-first positioning outside CV/education context.
 - [ ] Sarcastic edge, if present, targets systems or framings, not people.
 - [ ] Call to action is specific, not engagement bait.
 
