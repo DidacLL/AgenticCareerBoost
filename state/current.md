@@ -1,7 +1,7 @@
 # Current state
 
-- **Active workflow**: site voice/content review
-- **Active sprint**: S-004 - CLOSED; current follow-up is a site-content pass focused on voice, project explanations, blog entries, and public-surface coherence.
+- **Active workflow**: site copy dehype pass
+- **Active sprint**: S-004 - CLOSED; current follow-up is a site-content cleanup focused on removing LLM/sales-copy leakage from the public website.
 - **Blockers**: Publication, LinkedIn/GitHub account metadata, company outreach, applications, and manual profile settings remain human-owned.
 
 ## Current evidence
@@ -9,7 +9,7 @@
 - Public site canonical root: `https://didacll.github.io/`.
 - AgenticCareerBoost remains the source project and public proof repository: `https://github.com/DidacLL/AgenticCareerBoost`.
 - Root URL finalization PR #26 is merged.
-- Site voice/content branch: `codex/site-voice-content`.
+- Site copy dehype branch: `codex/site-copy-dehype`.
 - Site voice/content review log: `state/logs/site-voice-content-review.md`.
 - Career guardrail: `docs/core/career-direction.md`.
 - Human task queue: `state/human-actions.md`.
@@ -33,12 +33,14 @@
 - Root URL migration is merged and no longer pending as a branch-only state.
 - Current content pass rewrites public website copy only; it does not change site architecture, CSS, deployment logic, account metadata, or publication status.
 - Public website voice target: informal technical, human, first-person where useful, evidence-led, and not student-first.
+- Dehype target: remove sales-representative tone, LLM symmetry, defensive justifications, and repeated meta-explanations.
 - Blog entries are local publication/project/sprint slots; external LinkedIn URLs are not invented before publication.
 
 ## Recent closures
 
 | Date | Type | Summary |
 |------|------|---------|
+| 2026-06-26 | Site copy dehype pass | Branch opened to tighten public website text, remove LLM/sales-copy leakage, and keep copy anchored to source artifacts, checks, routes, and project evidence |
 | 2026-06-26 | Site voice content review | Website copy rewritten for a more personal technical voice; project explanations expanded; blog entries added for publication/project/sprint notes |
 | 2026-06-26 | Root URL migration | Main public site moved to `https://didacll.github.io/`; AgenticCareerBoost kept as source project/repository reference; PR #26 merged |
 | 2026-06-26 | Sprint S-004 | Documentation alignment closed: career guardrails, agent routing, README, social plan, human actions, calibration note, and backlog updated; website excluded |
