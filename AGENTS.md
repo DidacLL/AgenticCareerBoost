@@ -15,6 +15,13 @@ Read only the files you need. Do not fabricate paths — if a route is missing,
 
 Full rationale: [`docs/core/truth-hierarchy.md`](docs/core/truth-hierarchy.md)
 
+## Mandatory career guardrail
+
+Before any role, employer, campaign, LinkedIn, CV, portfolio, or market-positioning
+recommendation, read [`docs/core/career-direction.md`](docs/core/career-direction.md).
+It prevents drift into generic backend, data-quality, BI/reporting, consulting,
+or AI-hype positioning.
+
 ## Workflow dispatch
 
 | Keyword | Workflow file | When to use |
