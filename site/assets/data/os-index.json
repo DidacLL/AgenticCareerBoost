@@ -1,9 +1,9 @@
 {
-  "version": 6,
-  "updated": "2026-06-26",
+  "version": 7,
+  "updated": "2026-06-27",
   "site": {
     "title": "Dídac Llorens - Public Site",
-    "description": "Technical workbench for Dídac Llorens: agentic workflows, developer tooling, documentation systems, project notes, CV, contact, and focused views.",
+    "description": "Dídac Llorens: software engineer in Barcelona working on agentic workflows, developer tooling, technical documentation, and backend/data systems with regulated-domain context.",
     "basePath": "/",
     "canonical": "https://didacll.github.io/",
     "language": "en",
@@ -30,11 +30,11 @@
     "cvTexSource": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/assets/curriculum/DidacLL_SoftwareEngineer_CV.tex"
   },
   "routes": [
-    { "id": "home", "title": "Home", "href": "index.html", "description": "Public workbench with profile, projects, source routes, and site structure." },
-    { "id": "projects", "title": "Projects", "href": "projects/index.html", "description": "Selected projects with source links, context, and current status." },
-    { "id": "blog", "title": "Blog", "href": "blog/index.html", "description": "Project notes, sprint reviews, and technical writing tied to source artifacts." },
-    { "id": "cv", "title": "CV", "href": "curriculum/index.html?view=ml", "description": "Web CV with role views and PDF export." },
-    { "id": "contact", "title": "Contact", "href": "contact/index.html", "description": "LinkedIn, GitHub, CV, and contact routes." }
+    { "id": "home", "title": "Home", "href": "index.html", "description": "Profile, current direction, projects, notes, CV, and contact." },
+    { "id": "projects", "title": "Projects", "href": "projects/index.html", "description": "AgenticCareerBoost, P3CTeX, and IronBank." },
+    { "id": "blog", "title": "Blog", "href": "blog/index.html", "description": "Notes on agentic workflows, static publishing, documentation, project maintenance, AI industry topics, and recent papers." },
+    { "id": "cv", "title": "CV", "href": "curriculum/index.html?view=ml", "description": "Role-filtered profile and PDF." },
+    { "id": "contact", "title": "Contact", "href": "contact/index.html", "description": "LinkedIn, GitHub, CV, and public project routes." }
   ],
   "compatibilityRoutes": [
     { "id": "notes", "title": "Notes alias", "href": "notes/index.html", "canonical": "blog/index.html" },
@@ -48,7 +48,7 @@
       "href": "projects/agentic-career-boost/index.html",
       "repository": "https://github.com/DidacLL/AgenticCareerBoost",
       "thumbnail": "assets/img/routing-map.png",
-      "summary": "A repo workflow system for keeping agent-assisted engineering work planned, reviewed, checked, and publishable."
+      "summary": "Workflow files, public pages, reports, state documents, validation scripts, and review history."
     },
     {
       "id": "p3ctex",
@@ -56,7 +56,7 @@
       "href": "projects/p3ctex/index.html",
       "repository": "https://github.com/DidacLL/P3CTeX",
       "thumbnail": "assets/img/P3CTeXLogo.png",
-      "summary": "LaTeX tooling for rebuildable reports, diagrams, CV material, and technical documents."
+      "summary": "LaTeX work for reports, CV material, diagrams, listings, screenshots, and document builds."
     },
     {
       "id": "ironbank",
@@ -64,7 +64,7 @@
       "href": "projects/ironbank/index.html",
       "repository": "https://github.com/DidacLL/Ironhack-IronBank_FinalProject_vBNKsys",
       "thumbnail": "assets/img/routing-architecture.png",
-      "summary": "Older Java/Spring Boot banking simulation that anchors the backend and regulated-domain thread."
+      "summary": "Java/Spring Boot banking simulation from the Ironhack period."
     }
   ],
   "rolePaths": [
