@@ -1,9 +1,9 @@
 {
   "sprint_id": "S-004",
-  "workflow": "sprint / S-004 documentation alignment",
+  "workflow": "root-site URL finalization / post-merge validation",
   "status": "CLOSED / documentation alignment complete; website implementation excluded.",
   "last_closure_at": "2026-06-26",
-  "last_closure_type": "Sprint S-004",
+  "last_closure_type": "Root URL migration",
   "artifacts": [
     {
       "complete": true,
@@ -31,7 +31,7 @@
     }
   ],
   "blockers": [
-    "Publication, LinkedIn/GitHub account metadata, company outreach, applications, and website implementation remain human-owned or separately assigned"
+    "Publication, LinkedIn/GitHub account metadata, company outreach, applications, and manual profile settings remain human-owned"
   ],
   "next_sprint_seed": "S-005: LinkedIn campaign kickoff"
 }
