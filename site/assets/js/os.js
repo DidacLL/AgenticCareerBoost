@@ -3,18 +3,21 @@
   const assetBase = osScript ? new URL(".", osScript) : null;
   const canonicalPanels = {
     intro: "index.html",
+    home: "index.html",
     work: "projects/index.html",
+    projects: "projects/index.html",
     now: "index.html",
     cv: "curriculum/index.html?view=ml",
-    notes: "notes/index.html",
+    notes: "blog/index.html",
+    blog: "blog/index.html",
     hire: "hire/index.html",
     contact: "contact/index.html",
   };
 
   const params = new URLSearchParams(window.location.search);
   const requestedPanel = params.get("panel");
-  const isRootIndex = /(?:^|\/)index\.html$/.test(window.location.pathname) &&
-    !/\/(?:projects|curriculum|notes|hire|contact|dashboard)\//.test(window.location.pathname);
+  const isRootIndex = /(?:^|\/)(?:index\.html)?$/.test(window.location.pathname) &&
+    !/\/(?:projects|blog|curriculum|notes|hire|contact|dashboard)\//.test(window.location.pathname);
 
   if (isRootIndex && requestedPanel && canonicalPanels[requestedPanel]) {
     window.location.replace(canonicalPanels[requestedPanel]);
@@ -64,39 +67,39 @@
       image: "assets/img/me.png",
       alt: "Dídac Llorens portrait rendered as a retro monitor feed",
       title: "Dídac Llorens",
-      copy: "Software Engineering · UOC<br>ML/AI · workflow systems · tooling<br>Barcelona · GitHub-first profile<br>Former banking and insurance operations",
+      copy: "Software Engineering · UOC<br>ML/Data · Backend · Tooling<br>Barcelona · source-first profile<br>Former banking and insurance operations",
       href: "contact/index.html",
       caption: "portrait / default signal",
       project: false,
     },
     {
-      label: "work.shortcut",
+      label: "projects.shortcut",
       image: "assets/img/routing-map.png",
-      alt: "Routing map preview for selected work",
-      title: "Selected work",
-      copy: "AgenticCareerBoost · P3CTeX · IronBank<br>Project pages with source routes and real artifacts<br>Start here for the technical map.",
+      alt: "Routing map preview for selected projects",
+      title: "Projects",
+      copy: "AgenticCareerBoost · P3CTeX · IronBank<br>Human explanations with source links<br>Start here for the technical map.",
       href: "projects/index.html",
-      caption: "shortcut / work module",
+      caption: "shortcut / projects",
       project: true,
     },
     {
-      label: "cv.download",
+      label: "cv.web",
       image: "assets/img/screenshot001.png",
       alt: "CV artifact preview",
-      title: "Professional CV",
-      copy: "PDF and TeX artifacts<br>ML/Data · workflow systems · backend views<br>Current professional curriculum.",
-      href: "assets/curriculum/DidacLL_SoftwareEngineer_CV.pdf",
-      caption: "shortcut / download CV",
+      title: "Web CV",
+      copy: "Role views · print · PDF export<br>ML/Data · agentic workflow · backend<br>Current professional curriculum.",
+      href: "curriculum/index.html?view=ml",
+      caption: "shortcut / web CV",
       project: true,
     },
     {
-      label: "notes.queue",
+      label: "blog.queue",
       image: "assets/img/sprint-paircheck-loop.png",
-      alt: "Notes and review loop preview",
-      title: "Notes queue",
+      alt: "Blog and review loop preview",
+      title: "Blog queue",
       copy: "Future article index and LinkedIn mirrors<br>Project logs · technical decisions · tooling notes<br>Kept source-backed, not fake-filled.",
-      href: "notes/index.html",
-      caption: "shortcut / notes module",
+      href: "blog/index.html",
+      caption: "shortcut / blog",
       project: true,
     },
   ];
@@ -182,12 +185,33 @@
 
   async function ensureCvScript() {
     if (!/\/curriculum\//.test(window.location.pathname)) return;
+    if (window.initCvView) {
+      window.initCvView();
+      return;
+    }
     if (document.querySelector('script[data-cv-runtime="true"]')) return;
     const script = document.createElement("script");
     script.defer = true;
     script.dataset.cvRuntime = "true";
     script.src = assetBase ? new URL("cv.js", assetBase).href : "assets/js/cv.js";
     document.head.appendChild(script);
+  }
+
+  function syncHead(nextDoc) {
+    const selectors = [
+      'link[rel="canonical"]',
+      'link[rel="manifest"]',
+      'link[rel="alternate"][type="application/json"]',
+      'meta[name="description"]',
+      'meta[property^="og:"]',
+      'meta[name^="twitter:"]',
+    ];
+    selectors.forEach((selector) => {
+      document.head.querySelectorAll(selector).forEach((node) => node.remove());
+      nextDoc.head.querySelectorAll(selector).forEach((node) => {
+        document.head.appendChild(document.importNode(node, true));
+      });
+    });
   }
 
   async function softNavigate(url, push = true) {
@@ -204,6 +228,7 @@
 
     if (push) window.history.pushState({ osRoute: url.href }, "", url.href);
     document.title = nextDoc.title;
+    syncHead(nextDoc);
     syncRailState(nextDoc);
     currentDocument.replaceWith(document.importNode(nextDocument, true));
     if (nextMeta && currentMeta) currentMeta.replaceWith(document.importNode(nextMeta, true));

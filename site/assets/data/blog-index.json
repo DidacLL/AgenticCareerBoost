@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "updated": "2026-06-26",
+  "source": "blog/index.html",
+  "policy": "Posts are listed only when there is a source file, public URL, or explicit planned slot. LinkedIn mirrors should include the outbound URL when published.",
+  "slots": [
+    {
+      "id": "agentic-engineering-without-fog",
+      "status": "draft",
+      "title": "Using coding agents without the fog",
+      "summary": "How I use agents for speed while keeping source files, checks, and final judgment in human hands.",
+      "canonical": "blog/index.html",
+      "source": "projects/agentic-career-boost/index.html"
+    },
+    {
+      "id": "static-sites-as-workbenches",
+      "status": "draft",
+      "title": "Static sites as workbenches",
+      "summary": "Why I like this kind of site: simple files, easy inspection, and fewer moving parts than a portfolio stack needs.",
+      "canonical": "blog/index.html",
+      "source": "index.html"
+    },
+    {
+      "id": "linkedin-mirrors",
+      "status": "link-slot",
+      "title": "LinkedIn mirrors",
+      "summary": "Future LinkedIn posts can be mirrored here with a short local summary and outbound URL.",
+      "canonical": "blog/index.html"
+    }
+  ]
+}

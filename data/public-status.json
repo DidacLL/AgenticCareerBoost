@@ -1,39 +1,35 @@
 {
-  "sprint_id": "S-002R",
-  "workflow": "sprint / S-002R bounded remediation",
-  "status": "REPO-LOCAL CLOSED / framework, profile/social drafts, static site, browser, print, and CI gates pass; external account/publication gates remain human-owned",
-  "last_closure_at": "2026-06-12",
-  "last_closure_type": "Repo-local S-002R closure",
+  "sprint_id": "S-003",
+  "workflow": "sprint / S-003 website OS clarity",
+  "status": "CLOSED / implementation, static validation, tests, links, and browser checks pass locally.",
+  "last_closure_at": "2026-06-26",
+  "last_closure_type": "Sprint S-003",
   "artifacts": [
     {
       "complete": true,
-      "label": "Repository artifact(s) — closed: Framework simplification, profile/social artifacts, plain static site, dashboard, configurable CV, and closure audit exist"
+      "label": "Repository artifact(s) — done: `site/**`, `site/assets/data/**`, validator, manifest, sitemap, robots"
     },
     {
       "complete": true,
-      "label": "Website / repo update trace — closed: PR #12 merged; static-site, route, desktop/mobile browser, configurable CV, print PDF, markdownlint, tests, links, JSON, and PR CI gates pass"
+      "label": "Website / repo update trace — done: Static validator, tests, link check, and browser verification pass"
+    },
+    {
+      "complete": true,
+      "label": "Public-narrative decision — done: Project pages rewritten as human explanations; Blog scaffold present without fake archive"
     },
     {
       "complete": false,
-      "label": "Public-narrative decision — human-gated: Reactivation sequence drafted; LinkedIn and GitHub profile updates are in progress; publication approval remains human-owned"
-    },
-    {
-      "complete": false,
-      "label": "Formal engineering documentation — deferred: Framework review and simplification proposal are sufficient for this bounded sprint; formal case-study report remains S-003"
+      "label": "Formal engineering documentation — deferred: No new PDF report required; `content/reports/websiteOS-report.md` was used as non-authoritative review input"
     },
     {
       "complete": true,
-      "label": "Condensed technical backlog — closed: Site rebuild items closed; branch protection and CI are working; account profile updates remain human-owned"
+      "label": "Condensed technical backlog — done: Deferred custom artwork/full blog migration remain future work"
     },
     {
       "complete": true,
-      "label": "Condensed narrative backlog — closed: Reactivation research/drafts closed; publication and profile verification remain human-owned backlog"
+      "label": "Condensed narrative backlog — done: Future LinkedIn/blog mirrors tracked through `blog-index.json`"
     }
   ],
-  "blockers": [
-    "LinkedIn profile content cannot be externally verified due to authwall",
-    "LinkedIn update and GitHub profile/account update are in progress",
-    "publication approval remains human-owned"
-  ],
+  "blockers": [],
   "next_sprint_seed": "S-003: Formal case study of this system"
 }

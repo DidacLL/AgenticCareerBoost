@@ -18,21 +18,48 @@ REQUIRED_FILES = [
     "projects/agentic-career-boost/index.html",
     "projects/p3ctex/index.html",
     "projects/ironbank/index.html",
+    "blog/index.html",
     "dashboard/index.html",
     "curriculum/index.html",
     "contact/index.html",
     "notes/index.html",
     "hire/index.html",
+    "hire/ml/index.html",
+    "hire/agentic/index.html",
+    "hire/backend/index.html",
     "assets/css/site.css",
+    "assets/data/blog-index.json",
     "assets/data/notes-index.json",
     "assets/data/os-index.json",
     "assets/js/cv.js",
     "assets/js/os.js",
+    "manifest.json",
+    "robots.txt",
+    "sitemap.xml",
     ".nojekyll",
 ]
 
 REF_PATTERN = re.compile(r"""(?:href|src)=["']([^"']+)["']""")
-JSON_REF_KEYS = {"href", "src", "route", "canonical", "stylesheet", "notesIndex", "heroImage", "portraitImage", "cvPdf", "cvTex"}
+JSON_REF_KEYS = {
+    "href",
+    "src",
+    "route",
+    "canonical",
+    "stylesheet",
+    "blogIndex",
+    "legacyNotesIndex",
+    "notesIndex",
+    "heroImage",
+    "portraitImage",
+    "avatarImage",
+    "cvPdf",
+    "cvTex",
+    "cvTexSource",
+    "repository",
+    "thumbnail",
+    "source",
+    "cv",
+}
 JSON_REF_LIST_KEYS = {"scripts", "assets", "sameAs"}
 ALLOWED_EXTERNAL_PREFIXES = (
     "https://didacll.github.io/AgenticCareerBoost/",
@@ -119,36 +146,67 @@ def validate_os_index(failures: list[str]) -> None:
         failures.append(f"assets/data/os-index.json is invalid JSON: {exc}")
         return
 
-    required_keys = {"version", "site", "assets", "panels", "routes"}
+    required_keys = {"version", "site", "assets", "routes", "projects", "rolePaths"}
     missing = required_keys.difference(data)
     if missing:
         failures.append(f"assets/data/os-index.json missing keys: {', '.join(sorted(missing))}")
 
-    if not isinstance(data.get("panels"), list) or not data["panels"]:
-        failures.append("assets/data/os-index.json panels must be a non-empty list")
     if not isinstance(data.get("routes"), list) or not data["routes"]:
         failures.append("assets/data/os-index.json routes must be a non-empty list")
+    if not isinstance(data.get("projects"), list) or not data["projects"]:
+        failures.append("assets/data/os-index.json projects must be a non-empty list")
+    if not isinstance(data.get("rolePaths"), list) or not data["rolePaths"]:
+        failures.append("assets/data/os-index.json rolePaths must be a non-empty list")
 
     site_root_source = SITE / "index.html"
     for key, ref in iter_json_refs(data):
         validate_local_ref(ref, site_root_source, failures, f"assets/data/os-index.json:{key}")
 
 
-def validate_notes_index(failures: list[str]) -> None:
-    path = SITE / "assets/data/notes-index.json"
+def validate_slot_index(path: Path, failures: list[str]) -> None:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except Exception as exc:  # noqa: BLE001 - validation should report parse errors cleanly.
-        failures.append(f"assets/data/notes-index.json is invalid JSON: {exc}")
+        failures.append(f"{path.relative_to(SITE)} is invalid JSON: {exc}")
         return
 
+    label = path.relative_to(SITE)
     required_keys = {"version", "updated", "source", "slots"}
     missing = required_keys.difference(data)
     if missing:
-        failures.append(f"assets/data/notes-index.json missing keys: {', '.join(sorted(missing))}")
+        failures.append(f"{label} missing keys: {', '.join(sorted(missing))}")
     if not isinstance(data.get("slots"), list):
-        failures.append("assets/data/notes-index.json slots must be a list")
-    validate_local_ref(str(data.get("source", "")), SITE / "index.html", failures, "assets/data/notes-index.json:source")
+        failures.append(f"{label} slots must be a list")
+
+    site_root_source = SITE / "index.html"
+    for key, ref in iter_json_refs(data):
+        validate_local_ref(ref, site_root_source, failures, f"{label}:{key}")
+
+
+def validate_manifest(failures: list[str]) -> None:
+    path = SITE / "manifest.json"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001
+        failures.append(f"manifest.json is invalid JSON: {exc}")
+        return
+    for icon in data.get("icons", []):
+        if isinstance(icon, dict) and isinstance(icon.get("src"), str):
+            validate_local_ref(icon["src"], SITE / "index.html", failures, "manifest.json:icons.src")
+
+
+def validate_html_head(text: str, html_file: Path, failures: list[str]) -> None:
+    required = [
+        'rel="canonical"',
+        'property="og:title"',
+        'property="og:description"',
+        'property="og:image"',
+        'name="twitter:card"',
+        'name="twitter:image"',
+    ]
+    for needle in required:
+        if needle not in text:
+            failures.append(f"{html_file.relative_to(ROOT)} missing head metadata: {needle}")
 
 
 def html_files() -> list[Path]:
@@ -166,6 +224,7 @@ def main() -> int:
     ref_count = 0
     for html_file in html_files():
         text = html_file.read_text(encoding="utf-8")
+        validate_html_head(text, html_file, failures)
         for match in REF_PATTERN.finditer(text):
             ref = match.group(1)
             if not is_allowed_external(ref):
@@ -186,7 +245,9 @@ def main() -> int:
                 )
 
     validate_os_index(failures)
-    validate_notes_index(failures)
+    validate_slot_index(SITE / "assets/data/blog-index.json", failures)
+    validate_slot_index(SITE / "assets/data/notes-index.json", failures)
+    validate_manifest(failures)
 
     if failures:
         print("Static site validation failed:", file=sys.stderr)
