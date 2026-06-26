@@ -1,11 +1,11 @@
 {
-  "version": 2,
+  "version": 3,
   "updated": "2026-06-26",
   "site": {
-    "title": "Dídac Llorens - Developer Site",
-    "description": "Personal developer site for Dídac Llorens: projects, blog, web CV, contact, and focused views.",
-    "basePath": "/AgenticCareerBoost",
-    "canonical": "https://didacll.github.io/AgenticCareerBoost/",
+    "title": "Dídac Llorens - Public Site",
+    "description": "Public site for Dídac Llorens: inspectable AI workflows, technical tooling, projects, web CV, contact, and focused views.",
+    "basePath": "/",
+    "canonical": "https://didacll.github.io/",
     "language": "en",
     "owner": {
       "name": "Dídac Llorens",
@@ -68,8 +68,8 @@
     }
   ],
   "rolePaths": [
-    { "id": "ml", "title": "ML/Data", "href": "hire/ml/index.html", "cv": "curriculum/index.html?view=ml" },
-    { "id": "agentic", "title": "Agentic workflow", "href": "hire/agentic/index.html", "cv": "curriculum/index.html?view=agentic" },
+    { "id": "ml", "title": "ML/Data systems", "href": "hire/ml/index.html", "cv": "curriculum/index.html?view=ml" },
+    { "id": "agentic", "title": "Agentic workflows", "href": "hire/agentic/index.html", "cv": "curriculum/index.html?view=agentic" },
     { "id": "backend", "title": "Backend/tooling", "href": "hire/backend/index.html", "cv": "curriculum/index.html?view=backend" }
   ]
 }

@@ -3,15 +3,15 @@
 AgenticCareerBoost is a public engineering campaign built as a path-based,
 model-agnostic agentic system inside a Git repository. It exists to turn work
 into inspectable proof: the repository is the operating system, the reports are
-the formal evidence, and the site is the public mirror.
+the formal evidence, and the main public site is the curated mirror.
 
 ## Fast entry points
 
+- [Public site](https://didacll.github.io/) — curated public identity and recruiter surface
 - [Agentic System Guide](content/reports/build/agentic-system-guide.pdf) — formal human-facing manual
 - [S-000 case study](content/reports/build/s000-agentic-os-bootstrap.pdf) — technical bootstrap report and evidence trail
 - [Sprint S-001 report](content/reports/build/s001-profile-audit-positioning.pdf) — profile audit and positioning basis
 - [Career direction guardrail](docs/core/career-direction.md) — role and company filter for agents
-- [Public site](https://didacll.github.io/AgenticCareerBoost/) — curated public mirror
 
 **For agents**: start at [`AGENTS.md`](AGENTS.md). Any career, company, role,
 LinkedIn, CV, or campaign task must also read
@@ -75,7 +75,7 @@ is designed so no giant hidden prompt is needed.
 - **Workflow contracts**: allowed action modes in `docs/workflows/`
 - **Roles and specialties**: who owns the work and in what execution mode
 - **Volatile state**: current status, backlog, logs, and memory in `state/`
-- **Published proof**: formal PDFs, the static site source, and public artifacts under `content/`, `site/`, and `data/`
+- **Published proof**: formal PDFs, static-site source, and public artifacts under `content/`, `site/`, and `data/`
 
 ## System Mental Model
 
@@ -111,7 +111,7 @@ flowchart LR
 - [Sprint S-001 report](content/reports/build/s001-profile-audit-positioning.pdf) — Barcelona market, profile audit, and positioning basis
 - [Career direction guardrail](docs/core/career-direction.md) — compact role/company positioning rule for future agents
 - [content/reports/README.md](content/reports/README.md) — report index and explanation of guide vs case-study outputs
-- [Public site](https://didacll.github.io/AgenticCareerBoost/) — shortened public-facing mirror
+- [Public site](https://didacll.github.io/) — shortened public-facing mirror
 
 ## Condensed Repository Map
 
@@ -124,7 +124,7 @@ flowchart LR
 | `docs/templates/` | Fillable output templates for sprints, reviews, docs, social |
 | `state/` | Current status, active sprint, roadmap, backlog, logs, memory |
 | `content/` | Formal reports, social artifacts, and published proof |
-| `site/` | Canonical static HTML/CSS/JS source for the recruiter site |
+| `site/` | Canonical static HTML/CSS/JS source for the public site |
 | `data/` | Machine-readable status and curated links |
 | `bootstrap/` | Historical bootstrap prompts, read-only archive |
 
@@ -137,19 +137,19 @@ flowchart LR
 | Human guide | [Agentic System Guide](content/reports/build/agentic-system-guide.pdf) |
 | Latest case study | [Sprint S-001 PDF](content/reports/build/s001-profile-audit-positioning.pdf) |
 | Career guardrail | [career-direction.md](docs/core/career-direction.md) |
-| Site | [didacll.github.io/AgenticCareerBoost](https://didacll.github.io/AgenticCareerBoost/) |
+| Site | [didacll.github.io](https://didacll.github.io/) |
 | Downloadable CV | [didac-llorens-cv.pdf](content/reports/build/didac-llorens-cv.pdf) |
 
 ## Mission In One Line
 
-Rebuild a public technical profile through visible, agentic engineering work and
+Build a public technical profile through visible agentic engineering work and
 make that work readable by both humans and models.
 
 ## Links
 
 - [GitHub profile](https://github.com/DidacLL)
 - [LinkedIn](https://www.linkedin.com/in/didacllorens/)
-- [Recruiter landing page](https://didacll.github.io/AgenticCareerBoost/)
+- [Public site](https://didacll.github.io/)
 - [Downloadable CV](content/reports/build/didac-llorens-cv.pdf)
 
 ## License

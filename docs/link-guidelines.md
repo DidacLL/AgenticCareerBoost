@@ -7,7 +7,8 @@ Rules for including links in documentation, research artifacts, and site content
 | Link type | How to write it | CI behaviour |
 |-----------|----------------|-------------|
 | Internal file in this repo | Relative path `../../state/roadmap.md` | **Blocking** – must resolve |
-| GitHub Pages (this project) | Absolute URL `https://didacll.github.io/…` | Excluded until site is live |
+| Main public site | Absolute URL `https://didacll.github.io/…` | Advisory check (non-blocking) |
+| AgenticCareerBoost project references | Repo URL or site project route, depending on context | Advisory check for public URLs |
 | Official standard / stable docs | Absolute URL | Advisory check (non-blocking) |
 | LLM-cited article / blog post | Absolute URL **or** omit | Advisory check (non-blocking) |
 
@@ -28,7 +29,17 @@ Check the [roadmap](https://github.com/DidacLL/AgenticCareerBoost/blob/main/stat
 Why: Relative paths are validated by `scripts/validate-links.sh` in CI. Absolute
 GitHub blob URLs point to the `main` branch and always 404 on feature branches.
 
-## 2. External Citations from LLM Research
+## 2. Public Site URL Policy
+
+Use `https://didacll.github.io/` for the main public site and recruiter-facing
+identity surface. Treat `AgenticCareerBoost` as the project/repository name, not
+as the canonical public-site path.
+
+Use the repository URL `https://github.com/DidacLL/AgenticCareerBoost` when the
+reader needs the source system, issue history, reports, or implementation files.
+Use the public site route when the reader needs the curated human-facing page.
+
+## 3. External Citations from LLM Research
 
 LLM-generated research may cite articles that are unreachable (TLS errors,
 paywalls, connection resets, or hallucinated URLs). These links are checked
@@ -48,7 +59,7 @@ paywalls, connection resets, or hallucinated URLs). These links are checked
 | S5 | "AI LinkedIn Posts That Don't Sound Fake" | Humaneer | *(source unavailable)* | … |
 ```
 
-## 3. Domains with Known CI Issues
+## 4. Domains with Known CI Issues
 
 The following domains are excluded from Lychee checks in `lychee.toml` because
 they fail reliably in CI for reasons outside our control:
@@ -58,13 +69,12 @@ they fail reliably in CI for reasons outside our control:
 | `linkedin.com` | Blocks automated traffic (403/429) |
 | `humaneer.me` | TLS handshake failure in CI |
 | `tiaeastwood.com` | Connection reset by peer |
-`didacll.github.io/AgenticCareerBoost` | Public site is live; keep external checks advisory/non-blocking because GitHub Pages and automated link checks may still be unreliable in CI
-`didacll.github.io` | Public site is live; keep external checks advisory/non-blocking because GitHub Pages and automated link checks may still be unreliable in CI
+| `didacll.github.io` | Public site is live; keep external checks advisory/non-blocking because GitHub Pages and automated link checks may still be unreliable in CI |
 
 To add a new exclusion, append a regex pattern to the `exclude` list in
 [`lychee.toml`](../lychee.toml).
 
-## 4. CI Workflow Behaviour
+## 5. CI Workflow Behaviour
 
 The `docs-lint` workflow runs three jobs:
 
@@ -75,7 +85,7 @@ The `docs-lint` workflow runs three jobs:
    warnings in the job summary and uploads `lychee/out.md` as an artefact
    (non-blocking – never fails the build)
 
-## 5. Pre-Commit Usage
+## 6. Pre-Commit Usage
 
 Run the internal link validator locally before pushing:
 

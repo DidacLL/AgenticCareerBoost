@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://didacll.github.io/AgenticCareerBoost/sitemap.xml
+Sitemap: https://didacll.github.io/sitemap.xml
