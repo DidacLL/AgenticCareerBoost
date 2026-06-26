@@ -1,33 +1,25 @@
 {
   "sprint_id": "S-004",
-  "workflow": "root-site URL finalization / post-merge validation",
-  "status": "CLOSED / documentation alignment complete; website implementation excluded.",
+  "workflow": "site voice/content review",
+  "status": "CLOSED / documentation alignment complete; current follow-up is a website content pass.",
   "last_closure_at": "2026-06-26",
   "last_closure_type": "Root URL migration",
   "artifacts": [
     {
       "complete": true,
-      "label": "Repository artifact(s) — done: `docs/core/career-direction.md`, `AGENTS.md`, `README.md`, social/state docs"
+      "label": "Root public site — done: `https://didacll.github.io/`"
     },
     {
       "complete": true,
-      "label": "Website / repo update trace — done: no `site/**` files changed"
+      "label": "Project source reference — done: AgenticCareerBoost remains repository/project identity"
     },
     {
       "complete": true,
-      "label": "Public-narrative decision — done: relaunch correction recorded"
-    },
-    {
-      "complete": false,
-      "label": "Formal engineering documentation — not applicable: no PDF required"
+      "label": "Site voice/content pass — staged: homepage, projects, blog entries, focus views, contact page"
     },
     {
       "complete": true,
-      "label": "Condensed technical backlog — done: `state/backlog.md`"
-    },
-    {
-      "complete": true,
-      "label": "Condensed narrative backlog — done: `state/backlog.md`"
+      "label": "Blog shelf — staged: publication slot, project note, and sprint review pages"
     }
   ],
   "blockers": [
