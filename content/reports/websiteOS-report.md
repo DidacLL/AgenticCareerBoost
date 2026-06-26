@@ -28,7 +28,6 @@ At the same time, the repo’s own status line implies known parity debt. It say
 
 The public CV artifact shows both the strengths and the translation problem. Visually, it is distinctive and clearly not a generic résumé: it uses a strong banner, a split rail layout, explicit role clusters, project anchors, and a technical-document aesthetic. That supports the AgenticCareerBoost identity instead of fighting it. fileciteturn0file0
 
-![Rendered public CV artifact](sandbox:/mnt/data/cv_page.png)
 
 The copy, however, still carries too much internal-system vocabulary for a recruiter-facing surface. In the visible PDF, AgenticCareerBoost is described through “role files,” “workflow files,” “project state,” and “generated reports,” and the broader framing still says the work is organized through “repositories, reports, project pages, and buildable documents.” Those are valid internal descriptors, but they are not the cleanest public descriptors. Public-facing wording should translate these into outcomes such as structured technical workflows, publishable reports, project documentation, and repository-native tooling. fileciteturn0file0
 

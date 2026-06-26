@@ -63,7 +63,8 @@ def extract_closure_artifacts(text: str) -> list[dict[str, str | bool]]:
 
 
 def split_blockers(value: str) -> list[str]:
-    if value.lower() in ("none", ""):
+    normalized = value.strip().lower()
+    if normalized in ("none", "") or normalized.startswith("none for "):
         return []
     return [part.strip().rstrip(".") for part in value.split(";") if part.strip()]
 
