@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://didacll.github.io/</loc></url>
-  <url><loc>https://didacll.github.io/projects/</loc></url>
-  <url><loc>https://didacll.github.io/projects/agentic-career-boost/</loc></url>
-  <url><loc>https://didacll.github.io/projects/p3ctex/</loc></url>
-  <url><loc>https://didacll.github.io/projects/ironbank/</loc></url>
-  <url><loc>https://didacll.github.io/blog/</loc></url>
-  <url><loc>https://didacll.github.io/blog/agents-need-receipts/</loc></url>
-  <url><loc>https://didacll.github.io/blog/static-sites-as-workbenches/</loc></url>
-  <url><loc>https://didacll.github.io/blog/sprint-review-agenticcareerboost/</loc></url>
-  <url><loc>https://didacll.github.io/curriculum/</loc></url>
-  <url><loc>https://didacll.github.io/contact/</loc></url>
-  <url><loc>https://didacll.github.io/hire/</loc></url>
-  <url><loc>https://didacll.github.io/hire/ml/</loc></url>
-  <url><loc>https://didacll.github.io/hire/agentic/</loc></url>
-  <url><loc>https://didacll.github.io/hire/backend/</loc></url>
+  <url>
+    <loc>/</loc>
+  </url>
 </urlset>

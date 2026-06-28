@@ -12,8 +12,6 @@ exclude = [
     "https://www.linkedin.com/.*",
     # Internal agent file (requires auth in some contexts)
     "https://github.com/DidacLL/AgenticCareerBoost/blob/main/AGENTS.md",
-    # GitHub Pages can intermittently fail in automated CI checks
-    "https://didacll.github.io/.*",
     # Known SSL/TLS or connectivity issues (LLM-cited external sources)
     "https://humaneer.me/.*",
     "https://www.tiaeastwood.com/.*",

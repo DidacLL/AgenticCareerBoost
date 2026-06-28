@@ -77,12 +77,12 @@ A second higher-effort improvement is recruiter-path simplification by lane. The
 ```html
 <title>Dídac Llorens | Software Engineering · ML/AI · Agentic Systems · Tooling</title>
 <meta name="description" content="Public technical profile for Dídac Llorens: Software Engineering student at UOC focused on ML/AI, agentic workflow systems, backend foundations, technical tooling, and public project artifacts." />
-<link rel="canonical" href="https://didacll.github.io/AgenticCareerBoost/" />
+<link rel="canonical" href="https://didacll.github.io/" />
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Dídac Llorens | AgenticCareerBoost" />
 <meta property="og:description" content="Repository-first public engineering profile with project pages, reports, and recruiter-facing technical surfaces." />
-<meta property="og:url" content="https://didacll.github.io/AgenticCareerBoost/" />
+<meta property="og:url" content="https://didacll.github.io/" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Dídac Llorens | AgenticCareerBoost" />
@@ -100,7 +100,7 @@ A second higher-effort improvement is recruiter-path simplification by lane. The
       "@type": "Person",
       "name": "Dídac Llorens",
       "alternateName": "Didac Llorens",
-      "url": "https://didacll.github.io/AgenticCareerBoost/",
+      "url": "https://didacll.github.io/",
       "sameAs": [
         "https://github.com/DidacLL",
         "https://www.linkedin.com/in/didacllorens/"
@@ -118,17 +118,17 @@ A second higher-effort improvement is recruiter-path simplification by lane. The
     {
       "@type": "WebSite",
       "name": "AgenticCareerBoost",
-      "url": "https://didacll.github.io/AgenticCareerBoost/",
+      "url": "https://didacll.github.io/",
       "description": "Public mirror of a repository-first engineering profile with reports, project pages, and technical artifacts."
     },
     {
       "@type": "ProfilePage",
       "name": "Dídac Llorens public technical profile",
-      "url": "https://didacll.github.io/AgenticCareerBoost/",
+      "url": "https://didacll.github.io/",
       "isPartOf": {
         "@type": "WebSite",
         "name": "AgenticCareerBoost",
-        "url": "https://didacll.github.io/AgenticCareerBoost/"
+        "url": "https://didacll.github.io/"
       }
     }
   ]

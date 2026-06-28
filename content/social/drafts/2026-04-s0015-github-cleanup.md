@@ -16,11 +16,11 @@ Apply in `github.com/settings/profile`.
 | Bio | `Software Engineering (UOC, ML/AI 2027) · Agentic systems · LaTeX tooling · Python · Java · Barcelona` |
 | Company | `UOC (Software Engineering)` |
 | Location | `Barcelona, Catalonia` |
-| Website | `https://didacll.github.io/AgenticCareerBoost/` |
+| Website | `https://didacll.github.io/` |
 | Social link | `https://www.linkedin.com/in/didacllorens/` |
 | Available for hire | Enabled |
 
-Do not link `https://github.com/vladscv` or `https://didacll.github.io/Didac-dev-project/` from the profile.
+Do not link `https://github.com/vladscv` or `https://didacll.github.io/AgenticCareerBoost/` from the profile.
 
 ## Profile README
 
@@ -62,7 +62,7 @@ Currently completing a CS degree with ML/AI specialization at UOC (Feb 2027). Pr
 ## Contact
 
 - LinkedIn: [linkedin.com/in/didacllorens](https://www.linkedin.com/in/didacllorens/)
-- Site: [didacll.github.io/AgenticCareerBoost](https://didacll.github.io/AgenticCareerBoost/)
+- Site: [https://didacll.github.io/](https://didacll.github.io/)
 - Location: Barcelona, Catalonia
 ```
 
@@ -70,7 +70,7 @@ Currently completing a CS degree with ML/AI specialization at UOC (Feb 2027). Pr
 
 | Repo | Action |
 |---|---|
-| `AgenticCareerBoost` | Description: `Path-based, model-agnostic multi-agent operating system for engineering career development: formal reports, public site, inspectable evidence trail`. Topics: `agentic-systems`, `multiagent`, `model-agnostic`, `career-development`, `documentation`, `latex`, `python`, `systems-design`. Website: `https://didacll.github.io/AgenticCareerBoost/`. |
+| `AgenticCareerBoost` | Description: `Path-based, model-agnostic multi-agent operating system for engineering career development: formal reports, public site, inspectable evidence trail`. Topics: `agentic-systems`, `multiagent`, `model-agnostic`, `career-development`, `documentation`, `latex`, `python`, `systems-design`. Website: `https://didacll.github.io/`. |
 | `P3CTeX` | Description: `Custom LaTeX document class and package ecosystem for academic document production: test suites, agentic dev workflow, multi-language docs`. Topics: `latex`, `tex`, `document-class`, `expl3`, `academic`, `open-source`, `agentic-workflow`, `uoc`. |
 | `p3cTeX-UMLST` | Description: `UML diagram and code listing LaTeX packages extracted from P3CTeX for standalone use`. Topics: `latex`, `uml`, `pgf`, `listings`, `tex-package`. |
 | `Ironhack-IronBank_FinalProject_vBNKsys` | Description: `Java/Spring Boot microservices banking simulation: Keycloak auth, OpenAPI docs, multi-service architecture (IronHack 2022 capstone)`. Topics: `java`, `spring-boot`, `microservices`, `keycloak`, `openapi`, `banking`, `bootcamp-project`. |
@@ -105,3 +105,4 @@ Hold `Didac-dev-project` until the replacement AgenticCareerBoost landing page i
 - Public profile no longer links to the legacy 2022 site.
 - Profile README mentions 6 roles and 7 workflows, not 5 workflows.
 - Pinned repos show AgenticCareerBoost and P3CTeX first.
+

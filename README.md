@@ -7,7 +7,7 @@ the formal evidence, and the main public site is the curated mirror.
 
 ## Fast entry points
 
-- [Public site](https://didacll.github.io/) — curated public identity and recruiter surface
+- Public site — deployment-derived curated public identity and recruiter surface
 - [Agentic System Guide](content/reports/build/agentic-system-guide.pdf) — formal human-facing manual
 - [S-000 case study](content/reports/build/s000-agentic-os-bootstrap.pdf) — technical bootstrap report and evidence trail
 - [Sprint S-001 report](content/reports/build/s001-profile-audit-positioning.pdf) — profile audit and positioning basis
@@ -111,7 +111,7 @@ flowchart LR
 - [Sprint S-001 report](content/reports/build/s001-profile-audit-positioning.pdf) — Barcelona market, profile audit, and positioning basis
 - [Career direction guardrail](docs/core/career-direction.md) — compact role/company positioning rule for future agents
 - [content/reports/README.md](content/reports/README.md) — report index and explanation of guide vs case-study outputs
-- [Public site](https://didacll.github.io/) — shortened public-facing mirror
+- Public site — deployment-derived public-facing mirror
 
 ## Condensed Repository Map
 
@@ -137,7 +137,7 @@ flowchart LR
 | Human guide | [Agentic System Guide](content/reports/build/agentic-system-guide.pdf) |
 | Latest case study | [Sprint S-001 PDF](content/reports/build/s001-profile-audit-positioning.pdf) |
 | Career guardrail | [career-direction.md](docs/core/career-direction.md) |
-| Site | [didacll.github.io](https://didacll.github.io/) |
+| Site | Deployment-derived public site |
 | Downloadable CV | [didac-llorens-cv.pdf](content/reports/build/didac-llorens-cv.pdf) |
 
 ## Mission In One Line
@@ -149,7 +149,7 @@ make that work readable by both humans and models.
 
 - [GitHub profile](https://github.com/DidacLL)
 - [LinkedIn](https://www.linkedin.com/in/didacllorens/)
-- [Public site](https://didacll.github.io/)
+- Public site — deployment-derived URL
 - [Downloadable CV](content/reports/build/didac-llorens-cv.pdf)
 
 ## License

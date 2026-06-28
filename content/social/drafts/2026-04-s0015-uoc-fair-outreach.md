@@ -34,7 +34,7 @@ I am attending the UOC Virtual Employment Fair and would like to speak with your
 
 I am finishing Software Engineering at UOC with an ML/AI specialization (Feb 2027). My public work includes AgenticCareerBoost, a model-agnostic multi-agent operating system with formal documentation, and P3CTeX, a LaTeX package ecosystem. I also bring 15 years of banking and insurance operations experience, which gives me practical context for compliance-aware systems and data-quality work.
 
-Public profile: https://didacll.github.io/AgenticCareerBoost/
+Public profile: https://didacll.github.io/
 GitHub: https://github.com/DidacLL
 LinkedIn: https://www.linkedin.com/in/didacllorens/
 
@@ -48,7 +48,7 @@ Thank you for speaking with me during the UOC fair.
 
 As discussed, here are the public artifacts I mentioned:
 
-- Recruiter page: https://didacll.github.io/AgenticCareerBoost/
+- Recruiter page: https://didacll.github.io/
 - AgenticCareerBoost: https://github.com/DidacLL/AgenticCareerBoost
 - P3CTeX: https://github.com/DidacLL/P3CTeX
 
@@ -77,3 +77,4 @@ I am especially interested in roles where ML/data, tooling, platform engineering
 - How much mentoring is available for UOC students or recent graduates?
 - Do you evaluate GitHub projects or public technical documentation during selection?
 - Can I send a one-page project profile instead of only a CV?
+

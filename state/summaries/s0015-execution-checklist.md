@@ -27,7 +27,7 @@ Uses a static `gh-pages` branch to avoid the failing `actions/configure-pages` p
 2. Commit and push S-001 and S-001.5 artifacts. **Done**: `a1db91d`, `8642f6d`, `10bb463`, `e812508`.
 3. Push `site/public/**` so `.github/workflows/site-build.yml` publishes the static site to `gh-pages`. **Done**: `f601700`; workflow green.
 4. Set repository Settings → Pages → Build and deployment → Source: Deploy from branch → Branch: `gh-pages` / root.
-5. After GitHub finishes publishing, open `https://didacll.github.io/AgenticCareerBoost/`.
+5. After GitHub finishes publishing, open `https://didacll.github.io/`.
 6. Confirm introduction, projects, curriculum, contact links, and CV PDF link.
 
 ## Apply On GitHub Profile
@@ -80,3 +80,4 @@ Requires user-controlled account action.
 3. Use the shortest relevant pitch.
 4. Record each contact and next step in a new fair log if the sprint continues.
 5. Avoid volume applications to generic consulting roles.
+

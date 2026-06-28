@@ -311,7 +311,7 @@ unless there is a clear reason to keep it.
 - "Hireable" flag is not set.
 
 **Recommendation**: Set website to
-`https://didacll.github.io/AgenticCareerBoost/`. Add LinkedIn URL. Set
+`https://didacll.github.io/`. Add LinkedIn URL. Set
 hireable flag to true. Optionally set company to "UOC (Software Engineering)".
 
 ### 2.5 Contribution Graph
@@ -558,7 +558,7 @@ coding ability.
 
 ## Section 5: Legacy Site Audit
 
-**URL**: https://didacll.github.io/Didac-dev-project/  
+**URL**: https://didacll.github.io/AgenticCareerBoost/  
 **Source**: https://github.com/DidacLL/Didac-dev-project
 
 ### 5.1 Content Quality and Relevance
@@ -748,3 +748,4 @@ intended brand.
 *End of audit. This report is evidence-based and reflects the state of all
 surfaces as of 2026-04-20. Items marked [INFERRED] require manual verification
 due to scraping limitations on LinkedIn.*
+

@@ -1,0 +1,197 @@
+{
+  "version": 1,
+  "updated": "2026-06-28",
+  "defaultTitle": "Dídac Llorens",
+  "baseDescription": "Dídac Llorens: software engineer in Barcelona working on agentic workflows, developer tooling, technical documentation, and backend/data systems.",
+  "identity": {
+    "mark": "DL",
+    "title": "Dídac Llorens",
+    "lines": [
+      "Software engineer",
+      "Barcelona"
+    ]
+  },
+  "shell": {
+    "bannerImage": "assets/img/418_informal_banner.jpg",
+    "themeToggleLabels": {
+      "dark": "dark mode",
+      "light": "light mode"
+    },
+    "galleryToggleLabels": {
+      "expand": "maximize",
+      "collapse": "minimize"
+    },
+    "dashboardLabels": {
+      "purpose": "Purpose",
+      "state": "Current state",
+      "lastClosure": "Last closure",
+      "next": "Next step",
+      "progress": "Closure progress",
+      "done": "Done",
+      "needsHuman": "Needs human",
+      "evidence": "Evidence",
+      "complete": "done",
+      "incomplete": "open"
+    },
+    "dashboardPresentation": {
+      "purpose": "AgenticCareerBoost is the working repository behind this site, CV, reports, state files, and review workflow.",
+      "stateLabels": {
+        "idle": "Idle: no active sprint is running",
+        "active": "Active sprint in progress",
+        "blocked": "Blocked",
+        "done": "Closed"
+      },
+      "workflowLabels": {
+        "none": "No active workflow"
+      },
+      "emptyBlockers": "No human blocker is recorded in the public status file.",
+      "progressSuffix": "closure items complete",
+      "evidenceLinks": [
+        {
+          "label": "Public status JSON",
+          "href": "assets/data/public-status.json"
+        },
+        {
+          "label": "Current state",
+          "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/state/current.md"
+        },
+        {
+          "label": "Active sprint",
+          "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/state/active-sprint.md"
+        },
+        {
+          "label": "Roadmap",
+          "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/state/roadmap.md"
+        }
+      ]
+    },
+    "legalFragment": "content/fragments/legal-disclosure.html"
+  },
+  "logos": {
+    "github": {
+      "alt": "GitHub",
+      "theme": {
+        "light": "assets/img/logos/GitHub_Invertocat_White.png",
+        "dark": "assets/img/logos/GitHub_Invertocat_White.png"
+      }
+    },
+    "linkedin": {
+      "alt": "LinkedIn",
+      "theme": {
+        "light": "assets/img/logos/InBug-White.png",
+        "dark": "assets/img/logos/InBug-White.png"
+      }
+    },
+    "latexSource": {
+      "alt": "LaTeX source",
+      "theme": {
+        "light": "assets/img/logos/The-expl3-logo-courtesy-of-Paulo-Cereda.png",
+        "dark": "assets/img/logos/The-expl3-logo-courtesy-of-Paulo-Cereda.png"
+      }
+    },
+    "pdf": {
+      "alt": "PDF",
+      "theme": {
+        "light": "assets/img/logos/250px-PDF_file_icon.png",
+        "dark": "assets/img/logos/250px-PDF_file_icon.png"
+      }
+    }
+  },
+  "nav": {
+    "primary": [
+      { "id": "home", "number": "00", "label": "Home", "route": "/" },
+      { "id": "projects", "number": "01", "label": "Projects", "route": "/projects" },
+      { "id": "blog", "number": "02", "label": "Blog", "route": "/blog" },
+      { "id": "cv", "number": "03", "label": "CV", "route": "/cv/ml" },
+      { "id": "contact", "number": "04", "label": "Contact", "route": "/contact" }
+    ],
+    "external": [
+      { "label": "GitHub", "href": "https://github.com/DidacLL" },
+      { "label": "LinkedIn", "href": "https://www.linkedin.com/in/didacllorens/" },
+      { "label": "Source repo", "href": "https://github.com/DidacLL/AgenticCareerBoost" }
+    ]
+  },
+  "routes": [
+    { "path": "/", "title": "Dídac Llorens - Home", "description": "Software engineer in Barcelona working on agentic workflows, developer tooling, technical documentation, and backend/data systems.", "source": "pages", "id": "home" },
+    { "path": "/projects", "title": "Projects - Dídac Llorens", "description": "Selected projects by Dídac Llorens: AgenticCareerBoost, P3CTeX, and IronBank.", "source": "projects", "id": "index" },
+    { "path": "/projects/agentic-career-boost", "title": "AgenticCareerBoost - Dídac Llorens", "description": "Repository-backed workflow, reports, state documents, validation scripts, and public pages.", "source": "projects", "id": "agentic-career-boost" },
+    { "path": "/projects/p3ctex", "title": "P3CTeX - Dídac Llorens", "description": "LaTeX tooling for reports, diagrams, listings, CV material, and repeatable document builds.", "source": "projects", "id": "p3ctex" },
+    { "path": "/projects/ironbank", "title": "IronBank - Dídac Llorens", "description": "Java/Spring Boot banking simulation from the Ironhack period.", "source": "projects", "id": "ironbank" },
+    { "path": "/dashboard", "title": "Project Status - Dídac Llorens", "description": "Repo-backed public status dashboard for AgenticCareerBoost and the static site.", "source": "pages", "id": "dashboard" },
+    { "path": "/blog", "title": "Blog - Dídac Llorens", "description": "Blog entries on agentic workflows, static publishing, documentation, project maintenance, AI industry topics, and recent papers.", "source": "blog", "id": "index" },
+    { "path": "/blog/agents-need-receipts", "title": "Agents Need Receipts - Dídac Llorens", "description": "Agent-assisted work, project files, review, and technical memory.", "source": "blog", "id": "agents-need-receipts" },
+    { "path": "/blog/static-sites-as-workbenches", "title": "Static Sites as Workbenches - Dídac Llorens", "description": "Static publishing, route structures, and plain files for personal technical work.", "source": "blog", "id": "static-sites-as-workbenches" },
+    { "path": "/blog/sprint-review-agenticcareerboost", "title": "Sprint Review - Dídac Llorens", "description": "Cleaning project state, public routes, site copy, and repository alignment.", "source": "blog", "id": "sprint-review-agenticcareerboost" },
+    { "path": "/cv/ml", "title": "CV - Dídac Llorens", "description": "Web CV for ML/data systems, agentic workflow, backend/tooling, and print views.", "source": "cv", "id": "ml" },
+    { "path": "/cv/agentic", "title": "Agentic CV - Dídac Llorens", "description": "CV view focused on agentic workflows, tooling, documentation, and static publishing.", "source": "cv", "id": "agentic" },
+    { "path": "/cv/backend", "title": "Backend CV - Dídac Llorens", "description": "CV view focused on backend, Java/Spring, tooling, and domain rules.", "source": "cv", "id": "backend" },
+    { "path": "/cv/print", "title": "Print CV - Dídac Llorens", "description": "Print-friendly CV view.", "source": "cv", "id": "print" },
+    { "path": "/focus", "title": "Focused Views - Dídac Llorens", "description": "Focused profile views: ML/data systems, agentic workflows, and backend/tooling.", "source": "pages", "id": "focus" },
+    { "path": "/focus/ml", "title": "ML/Data Systems - Dídac Llorens", "description": "Focused ML/data systems view.", "source": "pages", "id": "focus-ml" },
+    { "path": "/focus/agentic", "title": "Agentic Systems - Dídac Llorens", "description": "Focused agentic systems view.", "source": "pages", "id": "focus-agentic" },
+    { "path": "/focus/backend", "title": "Backend and Tooling - Dídac Llorens", "description": "Focused backend/tooling view.", "source": "pages", "id": "focus-backend" },
+    { "path": "/contact", "title": "Contact - Dídac Llorens", "description": "Contact and profile routes for Dídac Llorens.", "source": "pages", "id": "contact" }
+  ],
+  "legacyRoutes": {
+    "/index.html": "/",
+    "/projects/": "/projects",
+    "/projects/index.html": "/projects",
+    "/projects/agentic-career-boost/": "/projects/agentic-career-boost",
+    "/projects/p3ctex/": "/projects/p3ctex",
+    "/projects/ironbank/": "/projects/ironbank",
+    "/dashboard/": "/dashboard",
+    "/blog/": "/blog",
+    "/blog/agents-need-receipts/": "/blog/agents-need-receipts",
+    "/blog/static-sites-as-workbenches/": "/blog/static-sites-as-workbenches",
+    "/blog/sprint-review-agenticcareerboost/": "/blog/sprint-review-agenticcareerboost",
+    "/curriculum/": "/cv/ml",
+    "/curriculum/index.html": "/cv/ml",
+    "/notes/": "/blog",
+    "/contact/": "/contact",
+    "/hire/": "/focus",
+    "/hire/ml/": "/focus/ml",
+    "/hire/agentic/": "/focus/agentic",
+    "/hire/backend/": "/focus/backend"
+  },
+  "gallery": [
+    {
+      "label": "portrait.feed",
+      "image": "assets/img/me.png",
+      "alt": "Dídac Llorens portrait rendered as a retro monitor feed",
+      "title": "Dídac Llorens",
+      "lines": ["Software Engineering · UOC", "ML/Data · Backend · Tooling", "Barcelona · source-first profile", "Former banking and insurance operations"],
+      "route": "/contact",
+      "caption": "portrait / default signal"
+    },
+    {
+      "label": "projects.shortcut",
+      "image": "assets/img/routing-map.png",
+      "alt": "Routing map preview for selected projects",
+      "title": "Projects",
+      "lines": ["AgenticCareerBoost · P3CTeX · IronBank", "Human explanations with source links", "Start here for the technical map."],
+      "route": "/projects",
+      "caption": "shortcut / projects",
+      "contain": true
+    },
+    {
+      "label": "cv.web",
+      "image": "assets/img/screenshot001.png",
+      "alt": "CV artifact preview",
+      "title": "Web CV",
+      "lines": ["Role views · print · PDF export", "ML/Data · agentic workflow · backend", "Current professional curriculum."],
+      "route": "/cv/ml",
+      "caption": "shortcut / web CV",
+      "contain": true
+    },
+    {
+      "label": "blog.queue",
+      "image": "assets/img/sprint-paircheck-loop.png",
+      "alt": "Blog and review loop preview",
+      "title": "Blog queue",
+      "lines": ["Future article index and LinkedIn mirrors", "Project logs · technical decisions · tooling notes", "Kept source-backed, not fake-filled."],
+      "route": "/blog",
+      "caption": "shortcut / blog",
+      "contain": true
+    }
+  ]
+}

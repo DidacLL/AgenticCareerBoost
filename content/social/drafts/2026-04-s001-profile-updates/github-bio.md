@@ -51,7 +51,7 @@ CS + ML/AI (UOC, 2027) · Agentic workflows · LaTeX · Python · Java · System
 | **Pronouns** | (not set) | **he/him** (optional) | Standard professional practice. Set only if explicitly preferred. |
 | **Company** | (empty) | **UOC (Software Engineering)** | Signals current academic affiliation. Acceptable since "self-employed" or "independent" can look ambiguous. |
 | **Location** | Barcelona | **Barcelona, Catalonia** | Already set. Minor refinement to add "Catalonia" for geographic specificity. |
-| **Website** | (empty) | **https://didacll.github.io/AgenticCareerBoost/** | Critical. Links to the best public-facing artifact. T3 §2.4, T4 §5.3 M1. |
+| **Website** | (empty) | **https://didacll.github.io/** | Critical. Links to the best public-facing artifact. T3 §2.4, T4 §5.3 M1. |
 | **Social: LinkedIn** | (not set) | **https://www.linkedin.com/in/didacllorens/** | Connects the two primary professional surfaces. T3 §2.4. |
 | **Social: X/Twitter** | (not set) | Leave empty unless active | Do not set if there is no active, professionally relevant X account. |
 | **Hireable** | (not set) | **Enabled** (check the box) | Signals availability to recruiters using GitHub's hiring features. T3 §2.4. |
@@ -65,7 +65,7 @@ CS + ML/AI (UOC, 2027) · Agentic workflows · LaTeX · Python · Java · System
 3. Paste the chosen **Bio** option
 4. Set **Company** to `UOC (Software Engineering)`
 5. Update **Location** to `Barcelona, Catalonia`
-6. Set **Website** to `https://didacll.github.io/AgenticCareerBoost/`
+6. Set **Website** to `https://didacll.github.io/`
 7. Add **LinkedIn** URL in social accounts
 8. Enable **"Available for hire"** checkbox (Settings → Profile → check "Available for hire")
 9. Optionally set **Pronouns** to `he/him`
@@ -86,3 +86,4 @@ CS + ML/AI (UOC, 2027) · Agentic workflows · LaTeX · Python · Java · System
 ---
 
 *Draft produced by CommunityManager agent, S-001 T5. Requires explicit review before applying to GitHub settings.*
+

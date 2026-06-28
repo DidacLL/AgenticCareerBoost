@@ -26,5 +26,6 @@
 1. Static site commit `f601700` was pushed.
 2. `Publish static site`, `Docs lint`, and `Export status` passed for `f601700`.
 3. The `gh-pages` branch exists at `8d8061d4bd1526cc469a482fbd910f21687a995b`.
-4. `https://didacll.github.io/AgenticCareerBoost/` still returns 404.
+4. `https://didacll.github.io/` still returns 404.
 5. Enable Pages manually with Source `Deploy from branch`, Branch `gh-pages`, Folder `/`.
+

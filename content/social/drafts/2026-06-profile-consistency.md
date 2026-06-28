@@ -18,7 +18,7 @@
 - Reactivation review: GitHub API showed empty `bio`, `blog`, and `hireable`;
   LinkedIn profile copy could not be externally verified due to authwall.
 - Link registry: current canonical surfaces are GitHub profile, LinkedIn,
-  this repository, and `https://didacll.github.io/AgenticCareerBoost/`.
+  this repository, and `https://didacll.github.io/`.
 
 ## Current Gaps
 
@@ -93,7 +93,7 @@ Barcelona.
 | Surface | What to inspect |
 |---|---|
 | [AgenticCareerBoost](https://github.com/DidacLL/AgenticCareerBoost) | Git-based multiagent operating system, sprint records, formal reports, public site source |
-| [Public site](https://didacll.github.io/AgenticCareerBoost/) | Human-facing overview of the current technical profile and selected projects |
+| [Public site](https://didacll.github.io/) | Human-facing overview of the current technical profile and selected projects |
 | [S-001 profile audit](https://github.com/DidacLL/AgenticCareerBoost/blob/main/content/reports/build/s001-profile-audit-positioning.pdf) | Positioning audit and evidence-backed profile rebuild |
 | [Agentic System Guide](https://github.com/DidacLL/AgenticCareerBoost/blob/main/content/reports/build/agentic-system-guide.pdf) | Human-facing manual for the path-based agentic system |
 
@@ -107,7 +107,7 @@ ML/AI learning, and agentic workflow design.
 ## Contact
 
 - LinkedIn: [linkedin.com/in/didacllorens](https://www.linkedin.com/in/didacllorens/)
-- Site: [didacll.github.io/AgenticCareerBoost](https://didacll.github.io/AgenticCareerBoost/)
+- Site: [https://didacll.github.io/](https://didacll.github.io/)
 - Location: Barcelona, Catalonia
 ```
 
@@ -115,7 +115,7 @@ ML/AI learning, and agentic workflow design.
 
 - **Bio**: `Software engineering student focused on ML/AI and model-agnostic
   agentic systems. Building public, inspectable engineering artifacts.`
-- **Blog / Website**: `https://didacll.github.io/AgenticCareerBoost/`
+- **Blog / Website**: `https://didacll.github.io/`
 - **Location**: `Barcelona, Catalonia`
 - **Hireable**: set to true only if the account owner wants public recruiter
   contact through GitHub now.
@@ -126,7 +126,7 @@ ML/AI learning, and agentic workflow design.
 
 ## Deprecated-Link Cleanup
 
-- Do not use `https://didacll.github.io/Didac-dev-project/` in profile README,
+- Do not use `https://didacll.github.io/AgenticCareerBoost/` in profile README,
   LinkedIn Featured, first-comment source bundles, or site navigation.
 - Do not use `https://github.com/DidacLL/Didac-dev-project` as a current proof
   link.
@@ -134,7 +134,7 @@ ML/AI learning, and agentic workflow design.
   tracking until a later task removes or archives them.
 - Canonical current proof links:
   `https://github.com/DidacLL/AgenticCareerBoost`,
-  `https://didacll.github.io/AgenticCareerBoost/`,
+  `https://didacll.github.io/`,
   `https://github.com/DidacLL`, and
   `https://www.linkedin.com/in/didacllorens/`.
 
@@ -158,3 +158,4 @@ ML/AI learning, and agentic workflow design.
 Ready for human review after local Markdown/JSON checks. Not ready for account
 publication until the GitHub profile PR, metadata fields, and LinkedIn profile
 are manually verified by the account owner.
+

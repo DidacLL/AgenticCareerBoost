@@ -7,7 +7,7 @@ Rules for including links in documentation, research artifacts, and site content
 | Link type | How to write it | CI behaviour |
 |-----------|----------------|-------------|
 | Internal file in this repo | Relative path `../../state/roadmap.md` | **Blocking** – must resolve |
-| Main public site | Absolute URL `https://didacll.github.io/…` | Advisory check (non-blocking) |
+| Main public site | Use relative site routes in source; resolve the deployed origin at runtime or publication time | Advisory check (non-blocking) |
 | AgenticCareerBoost project references | Repo URL or site project route, depending on context | Advisory check for public URLs |
 | Official standard / stable docs | Absolute URL | Advisory check (non-blocking) |
 | LLM-cited article / blog post | Absolute URL **or** omit | Advisory check (non-blocking) |
@@ -31,9 +31,10 @@ GitHub blob URLs point to the `main` branch and always 404 on feature branches.
 
 ## 2. Public Site URL Policy
 
-Use `https://didacll.github.io/` for the main public site and recruiter-facing
-identity surface. Treat `AgenticCareerBoost` as the project/repository name, not
-as the canonical public-site path.
+Use deployment-derived URLs for the main public site and recruiter-facing
+identity surface. Do not commit a literal Pages host or repository subpath as
+the public-site origin. Treat `AgenticCareerBoost` as the project/repository
+name, not as the canonical public-site path.
 
 Use the repository URL `https://github.com/DidacLL/AgenticCareerBoost` when the
 reader needs the source system, issue history, reports, or implementation files.
@@ -69,7 +70,7 @@ they fail reliably in CI for reasons outside our control:
 | `linkedin.com` | Blocks automated traffic (403/429) |
 | `humaneer.me` | TLS handshake failure in CI |
 | `tiaeastwood.com` | Connection reset by peer |
-| `didacll.github.io` | Public site is live; keep external checks advisory/non-blocking because GitHub Pages and automated link checks may still be unreliable in CI |
+| Public site host | Resolve at deployment/publication time; do not hardcode it in canonical files |
 
 To add a new exclusion, append a regex pattern to the `exclude` list in
 [`lychee.toml`](../lychee.toml).

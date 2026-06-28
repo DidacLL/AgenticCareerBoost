@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "updated": "2026-06-28",
+  "index": {
+    "documentLabel": "Blog document",
+    "meta": [
+      {
+        "label": "SYSTEM",
+        "rows": [
+          { "term": "Mode", "value": "Blog" },
+          { "term": "Source", "link": { "label": "blog.json", "href": "content/blog.json" } },
+          { "term": "Theme", "control": "themeToggle" }
+        ]
+      }
+    ],
+    "header": {
+      "label": "BLOG",
+      "title": "Blog",
+      "subtitle": "Notes on agentic workflows, static publishing, documentation, project maintenance, AI industry topics, and recent papers."
+    },
+    "breadcrumb": [
+      { "label": "Home", "route": "/" },
+      { "label": "Blog" }
+    ],
+    "blocks": [
+      {
+        "type": "panel",
+        "label": "02 / NOTES",
+        "title": "Entries",
+        "blocks": [
+          { "type": "collectionList", "collection": "blog", "layout": "noteList" }
+        ]
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "agents-need-receipts",
+      "title": "Agents need receipts",
+      "subtitle": "Agent-assisted work needs source files, review gates, and visible decisions.",
+      "route": "/blog/agents-need-receipts",
+      "date": "2026-06-27",
+      "kicker": "workflow",
+      "summary": "A short note about agent-assisted development, evidence, and project memory.",
+      "tags": ["Agents", "Review", "Workflow"],
+      "documentLabel": "Agents need receipts article",
+      "meta": [
+        { "label": "ARTICLE", "rows": [
+          { "term": "Type", "value": "Workflow note" },
+          { "term": "Date", "value": "2026-06-27" },
+          { "term": "Theme", "control": "themeToggle" }
+        ] }
+      ],
+      "blocks": [
+        {
+          "type": "panel",
+          "label": "02A / ARTICLE",
+          "title": "Agents need receipts",
+          "blocks": [
+            {
+              "type": "prose",
+              "lead": "Agent-assisted work is only useful when the result can be inspected.",
+              "paragraphs": [
+                "The useful part is not a transcript or a confident summary. It is the committed file, the validation output, the review note, and the decision that can be revisited later.",
+                "That is why this project keeps workflow files, state files, public artifacts, and review gates together. The site should explain the work, but the repository should prove it.",
+                "A good agentic workflow leaves receipts: scoped tasks, source links, reviewer verdicts, test results, and a small enough change set for a human to understand."
+              ]
+            },
+            { "type": "actions", "items": [
+              { "label": "Project dashboard", "route": "/dashboard" },
+              { "label": "Repository", "href": "https://github.com/DidacLL/AgenticCareerBoost" }
+            ] }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "static-sites-as-workbenches",
+      "title": "Static sites as workbenches",
+      "subtitle": "Plain files can still behave like a serious publishing surface.",
+      "route": "/blog/static-sites-as-workbenches",
+      "date": "2026-06-27",
+      "kicker": "site",
+      "summary": "A note on using static sites for technical work without turning maintenance into a build-system hobby.",
+      "tags": ["Static site", "Content model", "Maintenance"],
+      "documentLabel": "Static sites article",
+      "meta": [
+        { "label": "ARTICLE", "rows": [
+          { "term": "Type", "value": "Site note" },
+          { "term": "Date", "value": "2026-06-27" },
+          { "term": "Theme", "control": "themeToggle" }
+        ] }
+      ],
+      "blocks": [
+        {
+          "type": "panel",
+          "label": "02B / ARTICLE",
+          "title": "Static sites as workbenches",
+          "blocks": [
+            {
+              "type": "prose",
+              "lead": "A static site does not need to become a pile of copied pages.",
+              "paragraphs": [
+                "Plain HTML, CSS, JavaScript, and JSON can be enough when the site has one shell, one route registry, and reusable components.",
+                "The maintainable boundary is simple: content files describe the work; components describe reusable structures; the shell owns navigation, theme, and routing.",
+                "That keeps deployment boring and updates human-sized. Adding a project or article should be a data change, not a new folder full of duplicated markup."
+              ]
+            },
+            { "type": "actions", "items": [
+              { "label": "Site source", "href": "https://github.com/DidacLL/AgenticCareerBoost/tree/main/site" },
+              { "label": "Projects", "route": "/projects" }
+            ] }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sprint-review-agenticcareerboost",
+      "title": "Sprint review",
+      "subtitle": "Cleaning project state, public routes, site copy, and repository alignment.",
+      "route": "/blog/sprint-review-agenticcareerboost",
+      "date": "2026-06-28",
+      "kicker": "review",
+      "summary": "A short public review note for AgenticCareerBoost site and workflow cleanup.",
+      "tags": ["Sprint", "Review", "AgenticCareerBoost"],
+      "documentLabel": "Sprint review",
+      "meta": [
+        { "label": "ARTICLE", "rows": [
+          { "term": "Type", "value": "Sprint note" },
+          { "term": "Date", "value": "2026-06-28" },
+          { "term": "Theme", "control": "themeToggle" }
+        ] }
+      ],
+      "blocks": [
+        {
+          "type": "panel",
+          "label": "02C / ARTICLE",
+          "title": "Sprint review",
+          "blocks": [
+            {
+              "type": "prose",
+              "lead": "The sprint tightened the public site around source-backed work.",
+              "paragraphs": [
+                "The target was a site that a human can inspect and maintain: fewer duplicated pages, clearer data boundaries, and public status that comes from committed files.",
+                "AgenticCareerBoost now has a visible project dashboard in the project flow, and the site runtime renders content from structured sources rather than page copies.",
+                "The remaining standard is simple: every future public section should be created by adding data and assets, not by copying a page."
+              ]
+            },
+            { "type": "actions", "items": [
+              { "label": "Dashboard", "route": "/dashboard" },
+              { "label": "AgenticCareerBoost", "route": "/projects/agentic-career-boost" }
+            ] }
+          ]
+        }
+      ]
+    }
+  ]
+}

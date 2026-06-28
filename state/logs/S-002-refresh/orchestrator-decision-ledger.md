@@ -9,7 +9,7 @@
 - `state/logs/S-002-refresh/agentic-framework-review.md`: framework cost is agent fan-out and distributed trace, not file length.
 - `state/logs/S-002-refresh/site-rebuild-review.md`: current site is useful but below S-002 requirements.
 - `state/logs/S-002-refresh/linkedin-reactivation-review.md`: LinkedIn needs low-heat reactivation before the main campaign.
-- Public site is live at `https://didacll.github.io/AgenticCareerBoost/`.
+- Public site is live at `https://didacll.github.io/`.
 - GitHub profile README is stale and still points to the deprecated resume site.
 - LinkedIn content cannot be externally verified because of the authwall.
 
@@ -58,3 +58,4 @@ Selected: three low-heat posts, then the main profile-audit campaign after profi
 - Site: Jekyll build, link validation, desktop/mobile visual inspection, print CV check, query-param CV check.
 - Social: primary/current sources, no unpublished project details, profile consistency, human approval before publication.
 - Global: pytest, markdownlint, internal links, JSON validation, public-status consistency, no stale deprecated-site links in public-facing surfaces.
+

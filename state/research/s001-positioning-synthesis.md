@@ -502,7 +502,7 @@ This replaces the current three contradictory identities:
 | **C1** | Set bio: `Software Engineering (UOC, ML/AI 2027) · Agentic systems · LaTeX tooling · Python · Java · Barcelona` | Empty bio is the first thing a recruiter sees. 87% check GitHub before interview decisions [T2 §5.2]. | T3 §2.1 |
 | **C2** | Rewrite profile README (DidacLL/DidacLL): positioning statement, current focus areas (ML, agentic systems, LaTeX tooling), key projects with links, tech stack, professional contact | Replace the broken 4-line README. Remove legacy site link. Remove VladScv reference. | T3 §2.2 |
 | **C3** | Pin repos in order: (1) AgenticCareerBoost, (2) P3CTeX, (3) [new ML project when built], (4) Ironhack-IronBank (if cleaned) | Showcase strongest work first. Current pin order (if any) likely includes dead repos. | T3 §2.3 |
-| **M1** | Set website to `https://didacll.github.io/AgenticCareerBoost/`. Add LinkedIn URL. Set hireable flag. | Missing website and social links reduce discoverability [T3 §2.4]. | T3 §2.4 |
+| **M1** | Set website to `https://didacll.github.io/`. Add LinkedIn URL. Set hireable flag. | Missing website and social links reduce discoverability [T3 §2.4]. | T3 §2.4 |
 | **M2** | Archive 6–7 dead repos: FPP2024_TIPorHANG, TXTO, Didac-dev-project (after replacement site is live), art-scv-website, scv-calculator, DxM_Game_v3, FileSaver.js | Dead repos with self-deprecating descriptions ("just a...", "only for test...") actively harm the professional image [T3 §3]. | T3 §3 |
 | **M3** | Add topics to all kept repos: AgenticCareerBoost (`agentic-systems`, `multiagent`, `model-agnostic`, `python`, `documentation`), P3CTeX (`latex`, `tex`, `document-class`, `open-source`), etc. | 0/12 repos have topics — this is findability metadata [T3 §3]. | T3 §3 |
 | **M4** | Rewrite repo descriptions: AgenticCareerBoost ("Path-based, model-agnostic multiagent operating system for engineering career development"), P3CTeX ("Custom LaTeX document class and package ecosystem for academic document production") | Current descriptions are too casual or opaque for outsiders [T3 §4]. | T3 §4 |
@@ -551,3 +551,4 @@ Every major recommendation in this document traces to specific evidence from T1,
 ---
 
 *Synthesis completed 2026-04-20. This document integrates evidence from three research reports (T1: 34 sources, T2: 40 sources, T3: 3-surface audit), user background data, brand constraints, and public voice rules. All inferences are explicitly flagged. No false optimism: every stated advantage has a corresponding stated risk.*
+
