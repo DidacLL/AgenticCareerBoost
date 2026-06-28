@@ -153,10 +153,11 @@ function renderNoteList(items) {
   return node("div", { class: "note-list" }, items.map((item) => {
     const title = item.route || item.href ? routeLink({ ...item, label: item.title }) : node("strong", { text: item.title || "" });
     return node("div", { class: "note-item" }, [
-      item.kicker ? node("span", { class: "os-label", text: item.kicker }) : null,
-      title,
-      item.date ? node("small", { text: item.date }) : null,
-      item.text || item.summary ? node("p", { text: item.text || item.summary }) : null
+      item.kicker || item.date ? node("span", { text: item.kicker || item.date || "" }) : null,
+      node("div", {}, [
+        node("h3", {}, [title]),
+        item.text || item.summary ? node("p", { text: item.text || item.summary }) : null
+      ])
     ]);
   }));
 }
@@ -227,31 +228,76 @@ async function renderFragment(block) {
 async function renderStatusDashboard(block, content) {
   const status = await loadJson(block.status);
   const labels = content.site.shell?.dashboardLabels || {};
+  const view = { ...(content.site.shell?.dashboardPresentation || {}), ...(block.presentation || {}) };
   const complete = (status.artifacts || []).filter((item) => item.complete).length;
   const total = (status.artifacts || []).length || 1;
+  const progress = Math.round((complete / total) * 100);
+  const doneItems = (status.artifacts || []).filter((item) => item.complete);
+  const openItems = (status.artifacts || []).filter((item) => !item.complete);
+  const blockers = status.blockers || [];
   return node("div", { class: "project-dashboard" }, [
     block.label || block.title ? node("div", { class: "section-title" }, [
       block.label ? node("p", { class: "os-label", text: block.label }) : null,
       block.title ? node("h3", { text: block.title }) : null
     ]) : null,
     node("div", { class: "dashboard-grid" }, [
-      metric(labels.workflow || "", status.workflow || ""),
-      metric(labels.status || "", status.status || ""),
-      metric(labels.updated || "", status.updated || ""),
+      metric(labels.purpose || "", view.purpose || ""),
+      metric(labels.state || "", statusText(status, view)),
+      metric(labels.lastClosure || "", [status.last_closure_type, status.last_closure_at].filter(Boolean).join(" · ")),
       metric(labels.next || "", status.next_sprint_seed || "")
     ]),
     node("div", { class: "dashboard-meter" }, [
-      node("span", { style: `width:${Math.round((complete / total) * 100)}%` })
+      node("span", { style: `width:${progress}%` }),
+      node("strong", { text: `${complete}/${total}` }),
+      node("small", { text: `${labels.progress || ""} · ${complete} ${view.progressSuffix || ""}` })
     ]),
-    node("ul", { class: "dashboard-list" }, (status.artifacts || []).map((item) => node("li", {
-      class: item.complete ? "status-ok" : "status-pending",
-      text: item.label || ""
-    }))),
-    (status.blockers || []).length ? node("div", { class: "status-blocked" }, [
-      node("strong", { text: labels.blockers || "" }),
-      node("ul", {}, status.blockers.map((item) => node("li", { text: item })))
-    ]) : null
+    node("div", { class: "dashboard-columns" }, [
+      node("section", {}, [
+        node("p", { class: "os-label", text: labels.done || "" }),
+        dashboardList(doneItems, labels.complete || "")
+      ]),
+      node("section", {}, [
+        node("p", { class: "os-label", text: labels.needsHuman || "" }),
+        dashboardList(blockers.length ? blockers.map((label) => ({ label, complete: false })) : openItems, labels.incomplete || "", view.emptyBlockers)
+      ])
+    ]),
+    node("div", { class: "os-section dashboard-evidence" }, [
+      node("div", { class: "section-title" }, [
+        node("p", { class: "os-label", text: labels.evidence || "" }),
+        node("h3", { text: labels.evidence || "" })
+      ]),
+      node("ul", { class: "file-list" }, (view.evidenceLinks || []).map((link) => node("li", {}, [routeLink(link)])))
+    ])
   ]);
+}
+
+function statusText(status, view) {
+  const workflow = view.workflowLabels?.[status.workflow] || status.workflow || "";
+  const state = view.stateLabels?.[status.status] || status.status || "";
+  return [workflow, state].filter(Boolean).join(" · ");
+}
+
+function dashboardList(items, stateLabel, emptyText = "") {
+  if (!items.length && emptyText) {
+    return node("ul", { class: "dashboard-list is-blockers" }, [
+      node("li", {}, [
+        node("span", { text: stateLabel }),
+        node("strong", { text: emptyText })
+      ])
+    ]);
+  }
+  return node("ul", { class: "dashboard-list" }, items.map((item) => node("li", {
+    class: item.complete ? "is-complete" : "is-open"
+  }, [
+    node("span", { text: stateLabel }),
+    node("strong", { text: readableStatusItem(item.label || "") })
+  ])));
+}
+
+function readableStatusItem(label) {
+  const afterDash = label.includes("—") ? label.split("—").slice(1).join("—") : label;
+  const afterColon = afterDash.includes(":") ? afterDash.split(":").slice(1).join(":") : afterDash;
+  return afterColon.replace(/`/g, "").trim() || label;
 }
 
 function metric(term, value) {
@@ -266,16 +312,19 @@ function renderCvView(block, content) {
   const views = content.cv.views || [];
   const labels = content.cv.sectionLabels || {};
   return node("section", { class: "cv-module", dataCvView: view.id }, [
-    node("div", { class: "cv-toolbar" }, views.map((item) => {
+    node("div", { class: "cv-toolbar" }, [
+      node("div", { class: "segmented" }, views.map((item) => {
       const button = node("button", {
         type: "button",
         class: item.id === view.id ? "is-active" : "",
         dataRoute: `/cv/${item.id}`,
+        ariaPressed: String(item.id === view.id),
         text: item.label
       });
       button.addEventListener("click", () => { window.location.hash = `/cv/${item.id}`; });
       return button;
-    })),
+      }))
+    ]),
     (() => {
       const artifacts = renderPreviewList(content.cv.artifacts || [], content);
       artifacts.classList.add("cv-artifacts");

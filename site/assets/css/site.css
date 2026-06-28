@@ -647,6 +647,9 @@ code {
 .os-facts dd,
 .meta-list dd {
   color: var(--text);
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .os-meta {
@@ -1060,6 +1063,19 @@ code {
   margin-bottom: 0;
 }
 
+.note-item h3 {
+  margin: 0 0 0.25rem;
+}
+
+.note-item h3 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.note-item h3 a:hover {
+  color: var(--accent);
+}
+
 .project-dashboard {
   grid-column: 1 / -1;
   display: grid;
@@ -1068,7 +1084,7 @@ code {
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   gap: var(--space-5);
 }
 
@@ -1096,6 +1112,7 @@ code {
   color: var(--ink);
   font-family: var(--mono);
   font-size: 1.05rem;
+  line-height: 1.25;
   overflow-wrap: anywhere;
 }
 
@@ -1106,7 +1123,7 @@ code {
 .dashboard-meter {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--space-4);
+  gap: var(--space-2) var(--space-4);
   align-items: center;
   border: var(--border-hairline) solid var(--ink);
   background: var(--paper-2);
@@ -1115,7 +1132,6 @@ code {
 
 .dashboard-meter span {
   display: block;
-  width: var(--dashboard-progress, 0%);
   min-height: 0.75rem;
   background: var(--signal);
 }
@@ -1123,6 +1139,13 @@ code {
 .dashboard-meter strong {
   color: var(--ink);
   font-family: var(--mono);
+}
+
+.dashboard-meter small {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: var(--font-size-label);
 }
 
 .dashboard-columns {
@@ -1147,7 +1170,7 @@ code {
   display: grid;
   grid-template-columns: 4.5rem minmax(0, 1fr);
   gap: var(--space-3);
-  align-items: baseline;
+  align-items: start;
   margin: 0;
   border: var(--border-hairline) solid var(--line-soft);
   background: var(--surface);
@@ -1158,9 +1181,24 @@ code {
   color: var(--signal);
 }
 
+.dashboard-list li.is-open span {
+  color: var(--warning);
+}
+
+.dashboard-list strong {
+  color: var(--text);
+  font-weight: 700;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
 .dashboard-list.is-blockers li {
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: 4.5rem minmax(0, 1fr);
   color: var(--muted);
+}
+
+.dashboard-evidence {
+  margin-top: var(--space-2);
 }
 
 .legal-disclosure {

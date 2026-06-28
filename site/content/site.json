@@ -22,11 +22,48 @@
       "collapse": "minimize"
     },
     "dashboardLabels": {
-      "workflow": "Workflow",
-      "status": "Status",
-      "updated": "Updated",
-      "next": "Next",
-      "blockers": "Blockers"
+      "purpose": "Purpose",
+      "state": "Current state",
+      "lastClosure": "Last closure",
+      "next": "Next step",
+      "progress": "Closure progress",
+      "done": "Done",
+      "needsHuman": "Needs human",
+      "evidence": "Evidence",
+      "complete": "done",
+      "incomplete": "open"
+    },
+    "dashboardPresentation": {
+      "purpose": "AgenticCareerBoost is the working repository behind this site, CV, reports, state files, and review workflow.",
+      "stateLabels": {
+        "idle": "Idle: no active sprint is running",
+        "active": "Active sprint in progress",
+        "blocked": "Blocked",
+        "done": "Closed"
+      },
+      "workflowLabels": {
+        "none": "No active workflow"
+      },
+      "emptyBlockers": "No human blocker is recorded in the public status file.",
+      "progressSuffix": "closure items complete",
+      "evidenceLinks": [
+        {
+          "label": "Public status JSON",
+          "href": "assets/data/public-status.json"
+        },
+        {
+          "label": "Current state",
+          "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/state/current.md"
+        },
+        {
+          "label": "Active sprint",
+          "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/state/active-sprint.md"
+        },
+        {
+          "label": "Roadmap",
+          "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/state/roadmap.md"
+        }
+      ]
     },
     "legalFragment": "content/fragments/legal-disclosure.html"
   },
