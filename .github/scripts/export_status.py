@@ -1,11 +1,17 @@
-"""Parse state files and write data/public-status.json."""
+"""Parse state files and write public status JSON artifacts."""
 
 import json
 import re
-from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+ROOT_STATUS = ROOT / "data" / "public-status.json"
+SITE_STATUS = ROOT / "site" / "assets" / "data" / "public-status.json"
+STATUS_SOURCES = [
+    "state/current.md",
+    "state/active-sprint.md",
+    "state/roadmap.md",
+]
 
 
 def extract_field(text: str, field: str) -> str:
@@ -69,6 +75,14 @@ def split_blockers(value: str) -> list[str]:
     return [part.strip().rstrip(".") for part in value.split(";") if part.strip()]
 
 
+def status_updated_at(current_text: str) -> str:
+    closures = re.findall(r"\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*[^|]+?\s*\|", current_text)
+    if closures:
+        return closures[0]
+    sprint_id = extract_field((ROOT / "state" / "active-sprint.md").read_text(encoding="utf-8"), "Sprint ID")
+    return sprint_id or "unknown"
+
+
 def main() -> None:
     current = (ROOT / "state" / "current.md").read_text(encoding="utf-8")
     sprint = (ROOT / "state" / "active-sprint.md").read_text(encoding="utf-8")
@@ -82,7 +96,7 @@ def main() -> None:
     closures = re.findall(
         r"\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([^|]+?)\s*\|", current
     )
-    last_closure_at = closures[0][0] if closures else str(date.today())
+    last_closure_at = closures[0][0] if closures else "unknown"
     last_closure_type = closures[0][1] if closures else "unknown"
 
     blockers = split_blockers(extract_field(current, "Blockers"))
@@ -98,6 +112,9 @@ def main() -> None:
         break
 
     payload = {
+        "schema_version": 1,
+        "updated": status_updated_at(current),
+        "sources": STATUS_SOURCES,
         "sprint_id": sprint_id,
         "workflow": workflow,
         "status": status,
@@ -108,9 +125,11 @@ def main() -> None:
         "next_sprint_seed": next_seed,
     }
 
-    out = ROOT / "data" / "public-status.json"
-    out.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"Wrote {out}")
+    serialized = json.dumps(payload, indent=2, ensure_ascii=False) + "\n"
+    for out in (ROOT_STATUS, SITE_STATUS):
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(serialized, encoding="utf-8")
+        print(f"Wrote {out}")
 
 
 if __name__ == "__main__":

@@ -41,7 +41,7 @@ After applying all verdicts, pin these repos in this order:
 |-------|---------|---------|
 | **Verdict** | **Enhance** — flagship | |
 | **Description** | `Agentic Engineering setup to update my public profile and boost my tech career` | `Path-based, model-agnostic multi-agent operating system for engineering career development — formal reports, public site, inspectable evidence trail` |
-| **Website** | Current public site | `https://didacll.github.io/AgenticCareerBoost/` |
+| **Website** | Current public site | `https://didacll.github.io/` |
 | **Topics** | None | `agentic-systems` · `multiagent` · `model-agnostic` · `career-development` · `documentation` · `latex` · `python` · `systems-design` |
 
 **Additional actions**:
@@ -274,3 +274,4 @@ These actions apply to ALL kept repos:
 ---
 
 *Draft produced by CommunityManager agent, S-001 T5. All archiving and metadata changes require explicit review before execution.*
+

@@ -60,6 +60,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Generate site status data
+        run: python .github/scripts/export_status.py
+
       - name: Validate static site
         run: python .github/scripts/validate_static_site.py
 

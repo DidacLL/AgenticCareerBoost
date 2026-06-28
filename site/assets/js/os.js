@@ -40,6 +40,32 @@
     });
   }
 
+  function siteRoot() {
+    if (assetBase) return new URL("../..", assetBase);
+    return new URL(".", window.location.href);
+  }
+
+  function siteUrl(path = "") {
+    const cleanPath = String(path || "").replace(/^\/+/, "");
+    return new URL(cleanPath, siteRoot()).href;
+  }
+
+  function syncRuntimeUrls(root = document) {
+    root.querySelectorAll('link[rel="canonical"][data-canonical-path]').forEach((link) => {
+      link.href = siteUrl(link.dataset.canonicalPath || "");
+    });
+
+    const canonical = root.querySelector('link[rel="canonical"]') || document.querySelector('link[rel="canonical"]');
+    const canonicalHref = canonical?.href || window.location.href;
+    root.querySelectorAll('meta[data-site-url="canonical"]').forEach((meta) => {
+      meta.setAttribute("content", canonicalHref);
+    });
+
+    root.querySelectorAll("meta[data-site-image]").forEach((meta) => {
+      meta.setAttribute("content", siteUrl(meta.dataset.siteImage || ""));
+    });
+  }
+
   function wireThemeToggles(root = document) {
     root.querySelectorAll("[data-theme-toggle]").forEach((button) => {
       if (button.dataset.osReady === "theme") return;
@@ -56,6 +82,8 @@
 
   function secureExternalLinks(root = document) {
     root.querySelectorAll('a[href^="http://"], a[href^="https://"]').forEach((link) => {
+      const url = new URL(link.href, window.location.href);
+      if (url.origin === window.location.origin) return;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
     });
@@ -172,18 +200,61 @@
     return url;
   }
 
-  async function ensureCvScript() {
-    if (!/\/curriculum\//.test(window.location.pathname)) return;
+  function isCvPath(pathname = window.location.pathname) {
+    return /\/curriculum\/(?:index\.html)?$/.test(pathname);
+  }
+
+  async function ensureCvScript(pathname = window.location.pathname) {
+    if (!isCvPath(pathname)) return;
     if (window.initCvView) {
       window.initCvView();
       return;
     }
-    if (document.querySelector('script[data-cv-runtime="true"]')) return;
-    const script = document.createElement("script");
-    script.defer = true;
-    script.dataset.cvRuntime = "true";
-    script.src = assetBase ? new URL("cv.js", assetBase).href : "assets/js/cv.js";
-    document.head.appendChild(script);
+    const existing = document.querySelector('script[data-cv-runtime="true"]');
+    if (existing) {
+      await new Promise((resolve) => existing.addEventListener("load", resolve, { once: true }));
+      if (window.initCvView) window.initCvView();
+      return;
+    }
+    await new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.defer = true;
+      script.dataset.cvRuntime = "true";
+      script.src = assetBase ? new URL("cv.js", assetBase).href : "assets/js/cv.js";
+      script.addEventListener("load", resolve, { once: true });
+      script.addEventListener("error", reject, { once: true });
+      document.head.appendChild(script);
+    });
+    if (window.initCvView) window.initCvView();
+  }
+
+  function needsDashboard(pathname = window.location.pathname) {
+    return /\/dashboard\/(?:index\.html)?$/.test(pathname) ||
+      /\/projects\/agentic-career-boost\/(?:index\.html)?$/.test(pathname);
+  }
+
+  async function ensureDashboardScript(pathname = window.location.pathname) {
+    if (!needsDashboard(pathname)) return;
+    if (window.initProjectDashboard) {
+      window.initProjectDashboard();
+      return;
+    }
+    const existing = document.querySelector('script[data-dashboard-runtime="true"]');
+    if (existing) {
+      await new Promise((resolve) => existing.addEventListener("load", resolve, { once: true }));
+      if (window.initProjectDashboard) window.initProjectDashboard();
+      return;
+    }
+    await new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.defer = true;
+      script.dataset.dashboardRuntime = "true";
+      script.src = assetBase ? new URL("dashboard.js", assetBase).href : "assets/js/dashboard.js";
+      script.addEventListener("load", resolve, { once: true });
+      script.addEventListener("error", reject, { once: true });
+      document.head.appendChild(script);
+    });
+    if (window.initProjectDashboard) window.initProjectDashboard();
   }
 
   function syncHead(nextDoc) {
@@ -205,59 +276,75 @@
 
   async function softNavigate(url, push = true) {
     document.documentElement.classList.add("is-os-loading");
-    const response = await fetch(url.href, { credentials: "same-origin" });
-    if (!response.ok) throw new Error(`Route failed: ${response.status}`);
-    const html = await response.text();
-    const nextDoc = new DOMParser().parseFromString(html, "text/html");
-    const nextRail = nextDoc.querySelector(".os-rail");
-    const nextDocument = nextDoc.querySelector(".os-document");
-    const nextMeta = nextDoc.querySelector(".os-meta");
-    const currentRail = document.querySelector(".os-rail");
-    const currentDocument = document.querySelector(".os-document");
-    const currentMeta = document.querySelector(".os-meta");
-    if (!nextDocument || !currentDocument) throw new Error("Route is not an OS document");
+    try {
+      const response = await fetch(url.href, { credentials: "same-origin" });
+      if (!response.ok) throw new Error(`Route failed: ${response.status}`);
+      const html = await response.text();
+      const nextDoc = new DOMParser().parseFromString(html, "text/html");
+      const nextRail = nextDoc.querySelector(".os-rail");
+      const nextDocument = nextDoc.querySelector(".os-document");
+      const nextMeta = nextDoc.querySelector(".os-meta");
+      const currentRail = document.querySelector(".os-rail");
+      const currentDocument = document.querySelector(".os-document");
+      const currentMeta = document.querySelector(".os-meta");
+      if (!nextDocument || !currentDocument) throw new Error("Route is not an OS document");
 
-    if (push) window.history.pushState({ osRoute: url.href }, "", url.href);
-    document.title = nextDoc.title;
-    syncHead(nextDoc);
-    if (nextDoc.body) document.body.className = nextDoc.body.className;
-    if (nextRail && currentRail) currentRail.replaceWith(document.importNode(nextRail, true));
-    currentDocument.replaceWith(document.importNode(nextDocument, true));
-    if (nextMeta && currentMeta) currentMeta.replaceWith(document.importNode(nextMeta, true));
-    setTheme(document.documentElement.dataset.theme, false);
-    wireThemeToggles();
-    wireSignalGalleries();
-    wireHoloWindows();
-    secureExternalLinks();
-    wireSoftNavigation();
-    await ensureCvScript();
-    document.documentElement.classList.remove("is-os-loading");
+      if (push) window.history.pushState({ osRoute: url.href }, "", url.href);
+      document.title = nextDoc.title;
+      syncHead(nextDoc);
+      syncRuntimeUrls();
+      if (nextDoc.body) document.body.className = nextDoc.body.className;
+      if (nextRail && currentRail) currentRail.replaceWith(document.importNode(nextRail, true));
+      currentDocument.replaceWith(document.importNode(nextDocument, true));
+      if (nextMeta && currentMeta) currentMeta.replaceWith(document.importNode(nextMeta, true));
+      setTheme(document.documentElement.dataset.theme, false);
+      wireThemeToggles();
+      wireSignalGalleries();
+      wireHoloWindows();
+      secureExternalLinks();
+      await ensureCvScript(url.pathname);
+      await ensureDashboardScript(url.pathname);
+    } finally {
+      document.documentElement.classList.remove("is-os-loading");
+    }
   }
 
-  function wireSoftNavigation(root = document) {
-    root.querySelectorAll(".os-nav a, .doc-tabs a, .preview-row, .mini-monitor, .file-list a").forEach((link) => {
-      if (link.dataset.osReady === "nav") return;
-      link.dataset.osReady = "nav";
-      link.addEventListener("click", (event) => {
-        const url = internalHtmlTarget(link);
-        if (!url) return;
-        event.preventDefault();
-    softNavigate(url).catch(() => {
-      window.location.href = url.href;
-    });
+  function shouldSoftNavigate(link, event) {
+    if (event.defaultPrevented || event.button !== 0) return null;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return null;
+    return internalHtmlTarget(link);
+  }
+
+  function wireSoftNavigation() {
+    if (document.documentElement.dataset.osReady === "nav") return;
+    document.documentElement.dataset.osReady = "nav";
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest?.("a[href]");
+      if (!link) return;
+      const url = shouldSoftNavigate(link, event);
+      if (!url) return;
+      event.preventDefault();
+      softNavigate(url).catch(() => {
+        window.location.href = url.href;
       });
     });
   }
 
   window.addEventListener("popstate", () => {
     const url = new URL(window.location.href);
+    if (isCvPath(url.pathname) && window.initCvView && document.querySelector("[data-cv-view]")) {
+      window.initCvView();
+      return;
+    }
     softNavigate(url, false).catch(() => window.location.reload());
   });
 
   setTheme(preferredTheme(), false);
+  syncRuntimeUrls();
   wireThemeToggles();
   wireSignalGalleries();
   wireHoloWindows();
   secureExternalLinks();
+  ensureDashboardScript();
   wireSoftNavigation();
 })();

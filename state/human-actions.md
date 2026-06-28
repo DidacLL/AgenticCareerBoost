@@ -20,7 +20,7 @@ must review, decide, publish, contact, or apply manually.
 3. Review old public surfaces.
    - Remove links to the 2022 `Didac-dev-project` site from controlled profiles.
    - Mark legacy repositories clearly, archive them, or keep them unpinned.
-   - Remove stale `https://didacll.github.io/AgenticCareerBoost/` links where the
+   - Remove stale `https://didacll.github.io/` links where the
      intended target is the main public site.
    - Keep AgenticCareerBoost references when the intended target is the project
      repository or project page.
@@ -64,3 +64,4 @@ For every application or proactive contact:
 Use this section after manual action.
 
 - `YYYY-MM-DD` — action taken — link/evidence — result.
+

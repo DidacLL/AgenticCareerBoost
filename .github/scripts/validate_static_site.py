@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -31,11 +32,11 @@ REQUIRED_FILES = [
     "assets/data/blog-index.json",
     "assets/data/notes-index.json",
     "assets/data/os-index.json",
+    "assets/data/public-status.json",
     "assets/js/cv.js",
     "assets/js/os.js",
     "manifest.json",
     "robots.txt",
-    "sitemap.xml",
     ".nojekyll",
 ]
 
@@ -46,6 +47,7 @@ JSON_REF_KEYS = {
     "route",
     "canonical",
     "stylesheet",
+    "publicStatus",
     "blogIndex",
     "legacyNotesIndex",
     "notesIndex",
@@ -62,7 +64,6 @@ JSON_REF_KEYS = {
 }
 JSON_REF_LIST_KEYS = {"scripts", "assets", "sameAs"}
 ALLOWED_EXTERNAL_PREFIXES = (
-    "https://didacll.github.io/",
     "https://github.com/DidacLL",
     "https://www.linkedin.com/in/didacllorens/",
     "https://raw.githubusercontent.com/DidacLL/AgenticCareerBoost/main/assets/diagrams/",
@@ -70,6 +71,20 @@ ALLOWED_EXTERNAL_PREFIXES = (
     "https://github.com/DidacLL/AgenticCareerBoost/tree/main/content/reports/build",
     "https://github.com/DidacLL/AgenticCareerBoost/blob/main/data/public-status.json",
 )
+DEPLOYMENT_BOUND_HOST = ".".join(("didacll", "github", "io"))
+UNSAFE_DEPLOYED_PARTS = {".idea", ".vscode", ".DS_Store"}
+REQUIRED_CSS_TOKENS = {
+    "--border-hairline",
+    "--font-size-body",
+    "--font-size-h1",
+    "--font-size-h2",
+    "--grid-size-site",
+    "--grid-size-os",
+    "--monitor-bg",
+    "--monitor-phosphor",
+    "--space-card",
+    "--button-height",
+}
 
 
 def route_target(ref: str, source: Path) -> Path | None:
@@ -148,6 +163,11 @@ def validate_os_index(failures: list[str]) -> None:
     missing = required_keys.difference(data)
     if missing:
         failures.append(f"assets/data/os-index.json missing keys: {', '.join(sorted(missing))}")
+    assets = data.get("assets", {})
+    if isinstance(assets, dict):
+        for key in ("publicStatus",):
+            if key not in assets:
+                failures.append(f"assets/data/os-index.json missing assets.{key}")
 
     if not isinstance(data.get("routes"), list) or not data["routes"]:
         failures.append("assets/data/os-index.json routes must be a non-empty list")
@@ -188,9 +208,29 @@ def validate_manifest(failures: list[str]) -> None:
     except Exception as exc:  # noqa: BLE001
         failures.append(f"manifest.json is invalid JSON: {exc}")
         return
+    for key in ("start_url", "scope"):
+        if data.get(key) != ".":
+            failures.append(f"manifest.json {key} must be '.' so deployment base is runtime-relative")
     for icon in data.get("icons", []):
         if isinstance(icon, dict) and isinstance(icon.get("src"), str):
             validate_local_ref(icon["src"], SITE / "index.html", failures, "manifest.json:icons.src")
+
+
+def validate_public_status(failures: list[str]) -> None:
+    root_path = ROOT / "data/public-status.json"
+    site_path = SITE / "assets/data/public-status.json"
+    try:
+        root_data = json.loads(root_path.read_text(encoding="utf-8"))
+        site_data = json.loads(site_path.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001
+        failures.append(f"public status JSON is invalid: {exc}")
+        return
+    if root_data != site_data:
+        failures.append("data/public-status.json and site/assets/data/public-status.json must match")
+    required_keys = {"schema_version", "updated", "sources", "sprint_id", "workflow", "status", "artifacts", "blockers"}
+    missing = required_keys.difference(site_data)
+    if missing:
+        failures.append(f"assets/data/public-status.json missing keys: {', '.join(sorted(missing))}")
 
 
 def validate_html_head(text: str, html_file: Path, failures: list[str]) -> None:
@@ -205,6 +245,65 @@ def validate_html_head(text: str, html_file: Path, failures: list[str]) -> None:
     for needle in required:
         if needle not in text:
             failures.append(f"{html_file.relative_to(ROOT)} missing head metadata: {needle}")
+
+
+def validate_no_deployment_bound_host(failures: list[str]) -> None:
+    scanned_suffixes = {".html", ".xml", ".txt", ".json", ".js", ".css"}
+    for path in SITE.rglob("*"):
+        if not path.is_file() or path.suffix.lower() not in scanned_suffixes:
+            continue
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        if DEPLOYMENT_BOUND_HOST in text:
+            failures.append(
+                f"{path.relative_to(ROOT)} hardcodes deployment host {DEPLOYMENT_BOUND_HOST}; "
+                "site pages and deploy metadata must derive the public base at runtime"
+            )
+
+
+def validate_css_tokens(failures: list[str]) -> None:
+    path = SITE / "assets/css/site.css"
+    text = path.read_text(encoding="utf-8")
+    for token in sorted(REQUIRED_CSS_TOKENS):
+        if token not in text:
+            failures.append(f"assets/css/site.css missing required design token: {token}")
+    for line_number, line in enumerate(text.splitlines(), start=1):
+        stripped = line.strip()
+        if "px" in stripped and not stripped.startswith("--") and not stripped.startswith("@media"):
+            failures.append(f"assets/css/site.css:{line_number} uses raw px outside token/breakpoint definitions")
+        if re.search(r"font-size\s*:[^;]*(vw|vh|vmin|vmax)", stripped):
+            failures.append(f"assets/css/site.css:{line_number} uses viewport units for font-size")
+        if "height: contain" in stripped:
+            failures.append(f"assets/css/site.css:{line_number} uses invalid declaration height: contain")
+        if "!important" in stripped:
+            allowed = "[hidden]" in text[max(0, text.find(line) - 120):text.find(line)] or "display: none !important" in stripped
+            allowed = allowed or "animation" in stripped or "transition" in stripped or "scroll-behavior" in stripped
+            if not allowed:
+                failures.append(f"assets/css/site.css:{line_number} uses non-gate allowlisted !important")
+
+
+def tracked_site_files() -> list[str]:
+    try:
+        result = subprocess.run(
+            ["git", "ls-files", "site"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except Exception:  # noqa: BLE001
+        return [
+            path.relative_to(ROOT).as_posix()
+            for path in SITE.rglob("*")
+            if path.is_file()
+        ]
+    return [line.strip().replace("\\", "/") for line in result.stdout.splitlines() if line.strip()]
+
+
+def validate_deployed_artifact_hygiene(failures: list[str]) -> None:
+    for tracked in tracked_site_files():
+        parts = set(Path(tracked).parts)
+        if parts.intersection(UNSAFE_DEPLOYED_PARTS):
+            failures.append(f"tracked deployed artifact should be ignored/removed: {tracked}")
 
 
 def html_files() -> list[Path]:
@@ -241,9 +340,13 @@ def main() -> int:
                 failures.append(f"{html_file.relative_to(ROOT)} missing file for ref: {match.group(1)}")
 
     validate_os_index(failures)
+    validate_public_status(failures)
     validate_slot_index(SITE / "assets/data/blog-index.json", failures)
     validate_slot_index(SITE / "assets/data/notes-index.json", failures)
     validate_manifest(failures)
+    validate_css_tokens(failures)
+    validate_deployed_artifact_hygiene(failures)
+    validate_no_deployment_bound_host(failures)
 
     if failures:
         print("Static site validation failed:")

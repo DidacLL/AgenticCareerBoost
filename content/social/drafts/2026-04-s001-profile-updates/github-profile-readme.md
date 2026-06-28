@@ -54,7 +54,7 @@ Currently completing a CS degree with ML/AI specialization at UOC (Feb 2027). Pr
 ## Contact
 
 - LinkedIn: [linkedin.com/in/didacllorens](https://www.linkedin.com/in/didacllorens/)
-- Site: [didacll.github.io/AgenticCareerBoost](https://didacll.github.io/AgenticCareerBoost/)
+- Site: [https://didacll.github.io/](https://didacll.github.io/)
 - Location: Barcelona, Catalonia
 ```
 
@@ -102,3 +102,4 @@ And reorder "Current Focus" to lead with agentic system design (already first in
 ---
 
 *Draft produced by CommunityManager agent, S-001 T5. Requires explicit review before pushing to the DidacLL/DidacLL repo.*
+

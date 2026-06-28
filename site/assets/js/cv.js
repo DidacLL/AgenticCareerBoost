@@ -6,25 +6,34 @@
     return views.length === 0 || views.includes(view) || view === "print";
   }
 
-  function initCvView() {
+  function currentView() {
     const params = new URLSearchParams(window.location.search);
     const requested = params.get("view") || "ml";
-    const view = allowed.has(requested) ? requested : "ml";
+    return allowed.has(requested) ? requested : "ml";
+  }
+
+  function initCvView() {
+    const view = currentView();
     document.documentElement.dataset.cvView = view;
 
     document.querySelectorAll("[data-views]").forEach((node) => {
-      node.hidden = !appliesTo(node, view);
+      const visible = appliesTo(node, view);
+      node.hidden = !visible;
+      node.classList.toggle("is-visible", visible);
     });
 
     document.querySelectorAll("button[data-cv-view]").forEach((button) => {
       const target = button.dataset.cvView;
-      button.setAttribute("aria-pressed", String(target === view));
+      const active = target === view;
+      button.setAttribute("aria-pressed", String(active));
+      button.classList.toggle("is-active", active);
       if (button.dataset.cvReady === "true") return;
       button.dataset.cvReady = "true";
       button.addEventListener("click", () => {
         const next = new URL(window.location.href);
         next.searchParams.set("view", target);
-        window.location.href = next.toString();
+        window.history.pushState({ cvView: target }, "", next.toString());
+        initCvView();
       });
     });
 

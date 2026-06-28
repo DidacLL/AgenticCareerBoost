@@ -12,7 +12,7 @@
 - Social plan: current main campaign starts with profile audit / UOC readiness / document reveal / governance proof.
 - Existing drafts: strong first-post candidates exist, especially the profile/headline flaw narrative.
 - Link registry: GitHub, LinkedIn, repo, and site URLs are present in `data/links.json`.
-- Public site check: `https://didacll.github.io/AgenticCareerBoost/` is live and aligned around Software Engineering, ML/AI, Agentic Systems, Barcelona.
+- Public site check: `https://didacll.github.io/` is live and aligned around Software Engineering, ML/AI, Agentic Systems, Barcelona.
 - GitHub API check: `https://api.github.com/users/DidacLL` returned public profile with 13 repos, 7 followers, Barcelona, but empty `bio`, `blog`, and `hireable`.
 - LinkedIn check: `https://www.linkedin.com/in/didacllorens/` hit LinkedIn authwall; current visible profile copy could not be verified externally.
 - Private stance reference was accessible; used only as background philosophy, with no unpublished specifics carried into public concepts.
@@ -97,3 +97,4 @@ Selected: **Option A — three-post low-heat reactivation before campaign**.
 - LinkedIn current profile content could not be externally verified due to authwall.
 - GitHub public API suggests profile metadata is not fully synced with the site.
 - Recent social research files are dated April 2026; reactivation posts should use refreshed sources above before publication.
+

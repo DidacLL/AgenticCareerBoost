@@ -1,13 +1,14 @@
 # Current state
 
-- **Active workflow**: site copy dehype pass
-- **Active sprint**: S-004 - CLOSED; current follow-up is a site-content cleanup focused on removing LLM/sales-copy leakage from the public website.
+- **Active workflow**: none
+- **Active sprint**: none
 - **Blockers**: Publication, LinkedIn/GitHub account metadata, company outreach, applications, and manual profile settings remain human-owned.
 
 ## Current evidence
 
 - Public site canonical root: `https://didacll.github.io/`.
 - AgenticCareerBoost remains the source project and public proof repository: `https://github.com/DidacLL/AgenticCareerBoost`.
+- S-004.5 site-quality closure: `state/logs/S-004.5-site-quality/closure.md`.
 - Root URL finalization PR #26 is merged.
 - Site copy dehype branch: `codex/site-copy-dehype`.
 - Site voice/content review log: `state/logs/site-voice-content-review.md`.
@@ -40,6 +41,7 @@
 
 | Date | Type | Summary |
 |------|------|---------|
+| 2026-06-28 | Sprint S-004.5 | Site quality sprint closed: runtime site metadata, generated dashboard status, CSS token/raw-pixel gate, artifact hygiene, soft navigation/CV pushState, legal disclosure, contact/dashboard render checks, and PairCheck PASS |
 | 2026-06-26 | Site copy dehype pass | Branch opened to tighten public website text, remove LLM/sales-copy leakage, and keep copy anchored to source artifacts, checks, routes, and project evidence |
 | 2026-06-26 | Site voice content review | Website copy rewritten for a more personal technical voice; project explanations expanded; blog entries added for publication/project/sprint notes |
 | 2026-06-26 | Root URL migration | Main public site moved to `https://didacll.github.io/`; AgenticCareerBoost kept as source project/repository reference; PR #26 merged |
@@ -52,3 +54,4 @@
 | 2026-04-27 | Sprint S-001.5 | UOC fair public profile cleanup: event targets, GitHub cleanup package, landing page, curriculum/CV, LinkedIn/JobTeaser kit, outreach kit |
 | 2026-04-20 | Sprint S-001 | Portfolio audit + positioning draft: 4 research reports, positioning synthesis with 4 angles, 5 profile update drafts, LaTeX report, 3 social post options |
 | 2026-04-19 | Sprint S-000 | Retro-documentation + campaign kickoff: LaTeX infrastructure, master document, CI pipeline, LinkedIn research, style book, 3 post options |
+

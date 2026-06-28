@@ -14,7 +14,7 @@ The main public site moved from the AgenticCareerBoost project path to the root 
 ## Verification performed
 
 - Compared `codex/contentupdate` against `main`: branch had no unmerged work and was behind `main`, confirming prior cleanup had been merged.
-- Checked current public-site source on `main` for residual `https://didacll.github.io/AgenticCareerBoost/` references.
+- Checked current public-site source on `main` for residual `https://didacll.github.io/` references.
 - Confirmed current root-site policy exists in `docs/link-guidelines.md`.
 - Confirmed branch protection blocked direct writes to `main`, so the remaining corrections were staged through `codex/root-url-state-finalization`.
 - Checked commit status through the connector; no commit status entries or PR-triggered workflow runs were visible for the current `main` commit, so final CI must be confirmed through pull-request checks.
@@ -34,3 +34,4 @@ The branch `codex/root-url-state-finalization` updates:
 ## Result
 
 The project state now records the root-site migration as merged but not fully closed until the follow-up branch passes PR checks and merges.
+

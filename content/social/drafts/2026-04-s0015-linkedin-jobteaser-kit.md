@@ -24,7 +24,7 @@ My main public project is AgenticCareerBoost: a path-based, model-agnostic multi
 ## LinkedIn Featured Items
 
 1. **AgenticCareerBoost**: `https://github.com/DidacLL/AgenticCareerBoost`
-2. **Recruiter landing page**: `https://didacll.github.io/AgenticCareerBoost/`
+2. **Recruiter landing page**: `https://didacll.github.io/`
 3. **P3CTeX**: `https://github.com/DidacLL/P3CTeX`
 4. **Agentic System Guide PDF**: upload `content/reports/build/agentic-system-guide.pdf` if LinkedIn accepts document upload.
 
@@ -104,3 +104,4 @@ Soc estudiant d'Enginyeria Informatica a la UOC, amb mencio en ML/IA i graduacio
 - Specific UOC coursework list beyond ML/AI specialization.
 - Professional email address, if one will be added.
 - Whether the MemPalace contribution is substantive enough to mention.
+

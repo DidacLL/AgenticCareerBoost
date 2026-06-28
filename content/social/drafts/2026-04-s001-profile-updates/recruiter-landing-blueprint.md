@@ -3,7 +3,7 @@
 - **Sprint**: S-001 / T5
 - **Agent**: CommunityManager
 - **Date**: 2026-04-20
-- **Target**: `didacll.github.io/AgenticCareerBoost/` (Jekyll site, to be implemented in S-002)
+- **Target**: `https://didacll.github.io/` (Jekyll site, to be implemented in S-002)
 - **Inputs**: T3 audit (§5 legacy site, §6 cross-surface), T4 positioning synthesis, brand.md, style-book.md, marketing.md
 - **Scope**: Content architecture and copy only. No HTML/CSS/Jekyll code.
 
@@ -273,7 +273,7 @@ Place in the `<head>` of every page. This is what AI recruiter bots, Google, and
   "@type": "Person",
   "name": "Dídac Llorens",
   "alternateName": "Didac Llorens",
-  "url": "https://didacll.github.io/AgenticCareerBoost/",
+  "url": "https://didacll.github.io/",
   "image": "Add confirmed professional headshot URL before publishing JSON-LD",
   "jobTitle": "Software Engineering Student",
   "description": "Software engineering student (UOC, ML/AI specialization, Feb 2027) building model-agnostic agentic systems and LaTeX tooling. 15 years of regulated-industry operations. Based in Barcelona.",
@@ -338,7 +338,7 @@ Place in the `<head>` of every page for social media previews (LinkedIn, Slack, 
 og:title        → "Dídac Llorens — Software Engineering · ML/AI · Barcelona"
 og:description  → "Software engineering student building model-agnostic agentic systems and ML pipelines. UOC CS degree with ML/AI specialization (Feb 2027). 15 years of regulated-industry experience."
 og:image        → add a reviewed branded OG image URL before publishing
-og:url          → "https://didacll.github.io/AgenticCareerBoost/"
+og:url          → "https://didacll.github.io/"
 og:type         → "profile"
 og:locale       → "en_US"
 ```
@@ -396,7 +396,7 @@ twitter:image       → [same as og:image]
 ### 5.3 Canonical URL
 
 ```
-<link rel="canonical" href="https://didacll.github.io/AgenticCareerBoost/" />
+<link rel="canonical" href="https://didacll.github.io/" />
 ```
 
 Set on every page to prevent duplicate content issues between `/` and `/index.html`.
@@ -414,12 +414,12 @@ All pages should be indexable. No `noindex` tags on the landing page.
 Generate a `sitemap.xml` at the root:
 
 ```
-https://didacll.github.io/AgenticCareerBoost/
-https://didacll.github.io/AgenticCareerBoost/projects/
-https://didacll.github.io/AgenticCareerBoost/projects/agentic-career-boost/
-https://didacll.github.io/AgenticCareerBoost/projects/p3ctex/
-https://didacll.github.io/AgenticCareerBoost/about/
-https://didacll.github.io/AgenticCareerBoost/contact/
+https://didacll.github.io/
+https://didacll.github.io/projects/
+https://didacll.github.io/projects/agentic-career-boost/
+https://didacll.github.io/projects/p3ctex/
+https://didacll.github.io/about/
+https://didacll.github.io/contact/
 ```
 
 ### 5.6 Performance Considerations
@@ -464,3 +464,4 @@ Per marketing.md: "do not clone identical content across channels."
 ---
 
 *Blueprint produced by CommunityManager agent, S-001 T5. Implementation (Jekyll/HTML/CSS) deferred. All copy requires explicit review before implementation.*
+

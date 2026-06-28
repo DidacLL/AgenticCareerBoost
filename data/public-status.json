@@ -1,25 +1,32 @@
 {
-  "sprint_id": "S-004",
-  "workflow": "site copy dehype pass",
-  "status": "CLOSED / documentation alignment complete; website implementation excluded.",
-  "last_closure_at": "2026-06-26",
-  "last_closure_type": "Site copy dehype pass",
+  "schema_version": 1,
+  "updated": "2026-06-28",
+  "sources": [
+    "state/current.md",
+    "state/active-sprint.md",
+    "state/roadmap.md"
+  ],
+  "sprint_id": null,
+  "workflow": "none",
+  "status": "idle",
+  "last_closure_at": "2026-06-28",
+  "last_closure_type": "Sprint S-004.5",
   "artifacts": [
     {
       "complete": true,
-      "label": "Repository artifact(s) — done: `docs/core/career-direction.md`, `AGENTS.md`, `README.md`, social/state docs"
+      "label": "Repository artifact(s) — done: Static site source, validator, generated status flow, and deployed artifact hygiene updated"
     },
     {
       "complete": true,
-      "label": "Website / repo update trace — done: no `site/**` files changed"
+      "label": "Website / repo update trace — done: `state/logs/S-004.5-site-quality/implementation.md`"
     },
     {
       "complete": true,
-      "label": "Public-narrative decision — done: relaunch correction recorded"
+      "label": "Public-narrative decision — done: AgenticCareerBoost dashboard embedded in the project flow and root public URL restored in non-site docs"
     },
     {
       "complete": false,
-      "label": "Formal engineering documentation — not applicable: no PDF required"
+      "label": "Formal engineering documentation — not applicable: No PDF/report required for this site-quality sprint"
     },
     {
       "complete": true,

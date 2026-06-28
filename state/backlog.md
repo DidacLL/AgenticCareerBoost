@@ -25,6 +25,7 @@
 | T-019 | Add a real ML/research/agentic proof project before broad applications | S-004 | **high** |
 | T-020 | Keep website changes out of non-site sprints unless explicitly assigned | S-004 | medium |
 | T-021 | Merge root-site URL finalization after review: notes alias, dashboard, project pages, CV page, and state cleanup | Root URL migration | **high / active** |
+| T-022 | Extract repeated static page chrome into a generator/template only if future site edits make duplication costly | S-004.5 | low / deferred |
 
 ## Narrative backlog
 
@@ -55,3 +56,5 @@
 | N-023 | Approve first three LinkedIn posts manually before publishing | S-004 | human-gated |
 | N-024 | Reject data-quality, BI, dashboard-maintenance, and CRUD-consulting pitches | S-004 | active rule |
 | N-025 | Use `https://didacll.github.io/` as the main public-site URL; reserve AgenticCareerBoost for the source project/repository | Root URL migration | active rule |
+| N-026 | Use `https://didacll.github.io/AgenticCareerBoost/` when specifically referencing the AgenticCareerBoost project route or history | S-004.5 | active rule |
+
