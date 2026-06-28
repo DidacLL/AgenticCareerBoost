@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dídac Llorens</title>
+  <script>
+    (async () => {
+      const path = window.location.pathname.replace(/\/index\.html$/, "/");
+      const segments = path.split("/").filter(Boolean);
+      const candidates = [];
+      for (let index = segments.length; index >= 0; index -= 1) {
+        candidates.push(`/${segments.slice(0, index).join("/")}${index ? "/" : ""}`);
+      }
+      let base = "/";
+      for (const candidate of candidates) {
+        try {
+          const response = await fetch(`${candidate}content/site.json`, { method: "HEAD" });
+          if (response.ok) {
+            base = candidate;
+            break;
+          }
+        } catch (_) {
+          // Continue checking parent candidates.
+        }
+      }
+      const routePath = path.startsWith(base) ? `/${path.slice(base.length)}` : path;
+      const clean = routePath.replace(/\/+$/, "") || "/";
+      window.location.replace(`${window.location.origin}${base}#${clean}`);
+    })();
+  </script>
+</head>
+<body></body>
+</html>

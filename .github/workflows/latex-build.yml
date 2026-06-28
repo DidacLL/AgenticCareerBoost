@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Compile LaTeX documents
         uses: xu-cheng/latex-action@v3
@@ -40,4 +40,3 @@ jobs:
           path: content/reports/build/**/*.pdf
           if-no-files-found: error
           retention-days: 30
-

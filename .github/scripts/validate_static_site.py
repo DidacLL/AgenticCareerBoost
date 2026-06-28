@@ -1,90 +1,48 @@
-"""Validate the plain static GitHub Pages source."""
+"""Validate the plain static single-shell GitHub Pages source."""
 
 from __future__ import annotations
 
 import json
 import re
-import subprocess
 import sys
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
 SITE = ROOT / "site"
-BASE_PATH = "/"
 
 REQUIRED_FILES = [
     "index.html",
-    "projects/index.html",
-    "projects/agentic-career-boost/index.html",
-    "projects/p3ctex/index.html",
-    "projects/ironbank/index.html",
-    "blog/index.html",
-    "dashboard/index.html",
-    "curriculum/index.html",
-    "contact/index.html",
-    "notes/index.html",
-    "hire/index.html",
-    "hire/ml/index.html",
-    "hire/agentic/index.html",
-    "hire/backend/index.html",
-    "assets/css/site.css",
-    "assets/data/blog-index.json",
-    "assets/data/notes-index.json",
-    "assets/data/os-index.json",
-    "assets/data/site-content.json",
-    "assets/data/pages.json",
-    "assets/data/public-status.json",
-    "assets/fragments/legal-disclosure.html",
-    "assets/js/cv.js",
-    "assets/js/os.js",
+    "404.html",
+    ".nojekyll",
     "manifest.json",
     "robots.txt",
-    ".nojekyll",
+    "sitemap.xml",
+    "assets/css/site.css",
+    "assets/data/public-status.json",
+    "assets/js/os.js",
+    "assets/js/data-store.js",
+    "assets/js/router.js",
+    "assets/js/renderer.js",
+    "assets/js/components.js",
+    "assets/js/widgets.js",
+    "content/site.json",
+    "content/pages.json",
+    "content/projects.json",
+    "content/blog.json",
+    "content/cv.json",
+    "content/fragments/legal-disclosure.html",
 ]
 
-REF_PATTERN = re.compile(r"""(?:href|src)=["']([^"']+)["']""")
-JSON_REF_KEYS = {
-    "href",
-    "src",
-    "route",
-    "canonical",
-    "stylesheet",
-    "publicStatus",
-    "siteContent",
-    "pagesContent",
-    "pagesData",
-    "legalFragment",
-    "bannerImage",
-    "blogIndex",
-    "legacyNotesIndex",
-    "notesIndex",
-    "heroImage",
-    "portraitImage",
-    "avatarImage",
-    "cvPdf",
-    "cvTex",
-    "cvTexSource",
-    "repository",
-    "thumbnail",
-    "image",
-    "light",
-    "dark",
-    "source",
-    "cv",
-}
-JSON_REF_LIST_KEYS = {"scripts", "assets", "sameAs"}
-FORBIDDEN_ROUTE_CONTENT_TAG = re.compile(r"<(h1|h2|h3|p|strong|small|article|li)\b", re.IGNORECASE)
-ALLOWED_EXTERNAL_PREFIXES = (
-    "https://github.com/DidacLL",
-    "https://www.linkedin.com/in/didacllorens/",
-    "https://raw.githubusercontent.com/DidacLL/AgenticCareerBoost/main/assets/diagrams/",
-    "https://github.com/DidacLL/AgenticCareerBoost/raw/main/content/reports/build/",
-    "https://github.com/DidacLL/AgenticCareerBoost/tree/main/content/reports/build",
-    "https://github.com/DidacLL/AgenticCareerBoost/blob/main/data/public-status.json",
-)
-DEPLOYMENT_BOUND_HOST = ".".join(("didacll", "github", "io"))
-UNSAFE_DEPLOYED_PARTS = {".idea", ".vscode", ".DS_Store"}
+SHELL_SLOTS = [
+    "data-os-rail",
+    "data-system-banner",
+    "data-doc-tabs",
+    "data-page-content",
+    "data-os-meta",
+    "data-legal-disclosure",
+]
+
 REQUIRED_CSS_TOKENS = {
     "--border-hairline",
     "--font-size-body",
@@ -98,47 +56,67 @@ REQUIRED_CSS_TOKENS = {
     "--button-height",
 }
 
+ALLOWED_EXTERNAL_HOSTS = {
+    "github.com",
+    "www.linkedin.com",
+}
 
-def route_target(ref: str, source: Path) -> Path | None:
+DEPLOYMENT_BOUND_HOST = "didacll.github.io"
+HTML_BLOB = re.compile(r"<(article|aside|div|footer|header|main|nav|section|ul|ol|li|p|h[1-6]|strong|small)\b", re.I)
+PUBLIC_TEXT_TAGS = re.compile(r"<(h1|h2|h3|p|strong|small|article|li)\b", re.I)
+
+
+def rel(path: Path) -> str:
+    return path.relative_to(ROOT).as_posix()
+
+
+def read_json(path: Path, failures: list[str]) -> object:
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001 - validation reports parse errors cleanly.
+        failures.append(f"{rel(path)} is invalid JSON: {exc}")
+        return {}
+
+
+def normalize_route(route: str) -> str:
+    clean = str(route or "/").split("#", 1)[0].split("?", 1)[0]
+    clean = clean if clean.startswith("/") else f"/{clean}"
+    clean = clean.removesuffix("/index.html").rstrip("/")
+    return clean or "/"
+
+
+def is_external(ref: str) -> bool:
     parsed = urlsplit(ref)
-    if parsed.scheme or parsed.netloc:
-        return None
-    if not parsed.path:
-        return None
-
-    if parsed.path.startswith("/"):
-        relative = unquote(parsed.path.lstrip("/")) or "index.html"
-        base = SITE
-    else:
-        relative = unquote(parsed.path)
-        base = source.parent
-
-    if relative.endswith("/"):
-        relative = f"{relative}index.html"
-    return (base / relative).resolve()
+    return bool(parsed.scheme or parsed.netloc)
 
 
-def is_allowed_external(ref: str) -> bool:
+def validate_external(ref: str, failures: list[str], context: str) -> None:
     parsed = urlsplit(ref)
-    if not parsed.scheme and not parsed.netloc:
-        return True
     if parsed.scheme != "https":
-        return False
-    return any(ref.startswith(prefix) for prefix in ALLOWED_EXTERNAL_PREFIXES)
+        failures.append(f"{context} uses non-https external URL: {ref}")
+        return
+    if parsed.netloc not in ALLOWED_EXTERNAL_HOSTS:
+        failures.append(f"{context} uses unapproved external host: {ref}")
 
 
-def validate_local_ref(ref: str, source: Path, failures: list[str], context: str, allow_parent: bool = False) -> None:
+def validate_local_file(ref: str, source: Path, failures: list[str], context: str) -> None:
+    if not ref or ref.startswith("#") or ref.startswith("mailto:") or ref.startswith("tel:"):
+        return
+    if DEPLOYMENT_BOUND_HOST in ref:
+        failures.append(f"{context} contains deployment-bound URL: {ref}")
+        return
+    if is_external(ref):
+        validate_external(ref, failures, context)
+        return
+
     parsed = urlsplit(ref)
-    if parsed.scheme or parsed.netloc:
-        if not is_allowed_external(ref):
-            failures.append(f"{context} references unapproved external URL: {ref}")
+    if not parsed.path:
         return
-    if not allow_parent and ".." in Path(parsed.path).parts:
-        failures.append(f"{context} uses unsafe local ref: {ref}")
-        return
-    target = route_target(ref, source)
-    if target is None:
-        return
+    path = unquote(parsed.path)
+    if path.startswith("/"):
+        target = (SITE / path.lstrip("/")).resolve()
+    else:
+        target = (source.parent / path).resolve()
     try:
         target.relative_to(SITE.resolve())
     except ValueError:
@@ -148,336 +126,193 @@ def validate_local_ref(ref: str, source: Path, failures: list[str], context: str
         failures.append(f"{context} references missing file: {ref}")
 
 
-def iter_json_refs(node: object, parent_key: str = ""):
+def walk_json(node: object, path: str = "$"):
+    yield path, node
     if isinstance(node, dict):
         for key, value in node.items():
-            if isinstance(value, str) and key in JSON_REF_KEYS:
-                yield key, value
-            elif isinstance(value, list) and key in JSON_REF_LIST_KEYS:
-                for item in value:
-                    if isinstance(item, str):
-                        yield key, item
-            yield from iter_json_refs(value, key)
+            yield from walk_json(value, f"{path}.{key}")
     elif isinstance(node, list):
-        for item in node:
-            yield from iter_json_refs(item, parent_key)
+        for index, value in enumerate(node):
+            yield from walk_json(value, f"{path}[{index}]")
 
 
-def validate_os_index(failures: list[str]) -> None:
-    path = SITE / "assets/data/os-index.json"
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except Exception as exc:  # noqa: BLE001 - validation should report parse errors cleanly.
-        failures.append(f"assets/data/os-index.json is invalid JSON: {exc}")
-        return
-
-    required_keys = {"version", "site", "assets", "routes", "projects", "rolePaths"}
-    missing = required_keys.difference(data)
-    if missing:
-        failures.append(f"assets/data/os-index.json missing keys: {', '.join(sorted(missing))}")
-    assets = data.get("assets", {})
-    if isinstance(assets, dict):
-        for key in ("publicStatus", "siteContent", "pagesContent"):
-            if key not in assets:
-                failures.append(f"assets/data/os-index.json missing assets.{key}")
-
-    if not isinstance(data.get("routes"), list) or not data["routes"]:
-        failures.append("assets/data/os-index.json routes must be a non-empty list")
-    if not isinstance(data.get("projects"), list) or not data["projects"]:
-        failures.append("assets/data/os-index.json projects must be a non-empty list")
-    if not isinstance(data.get("rolePaths"), list) or not data["rolePaths"]:
-        failures.append("assets/data/os-index.json rolePaths must be a non-empty list")
-
-    site_root_source = SITE / "index.html"
-    for key, ref in iter_json_refs(data):
-        validate_local_ref(ref, site_root_source, failures, f"assets/data/os-index.json:{key}")
+def validate_json_content_hygiene(name: str, data: object, failures: list[str]) -> None:
+    for path, value in walk_json(data):
+        if isinstance(value, str) and HTML_BLOB.search(value):
+            failures.append(f"{name}:{path} contains HTML markup; move complex markup to content/fragments")
+        if isinstance(path, str) and path.endswith((".contentHtml", ".metaHtml")):
+            failures.append(f"{name}:{path} uses escaped route HTML instead of structured content")
 
 
-def validate_slot_index(path: Path, failures: list[str]) -> None:
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except Exception as exc:  # noqa: BLE001 - validation should report parse errors cleanly.
-        failures.append(f"{path.relative_to(SITE)} is invalid JSON: {exc}")
-        return
+def validate_refs(name: str, data: object, source: Path, route_paths: set[str], failures: list[str]) -> None:
+    file_ref_keys = {"href", "image", "bannerImage", "legalFragment", "src"}
+    route_ref_keys = {"route", "path"}
+    for path, value in walk_json(data):
+        if not isinstance(value, str):
+            continue
+        key = path.rsplit(".", 1)[-1]
+        if "[" in key:
+            key = key.split("[", 1)[0]
+        if key in file_ref_keys:
+            if key == "href" and normalize_route(value) in route_paths and not is_external(value):
+                failures.append(f"{name}:{path} uses href for an internal route; use route")
+            else:
+                validate_local_file(value, source, failures, f"{name}:{path}")
+        elif key == "status" and ("/" in value or value.endswith(".json")):
+            validate_local_file(value, source, failures, f"{name}:{path}")
+        elif key in route_ref_keys:
+            if key == "route" and normalize_route(value) not in route_paths:
+                failures.append(f"{name}:{path} references unknown route: {value}")
+        elif DEPLOYMENT_BOUND_HOST in value:
+            failures.append(f"{name}:{path} contains deployment-bound URL: {value}")
 
-    label = path.relative_to(SITE)
-    required_keys = {"version", "updated", "source", "slots"}
-    missing = required_keys.difference(data)
-    if missing:
-        failures.append(f"{label} missing keys: {', '.join(sorted(missing))}")
-    if not isinstance(data.get("slots"), list):
-        failures.append(f"{label} slots must be a list")
 
-    site_root_source = SITE / "index.html"
-    for key, ref in iter_json_refs(data):
-        validate_local_ref(ref, site_root_source, failures, f"{label}:{key}")
+def validate_single_shell(failures: list[str]) -> None:
+    for file in SITE.rglob("*.html"):
+        relative = file.relative_to(SITE).as_posix()
+        if relative in {"index.html", "404.html"} or relative.startswith("content/fragments/"):
+            continue
+        failures.append(f"{rel(file)} is a route HTML artifact; single-shell site may only deploy site/index.html and site/404.html")
+
+    for unsafe in (SITE / ".idea", SITE / ".vscode"):
+        if unsafe.exists() and any(path.is_file() for path in unsafe.rglob("*")):
+            failures.append(f"{rel(unsafe)} must not be part of the deployed artifact")
+
+    index = (SITE / "index.html").read_text(encoding="utf-8")
+    for slot in SHELL_SLOTS:
+        if slot not in index:
+            failures.append(f"site/index.html missing shell slot {slot}")
+    body = index.split("<body", 1)[-1]
+    if PUBLIC_TEXT_TAGS.search(body):
+        failures.append("site/index.html contains visible route content; keep route copy in site/content")
+    if 'type="module"' not in index or "assets/js/os.js" not in index:
+        failures.append("site/index.html must load the module runtime from assets/js/os.js")
 
 
 def validate_manifest(failures: list[str]) -> None:
-    path = SITE / "manifest.json"
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except Exception as exc:  # noqa: BLE001
-        failures.append(f"manifest.json is invalid JSON: {exc}")
+    manifest = read_json(SITE / "manifest.json", failures)
+    if not isinstance(manifest, dict):
         return
     for key in ("start_url", "scope"):
-        if data.get(key) != ".":
-            failures.append(f"manifest.json {key} must be '.' so deployment base is runtime-relative")
-    for icon in data.get("icons", []):
+        if manifest.get(key) != ".":
+            failures.append(f"site/manifest.json {key} must be '.'")
+    for index, icon in enumerate(manifest.get("icons", [])):
         if isinstance(icon, dict) and isinstance(icon.get("src"), str):
-            validate_local_ref(icon["src"], SITE / "index.html", failures, "manifest.json:icons.src")
+            validate_local_file(icon["src"], SITE / "manifest.json", failures, f"site/manifest.json.icons[{index}].src")
+
+
+def validate_content_model(failures: list[str]) -> tuple[dict, dict, dict, dict, dict]:
+    site = read_json(SITE / "content/site.json", failures)
+    pages = read_json(SITE / "content/pages.json", failures)
+    projects = read_json(SITE / "content/projects.json", failures)
+    blog = read_json(SITE / "content/blog.json", failures)
+    cv = read_json(SITE / "content/cv.json", failures)
+    data_files = {
+        "site/content/site.json": site,
+        "site/content/pages.json": pages,
+        "site/content/projects.json": projects,
+        "site/content/blog.json": blog,
+        "site/content/cv.json": cv,
+    }
+
+    for name, data in data_files.items():
+        validate_json_content_hygiene(name, data, failures)
+
+    routes = site.get("routes", []) if isinstance(site, dict) else []
+    if not isinstance(routes, list) or not routes:
+        failures.append("site/content/site.json routes must be a non-empty list")
+        return site, pages, projects, blog, cv
+
+    route_paths = [normalize_route(item.get("path", "")) for item in routes if isinstance(item, dict)]
+    if len(route_paths) != len(set(route_paths)):
+        failures.append("site/content/site.json has duplicate route paths")
+    route_set = set(route_paths)
+
+    source_maps = {
+        "pages": set((pages.get("pages") or {}).keys()) if isinstance(pages, dict) else set(),
+        "projects": {"index"} | {item.get("id") for item in projects.get("items", []) if isinstance(item, dict)} if isinstance(projects, dict) else set(),
+        "blog": {"index"} | {item.get("id") for item in blog.get("items", []) if isinstance(item, dict)} if isinstance(blog, dict) else set(),
+        "cv": {item.get("id") for item in cv.get("views", []) if isinstance(item, dict)} if isinstance(cv, dict) else set(),
+    }
+    for item in routes:
+        if not isinstance(item, dict):
+            failures.append("site/content/site.json routes entries must be objects")
+            continue
+        source = item.get("source")
+        item_id = item.get("id")
+        if source not in source_maps:
+            failures.append(f"site/content/site.json route {item.get('path')} has unknown source {source}")
+        elif item_id not in source_maps[source]:
+            failures.append(f"site/content/site.json route {item.get('path')} references missing {source} item {item_id}")
+
+    for legacy, target in (site.get("legacyRoutes") or {}).items():
+        if normalize_route(target) not in route_set:
+            failures.append(f"site/content/site.json legacy route {legacy} targets unknown route {target}")
+
+    for name, data in data_files.items():
+        validate_refs(name, data, SITE / "index.html", route_set, failures)
+    return site, pages, projects, blog, cv
+
+
+def validate_css(failures: list[str]) -> None:
+    css = (SITE / "assets/css/site.css").read_text(encoding="utf-8")
+    missing = sorted(token for token in REQUIRED_CSS_TOKENS if token not in css)
+    if missing:
+        failures.append(f"site/assets/css/site.css missing design tokens: {', '.join(missing)}")
+
+
+def validate_runtime_content_boundary(site: dict, pages: dict, projects: dict, blog: dict, cv: dict, failures: list[str]) -> None:
+    js_text = "\n".join(path.read_text(encoding="utf-8") for path in (SITE / "assets/js").glob("*.js"))
+    content_strings: set[str] = set()
+    schema_keys = {".type", ".collection", ".layout", ".control", ".source", ".id"}
+    for data in (site, pages, projects, blog, cv):
+        for path, value in walk_json(data):
+            if isinstance(value, str) and len(value) >= 8 and not value.startswith(("assets/", "content/", "https://")):
+                if value.startswith("/"):
+                    continue
+                if any(path.endswith(key) for key in schema_keys):
+                    continue
+                if re.search(r"\.(json|pdf|tex|md|html)$", value):
+                    continue
+                content_strings.add(value)
+    for value in sorted(content_strings, key=len, reverse=True):
+        literal = re.compile(rf"['\"]{re.escape(value)}['\"]")
+        if literal.search(js_text):
+            failures.append(f"site/assets/js hardcodes content string from data: {value[:80]}")
+            break
 
 
 def validate_public_status(failures: list[str]) -> None:
-    root_path = ROOT / "data/public-status.json"
-    site_path = SITE / "assets/data/public-status.json"
-    try:
-        root_data = json.loads(root_path.read_text(encoding="utf-8"))
-        site_data = json.loads(site_path.read_text(encoding="utf-8"))
-    except Exception as exc:  # noqa: BLE001
-        failures.append(f"public status JSON is invalid: {exc}")
+    root_status = ROOT / "data/public-status.json"
+    site_status = SITE / "assets/data/public-status.json"
+    if not root_status.is_file():
+        failures.append("data/public-status.json missing")
         return
+    root_data = read_json(root_status, failures)
+    site_data = read_json(site_status, failures)
     if root_data != site_data:
         failures.append("data/public-status.json and site/assets/data/public-status.json must match")
-    required_keys = {"schema_version", "updated", "sources", "sprint_id", "workflow", "status", "artifacts", "blockers"}
-    missing = required_keys.difference(site_data)
-    if missing:
-        failures.append(f"assets/data/public-status.json missing keys: {', '.join(sorted(missing))}")
-
-
-def validate_html_head(text: str, html_file: Path, failures: list[str]) -> None:
-    required = [
-        "<title>",
-        "assets/js/os.js",
-        "assets/css/site.css",
-    ]
-    for needle in required:
-        if needle not in text:
-            failures.append(f"{html_file.relative_to(ROOT)} missing runtime head contract: {needle}")
-    if '<footer class="legal-disclosure"' in text:
-        failures.append(f"{html_file.relative_to(ROOT)} copies legal disclosure markup instead of using data-legal-disclosure")
-    if "data-os-rail" not in text:
-        failures.append(f"{html_file.relative_to(ROOT)} copies OS rail instead of using data-os-rail")
-    if "data-doc-tabs" not in text:
-        failures.append(f"{html_file.relative_to(ROOT)} copies doc tabs instead of using data-doc-tabs")
-    if "data-page-content" not in text:
-        failures.append(f"{html_file.relative_to(ROOT)} copies page content instead of using data-page-content")
-    if "data-os-meta" not in text:
-        failures.append(f"{html_file.relative_to(ROOT)} copies OS metadata instead of using data-os-meta")
-    if "data-os-document" not in text:
-        failures.append(f"{html_file.relative_to(ROOT)} must mark the OS document with data-os-document")
-    if "data-system-banner" not in text:
-        failures.append(f"{html_file.relative_to(ROOT)} copies system banner instead of using data-system-banner")
-    if re.search(r'<figure class="system-banner"[^>]*>\s*<img\b', text):
-        failures.append(f"{html_file.relative_to(ROOT)} hardcodes system banner image instead of using shared content")
-    main = re.search(r"<main\b[\s\S]*?</main>", text)
-    if main and FORBIDDEN_ROUTE_CONTENT_TAG.search(main.group(0)):
-        failures.append(f"{html_file.relative_to(ROOT)} contains visible route content; move it to assets/data/pages.json")
-
-
-def validate_site_content(failures: list[str]) -> None:
-    path = SITE / "assets/data/site-content.json"
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except Exception as exc:  # noqa: BLE001
-        failures.append(f"assets/data/site-content.json is invalid JSON: {exc}")
-        return
-    required_keys = {"version", "shell", "legalFragment", "logos", "pages", "pagesData", "identity", "nav", "gallerySlides"}
-    missing = required_keys.difference(data)
-    if missing:
-        failures.append(f"assets/data/site-content.json missing keys: {', '.join(sorted(missing))}")
-    pages = data.get("pages", {})
-    shell = data.get("shell", {})
-    if not isinstance(shell, dict) or not shell.get("bannerImage"):
-        failures.append("assets/data/site-content.json shell.bannerImage is required")
-    if not isinstance(pages, dict) or not pages:
-        failures.append("assets/data/site-content.json pages must be a non-empty object")
-    else:
-        for route, page in pages.items():
-            if not isinstance(page, dict):
-                failures.append(f"assets/data/site-content.json page {route} must be an object")
-                continue
-            for key in ("title", "description", "image"):
-                if not page.get(key):
-                    failures.append(f"assets/data/site-content.json page {route} missing {key}")
-    site_root_source = SITE / "index.html"
-    for key, ref in iter_json_refs(data):
-        validate_local_ref(ref, site_root_source, failures, f"assets/data/site-content.json:{key}")
-
-
-def source_for_route(route: str) -> Path:
-    if route == "/":
-        return SITE / "index.html"
-    return SITE / route.strip("/") / "index.html"
-
-
-def validate_pages_content(site_pages: dict[str, object], failures: list[str]) -> None:
-    path = SITE / "assets/data/pages.json"
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except Exception as exc:  # noqa: BLE001
-        failures.append(f"assets/data/pages.json is invalid JSON: {exc}")
-        return
-    routes = data.get("routes", {})
-    if not isinstance(routes, dict) or not routes:
-        failures.append("assets/data/pages.json routes must be a non-empty object")
-        return
-    missing = set(site_pages).difference(routes)
-    extra = set(routes).difference(site_pages)
-    if missing:
-        failures.append(f"assets/data/pages.json missing routes: {', '.join(sorted(missing))}")
-    if extra:
-        failures.append(f"assets/data/pages.json has routes not declared in site-content.json: {', '.join(sorted(extra))}")
-    for route, page in routes.items():
-        if not isinstance(page, dict):
-            failures.append(f"assets/data/pages.json route {route} must be an object")
-            continue
-        for key in ("documentLabel", "contentHtml", "metaHtml"):
-            if not page.get(key):
-                failures.append(f"assets/data/pages.json route {route} missing {key}")
-        source = source_for_route(route)
-        for field in ("contentHtml", "metaHtml"):
-            value = page.get(field, "")
-            if not isinstance(value, str):
-                failures.append(f"assets/data/pages.json route {route} {field} must be a string")
-                continue
-            for match in REF_PATTERN.finditer(value):
-                validate_local_ref(match.group(1), source, failures, f"assets/data/pages.json:{route}:{field}", allow_parent=True)
-
-
-def validate_no_deployment_bound_host(failures: list[str]) -> None:
-    scanned_suffixes = {".html", ".xml", ".txt", ".json", ".js", ".css"}
-    for path in SITE.rglob("*"):
-        if not path.is_file() or path.suffix.lower() not in scanned_suffixes:
-            continue
-        text = path.read_text(encoding="utf-8", errors="ignore")
-        if DEPLOYMENT_BOUND_HOST in text:
-            failures.append(
-                f"{path.relative_to(ROOT)} hardcodes deployment host {DEPLOYMENT_BOUND_HOST}; "
-                "site pages and deploy metadata must derive the public base at runtime"
-            )
-
-
-def validate_css_tokens(failures: list[str]) -> None:
-    path = SITE / "assets/css/site.css"
-    text = path.read_text(encoding="utf-8")
-    for token in sorted(REQUIRED_CSS_TOKENS):
-        if token not in text:
-            failures.append(f"assets/css/site.css missing required design token: {token}")
-    for line_number, line in enumerate(text.splitlines(), start=1):
-        stripped = line.strip()
-        if "px" in stripped and not stripped.startswith("--") and not stripped.startswith("@media"):
-            failures.append(f"assets/css/site.css:{line_number} uses raw px outside token/breakpoint definitions")
-        if re.search(r"font-size\s*:[^;]*(vw|vh|vmin|vmax)", stripped):
-            failures.append(f"assets/css/site.css:{line_number} uses viewport units for font-size")
-        if "height: contain" in stripped:
-            failures.append(f"assets/css/site.css:{line_number} uses invalid declaration height: contain")
-        if "!important" in stripped:
-            allowed = "[hidden]" in text[max(0, text.find(line) - 120):text.find(line)] or "display: none !important" in stripped
-            allowed = allowed or "animation" in stripped or "transition" in stripped or "scroll-behavior" in stripped
-            if not allowed:
-                failures.append(f"assets/css/site.css:{line_number} uses non-gate allowlisted !important")
-
-
-def validate_runtime_content_hygiene(failures: list[str]) -> None:
-    text = (SITE / "assets/js/os.js").read_text(encoding="utf-8")
-    forbidden = {
-        "const primaryRoutes = [": "navigation labels belong in site-content.json",
-        "const gallerySlides = [": "gallery text belongs in site-content.json",
-        "light mode": "theme labels belong in site-content.json",
-        "dark mode": "theme labels belong in site-content.json",
-    }
-    for needle, message in forbidden.items():
-        if needle in text:
-            failures.append(f"assets/js/os.js contains public content ({message})")
-
-
-def tracked_site_files() -> list[str]:
-    try:
-        result = subprocess.run(
-            ["git", "ls-files", "site"],
-            cwd=ROOT,
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-    except Exception:  # noqa: BLE001
-        return [
-            path.relative_to(ROOT).as_posix()
-            for path in SITE.rglob("*")
-            if path.is_file()
-        ]
-    return [line.strip().replace("\\", "/") for line in result.stdout.splitlines() if line.strip()]
-
-
-def validate_deployed_artifact_hygiene(failures: list[str]) -> None:
-    for tracked in tracked_site_files():
-        parts = set(Path(tracked).parts)
-        if parts.intersection(UNSAFE_DEPLOYED_PARTS):
-            failures.append(f"tracked deployed artifact should be ignored/removed: {tracked}")
-
-
-def html_files() -> list[Path]:
-    return sorted(
-        path
-        for path in SITE.rglob("*.html")
-        if "assets" not in path.relative_to(SITE).parts
-    )
 
 
 def main() -> int:
     failures: list[str] = []
-
     for required in REQUIRED_FILES:
-        path = SITE / required
-        if not path.is_file():
-            failures.append(f"missing required file: site/{required}")
+        if not (SITE / required).is_file():
+            failures.append(f"Missing required site file: {required}")
 
-    ref_count = 0
-    for html_file in html_files():
-        text = html_file.read_text(encoding="utf-8")
-        validate_html_head(text, html_file, failures)
-        for match in REF_PATTERN.finditer(text):
-            ref = match.group(1)
-            if not is_allowed_external(ref):
-                failures.append(f"{html_file.relative_to(ROOT)} references unapproved external URL: {ref}")
-                continue
-            target = route_target(ref, html_file)
-            if target is None:
-                continue
-            ref_count += 1
-            try:
-                target.relative_to(SITE.resolve())
-            except ValueError:
-                failures.append(f"{html_file.relative_to(ROOT)} escapes site root: {match.group(1)}")
-                continue
-            if not target.is_file():
-                failures.append(f"{html_file.relative_to(ROOT)} missing file for ref: {match.group(1)}")
-
-    validate_os_index(failures)
-    site_content_path = SITE / "assets/data/site-content.json"
-    try:
-        site_content = json.loads(site_content_path.read_text(encoding="utf-8"))
-    except Exception:
-        site_content = {}
-    validate_site_content(failures)
-    validate_pages_content(site_content.get("pages", {}) if isinstance(site_content.get("pages"), dict) else {}, failures)
-    validate_public_status(failures)
-    validate_slot_index(SITE / "assets/data/blog-index.json", failures)
-    validate_slot_index(SITE / "assets/data/notes-index.json", failures)
+    validate_single_shell(failures)
     validate_manifest(failures)
-    validate_css_tokens(failures)
-    validate_runtime_content_hygiene(failures)
-    validate_deployed_artifact_hygiene(failures)
-    validate_no_deployment_bound_host(failures)
+    site, pages, projects, blog, cv = validate_content_model(failures)
+    validate_css(failures)
+    validate_runtime_content_boundary(site, pages, projects, blog, cv, failures)
+    validate_public_status(failures)
 
     if failures:
         print("Static site validation failed:")
         for failure in failures:
             print(f"- {failure}")
         return 1
-
-    print(f"Static site validation passed ({len(html_files())} HTML files, {ref_count} local refs).")
+    print("Static site validation passed.")
     return 0
 
 
