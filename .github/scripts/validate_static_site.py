@@ -32,7 +32,10 @@ REQUIRED_FILES = [
     "assets/data/blog-index.json",
     "assets/data/notes-index.json",
     "assets/data/os-index.json",
+    "assets/data/site-content.json",
+    "assets/data/pages.json",
     "assets/data/public-status.json",
+    "assets/fragments/legal-disclosure.html",
     "assets/js/cv.js",
     "assets/js/os.js",
     "manifest.json",
@@ -48,6 +51,11 @@ JSON_REF_KEYS = {
     "canonical",
     "stylesheet",
     "publicStatus",
+    "siteContent",
+    "pagesContent",
+    "pagesData",
+    "legalFragment",
+    "bannerImage",
     "blogIndex",
     "legacyNotesIndex",
     "notesIndex",
@@ -59,10 +67,14 @@ JSON_REF_KEYS = {
     "cvTexSource",
     "repository",
     "thumbnail",
+    "image",
+    "light",
+    "dark",
     "source",
     "cv",
 }
 JSON_REF_LIST_KEYS = {"scripts", "assets", "sameAs"}
+FORBIDDEN_ROUTE_CONTENT_TAG = re.compile(r"<(h1|h2|h3|p|strong|small|article|li)\b", re.IGNORECASE)
 ALLOWED_EXTERNAL_PREFIXES = (
     "https://github.com/DidacLL",
     "https://www.linkedin.com/in/didacllorens/",
@@ -115,13 +127,13 @@ def is_allowed_external(ref: str) -> bool:
     return any(ref.startswith(prefix) for prefix in ALLOWED_EXTERNAL_PREFIXES)
 
 
-def validate_local_ref(ref: str, source: Path, failures: list[str], context: str) -> None:
+def validate_local_ref(ref: str, source: Path, failures: list[str], context: str, allow_parent: bool = False) -> None:
     parsed = urlsplit(ref)
     if parsed.scheme or parsed.netloc:
         if not is_allowed_external(ref):
             failures.append(f"{context} references unapproved external URL: {ref}")
         return
-    if ".." in Path(parsed.path).parts:
+    if not allow_parent and ".." in Path(parsed.path).parts:
         failures.append(f"{context} uses unsafe local ref: {ref}")
         return
     target = route_target(ref, source)
@@ -165,7 +177,7 @@ def validate_os_index(failures: list[str]) -> None:
         failures.append(f"assets/data/os-index.json missing keys: {', '.join(sorted(missing))}")
     assets = data.get("assets", {})
     if isinstance(assets, dict):
-        for key in ("publicStatus",):
+        for key in ("publicStatus", "siteContent", "pagesContent"):
             if key not in assets:
                 failures.append(f"assets/data/os-index.json missing assets.{key}")
 
@@ -235,16 +247,102 @@ def validate_public_status(failures: list[str]) -> None:
 
 def validate_html_head(text: str, html_file: Path, failures: list[str]) -> None:
     required = [
-        'rel="canonical"',
-        'property="og:title"',
-        'property="og:description"',
-        'property="og:image"',
-        'name="twitter:card"',
-        'name="twitter:image"',
+        "<title>",
+        "assets/js/os.js",
+        "assets/css/site.css",
     ]
     for needle in required:
         if needle not in text:
-            failures.append(f"{html_file.relative_to(ROOT)} missing head metadata: {needle}")
+            failures.append(f"{html_file.relative_to(ROOT)} missing runtime head contract: {needle}")
+    if '<footer class="legal-disclosure"' in text:
+        failures.append(f"{html_file.relative_to(ROOT)} copies legal disclosure markup instead of using data-legal-disclosure")
+    if "data-os-rail" not in text:
+        failures.append(f"{html_file.relative_to(ROOT)} copies OS rail instead of using data-os-rail")
+    if "data-doc-tabs" not in text:
+        failures.append(f"{html_file.relative_to(ROOT)} copies doc tabs instead of using data-doc-tabs")
+    if "data-page-content" not in text:
+        failures.append(f"{html_file.relative_to(ROOT)} copies page content instead of using data-page-content")
+    if "data-os-meta" not in text:
+        failures.append(f"{html_file.relative_to(ROOT)} copies OS metadata instead of using data-os-meta")
+    if "data-os-document" not in text:
+        failures.append(f"{html_file.relative_to(ROOT)} must mark the OS document with data-os-document")
+    if "data-system-banner" not in text:
+        failures.append(f"{html_file.relative_to(ROOT)} copies system banner instead of using data-system-banner")
+    if re.search(r'<figure class="system-banner"[^>]*>\s*<img\b', text):
+        failures.append(f"{html_file.relative_to(ROOT)} hardcodes system banner image instead of using shared content")
+    main = re.search(r"<main\b[\s\S]*?</main>", text)
+    if main and FORBIDDEN_ROUTE_CONTENT_TAG.search(main.group(0)):
+        failures.append(f"{html_file.relative_to(ROOT)} contains visible route content; move it to assets/data/pages.json")
+
+
+def validate_site_content(failures: list[str]) -> None:
+    path = SITE / "assets/data/site-content.json"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001
+        failures.append(f"assets/data/site-content.json is invalid JSON: {exc}")
+        return
+    required_keys = {"version", "shell", "legalFragment", "logos", "pages", "pagesData", "identity", "nav", "gallerySlides"}
+    missing = required_keys.difference(data)
+    if missing:
+        failures.append(f"assets/data/site-content.json missing keys: {', '.join(sorted(missing))}")
+    pages = data.get("pages", {})
+    shell = data.get("shell", {})
+    if not isinstance(shell, dict) or not shell.get("bannerImage"):
+        failures.append("assets/data/site-content.json shell.bannerImage is required")
+    if not isinstance(pages, dict) or not pages:
+        failures.append("assets/data/site-content.json pages must be a non-empty object")
+    else:
+        for route, page in pages.items():
+            if not isinstance(page, dict):
+                failures.append(f"assets/data/site-content.json page {route} must be an object")
+                continue
+            for key in ("title", "description", "image"):
+                if not page.get(key):
+                    failures.append(f"assets/data/site-content.json page {route} missing {key}")
+    site_root_source = SITE / "index.html"
+    for key, ref in iter_json_refs(data):
+        validate_local_ref(ref, site_root_source, failures, f"assets/data/site-content.json:{key}")
+
+
+def source_for_route(route: str) -> Path:
+    if route == "/":
+        return SITE / "index.html"
+    return SITE / route.strip("/") / "index.html"
+
+
+def validate_pages_content(site_pages: dict[str, object], failures: list[str]) -> None:
+    path = SITE / "assets/data/pages.json"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001
+        failures.append(f"assets/data/pages.json is invalid JSON: {exc}")
+        return
+    routes = data.get("routes", {})
+    if not isinstance(routes, dict) or not routes:
+        failures.append("assets/data/pages.json routes must be a non-empty object")
+        return
+    missing = set(site_pages).difference(routes)
+    extra = set(routes).difference(site_pages)
+    if missing:
+        failures.append(f"assets/data/pages.json missing routes: {', '.join(sorted(missing))}")
+    if extra:
+        failures.append(f"assets/data/pages.json has routes not declared in site-content.json: {', '.join(sorted(extra))}")
+    for route, page in routes.items():
+        if not isinstance(page, dict):
+            failures.append(f"assets/data/pages.json route {route} must be an object")
+            continue
+        for key in ("documentLabel", "contentHtml", "metaHtml"):
+            if not page.get(key):
+                failures.append(f"assets/data/pages.json route {route} missing {key}")
+        source = source_for_route(route)
+        for field in ("contentHtml", "metaHtml"):
+            value = page.get(field, "")
+            if not isinstance(value, str):
+                failures.append(f"assets/data/pages.json route {route} {field} must be a string")
+                continue
+            for match in REF_PATTERN.finditer(value):
+                validate_local_ref(match.group(1), source, failures, f"assets/data/pages.json:{route}:{field}", allow_parent=True)
 
 
 def validate_no_deployment_bound_host(failures: list[str]) -> None:
@@ -281,6 +379,19 @@ def validate_css_tokens(failures: list[str]) -> None:
                 failures.append(f"assets/css/site.css:{line_number} uses non-gate allowlisted !important")
 
 
+def validate_runtime_content_hygiene(failures: list[str]) -> None:
+    text = (SITE / "assets/js/os.js").read_text(encoding="utf-8")
+    forbidden = {
+        "const primaryRoutes = [": "navigation labels belong in site-content.json",
+        "const gallerySlides = [": "gallery text belongs in site-content.json",
+        "light mode": "theme labels belong in site-content.json",
+        "dark mode": "theme labels belong in site-content.json",
+    }
+    for needle, message in forbidden.items():
+        if needle in text:
+            failures.append(f"assets/js/os.js contains public content ({message})")
+
+
 def tracked_site_files() -> list[str]:
     try:
         result = subprocess.run(
@@ -307,7 +418,11 @@ def validate_deployed_artifact_hygiene(failures: list[str]) -> None:
 
 
 def html_files() -> list[Path]:
-    return sorted(SITE.rglob("*.html"))
+    return sorted(
+        path
+        for path in SITE.rglob("*.html")
+        if "assets" not in path.relative_to(SITE).parts
+    )
 
 
 def main() -> int:
@@ -340,11 +455,19 @@ def main() -> int:
                 failures.append(f"{html_file.relative_to(ROOT)} missing file for ref: {match.group(1)}")
 
     validate_os_index(failures)
+    site_content_path = SITE / "assets/data/site-content.json"
+    try:
+        site_content = json.loads(site_content_path.read_text(encoding="utf-8"))
+    except Exception:
+        site_content = {}
+    validate_site_content(failures)
+    validate_pages_content(site_content.get("pages", {}) if isinstance(site_content.get("pages"), dict) else {}, failures)
     validate_public_status(failures)
     validate_slot_index(SITE / "assets/data/blog-index.json", failures)
     validate_slot_index(SITE / "assets/data/notes-index.json", failures)
     validate_manifest(failures)
     validate_css_tokens(failures)
+    validate_runtime_content_hygiene(failures)
     validate_deployed_artifact_hygiene(failures)
     validate_no_deployment_bound_host(failures)
 

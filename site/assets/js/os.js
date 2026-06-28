@@ -35,9 +35,10 @@
     document.documentElement.dataset.theme = nextTheme;
     if (persist) localStorage.setItem("didac-os-theme", nextTheme);
     document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
-      button.textContent = nextTheme === "dark" ? "light mode" : "dark mode";
+      button.textContent = nextTheme === "dark" ? themeToggleLabels.light : themeToggleLabels.dark;
       button.setAttribute("aria-pressed", String(nextTheme === "dark"));
     });
+    if (siteContentCache) siteContentCache.then(syncThemeLogos).catch(() => {});
   }
 
   function siteRoot() {
@@ -48,6 +49,224 @@
   function siteUrl(path = "") {
     const cleanPath = String(path || "").replace(/^\/+/, "");
     return new URL(cleanPath, siteRoot()).href;
+  }
+
+  let siteContentCache = null;
+  let pagesContentCache = null;
+  let legalFragmentCache = null;
+  let gallerySlides = [];
+  let themeToggleLabels = { dark: "", light: "" };
+
+  function loadSiteContent() {
+    if (!siteContentCache) {
+      siteContentCache = fetch(siteUrl("assets/data/site-content.json"), { credentials: "same-origin" })
+        .then((response) => {
+          if (!response.ok) throw new Error(`site content ${response.status}`);
+          return response.json();
+        });
+    }
+    return siteContentCache;
+  }
+
+  function loadPagesContent(data) {
+    if (!pagesContentCache) {
+      pagesContentCache = fetch(siteUrl(data?.pagesData || "assets/data/pages.json"), { credentials: "same-origin" })
+        .then((response) => {
+          if (!response.ok) throw new Error(`page content ${response.status}`);
+          return response.json();
+        });
+    }
+    return pagesContentCache;
+  }
+
+  function currentRoutePath(url = window.location.href) {
+    const route = new URL(url, window.location.href);
+    const rootPath = siteRoot().pathname;
+    let relative = route.pathname.startsWith(rootPath)
+      ? route.pathname.slice(rootPath.length)
+      : route.pathname.replace(/^\/+/, "");
+    relative = relative.replace(/index\.html$/, "");
+    if (relative && !relative.endsWith("/")) relative += "/";
+    return `/${relative}`;
+  }
+
+  function pageContent(data, url = window.location.href) {
+    const pages = data?.pages || {};
+    const path = currentRoutePath(url);
+    return pages[path] || pages[path.replace(/\/$/, "")] || pages["/"] || {};
+  }
+
+  function activeRoutePath(url = window.location.href) {
+    const path = currentRoutePath(url);
+    if (path.startsWith("/projects/")) return "/projects/";
+    if (path.startsWith("/blog/")) return "/blog/";
+    if (path.startsWith("/hire/")) return "/curriculum/";
+    return path;
+  }
+
+  function escapeHtml(value = "") {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function escapeAttr(value = "") {
+    return escapeHtml(value).replace(/'/g, "&#39;");
+  }
+
+  function navLink(route, compact = false) {
+    const active = activeRoutePath() === route.path;
+    const attrs = active ? ' class="is-active" aria-current="page"' : "";
+    const label = compact
+      ? escapeHtml(route.label)
+      : `<span>${escapeHtml(route.number)}</span> ${escapeHtml(route.label)}`;
+    return `<a${attrs} href="${siteUrl(route.href)}">${label}</a>`;
+  }
+
+  function renderSharedNavigation(data) {
+    const routes = data?.nav?.primaryRoutes || [];
+    const identity = data?.identity || {};
+    const externalLinks = data?.nav?.externalLinks || [];
+    const identityLines = (identity.lines || [])
+      .map((line) => `<p>${escapeHtml(line)}</p>`)
+      .join("");
+    const railLinks = externalLinks
+      .map((link) => `<a href="${siteUrl(link.href || "")}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label)}</a>`)
+      .join("");
+    document.querySelectorAll("[data-os-rail]").forEach((rail) => {
+      rail.innerHTML = `<div class="identity-block"><span class="os-mark">${escapeHtml(identity.mark)}</span><h1 id="identity-title">${escapeHtml(identity.title)}</h1>${identityLines}</div><nav class="os-nav" aria-label="Primary navigation">${routes.map((route) => navLink(route)).join("")}</nav><div class="rail-links" aria-label="External links">${railLinks}</div>`;
+    });
+    document.querySelectorAll("[data-doc-tabs]").forEach((tabs) => {
+      tabs.innerHTML = routes.map((route) => navLink(route, true)).join("");
+    });
+  }
+
+  async function renderRouteContent(data, url = window.location.href) {
+    const pages = await loadPagesContent(data);
+    const route = pages?.routes?.[currentRoutePath(url)] || pages?.routes?.["/"];
+    if (!route) throw new Error("Route content missing");
+    document.querySelectorAll("[data-page-content]").forEach((slot) => {
+      slot.innerHTML = route.contentHtml || "";
+    });
+    document.querySelectorAll("[data-os-meta]").forEach((slot) => {
+      slot.innerHTML = route.metaHtml || "";
+    });
+    document.querySelectorAll("[data-os-document]").forEach((section) => {
+      if (route.documentLabel) section.setAttribute("aria-label", route.documentLabel);
+    });
+  }
+
+  function hydrateSystemBanner(data) {
+    const banner = data?.shell || {};
+    const image = banner.bannerImage;
+    document.querySelectorAll("[data-system-banner]").forEach((slot) => {
+      if (!image) return;
+      let img = slot.querySelector("img");
+      if (!img) {
+        img = document.createElement("img");
+        slot.appendChild(img);
+      }
+      img.src = siteUrl(image);
+      img.alt = banner.bannerAlt || "";
+    });
+  }
+
+  function ensureHeadElement(selector, create) {
+    let node = document.head.querySelector(selector);
+    if (!node) {
+      node = create();
+      document.head.appendChild(node);
+    }
+    return node;
+  }
+
+  function ensureMetaByName(name) {
+    return ensureHeadElement(`meta[name="${name}"]`, () => {
+      const meta = document.createElement("meta");
+      meta.setAttribute("name", name);
+      return meta;
+    });
+  }
+
+  function ensureMetaByProperty(property) {
+    return ensureHeadElement(`meta[property="${property}"]`, () => {
+      const meta = document.createElement("meta");
+      meta.setAttribute("property", property);
+      return meta;
+    });
+  }
+
+  function syncPageMetadata(data, url = window.location.href) {
+    const page = pageContent(data, url);
+    const canonicalPath = page.canonicalPath || currentRoutePath(url);
+    const title = page.title || data?.defaultTitle || document.title || "";
+    const description = page.description || data?.site?.description || "";
+    const image = page.image || "assets/img/avatar.jpg";
+
+    document.title = title;
+    ensureMetaByName("description").setAttribute("content", description);
+    ensureMetaByProperty("og:type").setAttribute("content", page.type || "profile");
+    ensureMetaByProperty("og:title").setAttribute("content", title);
+    ensureMetaByProperty("og:description").setAttribute("content", description);
+    ensureMetaByProperty("og:url").dataset.siteUrl = "canonical";
+    ensureMetaByProperty("og:image").dataset.siteImage = image;
+    ensureMetaByName("twitter:card").setAttribute("content", "summary_large_image");
+    ensureMetaByName("twitter:title").setAttribute("content", title);
+    ensureMetaByName("twitter:description").setAttribute("content", description);
+    ensureMetaByName("twitter:image").dataset.siteImage = image;
+
+    const canonical = ensureHeadElement('link[rel="canonical"]', () => {
+      const link = document.createElement("link");
+      link.setAttribute("rel", "canonical");
+      return link;
+    });
+    canonical.dataset.canonicalPath = canonicalPath;
+    syncRuntimeUrls();
+  }
+
+  async function hydrateLegalDisclosure(data) {
+    const slots = document.querySelectorAll("[data-legal-disclosure]");
+    if (!slots.length || !data?.legalFragment) return;
+    if (!legalFragmentCache) {
+      const response = await fetch(siteUrl(data.legalFragment), { credentials: "same-origin" });
+      if (!response.ok) throw new Error(`legal fragment ${response.status}`);
+      legalFragmentCache = await response.text();
+    }
+    slots.forEach((slot) => {
+      slot.outerHTML = legalFragmentCache;
+    });
+  }
+
+  function syncThemeLogos(data) {
+    const theme = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+    const logos = data?.logos || {};
+    document.querySelectorAll("img[data-logo]").forEach((img) => {
+      const logo = logos[img.dataset.logo];
+      if (!logo) return;
+      img.src = siteUrl(logo[theme] || logo.light || logo.dark || "");
+      img.alt = logo.alt || img.alt || "";
+    });
+  }
+
+  async function hydrateSharedContent(url = window.location.href) {
+    const data = await loadSiteContent();
+    gallerySlides = data?.gallerySlides || [];
+    themeToggleLabels = data?.shell?.themeToggleLabels || themeToggleLabels;
+    syncPageMetadata(data, url);
+    renderSharedNavigation(data);
+    hydrateSystemBanner(data);
+    await renderRouteContent(data, url);
+    await hydrateLegalDisclosure(data);
+    syncThemeLogos(data);
+    wireThemeToggles();
+    wireSignalGalleries();
+    wireHoloWindows();
+    secureExternalLinks();
+    await ensureCvScript(new URL(url, window.location.href).pathname);
+    await ensureDashboardScript(new URL(url, window.location.href).pathname);
+    return data;
   }
 
   function syncRuntimeUrls(root = document) {
@@ -75,7 +294,7 @@
         setTheme(current === "dark" ? "light" : "dark");
       });
       const current = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
-      button.textContent = current === "dark" ? "light mode" : "dark mode";
+      button.textContent = current === "dark" ? themeToggleLabels.light : themeToggleLabels.dark;
       button.setAttribute("aria-pressed", String(current === "dark"));
     });
   }
@@ -89,50 +308,8 @@
     });
   }
 
-  const gallerySlides = [
-    {
-      label: "portrait.feed",
-      image: "assets/img/me.png",
-      alt: "Dídac Llorens portrait rendered as a retro monitor feed",
-      title: "Dídac Llorens",
-      copy: "Software Engineering · UOC<br>ML/Data · Backend · Tooling<br>Barcelona · source-first profile<br>Former banking and insurance operations",
-      href: "contact/index.html",
-      caption: "portrait / default signal",
-      project: false,
-    },
-    {
-      label: "projects.shortcut",
-      image: "assets/img/routing-map.png",
-      alt: "Routing map preview for selected projects",
-      title: "Projects",
-      copy: "AgenticCareerBoost · P3CTeX · IronBank<br>Human explanations with source links<br>Start here for the technical map.",
-      href: "projects/index.html",
-      caption: "shortcut / projects",
-      project: true,
-    },
-    {
-      label: "cv.web",
-      image: "assets/img/screenshot001.png",
-      alt: "CV artifact preview",
-      title: "Web CV",
-      copy: "Role views · print · PDF export<br>ML/Data · agentic workflow · backend<br>Current professional curriculum.",
-      href: "curriculum/index.html?view=ml",
-      caption: "shortcut / web CV",
-      project: true,
-    },
-    {
-      label: "blog.queue",
-      image: "assets/img/sprint-paircheck-loop.png",
-      alt: "Blog and review loop preview",
-      title: "Blog queue",
-      copy: "Future article index and LinkedIn mirrors<br>Project logs · technical decisions · tooling notes<br>Kept source-backed, not fake-filled.",
-      href: "blog/index.html",
-      caption: "shortcut / blog",
-      project: true,
-    },
-  ];
-
   function applyGallerySlide(windowNode, index) {
+    if (!gallerySlides.length) return;
     const nextIndex = (index + gallerySlides.length) % gallerySlides.length;
     const slide = gallerySlides[nextIndex];
     windowNode.dataset.galleryIndex = String(nextIndex);
@@ -301,6 +478,7 @@
       wireThemeToggles();
       wireSignalGalleries();
       wireHoloWindows();
+      await hydrateSharedContent(url.href);
       secureExternalLinks();
       await ensureCvScript(url.pathname);
       await ensureDashboardScript(url.pathname);
@@ -340,7 +518,7 @@
   });
 
   setTheme(preferredTheme(), false);
-  syncRuntimeUrls();
+  hydrateSharedContent().catch(() => syncRuntimeUrls());
   wireThemeToggles();
   wireSignalGalleries();
   wireHoloWindows();

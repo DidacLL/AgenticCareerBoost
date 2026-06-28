@@ -22,6 +22,8 @@
       "assets/js/cv.js"
     ],
     "publicStatus": "assets/data/public-status.json",
+    "siteContent": "assets/data/site-content.json",
+    "pagesContent": "assets/data/pages.json",
     "blogIndex": "assets/data/blog-index.json",
     "legacyNotesIndex": "assets/data/notes-index.json",
     "heroImage": "assets/img/418_informal_banner.jpg",
