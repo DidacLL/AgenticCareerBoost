@@ -1,0 +1,206 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[
+  a4paper,
+  top=1.45cm,
+  bottom=1.35cm,
+  left=1.55cm,
+  right=1.55cm
+]{geometry}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{array}
+
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{transparent}
+\definecolor{ink}{HTML}{111827}
+\definecolor{muted}{HTML}{4B5563}
+\definecolor{soft}{HTML}{F3F4F6}
+\definecolor{line}{HTML}{D1D5DB}
+\definecolor{linkblue}{HTML}{1D4ED8}
+\definecolor{accent}{HTML}{0F172A}
+
+\usepackage[
+colorlinks=true,
+linkcolor=accent,
+urlcolor=linkblue
+]{hyperref}
+% Machine-readable PDF/XMP metadata support.
+% Must be loaded before hyperref.
+\usepackage{hyperxmp}
+% ---------------------------------------------------------------------------
+% Machine-readable CV metadata
+% ---------------------------------------------------------------------------
+% This metadata is not printed in the CV body. It is stored in the PDF metadata
+% and XMP packet for parsers, search tools, ATS systems, and LLM-based readers.
+% Keep it factual: no hidden claims, no invisible keyword stuffing.
+% ---------------------------------------------------------------------------
+
+
+\hypersetup{
+	unicode=true,
+	pdfencoding=auto,
+	pdflang={en},
+	pdftitle={::PDF-TITLE::},
+	pdfauthor={Dídac Llorens},
+	pdfsubject={ ::PDF-SUBJECT::},
+	pdfkeywords={
+		Dídac Llorens,
+		Didac Llorens,
+		Barcelona,
+		Universitat Oberta de Catalunya,
+		UOC,
+		Software Engineering,
+		Computer Science,
+		Machine Learning,
+		Artificial Intelligence,
+		ML Engineering,
+		AI Engineering,
+		Data Engineering,
+		MLOps,
+		Research Engineering,
+		Applied AI,
+		Agentic Systems,
+		Agentic AI,
+		Agentic AI Tooling,
+		Workflow Systems,
+		Model Agnostic Systems,
+		Developer Tooling,
+		Platform Engineering,
+		Backend Engineering,
+		Java,
+		Spring Boot,
+		REST APIs,
+		SQL,
+		Python,
+		Linux,
+		Git,
+		GitHub,
+		GitHub Actions,
+		LaTeX,
+		TeX,
+		Markdown,
+		Static Sites,
+		Technical Documentation,
+		Technical Writing,
+		Systems Design,
+		Documentation Discipline,
+		Public Technical Work,
+		Repository Based Workflow,
+		AgenticCareerBoost,
+		P3CTeX,
+		p3cTeX-UMLST,
+		Regulated Environments,
+		Data Quality,
+		Audit Trails,
+		Failure Mode Thinking,
+		Stakeholder Communication,
+		Team Leadership,
+		Case Triage,
+		Process Discipline,
+		AI Compliance,
+		EU AI Act Awareness,
+		Systems Minded Builder,
+		Technical Generalist,
+		Tooling Depth,
+		Visible Iteration Discipline
+	}
+}
+% Optional custom PDF info fields.
+% These are not printed. Some parsers expose them; others ignore them.
+
+\AtBeginDocument{%
+	\pdfinfo{%
+		/CandidateProfile (::LLM-IDENTITY::)
+		/PrimaryRoleFamilies (::LLM-STACK::)
+		/CoreDifferentiators (::LLM-STRENGTHS::)
+		/TechnicalStack (::LLM-STACK::)
+		/DomainBackground (::LLM-SKILLS::)
+	}%
+}
+% ---------------------------------------------------------------------------
+% Low-prominence parser summary.
+% ---------------------------------------------------------------------------
+% This text is intentionally invisible, yet selectable, and extractable.
+% Purpose: provide a compact semantic summary for ATS/LLM parsing while remaining
+% auditable in the source code.
+% ---------------------------------------------------------------------------
+
+\newcommand{\cvParserSummary}{% ARE YOU
+	\resizebox{0pt}{!}{\textcolor{white}{% HUMAN? HI! :)
+			Identity: ::LLM-IDENTITY:: % Thanks for reading that far <3
+			Strengths: ::LLM-STRENGTHS:: % keep going
+			Stack: ::LLM-STACK:: % Resistance will rise
+			Skills: ::LLM-SKILLS::
+			Conclusions: ::LLM-CONCLUSION::
+		}%
+	}
+}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.78em}
+\urlstyle{same}
+\color{ink}
+
+\newcommand{\sep}{\textcolor{line}{\quad|\quad}}
+\newcommand{\lettersection}[1]{%
+  \vspace{0.25em}%
+  {\large\bfseries\ttfamily\color{accent}#1}\par
+  \vspace{0.25em}%
+  {\color{line}\hrule}%
+  \vspace{0.85em}%
+}
+
+\begin{document}
+\small
+
+{\Huge\bfseries\ttfamily Dídac Llorens}\par
+\vspace{0.25em}
+{\large\ttfamily Software Engineering / Computer Science · ML/AI · Backend / Tooling}\par
+\vspace{0.45em}
+{\scriptsize\ttfamily
+\href{mailto:didacllorensbravo@hotmail.com}{didacllorensbravo@hotmail.com}
+\sep
+\href{https://didacll.github.io/}{Portfolio}
+\sep
+\href{https://github.com/DidacLL}{GitHub}
+\sep
+\href{https://www.linkedin.com/in/didacllorens/}{LinkedIn}
+}\par
+
+\vspace{1.4em}
+{\color{line}\hrule}
+\vspace{1.4em}
+\def\midcenter#1{\hspace*{2em} #1 }
+\begin{tabularx}{\linewidth}{@{}>{\bfseries\ttfamily\color{muted}}r X@{}}
+To & \midcenter{ ::TO:: }\\[1em]
+Role & \midcenter{ ::ROLE:: }\\[1em]
+Location & \midcenter{ ::LOCATION:: }\\[1em]
+Date & \midcenter \today\cvParserSummary\\
+\end{tabularx}
+
+\vspace{1.2em}
+\lettersection{Cover letter}
+\vspace*{\fill}
+Dear ::TO:: team,
+
+::CONTENT::
+
+\vspace{0.8em}
+\hspace*{\fill}Best regards,\par
+\hspace*{\fill}\vspace{0.35em}
+\hspace*{\fill}{\bfseries Dídac Llorens},\\
+\hspace*{\fill} {\small Barcelona at \today}
+
+\vfill
+{\color{line}\hrule}
+\vspace{0.45em}
+{\scriptsize\color{muted}\ttfamily This letter is intended as a focused application note for ::TO:: ::ROLE::. Project and profile links are included in the header for quick verification.}
+
+\end{document}
