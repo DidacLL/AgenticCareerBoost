@@ -168,7 +168,7 @@ function renderPreviewList(items, content, layout = "") {
     const media = imageNode(item, content);
     const thumb = node("span", { class: "monitor-thumb" }, media ? [media] : []);
     const body = node("span", {}, [
-      node("strong", {}, [item.route || item.href ? routeLink({ ...item, label: item.title }) : item.title || ""]),
+      node("strong", { text: item.title || "" }),
       item.text || item.summary || item.subtitle ? node("small", { text: item.text || item.summary || item.subtitle }) : null,
       item.tags ? renderTags(item.tags) : null
     ]);
