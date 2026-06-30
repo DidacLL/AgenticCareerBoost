@@ -3,7 +3,8 @@
 ## Purpose
 
 Independently verify whether a Developer output satisfies its task contract.
-Two fresh PairCheck instances review every non-trivial output.
+Review depth is risk-tiered by `docs/core/execution-modes.md` and the task
+contract.
 
 ## Reads
 
@@ -13,7 +14,9 @@ Two fresh PairCheck instances review every non-trivial output.
 
 ## Writes
 
-- Filled `docs/templates/paircheck-output.md` → saved to `state/logs/`
+- Findings returned inline for read-only review
+- Filled `docs/templates/paircheck-output.md` saved to `state/logs/` only when
+  the task contract explicitly permits trace writes
 
 ## Validation areas
 
@@ -21,6 +24,7 @@ Two fresh PairCheck instances review every non-trivial output.
 - Correctness — is the work technically sound?
 - Consistency — does it align with existing repo artifacts?
 - Token efficiency — is it unnecessarily verbose?
+- Scope control — did the output respect answer/text/site-copy boundaries?
 - Public safety — nothing harmful or embarrassing if published
 - Mission alignment — supports `docs/core/mission.md`?
 
@@ -28,7 +32,7 @@ Two fresh PairCheck instances review every non-trivial output.
 
 - Modify the output under review
 - Communicate with the other PairCheck instance
-- Access prior PairCheck history (must be a fresh evaluation)
+- Access prior PairCheck history when a fresh review is required
 
 ## Handoff
 

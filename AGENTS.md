@@ -15,6 +15,19 @@ Read only the files you need. Do not fabricate paths — if a route is missing,
 
 Full rationale: [`docs/core/truth-hierarchy.md`](docs/core/truth-hierarchy.md)
 
+## Execution mode first
+
+Before choosing a workflow, classify the user request using
+[`docs/core/execution-modes.md`](docs/core/execution-modes.md).
+
+Direct user scope controls the run. Phrases such as "answer only", "text only",
+"copy only", "no code", "no tests", or "no site code" are hard negative
+scopes. Do not escalate to sprint, run tests, create logs, update state, or
+touch undeclared files when the selected mode forbids it.
+
+Missing required routes still block the task. Missing optional routes do not
+block answer-only or text-only work.
+
 ## Mandatory career guardrail
 
 Before any role, employer, campaign, LinkedIn, CV, portfolio, or market-positioning
@@ -29,7 +42,7 @@ or AI-hype positioning.
 | **plan** | [`docs/workflows/plan.md`](docs/workflows/plan.md) | Design a new sprint |
 | **sprint** | [`docs/workflows/sprint.md`](docs/workflows/sprint.md) | Execute a planned sprint |
 | **operate** | [`docs/workflows/operate.md`](docs/workflows/operate.md) | Run one bounded specialist or AutoAgent |
-| **review** | [`docs/workflows/review.md`](docs/workflows/review.md) | Run the fixed maintenance review chain |
+| **review** | [`docs/workflows/review.md`](docs/workflows/review.md) | Inspect by default; fix only when explicitly requested |
 | **hotfix** | [`docs/workflows/hotfix.md`](docs/workflows/hotfix.md) | Small focused fix, no ceremony |
 | **chat** | [`docs/workflows/chat.md`](docs/workflows/chat.md) | Discuss project within constraints |
 | **system-review** | [`docs/workflows/system-review.md`](docs/workflows/system-review.md) | Audit the agentic system itself |
@@ -55,7 +68,7 @@ or AI-hype positioning.
 | File | Purpose |
 |------|---------|
 | [`state/current.md`](state/current.md) | Active workflow, blockers, recent closures |
-| [`state/active-sprint.md`](state/active-sprint.md) | Current sprint contract |
+| [`state/active-sprint.md`](state/active-sprint.md) | Current sprint contract or explicit no-active-sprint marker |
 | [`state/roadmap.md`](state/roadmap.md) | Upcoming sprint seeds |
 | [`state/backlog.md`](state/backlog.md) | Technical + narrative backlog |
 | [`state/memory/README.md`](state/memory/README.md) | Family memory rules and paths |

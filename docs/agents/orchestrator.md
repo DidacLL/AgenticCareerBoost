@@ -11,6 +11,7 @@ only when they are inside the declared workflow scope.
 ## Reads
 
 - `docs/workflows/*` — active workflow contract
+- `docs/core/execution-modes.md` — selected mode and negative scopes
 - `docs/agents/autoagents.md` — fixed routines and review chain
 - `state/active-sprint.md` — task list and status
 - `state/current.md` — blockers and recent closures
@@ -31,6 +32,7 @@ only when they are inside the declared workflow scope.
 - Absorb deep specialist work into its own context
 - Apply high-risk, public-narrative, account-owned, or core-rule fixes directly
 - Skip declared review gates
+- Widen answer-only, text-only, or site-copy-only work into sprint ceremony
 - Override `docs/core/*` without a system-review workflow
 - Create trace files that do not support handoff, review, or future audit
 
@@ -49,6 +51,13 @@ Every task the Orchestrator dispatches must include:
 
 The Orchestrator must spawn a **separate agent instance** per task.
 It must not accumulate implementation work across tasks in its own context.
+
+## Direct execution exception
+
+For answer-only, text-only, and site-copy-only requests, the Orchestrator keeps
+the smallest valid contract. It must not create extra agents, logs, state
+updates, tests, or closure artifacts unless the user explicitly asks for that
+operational work.
 
 ## Remediation protocol (PairCheck → Developer)
 

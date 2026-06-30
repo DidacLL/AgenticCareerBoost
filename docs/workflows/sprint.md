@@ -4,9 +4,13 @@
 
 A populated `state/active-sprint.md` exists with `status: planned`.
 
+Direct copy, text, or answer requests do not enter this workflow unless the
+user explicitly asks for sprint planning or sprint execution.
+
 ## Inputs
 
 - `state/active-sprint.md` — task contracts and acceptance criteria
+- `docs/core/execution-modes.md` — validation limits for each task
 - `docs/agents/*` — role definitions for instantiated agents
 - `docs/agents/autoagents.md` — fixed routines when the sprint contract names one
 - `docs/core/constraints.md` — bounded contract fields
@@ -23,12 +27,14 @@ A populated `state/active-sprint.md` exists with `status: planned`.
    - Documentation tasks → **Documentation** agent
    - Narrative tasks → **CommunityManager** agent
    - Fixed maintenance tasks → named **AutoAgent** from the registry
-3. Each agent executes its contract, tests where appropriate, and reports
-   back to the Orchestrator with output, assumptions, gates, and trace path.
+3. Each agent executes its contract, validates according to the selected
+   execution mode, and reports back to the Orchestrator with output,
+   assumptions, gates, and trace path.
 4. Review depth is risk-tiered:
-   - Trivial/mechanical: self-check plus relevant CI gate.
-   - Standard: one fresh PairCheck or equivalent source review.
-   - High-risk/public/core: two fresh PairCheck agents.
+- Trivial/mechanical or copy-only: self-check unless publication, strategy, or
+  core rules change.
+- Standard implementation: one fresh PairCheck or equivalent source review.
+- High-risk/public/core: two fresh PairCheck agents.
 5. PairCheck/source-review resolution:
    - Required reviews pass → output accepted, proceed to integration.
    - Required review returns PARTIAL/FAIL → **Orchestrator creates a new

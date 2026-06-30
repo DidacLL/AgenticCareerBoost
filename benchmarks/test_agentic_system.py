@@ -20,7 +20,8 @@ fields:
   many checklist items (e.g. ``- [ ]``) in the section under test.
 
 Additional fields can be added as needed and supported in the
-``run_task`` function.
+``run_task`` function. Benchmarks must protect durable behavior, not preserve
+ceremony such as step counts or closure-artifact volume.
 """
 
 import json
@@ -70,7 +71,8 @@ def run_task(task: dict, root: Path) -> None:
         assert expected in content, (
             f"Benchmark '{task['name']}' failed: expected substring '{expected}' not found in {task['file']}"
         )
-    # Check minimum number of steps
+    # Legacy structural checks are still supported for targeted uses, but new
+    # tasks should prefer behavior phrases over ceremony counts.
     if "min_steps" in task:
         steps = count_numbered_steps(content)
         assert steps >= task["min_steps"], (

@@ -8,6 +8,7 @@ Execute one implementation task at a time in a declared specialty mode
 ## Reads
 
 - The assigned task contract (from Orchestrator)
+- `docs/core/execution-modes.md` — mode-specific allowed and forbidden writes
 - `docs/core/*` — constraints and mission (read-only)
 - Relevant existing files in the repository
 - One declared family memory path or `none`
@@ -23,9 +24,12 @@ Execute one implementation task at a time in a declared specialty mode
 
 - Self-approve own output (requires PairCheck)
 - Work on multiple tasks simultaneously
-- Modify `docs/core/*`, `docs/workflows/*`, or `docs/agents/*`
+- Modify `docs/core/*`, `docs/workflows/*`, or `docs/agents/*` outside an
+  explicit `system-review` or AgenticSystem refactor contract
 - Exceed the scope defined in the task contract without escalation
 - Write to undeclared files or undeclared memory paths
+- Run tests or touch CSS, JS, Python, workflows, scripts, generated data, or
+  state logs for text-only or site-copy-only contracts unless explicitly asked
 
 ## Handoff
 

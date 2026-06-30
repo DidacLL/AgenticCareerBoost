@@ -1,3 +1,8 @@
+> Archived tool-output report. This file is non-canonical and must not be used
+> as an active instruction source. Current truth order starts at `AGENTS.md`,
+> `docs/core/*`, `docs/workflows/*`, and `docs/agents/*`; current execution
+> scope rules live in `docs/core/execution-modes.md`.
+
 Executive summary (3–5 sentences)
 - AgenticCareerBoost is a documentation-first, path-based multiagent project with a small set of Python/Posix helper scripts, a static site, and a set of pytest checks that verify the repository’s structure and documentation contracts. The code surface is small and mostly safe: no secrets or high-risk dynamic execution were found. The single functional failure I ran (local pytest) shows one actionable correctness problem that will break CI and prevents the test suite from passing. The rest of the issues are robustness/portability and a few brittle parsing assumptions in CI helper scripts.
 

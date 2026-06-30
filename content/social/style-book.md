@@ -1,5 +1,8 @@
 # Public Voice Style Book — AgenticCareerBoost
 
+> Historical reference only. Current public copy rules live in
+> `docs/core/public-copy.md` and override this file when guidance conflicts.
+
 - Date: 2026-04-19
 - Sprint: S-000
 - Agent: CommunityManager (T5)

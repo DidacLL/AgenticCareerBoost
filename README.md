@@ -7,7 +7,7 @@ the formal evidence, and the main public site is the curated mirror.
 
 ## Fast entry points
 
-- Public site — deployment-derived curated public identity and recruiter surface
+- Public site — `https://didacll.github.io/`
 - [Agentic System Guide](content/reports/build/agentic-system-guide.pdf) — formal human-facing manual
 - [S-000 case study](content/reports/build/s000-agentic-os-bootstrap.pdf) — technical bootstrap report and evidence trail
 - [Sprint S-001 report](content/reports/build/s001-profile-audit-positioning.pdf) — profile audit and positioning basis
@@ -132,12 +132,14 @@ flowchart LR
 
 | Field | Value |
 |-------|-------|
-| Current workflow | S-004 documentation alignment |
-| Next sprint seed | Campaign relaunch after human-gated publication tasks |
+| Current workflow | none |
+| Next sprint seed | S-005 LinkedIn campaign kickoff |
 | Human guide | [Agentic System Guide](content/reports/build/agentic-system-guide.pdf) |
 | Latest case study | [Sprint S-001 PDF](content/reports/build/s001-profile-audit-positioning.pdf) |
 | Career guardrail | [career-direction.md](docs/core/career-direction.md) |
-| Site | Deployment-derived public site |
+| Execution modes | [execution-modes.md](docs/core/execution-modes.md) |
+| Public copy | [public-copy.md](docs/core/public-copy.md) |
+| Site | `https://didacll.github.io/` |
 | Downloadable CV | [didac-llorens-cv.pdf](content/reports/build/didac-llorens-cv.pdf) |
 
 ## Mission In One Line
@@ -149,7 +151,7 @@ make that work readable by both humans and models.
 
 - [GitHub profile](https://github.com/DidacLL)
 - [LinkedIn](https://www.linkedin.com/in/didacllorens/)
-- Public site — deployment-derived URL
+- [Public site](https://didacll.github.io/)
 - [Downloadable CV](content/reports/build/didac-llorens-cv.pdf)
 
 ## License

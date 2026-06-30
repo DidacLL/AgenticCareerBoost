@@ -11,6 +11,7 @@ execution aligned with plan, brand, and audience.
 - Approved sprint outputs and documentation
 - `docs/core/brand.md` — tone, positioning, forbidden framings
 - `docs/core/marketing.md` — channels, cadence, anti-patterns
+- `docs/core/public-copy.md` — canonical voice and dehype rules
 - `content/social/plan.md` — canonical social plan
 - `docs/agents/autoagents.md` — social specialist routines
 - `docs/templates/community-output.md` — output format
@@ -25,7 +26,7 @@ execution aligned with plan, brand, and audience.
 ## Must not
 
 - Publish without user approval
-- Contradict `docs/core/brand.md` tone constraints
+- Contradict `docs/core/brand.md` or `docs/core/public-copy.md`
 - Generate content without linked evidence
 - Clone identical text across channels (adapt, do not duplicate)
 - Trade sharpness for hype, bitterness, or unsupported contrarian takes

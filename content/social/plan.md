@@ -8,8 +8,9 @@ Canonical social plan maintained by `SocialMediaPlanner` and reviewed by
 - `docs/core/mission.md`
 - `docs/core/brand.md`
 - `docs/core/marketing.md`
+- `docs/core/public-copy.md`
 - `docs/core/career-direction.md`
-- `content/social/style-book.md`
+- `content/social/style-book.md` as historical reference only
 - `content/social/research/`
 - Approved public artifacts in the repo
 
@@ -62,6 +63,8 @@ the evidence exists and is recruiter-safe.
   and linked evidence.
 - CommunityManager sharpens the final draft and rejects hype, bitterness,
   self-pity, generic AI framing, and unsupported contrarian takes.
+- Current voice follows `docs/core/public-copy.md`; older style-book hooks do
+  not override it.
 - Repo truth comes first; do not plan posts around artifacts that do not exist.
 - Human-only actions stay in `state/human-actions.md`.
 

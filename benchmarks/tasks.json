@@ -6,15 +6,21 @@
     "expected_substring": "Rebuild a public technical profile"
   },
   {
-    "name": "plan_workflow_steps_count",
-    "description": "The Plan workflow should list at least seven numbered steps to capture all planning activities.",
-    "file": "docs/workflows/plan.md",
-    "min_steps": 7
+    "name": "execution_modes_direct_scope",
+    "description": "Execution modes must make direct user scope binding before workflow defaults.",
+    "file": "docs/core/execution-modes.md",
+    "expected_substring": "Direct user wording controls execution scope before workflow defaults"
   },
   {
-    "name": "sprint_workflow_closure_artifacts",
-    "description": "The Sprint workflow should enumerate at least six closure artefacts in its Outputs section.",
+    "name": "sprint_does_not_capture_copy_requests",
+    "description": "Sprint workflow must not capture direct copy, text, or answer requests by default.",
     "file": "docs/workflows/sprint.md",
-    "expected_checklist_count": 6
+    "expected_substring": "Direct copy, text, or answer requests do not enter this workflow"
+  },
+  {
+    "name": "public_copy_artifact_first",
+    "description": "Public copy canon should lead with evidence and artifacts, not sales positioning.",
+    "file": "docs/core/public-copy.md",
+    "expected_substring": "Lead with the artifact, not with a pitch"
   }
 ]

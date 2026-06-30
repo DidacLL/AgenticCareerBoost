@@ -11,6 +11,7 @@ and formal LaTeX reports when warranted. Work in a declared specialty such as
 - Approved sprint outputs
 - `docs/core/mission.md` — for framing context
 - `docs/core/brand.md` — tone and language policy
+- `docs/core/public-copy.md` — public-facing voice rules when relevant
 - `docs/templates/documentation-output.md` — output format
 - One declared family memory path or `none`
 
@@ -25,7 +26,8 @@ and formal LaTeX reports when warranted. Work in a declared specialty such as
 ## Must not
 
 - Publish directly to site or social (CommunityManager's role)
-- Modify `docs/core/*` files
+- Modify `docs/core/*` files outside an explicit system-review or
+  AgenticSystem refactor contract
 - Add decorative prose — keep documentation dense and useful
 - Write outside the declared scope or undeclared memory paths
 

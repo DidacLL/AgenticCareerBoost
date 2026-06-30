@@ -1,17 +1,12 @@
 <!-- markdownlint-disable-file MD041 -->
 ## Checklist
 
-- [ ] Links to sprint task or hotfix issue: #___
-- [ ] PairCheck references (if applicable): ___
-- [ ] Closure artifacts updated (sprint only):
-  - [ ] Repository artifact committed
-  - [ ] Site / repo trace visible
-  - [ ] Public-narrative decision recorded
-  - [ ] Documentation artifact committed or waived
-  - [ ] Technical backlog updated in `state/backlog.md`
-  - [ ] Narrative backlog updated in `state/backlog.md`
-- [ ] `state/current.md` updated
-- [ ] No orphan work (every artifact connects to repo, site, or social)
+- [ ] Execution mode identified from `docs/core/execution-modes.md`
+- [ ] Scope/writes match the user request or sprint contract
+- [ ] Validation matches touched area only
+- [ ] PairCheck or source review included when risk requires it
+- [ ] State/backlog updated only when the selected mode requires it
+- [ ] No orphan work: every artifact connects to repo, site, or social
 
 ## Summary
 
