@@ -11,6 +11,8 @@
 
 set -euo pipefail
 cd "$(dirname "$0")"
+repo_root="$(cd ../../.. && pwd)"
+public_report_dir="$repo_root/site/files/reports"
 
 COMMON_ARGS=(-r latexmkrc -pdf -interaction=nonstopmode -halt-on-error)
 
@@ -54,6 +56,19 @@ build_tex_file() {
     else
         build_with_pdflatex "$tex_file" "$label"
     fi
+    publish_report_pdf "$(basename "${tex_file%.tex}")"
+}
+
+publish_report_pdf() {
+    local base_name="$1"
+    case "$base_name" in
+        smoke|didac-llorens-cv|DidacLL_SoftwareEngineer_CV.site-legacy)
+            return
+            ;;
+    esac
+    mkdir -p "$public_report_dir"
+    cp "build/${base_name}.pdf" "$public_report_dir/${base_name}.pdf"
+    echo "[build-local] Published: site/files/reports/${base_name}.pdf"
 }
 
 case "${1:-all}" in
@@ -84,7 +99,7 @@ case "${1:-all}" in
         for f in "${files[@]}"; do
             build_tex_file "$f" "$f"
         done
-        echo "[build-local] Done. PDFs in build/"
+        echo "[build-local] Done. PDFs in build/ and public report PDFs in site/files/reports/"
         ls -la build/*.pdf 2>/dev/null || echo "No PDFs produced."
         ;;
     *)

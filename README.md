@@ -7,11 +7,17 @@ state evidence, formal reports, CV artifacts, and a static website.
 
 - [Website](https://didacll.github.io/)
 - [CV PDF](site/files/cv/didac-llorens-cv.pdf)
+- [AgenticCareerBoost Project History](site/files/reports/agenticcareerboost-project-history.pdf)
 - [Agentic System Guide](site/files/reports/agentic-system-guide.pdf)
 - [AgenticSystem refactor retrospective](site/files/reports/agentic-system-refactor-retrospective.pdf)
 - [AgenticSystem evidence reconciliation](site/files/reports/agentic-system-evidence-reconciliation.pdf)
 - [S-000 case study](site/files/reports/s000-agentic-os-bootstrap.pdf)
 - [Sprint S-001 report](site/files/reports/s001-profile-audit-positioning.pdf)
+- [Sprint S-001.5R report](site/files/reports/s0015r-system-review.pdf)
+- [Sprint S-002R report](site/files/reports/s002-restart-refresh.pdf)
+- [Sprint S-003 report](site/files/reports/s003-website-os-clarity.pdf)
+- [Sprint S-004 report](site/files/reports/s004-documentation-alignment.pdf)
+- [Sprint S-004.5 report](site/files/reports/s0045-site-quality.pdf)
 
 ## Structure
 

@@ -1,0 +1,160 @@
+\documentclass[a4paper,11pt,openany]{report}
+\usepackage{../preamble/agenticboost}
+
+% Backfilled formal report based on existing S-003 closure evidence.
+% This document is evidence, not sprint authority.
+
+\renewcommand{\sprintId}{S-003}
+
+\title{%
+  \textsc{AgenticCareerBoost}\\[0.4em]
+  \Large Sprint S-003: Website OS Clarity\\[0.3em]
+  \large Public Route Map $\cdot$ Project Pages $\cdot$ Recruiter-Readable Site%
+}
+\author{Didac Llorens \\ \small \href{https://github.com/DidacLL}{github.com/DidacLL}}
+\date{June 2026 evidence --- July 2026 backfill}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\chapter{Executive Summary}
+
+\takeaway{S-003 simplified the public site from a mixed Intro/Work/Notes/Hire
+interface into a clearer route map: Home, Projects, Blog, CV, and Contact, with
+role-specific hire paths retained as utility routes. It translated internal
+agentic-system language into public project explanations.}
+
+This PDF backfills formal documentation from the S-003 closure log at
+\pathref{agents/state/logs/S-003-website-os-clarity/closure.md}. The work
+closed locally with route, browser, mobile, image, and soft-navigation checks.
+
+S-003 mattered because the public site had to stop reading like internal system
+documentation. Project pages needed to explain what each project is, why it was
+built, how it works, what was learned, and where to inspect source evidence.
+
+\chapter{Evidence Sources}
+
+\begin{longtable}{p{0.31\textwidth} p{0.57\textwidth}}
+\caption{S-003 evidence map.}\\
+\toprule
+\textbf{Source} & \textbf{Use in this report} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Source} & \textbf{Use in this report} \\
+\midrule
+\endhead
+\pathref{agents/state/logs/S-003-website-os-clarity/closure.md} & Closure summary, implemented route map, review inputs, gates, and deferred items. \\
+\pathref{site/} & Public runtime source tree for route, metadata, assets, and CV behavior. \\
+\pathref{agents/tools/validate\_static\_site.py} & Current migrated static-site validation surface. \\
+\pathref{agents/tools/validate\_links.sh} & Current migrated link-validation surface. \\
+\bottomrule
+\end{longtable}
+
+\chapter{What Changed}
+
+\section{Route Map}
+
+The public route model was simplified to:
+
+\begin{itemize}
+  \item Home;
+  \item Projects;
+  \item Blog;
+  \item CV;
+  \item Contact;
+  \item utility hire routes for ML, agentic systems, and backend contexts.
+\end{itemize}
+
+This reduced ambiguity. The old mix of Intro, Work, Notes, and Hire labels made
+the site feel like an internal navigation experiment. The new route map gave
+readers obvious public tasks: understand the person, inspect projects, read
+notes, review a CV, and make contact.
+
+\section{Project Detail Pages}
+
+Project pages moved toward human explanations instead of internal template
+proof language. The key copy pattern became:
+
+\begin{enumerate}
+  \item what the project is;
+  \item why it was built;
+  \item how it works;
+  \item what was learned;
+  \item where the source evidence lives.
+\end{enumerate}
+
+\section{Metadata And Data Surfaces}
+
+S-003 added or revised public metadata and machine-readable surfaces:
+\pathref{site/manifest.json}, \pathref{site/robots.txt},
+\pathref{site/sitemap.xml}, blog index data, OS index data, and compatibility
+metadata for notes.
+
+\section{Interaction And Styling}
+
+The monitor visual system was refined with subtler filters, scanlines, and dark
+corner masking. JavaScript was updated for panel aliases, soft-navigation head
+sync, and re-entrant CV initialization.
+
+\chapter{Review Inputs}
+
+\begin{longtable}{p{0.30\textwidth} p{0.58\textwidth}}
+\caption{S-003 review viewpoints.}\\
+\toprule
+\textbf{Input} & \textbf{Contribution} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Input} & \textbf{Contribution} \\
+\midrule
+\endhead
+Architecture/Journey agent & Route labels, compatibility risks, and user journey clarity. \\
+Content Voice agent & Translation from internal jargon to public copy. \\
+Frontend/Metadata scout & Metadata gaps, responsive navigation risk, monitor mask risk, and validator drift. \\
+WebsiteOS audit input & Crawlability, public translation, and machine-readable surface concerns. \\
+\bottomrule
+\end{longtable}
+
+\chapter{Validation Ledger}
+
+\begin{longtable}{p{0.36\textwidth} p{0.14\textwidth} p{0.38\textwidth}}
+\caption{S-003 closure gates.}\\
+\toprule
+\textbf{Gate} & \textbf{Status} & \textbf{Evidence} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Gate} & \textbf{Status} & \textbf{Evidence} \\
+\midrule
+\endhead
+Static site validation & PASS & Closure log records static-site validation passing. \\
+Pytest & PASS & Closure log records eight tests passing, with only local cache warning. \\
+Internal links & PASS & Closure log records link validation across 118 files and 49 references. \\
+Browser routes & PASS & Home, Projects, project details, Blog, CV, Contact, and hire route rendered. \\
+Responsive checks & PASS & 1440px, 1024px, and 390px checks had no overflow defects. \\
+Soft navigation & PASS & Projects and Blog active state/title sync worked. \\
+CV role switching & PASS & CV role switch worked. \\
+Portrait maximize/minimize & PASS & Interaction validated in browser. \\
+\bottomrule
+\end{longtable}
+
+\chapter{Deferred Items}
+
+\begin{itemize}
+  \item Real blog/article migration from LinkedIn or long-form posts.
+  \item Custom social preview artwork beyond current available assets.
+  \item Full CV visual redesign beyond the current web/PDF behavior.
+\end{itemize}
+
+\chapter{Authority Boundary}
+
+S-003 explains a public-site clarity pass. It is not the source of current
+runtime architecture by itself. The live implementation has since been migrated
+and simplified; current behavior is defined by files under \pathref{site/} and
+rules under \pathref{agents/rules/}. This report preserves the historical
+intent and validation trail.
+
+\end{document}

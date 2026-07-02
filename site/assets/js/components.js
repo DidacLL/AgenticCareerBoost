@@ -32,7 +32,7 @@ export function routeLink(item, className = "") {
   const href = item.route ? routeHref(item.route) : resolveSiteUrl(item.href);
   const attrs = { href, class: className };
   if (item.route) attrs.dataRoute = item.route;
-  if (isExternalHref) {
+  if (isExternalHref || item.newTab) {
     attrs.target = "_blank";
     attrs.rel = "noopener noreferrer";
   }

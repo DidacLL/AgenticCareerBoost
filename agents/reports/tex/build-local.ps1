@@ -32,6 +32,13 @@ param(
 
 $ErrorActionPreference = "Stop"
 $texRoot = $PSScriptRoot
+$repoRoot = Resolve-Path (Join-Path $texRoot "..\..\..")
+$publicReportDir = Join-Path $repoRoot "site\files\reports"
+$nonReportPdfs = @(
+    "smoke",
+    "didac-llorens-cv",
+    "DidacLL_SoftwareEngineer_CV.site-legacy"
+)
 
 function Test-LatexmkWorks {
     try {
@@ -113,11 +120,26 @@ function Build-TexFile {
     if ($ok -and (Test-Path $pdf)) {
         $size = [math]::Round((Get-Item $pdf).Length / 1KB)
         Write-Host "[build-local] OK: $pdf ($size KB)" -ForegroundColor Green
+        Publish-ReportPdf -BaseName $baseName -PdfPath $pdf
         return $true
     } else {
         Write-Host "[build-local] FAILED: $Label" -ForegroundColor Red
         return $false
     }
+}
+
+function Publish-ReportPdf {
+    param([string]$BaseName, [string]$PdfPath)
+
+    if ($nonReportPdfs -contains $BaseName) {
+        return
+    }
+    if (-not (Test-Path $publicReportDir)) {
+        New-Item -ItemType Directory -Path $publicReportDir -Force | Out-Null
+    }
+    $destination = Join-Path $publicReportDir "$BaseName.pdf"
+    Copy-Item -LiteralPath $PdfPath -Destination $destination -Force
+    Write-Host "[build-local] Published: $($destination.Replace($repoRoot.Path + '\', ''))" -ForegroundColor DarkGreen
 }
 
 function Build-TexFiles {

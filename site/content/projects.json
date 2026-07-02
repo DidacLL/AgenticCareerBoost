@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-06-28",
+  "updated": "2026-07-02",
   "index": {
     "documentLabel": "Projects document",
     "meta": [
@@ -63,11 +63,11 @@
     {
       "id": "agentic-career-boost",
       "title": "AgenticCareerBoost",
-      "subtitle": "Workflow files, reports, state documents, validation scripts, and public pages.",
+      "subtitle": "A repo-backed record of agentic development: rules, failures, reports, validation, and public proof.",
       "route": "/projects/agentic-career-boost",
       "image": "assets/img/routing-map.png",
-      "summary": "Workflow files, public pages, reports, state files, checks, and review history.",
-      "tags": ["Agentic workflows", "Static site", "State files", "Review gates"],
+      "summary": "Agentic workflow system, public website, formal reports, state evidence, validation tools, and project-history ledger.",
+      "tags": ["Agentic workflows", "Formal reports", "State evidence", "Review gates"],
       "meta": [
         {
           "label": "SYSTEM",
@@ -82,9 +82,9 @@
           "label": "RELATED",
           "links": [
             { "label": "Project dashboard", "route": "/dashboard" },
-            { "label": "Blog", "route": "/blog" },
-            { "label": "CV: agentic systems", "route": "/cv/agentic" },
-            { "label": "Agentic view", "route": "/focus/agentic" }
+            { "label": "Project history PDF", "href": "files/reports/agenticcareerboost-project-history.pdf", "newTab": true },
+            { "label": "Repository", "href": "https://github.com/DidacLL/AgenticCareerBoost" },
+            { "label": "Agentic CV", "route": "/cv/agentic" }
           ]
         }
       ],
@@ -92,14 +92,23 @@
         {
           "type": "panel",
           "label": "01A / PROJECT",
-          "title": "Project",
+          "title": "AgenticCareerBoost",
           "blocks": [
             {
               "type": "prose",
+              "lead": "This is the project behind the site: a public record of agentic engineering work, not just a polished prompt.",
               "paragraphs": [
-                "AgenticCareerBoost is the repository behind this site. It contains role files, workflow instructions, state documents, reports, site source, validation scripts, and pull request history.",
-                "Stable rules live in agents/rules. Current state lives in agents/state as evidence. Public pages and downloadable artifacts live in site.",
-                "The public route is deployment-derived at runtime. The repository keeps the source material behind the site, CV, reports, notes, and workflow."
+                "AgenticCareerBoost keeps the workflow, the site, the CV, formal LaTeX reports, state logs, validation scripts, and review evidence together. The useful part is that the claims can be inspected in source files, PDFs, tests, and public routes.",
+                "The project proves a practical skill: designing model-agnostic agent workflows that can do work, fail visibly, recover through review, and leave enough evidence for a human to understand the result later."
+              ]
+            },
+            {
+              "type": "facts",
+              "items": [
+                { "term": "Rules", "value": "Authoritative behavior lives in agents/rules: execution modes, truth hierarchy, workflows, roles, and public-copy guardrails." },
+                { "term": "Evidence", "value": "agents/state records current status, logs, research, summaries, and human-owned external tasks without becoming future law." },
+                { "term": "Reports", "value": "agents/reports/tex stores formal LaTeX sources; site/files/reports exposes the human-facing PDFs." },
+                { "term": "Public runtime", "value": "site and the root entrypoints serve the website, dashboard, project routes, CV views, and downloadable artifacts." }
               ]
             },
             {
@@ -109,12 +118,60 @@
               "status": "data/status.json"
             },
             {
-              "type": "previewList",
-              "items": [
-                { "title": "Open dashboard", "route": "/dashboard", "image": "assets/img/sprint-paircheck-loop.png", "text": "Full project status view generated from status.json." },
-                { "title": "Current state", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/state/current.md", "image": "assets/img/routing-map.png", "text": "Active workflow, blockers, recent closures, and evidence pointers." },
-                { "title": "System guide", "href": "files/reports/agentic-system-guide.pdf", "image": "assets/img/sprint-paircheck-loop.png", "text": "PDF guide for the file-based workflow." },
-                { "title": "Evidence reconciliation", "href": "files/reports/agentic-system-evidence-reconciliation.pdf", "image": "assets/img/routing-map.png", "text": "Review findings, intentional draft deletion, drift repairs, and validation ledger." }
+              "type": "section",
+              "label": "01A.1 / HISTORY",
+              "title": "Development history",
+              "blocks": [
+                {
+                  "type": "noteList",
+                  "items": [
+                    { "kicker": "01", "title": "Bootstrap Launch", "text": "S-000 created the first path-based agentic operating system, LaTeX report infrastructure, CI, LinkedIn research, and launch options." },
+                    { "kicker": "02", "title": "Initial Growth", "text": "S-001 and S-001.5 turned the system toward positioning, profile cleanup, CV material, recruiter-readiness, and the first public artifacts." },
+                    { "kicker": "03", "title": "Context Poisoning", "text": "The system accumulated stale style, duplicated paths, old drafts, over-broad tests, and state/rule confusion that could steer later agents badly." },
+                    { "kicker": "04", "title": "End of Semester Pause", "text": "The work paused with useful artifacts present but with campaign momentum and public explanation still uneven." },
+                    { "kicker": "05", "title": "Failed Campaign Kickoff", "text": "The attempted restart exposed the poison: profile/social artifacts existed, but the structure and evidence boundaries were not clean enough to launch confidently." },
+                    { "kicker": "06", "title": "Cleanup And Current Version", "text": "The current version separates rules from evidence, keeps discarded drafts out of future context, publishes formal reports, validates routes, and keeps S-005 ready for a cleaner social launch." }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "01A.2 / REPORTS",
+              "title": "Evidence library",
+              "blocks": [
+                {
+                  "type": "previewList",
+                  "layout": "grid",
+                  "items": [
+                    { "title": "Project history map", "href": "files/reports/agenticcareerboost-project-history.pdf", "logo": "pdf", "newTab": true, "text": "Timeline bridge across Bootstrap Launch, Initial Growth, Context Poisoning, pause, failed kickoff, and cleanup." },
+                    { "title": "Agentic system guide", "href": "files/reports/agentic-system-guide.pdf", "logo": "pdf", "newTab": true, "text": "Human-facing manual for how to read the repository, roles, workflows, state, and reports." },
+                    { "title": "S-000 bootstrap case study", "href": "files/reports/s000-agentic-os-bootstrap.pdf", "logo": "pdf", "newTab": true, "text": "Detailed technical record of the original agentic operating system launch." },
+                    { "title": "S-001 positioning report", "href": "files/reports/s001-profile-audit-positioning.pdf", "logo": "pdf", "newTab": true, "text": "Portfolio audit, market research, positioning synthesis, and initial profile direction." },
+                    { "title": "S-001.5R system review", "href": "files/reports/s0015r-system-review.pdf", "logo": "pdf", "newTab": true, "text": "Remediation report for S-001.5 publication governance and missing documentation." },
+                    { "title": "S-002R restart refresh", "href": "files/reports/s002-restart-refresh.pdf", "logo": "pdf", "newTab": true, "text": "Restart review across framework, site foundation, GitHub profile evidence, LinkedIn reactivation, and repo-local closure." },
+                    { "title": "S-003 website clarity", "href": "files/reports/s003-website-os-clarity.pdf", "logo": "pdf", "newTab": true, "text": "Public route-map cleanup, project-page translation, metadata surfaces, browser checks, and deferred site work." },
+                    { "title": "S-004 documentation alignment", "href": "files/reports/s004-documentation-alignment.pdf", "logo": "pdf", "newTab": true, "text": "Career guardrail, relaunch calibration, human-owned account gates, and the correction away from generic market drift." },
+                    { "title": "S-004.5 site quality", "href": "files/reports/s0045-site-quality.pdf", "logo": "pdf", "newTab": true, "text": "Generated status, runtime metadata, dashboard rendering, responsive fixes, legal disclosure, and browser-render validation." },
+                    { "title": "Refactor retrospective", "href": "files/reports/agentic-system-refactor-retrospective.pdf", "logo": "pdf", "newTab": true, "text": "Failure analysis for process overgrowth, context poisoning, evidence retention, and cleanup architecture." },
+                    { "title": "Evidence reconciliation", "href": "files/reports/agentic-system-evidence-reconciliation.pdf", "logo": "pdf", "newTab": true, "text": "Local review findings, intentional draft deletion, route fixes, and validation ledger." }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "01A.3 / CURRENT",
+              "title": "Current version",
+              "blocks": [
+                {
+                  "type": "prose",
+                  "paragraphs": [
+                    "The current version is intentionally smaller and sharper. Direct user scope controls execution mode. Stable rules live in agents/rules. Evidence lives in agents/state. Formal reports live in agents/reports/tex and are published as PDFs under site/files/reports.",
+                    "The website is the curated public mirror, not the authority source. It should explain the project clearly enough for a recruiter or peer to understand the arc, then point to the PDFs and source files for proof.",
+                    "External publication, LinkedIn account changes, outreach, and applications remain human-owned. The repository can prepare evidence and drafts, but it does not pretend that public human actions are already done."
+                  ]
+                }
               ]
             }
           ]

@@ -1,0 +1,145 @@
+\documentclass[a4paper,11pt,openany]{report}
+\usepackage{../preamble/agenticboost}
+
+% Backfilled formal report based on existing S-004.5 site-quality evidence.
+% This document is evidence, not sprint authority.
+
+\renewcommand{\sprintId}{S-004.5}
+
+\title{%
+  \textsc{AgenticCareerBoost}\\[0.4em]
+  \Large Sprint S-004.5: Site Quality And Runtime Validation\\[0.3em]
+  \large Generated Status $\cdot$ Runtime Metadata $\cdot$ Render Gates%
+}
+\author{Didac Llorens \\ \small \href{https://github.com/DidacLL}{github.com/DidacLL}}
+\date{June 2026 evidence --- July 2026 backfill}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\chapter{Executive Summary}
+
+\takeaway{S-004.5 hardened the public site after the documentation alignment
+sprint. It corrected deployment-host leakage, generated dashboard data,
+runtime metadata, responsive layout defects, legal disclosure placement, CV
+state behavior, and browser-render validation.}
+
+This report backfills a formal PDF from the S-004.5 closure family under
+\pathref{agents/state/logs/S-004.5-site-quality/}. It preserves the evidence
+that the site-quality pass was not only visual polish. It changed artifact
+hygiene, runtime metadata, generated status data, validation scripts, dashboard
+behavior, and responsive layout gates.
+
+\chapter{Evidence Sources}
+
+\begin{longtable}{p{0.33\textwidth} p{0.55\textwidth}}
+\caption{S-004.5 evidence map.}\\
+\toprule
+\textbf{Source} & \textbf{Use in this report} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Source} & \textbf{Use in this report} \\
+\midrule
+\endhead
+\pathref{agents/state/logs/S-004.5-site-quality/implementation.md} & Implementation trace and corrected defects. \\
+\pathref{agents/state/logs/S-004.5-site-quality/browser-render-validation.md} & Browser/render validation evidence. \\
+\pathref{agents/state/logs/S-004.5-site-quality/audit-site-architecture.md} & Architecture audit input. \\
+\pathref{agents/state/logs/S-004.5-site-quality/audit-design-system.md} & Design-system audit input. \\
+\pathref{agents/state/logs/S-004.5-site-quality/audit-interaction.md} & Interaction audit input. \\
+\pathref{agents/state/logs/S-004.5-site-quality/audit-dashboard.md} & Dashboard audit input. \\
+\pathref{agents/state/logs/S-004.5-site-quality/closure.md} & Final gates and closure state. \\
+\bottomrule
+\end{longtable}
+
+\chapter{Corrected Defects}
+
+\begin{itemize}
+  \item Removed deployment-host literals from repository source and tightened
+    validation so host values are derived by checks or runtime code.
+  \item Corrected an overbroad placeholder remediation: non-site docs/state use
+    real public URLs, while site metadata/navigation remains runtime-derived.
+  \item Removed a committed static sitemap artifact that could not know the
+    final deployment origin for both root and project-path Pages deployments.
+  \item Converted canonical, Open Graph, Twitter, manifest start URL, and
+    manifest scope behavior to runtime-derived or runtime-relative values.
+  \item Replaced copied dashboard data with generated status export.
+  \item Added dashboard runtime rendering from generated status JSON.
+  \item Reworked the AgenticCareerBoost project page and dashboard route into a
+    status dashboard with workflow, sprint, progress, closure, blocker, source,
+    and evidence sections.
+  \item Adjusted Contact, Projects, dashboard, and CV layouts for desktop and
+    mobile readability.
+  \item Added legal disclosure outside the OS panel/main document.
+  \item Added explicit CV view state classes while preserving pushState
+    filtering.
+\end{itemize}
+
+\chapter{Code Areas}
+
+\begin{longtable}{p{0.31\textwidth} p{0.57\textwidth}}
+\caption{S-004.5 implementation areas.}\\
+\toprule
+\textbf{Area} & \textbf{Change type} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Area} & \textbf{Change type} \\
+\midrule
+\endhead
+Static validator & Required generated public status data, host-literal hygiene, manifest checks, raw pixel restrictions, and deployed artifact hygiene. \\
+Status exporter & Derived public dashboard state from current state, active sprint, and roadmap. \\
+CSS & Centralized tokens and improved dashboard, contact, preview-row, CV grid, and legal-disclosure layouts. \\
+OS JavaScript & Derived site root from script URL, filled runtime metadata, expanded soft navigation, and reloaded dashboard/CV runtime scripts. \\
+CV JavaScript & Used pushState and in-place filtering while marking active controls and visible sections. \\
+Dashboard JavaScript & Fetched generated status JSON and rendered dashboard tiles, progress, artifacts, and blockers. \\
+\bottomrule
+\end{longtable}
+
+\chapter{Validation Ledger}
+
+\begin{longtable}{p{0.38\textwidth} p{0.13\textwidth} p{0.37\textwidth}}
+\caption{S-004.5 final gates.}\\
+\toprule
+\textbf{Gate} & \textbf{Status} & \textbf{Evidence} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Gate} & \textbf{Status} & \textbf{Evidence} \\
+\midrule
+\endhead
+PairCheck-A remediation review & PASS & Closure log. \\
+PairCheck-B remediation review & PASS & Closure log. \\
+Status export & PASS & Closure and implementation logs. \\
+Static validator compile & PASS & Closure log records py-compile. \\
+Static site validation & PASS & Closure log records 17 HTML files and 428 local references. \\
+Pytest & PASS & Closure log records eight tests passing with cache warning only. \\
+Internal links & PASS & Closure log records 126 files and 55 internal references. \\
+Browser/render validation & PASS & Home, Projects, AgenticCareerBoost, Dashboard, Blog, CV, and Contact at desktop/mobile widths. \\
+Dashboard smoke & PASS & Ready state, no active sprint/idle text, legal disclosure outside main. \\
+Post-review layout correction & PASS & Contact, Projects, CV preview rows, CV selected-work cards, no horizontal overflow. \\
+\bottomrule
+\end{longtable}
+
+\chapter{Failure And Limit Ledger}
+
+\begin{itemize}
+  \item Deployment-host literals were too easy to leak into source, so runtime
+    derivation and validation became necessary.
+  \item Static source files cannot always know final deployment origin across
+    root and project-path Pages deployments.
+  \item Copying dashboard data was rejected in favor of generated status export.
+  \item Render validation found layout defects after static checks had passed;
+    browser checks were therefore essential, not decorative.
+\end{itemize}
+
+\chapter{Authority Boundary}
+
+S-004.5 is evidence of site-quality hardening. It does not define current rules
+or sprint scope. Current source has since been migrated under the simplified
+\pathref{agents/} and \pathref{site/} structure; the report preserves why the
+runtime metadata, generated status, and browser-render gates matter.
+
+\end{document}

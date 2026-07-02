@@ -22,6 +22,9 @@
 - AgenticSystem structure simplification ledger: `agents/state/logs/agentic-system-structure-simplification-run.md`.
 - AgenticSystem alignment/evidence-safety ledger: `agents/state/logs/agentic-system-alignment-evidence-safety-run.md`.
 - AgenticSystem evidence reconciliation ledger: `agents/state/logs/agentic-system-evidence-reconciliation-run.md`.
+- AgenticCareerBoost project history narrative ledger: `agents/state/logs/agenticcareerboost-project-history-run.md`.
+- AgenticCareerBoost report publication correction: `agents/state/logs/agenticcareerboost-project-history-build-contract-correction.md`.
+- AgenticCareerBoost intermediate PDF backfill ledger: `agents/state/logs/agenticcareerboost-intermediate-pdf-backfill-run.md`.
 - Human task queue: `agents/state/human-actions.md`.
 - Relaunch calibration: `agents/state/research/market/s004-relaunch-calibration.md`.
 - S-004 closure: `agents/state/logs/S-004-docs-alignment/closure.md`.
@@ -57,6 +60,8 @@
 
 | Date | Type | Summary |
 |------|------|---------|
+| 2026-07-02 | AgenticCareerBoost intermediate PDF backfill run | Formal backfill reports added for S-002R, S-003, S-004, and S-004.5 without consuming S-005 or restoring discarded draft bodies |
+| 2026-07-02 | AgenticCareerBoost project history narrative run | Project page expanded into a public evidence narrative, report library exposed, formal project-history map added, and LaTeX build scripts made responsible for public report PDF publication without consuming S-005 |
 | 2026-07-02 | AgenticSystem evidence reconciliation run | Local review findings repaired, intentional draft deletion documented, formal reconciliation report added, and validation recorded without consuming S-005 |
 | 2026-07-02 | AgenticSystem alignment/evidence-safety run | Ignored state evidence repaired, root ignore rules simplified, active-sprint authority leak removed, and tests strengthened without consuming S-005 |
 | 2026-07-02 | AgenticSystem structure simplification run | Internal rules/state/tools/tests/report sources moved under `agents/`; public runtime/artifacts kept under `site/`; root reduced to platform and SEO entrypoints without consuming S-005 |

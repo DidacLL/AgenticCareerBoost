@@ -241,8 +241,16 @@ def test_ci_rules_match_current_docs_lint_shape():
 
 def test_report_build_docs_use_agents_report_root():
     makefile = (AGENTS / "reports" / "tex" / "Makefile").read_text(encoding="utf-8")
+    ps_build = (AGENTS / "reports" / "tex" / "build-local.ps1").read_text(encoding="utf-8")
+    sh_build = (AGENTS / "reports" / "tex" / "build-local.sh").read_text(encoding="utf-8")
+    report_readme = (SITE / "files" / "reports" / "README.md").read_text(encoding="utf-8")
     assert "content/reports/tex" not in makefile
     assert "agents/reports/tex" in makefile
+    assert "site\\files\\reports" in ps_build
+    assert "Copy-Item" in ps_build
+    assert "site/files/reports" in sh_build
+    assert "cp " in sh_build
+    assert "Do not manually copy PDFs" in report_readme
 
 
 def test_root_shell_supports_direct_clean_routes():
@@ -260,3 +268,43 @@ def test_root_shell_supports_direct_clean_routes():
     assert "window.history.pushState" in router
     assert "popstate" in router
     assert "resolveSiteUrl(item.href)" in components
+    assert "item.newTab" in components
+
+
+def test_agentic_project_page_exposes_report_library():
+    projects = json.loads((SITE / "content" / "projects.json").read_text(encoding="utf-8"))
+    acb = next(item for item in projects["items"] if item["id"] == "agentic-career-boost")
+    rendered_text = json.dumps(acb, ensure_ascii=False)
+    for label in [
+        "Bootstrap Launch",
+        "Initial Growth",
+        "Context Poisoning",
+        "End of Semester Pause",
+        "Failed Campaign Kickoff",
+        "Cleanup And Current Version",
+    ]:
+        assert label in rendered_text
+    assert "Documentation gaps" not in rendered_text
+
+    expected_reports = {
+        path.name
+        for path in (SITE / "files" / "reports").glob("*.pdf")
+    } | {"agenticcareerboost-project-history.pdf"}
+    exposed_reports: set[str] = set()
+    report_items: list[dict] = []
+
+    def walk(node):
+        if isinstance(node, dict):
+            if isinstance(node.get("href"), str) and node["href"].endswith(".pdf"):
+                report_items.append(node)
+                exposed_reports.add(Path(node["href"]).name)
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
+    walk(acb)
+    assert expected_reports <= exposed_reports
+    assert report_items
+    assert all(item.get("newTab") is True for item in report_items)
