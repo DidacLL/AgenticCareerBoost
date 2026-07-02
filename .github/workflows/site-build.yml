@@ -6,11 +6,6 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/site-build.yml"
-      - "index.html"
-      - "404.html"
-      - ".nojekyll"
-      - "robots.txt"
-      - "sitemap.xml"
       - "site/**"
       - "agents/state/**"
       - "agents/tools/export_status.py"
@@ -27,7 +22,7 @@ concurrency:
 
 jobs:
   build:
-    name: Validate and upload root Pages artifact
+    name: Validate and upload site Pages artifact
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -41,10 +36,13 @@ jobs:
       - name: Validate static site
         run: python agents/tools/validate_static_site.py
 
+      - name: Ensure Pages marker
+        run: touch site/.nojekyll
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: site
 
   deploy:
     name: Deploy Pages
