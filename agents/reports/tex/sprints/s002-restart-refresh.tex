@@ -1,0 +1,166 @@
+\documentclass[a4paper,11pt,openany]{report}
+\usepackage{../preamble/agenticboost}
+
+% Backfilled formal report based on existing S-002R logs and closure evidence.
+% This document is evidence, not sprint authority.
+
+\renewcommand{\sprintId}{S-002R}
+
+\title{%
+  \textsc{AgenticCareerBoost}\\[0.4em]
+  \Large Sprint S-002R: Restart Refresh And Relaunch Review\\[0.3em]
+  \large Framework Review $\cdot$ Site Foundation $\cdot$ LinkedIn Reactivation%
+}
+\author{Didac Llorens \\ \small \href{https://github.com/DidacLL}{github.com/DidacLL}}
+\date{June 2026 evidence --- July 2026 backfill}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\chapter{Executive Summary}
+
+\takeaway{S-002R was the restart sprint after the first public-profile push.
+It did not claim that external accounts were finished. It closed the repository
+side: framework simplification, static site rebuild, GitHub-profile package,
+LinkedIn reactivation review, CI gates, browser validation, and a clear split
+between repo-local completion and human-owned publication.}
+
+This report is a backfilled formal PDF. It summarizes evidence already present
+in \pathref{agents/state/logs/S-002-refresh/}. It does not reopen the sprint,
+restore discarded drafts, or alter future campaign authority.
+
+The sprint decision was explicit: S-001.5R remained historically useful, but the
+restart needed a new review across the agentic framework, public website, and
+social reactivation. The selected shape was S-002R: repo-local work could close
+while LinkedIn, GitHub account metadata, branch protection, and publication
+actions stayed human-owned.
+
+\chapter{Evidence Sources}
+
+\begin{longtable}{p{0.30\textwidth} p{0.58\textwidth}}
+\caption{S-002R evidence map.}\\
+\toprule
+\textbf{Source} & \textbf{Use in this report} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Source} & \textbf{Use in this report} \\
+\midrule
+\endhead
+\pathref{agents/state/logs/S-002-refresh/orchestrator-decision-ledger.md} & Sprint shape, implementation priority, site organization, and LinkedIn restart decisions. \\
+\pathref{agents/state/logs/S-002-refresh/agentic-framework-review.md} & Framework cost diagnosis and simplification direction. \\
+\pathref{agents/state/logs/S-002-refresh/site-rebuild-review.md} & Site rebuild requirements and topic-led plus repo-backed architecture. \\
+\pathref{agents/state/logs/S-002-refresh/linkedin-reactivation-review.md} & Low-heat LinkedIn reactivation strategy and social safety gates. \\
+\pathref{agents/state/logs/S-002-refresh/closure-audit.md} & Final repo-local closure decision and remaining human-owned actions. \\
+\pathref{agents/state/logs/S-002-refresh/browser-print-validation.md} & Browser and print validation evidence. \\
+\pathref{agents/state/logs/S-002-refresh/ci-gates.md} & CI and validation gate evidence. \\
+\bottomrule
+\end{longtable}
+
+\chapter{Decisions}
+
+\section{Sprint Shape}
+
+The Orchestrator compared two options: continue S-001.5R until all external
+blockers closed, or open a restart review with explicit external blockers. The
+selected option was S-002R because the user request had shifted from correcting
+one sprint to restarting the system across framework, site, and social
+surfaces.
+
+\section{Implementation Priority}
+
+The sprint planned three fronts:
+
+\begin{itemize}
+  \item profile consistency and social reactivation drafts;
+  \item public site foundation;
+  \item stable workflow refactor proposal through system-review rather than
+    casual rule edits.
+\end{itemize}
+
+The practical sequence was to execute profile consistency and site foundation
+first. Framework refactor work remained gated because stable rules cannot be
+moved casually.
+
+\section{Site Organization}
+
+The chosen website model was topic-led landing plus repo-backed project pages.
+That model lets recruiters scan by fit while preserving inspectable proof in
+repositories, reports, screenshots, and status artifacts.
+
+\section{LinkedIn Restart}
+
+The LinkedIn viewpoint rejected an abrupt full campaign launch from a cold or
+inactive account. It selected three low-heat reactivation posts before the main
+profile-audit campaign, with profile consistency and human approval as gates.
+
+\chapter{Work Completed}
+
+\begin{longtable}{p{0.22\textwidth} p{0.32\textwidth} p{0.34\textwidth}}
+\caption{S-002R work areas.}\\
+\toprule
+\textbf{Area} & \textbf{Outcome} & \textbf{Boundary} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Area} & \textbf{Outcome} & \textbf{Boundary} \\
+\midrule
+\endhead
+Framework & Simplification proposal and review evidence identified agent fan-out, distributed trace, and closure friction. & Stable rule changes required system-review approval. \\
+Website & Static site foundation and route validation closed repo-locally after remediation. & Live public state still depended on deployed site settings and later quality passes. \\
+GitHub profile & README/account metadata package prepared. & Account changes remained human-owned. \\
+LinkedIn & Reactivation review, sequence, and source anchors prepared. & LinkedIn content could not be externally verified past the authwall. \\
+CI/browser & Static checks, tests, links, browser, mobile, and print checks recorded. & Local validation did not equal external account publication. \\
+\bottomrule
+\end{longtable}
+
+\chapter{Failure And Limit Ledger}
+
+\begin{itemize}
+  \item The pre-S-002 site was credible as a temporary recruiter page but did
+    not yet satisfy the richer project-page, dashboard, and configurable-CV
+    requirements.
+  \item LinkedIn profile content could not be verified externally because of
+    the authwall.
+  \item GitHub public API evidence suggested profile metadata was not fully
+    aligned with the site.
+  \item ML/Data evidence was still directional and could not support a dominant
+    ML-engineer claim.
+  \item Closing the sprint as fully public would have overclaimed. The accepted
+    closure state was repo-local closed with external human actions pending.
+\end{itemize}
+
+\chapter{Validation Ledger}
+
+\begin{longtable}{p{0.37\textwidth} p{0.14\textwidth} p{0.37\textwidth}}
+\caption{S-002R validation evidence.}\\
+\toprule
+\textbf{Gate} & \textbf{Status} & \textbf{Evidence} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Gate} & \textbf{Status} & \textbf{Evidence} \\
+\midrule
+\endhead
+Static site and route checks & PASS & Closure audit and remediation logs record the static site gates. \\
+Browser and print validation & PASS & Browser validation covered desktop, mobile, print CV, and route behavior. \\
+CI gates & PASS & CI-gates log and closure audit record the repo-local gates. \\
+LinkedIn publication & HUMAN-GATED & Draft/review package complete; account verification and posting remain external. \\
+GitHub account metadata & HUMAN-GATED & README package prepared; account settings remain external. \\
+\bottomrule
+\end{longtable}
+
+\chapter{Authority Boundary}
+
+\takeaway{S-002R is evidence of a repo-local restart and closure decision. It is
+not a rule source and it does not publish external account changes by itself.}
+
+Current behavior is defined by \pathref{agents/rules/}. This report and the
+underlying \pathref{agents/state/logs/S-002-refresh/} files are historical
+evidence. They can explain why the current architecture exists, but they do not
+override execution modes, career guardrails, public-copy rules, or future sprint
+contracts.
+
+\end{document}

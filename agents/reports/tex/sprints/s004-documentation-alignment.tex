@@ -1,0 +1,143 @@
+\documentclass[a4paper,11pt,openany]{report}
+\usepackage{../preamble/agenticboost}
+
+% Backfilled formal report based on existing S-004 closure evidence.
+% This document is evidence, not sprint authority.
+
+\renewcommand{\sprintId}{S-004}
+
+\title{%
+  \textsc{AgenticCareerBoost}\\[0.4em]
+  \Large Sprint S-004: Documentation Alignment\\[0.3em]
+  \large Career Guardrail $\cdot$ Human Gates $\cdot$ Relaunch Calibration%
+}
+\author{Didac Llorens \\ \small \href{https://github.com/DidacLL}{github.com/DidacLL}}
+\date{June 2026 evidence --- July 2026 backfill}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\chapter{Executive Summary}
+
+\takeaway{S-004 corrected a strategic drift. The user rejected generic
+backend/data-quality positioning, and the repository was aligned around a more
+specific direction: agentic systems, research/applied AI, engineering-heavy
+ML/data systems, and backend/platform only as a product-company fallback.}
+
+This report backfills formal documentation for the S-004 documentation alignment
+closure at \pathref{agents/state/logs/S-004-docs-alignment/closure.md}. The
+closure log was written before the later structure simplification, so it
+contains historical root-level rule/state path names. In the current repository
+those concepts live under
+\pathref{agents/rules/core/career-direction.md} and
+\pathref{agents/state/current.md}.
+
+The important result did not change: public/career work must not drift into
+generic backend, BI/reporting, data-quality operations, consulting funnels, or
+AI-hype positioning.
+
+\chapter{Trigger}
+
+The trigger was a user correction. Previous research and recommendations had
+started drifting toward backend, data engineering, and data quality. That was
+not the intended public lane. The repository already contained a stronger
+strategy: evidence-led agentic systems, formal technical documentation,
+creative engineering artifacts, and regulated-domain maturity.
+
+\chapter{Executed Work}
+
+\begin{longtable}{p{0.25\textwidth} p{0.32\textwidth} p{0.31\textwidth}}
+\caption{S-004 documentation alignment actions.}\\
+\toprule
+\textbf{Action} & \textbf{Historical closure wording} & \textbf{Current migrated meaning} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Action} & \textbf{Historical closure wording} & \textbf{Current migrated meaning} \\
+\midrule
+\endhead
+Career guardrail & legacy root-level career-direction file & \pathref{agents/rules/core/career-direction.md} blocks generic role drift. \\
+Agent entrypoint & \fname{AGENTS.md} & Every role, company, CV, portfolio, and campaign task routes through the guardrail. \\
+README update & \fname{README.md} & Repository entrypoint explains the current proof-led direction. \\
+Social plan correction & \fname{content/social/plan.md} & Relaunch sequence aligns with agentic proof and human-gated publication. \\
+Human-only queue & \fname{state/human-actions.md} & \pathref{agents/state/human-actions.md} separates account and publication actions. \\
+Relaunch calibration & \fname{state/research/s004-relaunch-calibration.md} & Current research memory preserves role filters and avoidance rules. \\
+Backlog update & \fname{state/backlog.md} & \pathref{agents/state/backlog.md} records narrative and technical follow-ups. \\
+State update & \fname{state/active-sprint.md}, \fname{state/current.md} & Current state records closure while sprint authority stays separate. \\
+\bottomrule
+\end{longtable}
+
+\chapter{Review Results}
+
+\section{Strategy Guardrail}
+
+Review pass A returned PASS. It confirmed:
+
+\begin{itemize}
+  \item generic backend drift is blocked;
+  \item data-quality and BI/reporting drift are explicitly rejected;
+  \item agentic systems remain the visible differentiator;
+  \item research/applied AI and engineering-heavy ML/data systems remain valid
+    targeted lanes;
+  \item backend/platform remains a product-company fallback, not the primary
+    identity.
+\end{itemize}
+
+\section{Scope And Human Gates}
+
+Review pass B returned PASS. It confirmed that no website files were modified,
+website implementation stayed assigned elsewhere, publication remained
+human-gated, account-owned LinkedIn/GitHub changes stayed human-gated, and no
+destructive repository actions were executed.
+
+\section{Documentation Hygiene}
+
+Review pass C returned PASS. It confirmed the README, agent entrypoint, human
+task queue, backlog, and table hygiene were aligned enough to close the sprint.
+
+\chapter{Closure Matrix}
+
+\begin{longtable}{p{0.29\textwidth} p{0.16\textwidth} p{0.43\textwidth}}
+\caption{S-004 closure state.}\\
+\toprule
+\textbf{Dimension} & \textbf{State} & \textbf{Evidence} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Dimension} & \textbf{State} & \textbf{Evidence} \\
+\midrule
+\endhead
+Repository artifacts & done & Guardrail, AGENTS entrypoint, README, social plan, human actions, research calibration, backlog, and state. \\
+Website scope & excluded & The closure explicitly excluded site edits. \\
+Public-narrative decision & done & Relaunch correction recorded and generic drift blocked. \\
+Formal engineering documentation & backfilled & This report fills the formal PDF gap later. \\
+Technical backlog & done & Follow-ups recorded. \\
+Narrative backlog & done & Follow-ups recorded. \\
+\bottomrule
+\end{longtable}
+
+\chapter{Human-Required Tasks}
+
+The closure centralized human-owned tasks:
+
+\begin{enumerate}
+  \item confirm LinkedIn headline, About, and Featured alignment;
+  \item confirm GitHub account metadata and pinned repositories;
+  \item remove or neutralize legacy public surfaces;
+  \item approve the first LinkedIn posts;
+  \item select the first company outreach batch using the career guardrail.
+\end{enumerate}
+
+\chapter{Authority Boundary}
+
+\takeaway{S-004 is the reason the current campaign guardrail exists. It is not a
+free-standing instruction source; the current rule file is the authority.}
+
+The behavior rule now lives in
+\pathref{agents/rules/core/career-direction.md}. This report documents why that
+rule exists and how the correction happened. If report text and rules ever
+conflict, \pathref{agents/rules/} wins.
+
+\end{document}

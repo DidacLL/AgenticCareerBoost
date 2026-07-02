@@ -49,19 +49,19 @@
       "evidenceLinks": [
         {
           "label": "Public status JSON",
-          "href": "assets/data/public-status.json"
+          "href": "data/status.json"
         },
         {
           "label": "Current state",
-          "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/state/current.md"
+          "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/state/current.md"
         },
         {
           "label": "Active sprint",
-          "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/state/active-sprint.md"
+          "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/state/active-sprint.md"
         },
         {
           "label": "Roadmap",
-          "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/state/roadmap.md"
+          "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/state/roadmap.md"
         }
       ]
     },

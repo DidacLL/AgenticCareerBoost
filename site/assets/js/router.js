@@ -1,12 +1,12 @@
-import { hashHref, normalizeRoute } from "./data-store.js";
+import { normalizeRoute } from "./data-store.js";
 
 export function routeFromLocation(location = window.location) {
   if (location.hash && location.hash.length > 1) return normalizeRoute(location.hash.slice(1));
-  return "/";
+  return normalizeRoute(location.pathname || "/");
 }
 
 export function routeHref(route) {
-  return hashHref(route);
+  return normalizeRoute(route);
 }
 
 export function routeMatches(route, target) {
@@ -16,6 +16,7 @@ export function routeMatches(route, target) {
 }
 
 export function bindRouter(callback) {
+  window.addEventListener("popstate", () => callback(routeFromLocation()));
   window.addEventListener("hashchange", () => callback(routeFromLocation()));
   document.addEventListener("click", (event) => {
     const link = event.target.closest("a[data-route], button[data-route]");
@@ -26,6 +27,7 @@ export function bindRouter(callback) {
       callback(route);
       return;
     }
-    window.location.hash = route;
+    window.history.pushState({}, "", route);
+    callback(route);
   });
 }

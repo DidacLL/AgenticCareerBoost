@@ -1,0 +1,152 @@
+\documentclass[a4paper,11pt,openany]{report}
+\usepackage{../preamble/agenticboost}
+
+% Human-facing project-history bridge.
+% This guide aligns the public AgenticCareerBoost page with the deeper sprint,
+% review, and reconciliation reports. It is evidence, not an instruction source.
+
+\renewcommand{\sprintId}{AgenticCareerBoost Project History}
+\newcommand{\safePath}[1]{\texttt{\detokenize{#1}}}
+\newcommand{\stage}[1]{\textbf{#1}}
+
+\title{%
+  \textsc{AgenticCareerBoost}\\[0.4em]
+  \Large Project History And Evidence Map\\[0.3em]
+  \large Bootstrap Launch $\cdot$ Initial Growth $\cdot$ Context Poisoning $\cdot$ Cleanup%
+}
+\author{Didac Llorens \\ \small \href{https://github.com/DidacLL}{github.com/DidacLL}}
+\date{July 2026 --- v0.1}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\chapter{Purpose}
+
+\takeaway{This report is the bridge between the public project page and the
+deeper evidence body. It tells the development history without hiding the
+failure modes that made the current architecture necessary.}
+
+AgenticCareerBoost is not only a static portfolio page. It is a repository-backed
+record of agentic development: rules, state, logs, reports, site routes, PDFs,
+validation scripts, and human-owned external tasks.
+
+The website should make the project legible quickly. The LaTeX report set should
+carry the heavier proof: what was built, what failed, how the system recovered,
+and which evidence supports each claim. This document maps those two surfaces
+together so future social posts can reuse the same narrative without inventing a
+new story.
+
+\chapter{Public Timeline}
+
+\takeaway{The current public narrative has six stages. Each stage should point
+to evidence rather than asking the reader to trust a summary.}
+
+\begin{longtable}{p{0.08\textwidth} p{0.24\textwidth} p{0.33\textwidth} p{0.23\textwidth}}
+\caption{AgenticCareerBoost development history.}\\
+\toprule
+\textbf{\#} & \textbf{Stage} & \textbf{Meaning} & \textbf{Primary evidence} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{\#} & \textbf{Stage} & \textbf{Meaning} & \textbf{Primary evidence} \\
+\midrule
+\endhead
+1 & \stage{Bootstrap Launch} & First path-based agentic operating system: rules, roles, workflows, LaTeX infrastructure, CI, state, and launch options. & \safePath{s000-agentic-os-bootstrap.pdf} \\
+2 & \stage{Initial Growth} & Positioning, profile audit, recruiter-readiness, CV artifacts, public cleanup, and early campaign material. & \safePath{s001-profile-audit-positioning.pdf}; \safePath{s0015r-system-review.pdf}; \safePath{s002-restart-refresh.pdf} \\
+3 & \stage{Context Poisoning} & Stale drafts, duplicated paths, over-broad workflow ceremony, unclear state authority, and old style/copy material started steering later runs. & \safePath{agentic-system-refactor-retrospective.pdf} \\
+4 & \stage{End of Semester Pause} & Useful artifacts existed, but the public narrative, social readiness, and evidence boundaries were not yet clean enough for a confident launch. & \safePath{s003-website-os-clarity.pdf}; \safePath{s004-documentation-alignment.pdf} \\
+5 & \stage{Failed Campaign Kickoff} & Restart attempts exposed system poison: social/profile artifacts existed, but structure and authority drift made launch unsafe. & \safePath{s002-restart-refresh.pdf}; \safePath{s0045-site-quality.pdf}; refactor retrospective \\
+6 & \stage{Cleanup And Current Version} & Rules/evidence separation, discarded draft policy, root/site simplification, report publication, direct-route validation, and current evidence reconciliation. & Refactor retrospective; evidence reconciliation; this map \\
+\bottomrule
+\end{longtable}
+
+\chapter{Report Library}
+
+\takeaway{The published report set is the formal proof surface. The site exposes
+these PDFs; this report explains how they fit together.}
+
+\begin{longtable}{p{0.30\textwidth} p{0.58\textwidth}}
+\caption{Published report roles.}\\
+\toprule
+\textbf{Report} & \textbf{Role in the evidence story} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Report} & \textbf{Role in the evidence story} \\
+\midrule
+\endhead
+\safePath{agenticcareerboost-project-history.pdf} & Public narrative bridge across all six timeline stages. \\
+\safePath{agentic-system-guide.pdf} & Human-facing orientation manual for how to read the repository and its operating model. \\
+\safePath{s000-agentic-os-bootstrap.pdf} & Deep technical case study for the original bootstrap architecture. \\
+\safePath{s001-profile-audit-positioning.pdf} & Initial growth report: profile audit, market research, positioning, and first public-profile direction. \\
+\safePath{s0015r-system-review.pdf} & Corrective system review for S-001.5 governance and missing documentation. \\
+\safePath{s002-restart-refresh.pdf} & Restart refresh report: framework review, site foundation, LinkedIn reactivation, GitHub profile package, and repo-local closure. \\
+\safePath{s003-website-os-clarity.pdf} & Website clarity report: public route map, project page translation, metadata/data surfaces, and browser validation. \\
+\safePath{s004-documentation-alignment.pdf} & Documentation alignment report: career guardrail, relaunch calibration, human-owned gates, and strategy correction. \\
+\safePath{s0045-site-quality.pdf} & Site-quality report: generated status, runtime metadata, dashboard rendering, responsive fixes, and browser/render gates. \\
+\safePath{agentic-system-refactor-retrospective.pdf} & Failure analysis: context poisoning, over-ceremony, state authority drift, and cleanup principles. \\
+\safePath{agentic-system-evidence-reconciliation.pdf} & Local review reconciliation: drift fixes, intentional discarded draft deletion, route validation, and proof alignment. \\
+\bottomrule
+\end{longtable}
+
+\chapter{Documentation Gap Audit}
+
+\takeaway{The intermediate log-backed stages have now been backfilled with
+formal PDFs. The backfills document existing evidence; they do not reopen old
+sprints, restore discarded drafts, or create new authority.}
+
+\begin{longtable}{p{0.25\textwidth} p{0.27\textwidth} p{0.36\textwidth}}
+\caption{Documentation coverage by stage.}\\
+\toprule
+\textbf{Stage} & \textbf{Coverage} & \textbf{Decision} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Stage} & \textbf{Coverage} & \textbf{Decision} \\
+\midrule
+\endhead
+Bootstrap Launch & Full formal PDF plus logs. & Covered by \safePath{s000-agentic-os-bootstrap.pdf}. \\
+Initial Growth & S-001 formal PDF, S-001.5R corrective PDF, and S-002R restart report. & Covered; S-001.5 remains documented through review/remediation. \\
+Context Poisoning & Formal refactor retrospective plus evidence reconciliation. & Covered; use this term consistently and keep discarded draft bodies deleted. \\
+End of Semester Pause & S-003 website clarity and S-004 documentation alignment reports plus state logs. & Covered by backfilled PDFs and logs. \\
+Failed Campaign Kickoff & S-002R restart report, S-004.5 site quality report, social/profile reviews, and refactor retrospective. & Covered without restoring discarded candidate outputs. \\
+Cleanup And Current Version & Refactor, structure simplification, alignment/evidence-safety, reconciliation logs, and published PDFs. & Covered; keep future reports indexed when added. \\
+\bottomrule
+\end{longtable}
+
+The important distinction is authority. The new PDFs for S-002R, S-003, S-004,
+and S-004.5 are backfilled evidence reports. They summarize logs, closure notes,
+browser validation, implementation records, and human-gate decisions that
+already existed. They do not rewrite the original closures and they do not make
+discarded social/profile draft bodies active context again.
+
+\chapter{Current Public Story}
+
+\takeaway{The site should explain the project as a traceable engineering
+artifact. Social posts should distribute that evidence, not replace it.}
+
+The current story is simple enough to reuse across the website and later social
+posts:
+
+\begin{quote}
+AgenticCareerBoost began as a path-based agentic workflow and grew into a public
+proof repository. It then hit the same failure mode many agentic systems hit:
+too much stale context, too many active meanings, and not enough authority
+separation. The current version is valuable because it records the cleanup as
+part of the work: rules define behavior, state records evidence, reports explain
+the arc, and the site exposes the proof.
+\end{quote}
+
+That is why the project page should expose all formal reports and not only the
+current dashboard. The dashboard tells the present state. The report library
+shows the development history.
+
+\chapter{Non-Goals}
+
+This run does not create social posts, reopen S-005, restore discarded draft
+bodies, or create a new site architecture. Its job is alignment: public page,
+report inventory, and evidence history must describe the same project.
+
+\end{document}

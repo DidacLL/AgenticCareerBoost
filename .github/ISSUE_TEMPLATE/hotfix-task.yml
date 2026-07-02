@@ -30,4 +30,4 @@ body:
     id: backlog_note
     attributes:
       label: Backlog note
-      placeholder: Brief note to append to state/backlog.md after completion.
+      placeholder: Brief note to append to agents/state/backlog.md after completion.

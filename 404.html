@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dídac Llorens</title>
+  <script>
+    (() => {
+      const path = window.location.pathname.replace(/\/index\.html$/, "/");
+      const clean = path.replace(/\/+$/, "") || "/";
+      window.location.replace(`${window.location.origin}/#${clean}`);
+    })();
+  </script>
+</head>
+<body></body>
+</html>

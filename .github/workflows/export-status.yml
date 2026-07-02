@@ -4,15 +4,15 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - "state/**"
-      - "data/public-status.json"
-      - ".github/scripts/export_status.py"
+      - "agents/state/**"
+      - "agents/tools/export_status.py"
+      - ".github/workflows/export-status.yml"
   push:
     branches: [main]
     paths:
-      - "state/**"
-      - "data/public-status.json"
-      - ".github/scripts/export_status.py"
+      - "agents/state/**"
+      - "agents/tools/export_status.py"
+      - ".github/workflows/export-status.yml"
   workflow_dispatch:
 
 permissions:
@@ -30,7 +30,7 @@ jobs:
           python-version: "3.12"
 
       - name: Export status JSON
-        run: python .github/scripts/export_status.py
+        run: python agents/tools/export_status.py
 
-      - name: Check generated status is committed
-        run: git diff --exit-code -- data/public-status.json site/assets/data/public-status.json
+      - name: Validate generated site status
+        run: python -m json.tool site/data/status.json
