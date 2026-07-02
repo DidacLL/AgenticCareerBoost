@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   checks:
-    name: structure, links, site, tests
+    name: required-ci
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
