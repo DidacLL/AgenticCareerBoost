@@ -111,9 +111,10 @@
             {
               "type": "previewList",
               "items": [
-                { "title": "Open dashboard", "route": "/dashboard", "image": "assets/img/sprint-paircheck-loop.png", "text": "Full project status view generated from public-status.json." },
+                { "title": "Open dashboard", "route": "/dashboard", "image": "assets/img/sprint-paircheck-loop.png", "text": "Full project status view generated from status.json." },
                 { "title": "Current state", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/state/current.md", "image": "assets/img/routing-map.png", "text": "Active workflow, blockers, recent closures, and evidence pointers." },
-                { "title": "System guide", "href": "files/reports/agentic-system-guide.pdf", "image": "assets/img/sprint-paircheck-loop.png", "text": "PDF guide for the file-based workflow." }
+                { "title": "System guide", "href": "files/reports/agentic-system-guide.pdf", "image": "assets/img/sprint-paircheck-loop.png", "text": "PDF guide for the file-based workflow." },
+                { "title": "Evidence reconciliation", "href": "files/reports/agentic-system-evidence-reconciliation.pdf", "image": "assets/img/routing-map.png", "text": "Review findings, intentional draft deletion, drift repairs, and validation ledger." }
               ]
             }
           ]

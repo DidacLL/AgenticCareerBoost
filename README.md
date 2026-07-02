@@ -9,6 +9,7 @@ state evidence, formal reports, CV artifacts, and a static website.
 - [CV PDF](site/files/cv/didac-llorens-cv.pdf)
 - [Agentic System Guide](site/files/reports/agentic-system-guide.pdf)
 - [AgenticSystem refactor retrospective](site/files/reports/agentic-system-refactor-retrospective.pdf)
+- [AgenticSystem evidence reconciliation](site/files/reports/agentic-system-evidence-reconciliation.pdf)
 - [S-000 case study](site/files/reports/s000-agentic-os-bootstrap.pdf)
 - [Sprint S-001 report](site/files/reports/s001-profile-audit-positioning.pdf)
 

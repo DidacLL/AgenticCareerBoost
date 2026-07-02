@@ -28,10 +28,11 @@ export function empty(element) {
 }
 
 export function routeLink(item, className = "") {
-  const href = item.route ? routeHref(item.route) : item.href;
+  const isExternalHref = item.href && /^(?:https?:)?\/\//.test(item.href);
+  const href = item.route ? routeHref(item.route) : resolveSiteUrl(item.href);
   const attrs = { href, class: className };
   if (item.route) attrs.dataRoute = item.route;
-  if (item.href && /^(?:https?:)?\/\//.test(item.href)) {
+  if (isExternalHref) {
     attrs.target = "_blank";
     attrs.rel = "noopener noreferrer";
   }

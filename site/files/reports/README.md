@@ -10,6 +10,7 @@ the repository after CI completes.
   it does not auto-commit to protected `main`.
 - Expected public outputs include:
   - `agentic-system-guide.pdf` — human-facing manual
+  - `agentic-system-evidence-reconciliation.pdf` — local-vs-remote reconciliation, drift repairs, and validation ledger
   - `agentic-system-refactor-retrospective.pdf` — AgenticSystem refactor and cleanup retrospective
   - `s000-agentic-os-bootstrap.pdf` — technical bootstrap case study
   - `s001-profile-audit-positioning.pdf` — profile audit and strategic positioning report

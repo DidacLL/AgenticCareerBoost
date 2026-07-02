@@ -1,0 +1,231 @@
+\documentclass[a4paper,11pt,openany]{report}
+\usepackage{../preamble/agenticboost}
+
+% Human-facing evidence artifact.
+% This document records a bounded reconciliation run. It is not an operational
+% instruction source; current agent behavior remains defined by agents/rules/**.
+
+\renewcommand{\sprintId}{AgenticSystem Evidence Reconciliation}
+\newcommand{\safePath}[1]{\texttt{\detokenize{#1}}}
+\newcommand{\statuspass}{\textsc{PASS}}
+\newcommand{\statusnote}{\textsc{RECORDED}}
+
+\title{%
+  \textsc{AgenticCareerBoost}\\[0.4em]
+  \Large AgenticSystem Evidence Reconciliation\\[0.3em]
+  \large Local Review Findings $\cdot$ Drift Repairs $\cdot$ Evidence Ledger%
+}
+\author{Didac Llorens \\ \small \href{https://github.com/DidacLL}{github.com/DidacLL}}
+\date{July 2026 --- v0.1}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\chapter{Executive Summary}
+
+\takeaway{This report records a bounded system-review/documentation run after a
+large local refactor. The run fixed the live drift found in review, documented
+intentional draft deletion, preserved formal evidence, and verified that project
+literature and repository state describe the same agentic development trail.}
+
+The trigger was a local-vs-remote review of a broad AgenticSystem refactor. The
+review found that the main architecture direction was correct: internal agent
+rules, state, tools, tests, and report sources now live under
+\safePath{agents/}; public runtime and downloadable artifacts live under
+\safePath{site/}; root is limited to platform and crawler entrypoints.
+
+The review also found three small but real live inconsistencies and one evidence
+decision that needed explicit documentation:
+
+\begin{enumerate}
+  \item \safePath{agents/rules/core/ci-rules.md} still described old docs-lint
+    and Lychee config paths.
+  \item \safePath{site/content/projects.json} still named
+    \safePath{public-status.json}, although the generated public status file is
+    now \safePath{site/data/status.json}.
+  \item \safePath{agents/reports/tex/Makefile} still pointed humans to the old
+    \safePath{content/reports/tex/} root.
+  \item Discarded social/profile draft bodies were intentionally not restored;
+    they are candidate outputs, not durable evidence or future steering rules.
+  \item Browser validation exposed a direct clean-route render defect, which was
+    fixed with root-absolute shell assets and pathname-aware pushState routing.
+\end{enumerate}
+
+This report exists because the project claim is stronger than "a pretty
+prompt." AgenticCareerBoost is meant to be a repository-backed record of
+agentic development: rules, failures, corrections, evidence, validation, and
+public artifacts must line up.
+
+\chapter{Authority Boundary}
+
+\takeaway{Reports and state are evidence. They explain what happened. They do
+not override current user scope or stable rules.}
+
+The reconciliation uses the existing authority model:
+
+\begin{longtable}{p{0.26\textwidth} p{0.62\textwidth}}
+\caption{Authority and evidence surfaces after reconciliation.}\\
+\toprule
+\textbf{Surface} & \textbf{Meaning} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Surface} & \textbf{Meaning} \\
+\midrule
+\endhead
+\safePath{agents/rules/**} & Authoritative behavior layer: core truth, workflows, roles, and templates. \\
+\safePath{agents/state/**} & Evidence and status layer: logs, research, summaries, current state, and human queues. \\
+\safePath{agents/reports/tex/**} & Formal source documents for human-facing proof artifacts. \\
+\safePath{site/files/reports/**} & Published PDFs intended to remain visible in the repository and public site. \\
+\safePath{agents/work/social/**} & Working social material; future drafts may live here, but discarded old draft bodies do not steer future copy. \\
+\bottomrule
+\end{longtable}
+
+The key correction is not deletion for its own sake. It is category discipline.
+Historical logs, summaries, research, and LaTeX reports are retained as proof.
+Old discarded profile and social drafts are not retained as reusable context
+because they can poison future copy and were never approved publication facts.
+
+\chapter{Evidence Classification}
+
+\takeaway{The refactor is safe only if the repository can explain what was kept,
+what moved, what was discarded, and why.}
+
+\begin{longtable}{p{0.23\textwidth} p{0.30\textwidth} p{0.35\textwidth}}
+\caption{Deletion and migration classification.}\\
+\toprule
+\textbf{Category} & \textbf{Examples} & \textbf{Decision} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Category} & \textbf{Examples} & \textbf{Decision} \\
+\midrule
+\endhead
+Preserved evidence & Sprint logs, research, summaries, closure notes, formal report sources & Kept under \safePath{agents/state/**} or \safePath{agents/reports/tex/**}; non-authoritative but inspectable. \\
+Migrated public artifacts & Report PDFs, CV PDF, reusable public images & Moved to \safePath{site/files/**} or \safePath{site/assets/**} so public runtime owns public files. \\
+Discarded candidate outputs & Old profile consistency drafts, LinkedIn reactivation drafts, branding/social draft bodies & Intentionally deleted; they were candidate copy, not approved evidence or future instruction. \\
+Removed duplicates and generated mirrors & Manual public status mirrors, duplicate public asset paths, old root work areas & Removed or replaced by generated \safePath{site/data/status.json} and canonical path references. \\
+Archived origin/audit material & Bootstrap origin files and prior audit reports & Retained under archive paths as historical evidence, not current operating rules. \\
+\bottomrule
+\end{longtable}
+
+The discarded drafts remain recoverable from Git history if a human deliberately
+asks for archaeology, but they are not live material. That is the intended
+behavior.
+
+\chapter{Failure Ledger}
+
+\takeaway{The project record is more credible when it keeps the failures that
+forced the correction.}
+
+\begin{longtable}{p{0.22\textwidth} p{0.38\textwidth} p{0.28\textwidth}}
+\caption{Failures and friction recorded by this reconciliation.}\\
+\toprule
+\textbf{Event} & \textbf{What happened} & \textbf{Resolution} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Event} & \textbf{What happened} & \textbf{Resolution} \\
+\midrule
+\endhead
+Large refactor risk & The working tree removed or moved more than two hundred tracked paths, so hidden evidence loss was plausible. & Review mapped deleted paths to new successors and classified intentional losses. \\
+CI rule drift & Rule docs still mentioned old Markdown/Lychee config shape. & Updated CI rules to match \safePath{required-ci}, advisory docs-lint, and \safePath{.github/lychee.toml}. \\
+Public copy drift & Project page copy still said \safePath{public-status.json}. & Updated copy to \safePath{status.json} and added regression coverage. \\
+Report-root drift & Makefile comment still referenced \safePath{content/reports/tex/}. & Updated comment to \safePath{agents/reports/tex/} and added regression coverage. \\
+Clean-route runtime drift & Direct loads of clean routes such as \safePath{/projects/agentic-career-boost} did not render the intended route during browser validation. & Root shell assets now use root-absolute \safePath{/site/...} URLs, and the router reads \safePath{location.pathname} plus pushState navigation. \\
+Sandbox friction & Read-only inspection commands hit sandbox failures; elevated read-only commands and an absolute Git path were required. & Recorded as tooling friction, not project failure. \\
+Git PATH friction & Escalated PowerShell did not have \safePath{git} on \safePath{PATH}. & Used \safePath{C:/Program Files/Git/cmd/git.exe} for read-only Git inspection. \\
+LaTeX toolchain variance & Local \safePath{latexmk} was unavailable during validation. & Local build script fell back to three-pass \safePath{pdflatex}; CI still uses the configured LaTeX action. \\
+\bottomrule
+\end{longtable}
+
+\chapter{Validation Ledger}
+
+\takeaway{The reconciliation closes only if source, public copy, tests, links,
+site validation, and formal PDFs agree.}
+
+The closure validation for this run is:
+
+\begin{longtable}{p{0.40\textwidth} p{0.17\textwidth} p{0.31\textwidth}}
+\caption{Validation commands and status.}\\
+\toprule
+\textbf{Command or check} & \textbf{Status} & \textbf{Evidence meaning} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Command or check} & \textbf{Status} & \textbf{Evidence meaning} \\
+\midrule
+\endhead
+\safePath{python agents/tools/export_status.py} & \statuspass & Regenerates \safePath{site/data/status.json} from state evidence. \\
+\safePath{python agents/tools/validate_static_site.py} & \statuspass & Confirms root entrypoints, runtime files, routes, and public file refs resolve. \\
+\safePath{bash agents/tools/validate_links.sh} & \statuspass & Confirms live internal Markdown references resolve. \\
+\safePath{python -m pytest agents/tests -q} & \statuspass & Confirms structural and regression guard tests pass. \\
+\safePath{./build-local.ps1 -Target all} & \statuspass & Confirms every report/CV source compiles locally; \safePath{pdflatex} fallback used when \safePath{latexmk} is unavailable. \\
+Browser/public sanity check & \statuspass & Confirms key routes load without console errors or broken images after report links and content changes. \\
+\bottomrule
+\end{longtable}
+
+The pass status is intentionally tied to concrete commands, not confidence. If a
+future run changes a public route, report source, or state exporter, the same
+surface-specific validation must be repeated.
+
+\chapter{Public Literature Alignment}
+
+\takeaway{The literature now states the same thing the repository does:
+AgenticCareerBoost is a traceable system with evidence, not just polished
+output.}
+
+This reconciliation updates public and repository-facing indexes so the formal
+report set includes this document alongside the guide, refactor retrospective,
+and earlier sprint reports.
+
+The aligned story is:
+
+\begin{itemize}
+  \item the refactor simplified active structure;
+  \item the review found small live drift and one intentionally discarded draft
+    class;
+  \item the reconciliation fixed the live drift;
+  \item the project preserved evidence while preventing stale drafts from
+    steering future copy;
+  \item tests and validation now guard the corrected shape.
+\end{itemize}
+
+That is the project lore in engineering form: an agentic run is not complete
+when it produces an artifact. It is complete when the artifact, the trace, the
+rules, the public surface, and the validation evidence all describe the same
+thing.
+
+\appendix
+
+\chapter{Files Touched by the Reconciliation}
+
+\begin{itemize}
+  \item \safePath{agents/rules/core/ci-rules.md}
+  \item \safePath{site/content/projects.json}
+  \item \safePath{agents/reports/tex/Makefile}
+  \item \safePath{agents/tests/test_agentic_contracts.py}
+  \item \safePath{agents/reports/tex/sprints/agentic-system-evidence-reconciliation.tex}
+  \item \safePath{site/files/reports/agentic-system-evidence-reconciliation.pdf}
+  \item \safePath{index.html}
+  \item \safePath{site/assets/js/os.js}
+  \item \safePath{site/assets/js/router.js}
+  \item \safePath{README.md}
+  \item \safePath{agents/reports/tex/README.md}
+  \item \safePath{site/files/reports/README.md}
+  \item \safePath{agents/state/logs/agentic-system-evidence-reconciliation-run.md}
+  \item \safePath{agents/state/current.md}
+\end{itemize}
+
+\chapter{Non-Goals}
+
+This run does not reopen S-005, restore discarded draft bodies, create new
+architecture folders, or change branch protection. It made one runtime fix only
+because browser validation found a route-loading defect in scope for the
+requested public sanity check. The run remains a reconciliation pass: fix live
+drift, document evidence, validate, and leave the project easier for the next
+agent to read.
+
+\end{document}

@@ -1,5 +1,5 @@
 # Makefile — Thin wrapper around the local build script for AgenticCareerBoost reports
-# Run from content/reports/tex/
+# Run from agents/reports/tex/
 
 .PHONY: all s000 guide smoke clean
 

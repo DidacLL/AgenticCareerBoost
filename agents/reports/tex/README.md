@@ -66,6 +66,10 @@ auxiliary files must not be tracked inside `agents/reports/tex/`.
 - `guides/agentic-system-guide.tex` — the formal human-facing manual for how to
   read and use the system.
 - `guides/didac-llorens-cv.tex` — the public downloadable CV source.
+- `sprints/agentic-system-evidence-reconciliation.tex` — local-vs-remote
+  reconciliation, evidence classification, drift fixes, and validation ledger.
+- `sprints/agentic-system-refactor-retrospective.tex` — refactor failure
+  analysis and cleanup architecture retrospective.
 - `sprints/s000-agentic-os-bootstrap.tex` — the bootstrap case study and
   evidence trail.
 - `sprints/s001-profile-audit-positioning.tex` — profile audit and positioning.

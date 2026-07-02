@@ -1,22 +1,21 @@
 # CI rules
 
-Stable rules for the two docs-lint jobs. Agents **must not** change these
+Stable rules for CI and advisory docs checks. Agents **must not** change these
 configs without a matching update to this file.
 
-## Markdownlint (`markdownlint-cli2`, config: `.markdownlint.jsonc`)
+## Markdown checks
 
-| Rule | Setting | Reason |
-|------|---------|--------|
-| MD013 (line length) | disabled | Templates and generated content exceed 80 chars |
-| MD024 (duplicate headings) | siblings_only | Duplicate headings across sections are intentional |
-| MD025 (single title) | front_matter_title: "" | Jekyll front-matter titles must not trigger H1 conflicts |
-| MD026 (trailing punctuation) | disabled | Headings ending in `?` are allowed |
-| MD033 (inline HTML) | disabled | HTML comments and templates are present throughout |
+Blocking Markdown validation is the repo-local internal link validator:
+`agents/tools/validate_links.sh`, run from `required-ci`.
 
-## Lychee link checker (`lychee`, config: `lychee.toml`)
+External HTTP link checking is advisory only and runs from
+`.github/workflows/docs-lint.yml` with Lychee. It reports problems without
+failing the build.
 
-Lychee version pinned in workflow: **v0.23.0**. Always verify field names
-against that version before editing `lychee.toml`.
+## Lychee link checker (`lychee`, config: `.github/lychee.toml`)
+
+Lychee is provided by `lycheeverse/lychee-action@v2`. Always verify field names
+against the action's bundled Lychee version before editing `.github/lychee.toml`.
 
 | Field | Value | Reason |
 |-------|-------|--------|

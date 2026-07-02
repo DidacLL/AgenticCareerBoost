@@ -216,3 +216,47 @@ def test_root_gitignore_does_not_hide_latex_named_evidence():
         if any(line.strip() == pattern for line in root_ignore.splitlines())
     ]
     assert offenders == []
+
+
+def test_live_status_references_use_generated_status_json():
+    offenders: list[str] = []
+    for path in live_text_files():
+        if path.is_relative_to(AGENTS / "reports"):
+            continue
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        if "public-status.json" in text:
+            offenders.append(path.relative_to(ROOT).as_posix())
+    assert offenders == []
+
+
+def test_ci_rules_match_current_docs_lint_shape():
+    ci_rules = (AGENTS / "rules" / "core" / "ci-rules.md").read_text(encoding="utf-8")
+    docs_lint = (ROOT / ".github" / "workflows" / "docs-lint.yml").read_text(encoding="utf-8")
+    assert ".github/lychee.toml" in ci_rules
+    assert ".github/lychee.toml" in docs_lint
+    assert ".markdownlint.jsonc" not in ci_rules
+    assert "config: `lychee.toml`" not in ci_rules
+    assert "editing `lychee.toml`" not in ci_rules
+
+
+def test_report_build_docs_use_agents_report_root():
+    makefile = (AGENTS / "reports" / "tex" / "Makefile").read_text(encoding="utf-8")
+    assert "content/reports/tex" not in makefile
+    assert "agents/reports/tex" in makefile
+
+
+def test_root_shell_supports_direct_clean_routes():
+    index = (ROOT / "index.html").read_text(encoding="utf-8")
+    os_js = (SITE / "assets" / "js" / "os.js").read_text(encoding="utf-8")
+    router = (SITE / "assets" / "js" / "router.js").read_text(encoding="utf-8")
+    components = (SITE / "assets" / "js" / "components.js").read_text(encoding="utf-8")
+    assert 'src="/site/assets/js/os.js' in index
+    assert 'href="/site/assets/css/site.css' in index
+    assert 'src="site/' not in index
+    assert 'href="site/' not in index
+    assert "?v=" not in index
+    assert "?v=" not in os_js
+    assert "location.pathname" in router
+    assert "window.history.pushState" in router
+    assert "popstate" in router
+    assert "resolveSiteUrl(item.href)" in components
