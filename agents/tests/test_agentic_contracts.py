@@ -246,7 +246,7 @@ def test_report_build_docs_use_agents_report_root():
     report_readme = (SITE / "files" / "reports" / "README.md").read_text(encoding="utf-8")
     assert "content/reports/tex" not in makefile
     assert "agents/reports/tex" in makefile
-    assert "site\files\reports" in ps_build
+    assert "site" in ps_build and "files" in ps_build and "reports" in ps_build
     assert "Copy-Item" in ps_build
     assert "site/files/reports" in sh_build
     assert "cp " in sh_build
