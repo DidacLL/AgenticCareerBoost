@@ -246,27 +246,25 @@ def test_report_build_docs_use_agents_report_root():
     report_readme = (SITE / "files" / "reports" / "README.md").read_text(encoding="utf-8")
     assert "content/reports/tex" not in makefile
     assert "agents/reports/tex" in makefile
-    assert "site\\files\\reports" in ps_build
+    assert "site\files\reports" in ps_build
     assert "Copy-Item" in ps_build
     assert "site/files/reports" in sh_build
     assert "cp " in sh_build
     assert "Do not manually copy PDFs" in report_readme
 
 
-def test_root_shell_supports_direct_clean_routes():
-    index = (ROOT / "index.html").read_text(encoding="utf-8")
+def test_site_directory_is_canonical_public_artifact():
+    root_index = (ROOT / "index.html").read_text(encoding="utf-8")
+    site_index = (SITE / "index.html").read_text(encoding="utf-8")
     os_js = (SITE / "assets" / "js" / "os.js").read_text(encoding="utf-8")
-    router = (SITE / "assets" / "js" / "router.js").read_text(encoding="utf-8")
     components = (SITE / "assets" / "js" / "components.js").read_text(encoding="utf-8")
-    assert 'src="/site/assets/js/os.js' in index
-    assert 'href="/site/assets/css/site.css' in index
-    assert 'src="site/' not in index
-    assert 'href="site/' not in index
-    assert "?v=" not in index
+    assert "site/" in root_index
+    assert 'src="assets/js/os.js' in site_index
+    assert 'href="assets/css/site.css' in site_index
+    assert 'href="/site/' not in site_index
+    assert 'src="/site/' not in site_index
+    assert "?v=" not in site_index
     assert "?v=" not in os_js
-    assert "location.pathname" in router
-    assert "window.history.pushState" in router
-    assert "popstate" in router
     assert "resolveSiteUrl(item.href)" in components
     assert "item.newTab" in components
 
