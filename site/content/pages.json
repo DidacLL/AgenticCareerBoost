@@ -96,7 +96,7 @@
           "label": "SYSTEM",
           "rows": [
             { "term": "Mode", "value": "Dashboard" },
-            { "term": "Source", "link": { "label": "public-status.json", "href": "assets/data/public-status.json" } },
+            { "term": "Source", "link": { "label": "status.json", "href": "data/status.json" } },
             { "term": "Theme", "control": "themeToggle" }
           ]
         },
@@ -126,11 +126,11 @@
           "label": "CURRENT",
           "title": "Development dashboard",
           "blocks": [
-            { "type": "statusDashboard", "status": "assets/data/public-status.json" },
+            { "type": "statusDashboard", "status": "data/status.json" },
             { "type": "noteList", "items": [
-              { "kicker": "data", "title": "Generated status", "href": "assets/data/public-status.json", "text": "public-status.json" },
-              { "kicker": "source", "title": "Canonical files", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/state/current.md", "text": "state/current.md and active sprint state" },
-              { "kicker": "evidence", "title": "Implementation trace", "href": "https://github.com/DidacLL/AgenticCareerBoost/tree/main/state/logs/S-004.5-site-quality", "text": "S-004.5 logs and review evidence" }
+              { "kicker": "data", "title": "Generated status", "href": "data/status.json", "text": "status.json" },
+              { "kicker": "source", "title": "Canonical files", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/state/current.md", "text": "agents/state/current.md and active sprint state" },
+              { "kicker": "evidence", "title": "Implementation trace", "href": "https://github.com/DidacLL/AgenticCareerBoost/tree/main/agents/state/logs/S-004.5-site-quality", "text": "S-004.5 logs and review evidence" }
             ] }
           ]
         }

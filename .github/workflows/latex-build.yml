@@ -4,7 +4,8 @@ on:
   push:
     branches: [main]
     paths:
-      - 'content/reports/tex/**'
+      - "agents/reports/tex/**"
+      - ".github/workflows/latex-build.yml"
   workflow_dispatch:
 
 permissions:
@@ -14,29 +15,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
+      - uses: actions/checkout@v5
 
       - name: Compile LaTeX documents
         uses: xu-cheng/latex-action@v3
         with:
-          working_directory: content/reports/tex
+          working_directory: agents/reports/tex
           root_file: |
             smoke.tex
             sprints/*.tex
             guides/*.tex
           args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
 
-      - name: Promote published PDFs into repository
-        run: |
-          mkdir -p content/reports/build
-          find content/reports/build -maxdepth 1 -type f -name '*.pdf' -delete
-          find content/reports/tex/build -maxdepth 1 -type f -name '*.pdf' ! -name 'smoke.pdf' -exec cp {} content/reports/build/ \;
-
       - name: Upload PDF artifacts
         uses: actions/upload-artifact@v4
         with:
           name: latex-reports
-          path: content/reports/build/**/*.pdf
+          path: agents/reports/tex/build/**/*.pdf
           if-no-files-found: error
           retention-days: 30

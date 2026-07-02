@@ -6,9 +6,15 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/site-build.yml"
+      - "index.html"
+      - "404.html"
+      - ".nojekyll"
+      - "robots.txt"
+      - "sitemap.xml"
       - "site/**"
-      - "content/reports/build/**"
-      - "README.md"
+      - "agents/state/**"
+      - "agents/tools/export_status.py"
+      - "agents/tools/validate_static_site.py"
 
 permissions:
   contents: read
@@ -21,7 +27,7 @@ concurrency:
 
 jobs:
   build:
-    name: Package Pages artifact
+    name: Validate and upload root Pages artifact
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -30,15 +36,15 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Generate site status data
-        run: python .github/scripts/export_status.py
+        run: python agents/tools/export_status.py
 
       - name: Validate static site
-        run: python .github/scripts/validate_static_site.py
+        run: python agents/tools/validate_static_site.py
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: .
 
   deploy:
     name: Deploy Pages
@@ -51,21 +57,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-      - name: Trigger root Pages deployment
-        env:
-          ROOT_PAGES_DISPATCH_TOKEN: ${{ secrets.ROOT_PAGES_DISPATCH_TOKEN }}
-        run: |
-          if [ -z "$ROOT_PAGES_DISPATCH_TOKEN" ]; then
-            echo "ROOT_PAGES_DISPATCH_TOKEN is not configured; skipping root Pages deploy trigger."
-            exit 0
-          fi
-
-          curl --fail-with-body \
-            -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer $ROOT_PAGES_DISPATCH_TOKEN" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/DidacLL/DidacLL.github.io/dispatches \
-            -d '{"event_type":"agenticcareerboost-deploy"}'
-

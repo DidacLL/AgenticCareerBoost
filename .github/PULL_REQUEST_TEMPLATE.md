@@ -1,7 +1,7 @@
 <!-- markdownlint-disable-file MD041 -->
 ## Checklist
 
-- [ ] Execution mode identified from `docs/core/execution-modes.md`
+- [ ] Execution mode identified from `agents/rules/core/execution-modes.md`
 - [ ] Scope/writes match the user request or sprint contract
 - [ ] Validation matches touched area only
 - [ ] PairCheck or source review included when risk requires it

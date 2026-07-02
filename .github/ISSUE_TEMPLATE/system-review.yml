@@ -7,10 +7,10 @@ body:
     attributes:
       label: Area
       options:
-        - Rules (docs/core/)
-        - Workflows (docs/workflows/)
-        - Agents (docs/agents/)
-        - Templates (docs/templates/)
+        - Rules (agents/rules/core/)
+        - Workflows (agents/rules/workflows/)
+        - Roles (agents/rules/roles/)
+        - Templates (agents/rules/templates/)
         - File structure
         - Token efficiency
         - CI/CD pipelines

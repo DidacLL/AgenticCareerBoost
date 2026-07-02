@@ -10,13 +10,13 @@
   "artifacts": [
     {
       "title": "PDF version",
-      "href": "assets/curriculum/DidacLL_SoftwareEngineer_CV.pdf",
+      "href": "files/cv/didac-llorens-cv.pdf",
       "logo": "pdf",
       "text": "Same CV, ready to print or send when a plain file is better."
     },
     {
       "title": "CV source",
-      "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/assets/curriculum/DidacLL_SoftwareEngineer_CV.tex",
+      "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/reports/tex/guides/DidacLL_SoftwareEngineer_CV.site-legacy.tex",
       "logo": "latexSource",
       "text": "Open the TeX source if you want to see how it is built."
     }
@@ -42,8 +42,8 @@
           { "term": "Theme", "control": "themeToggle" }
         ] },
         { "label": "SOURCE", "links": [
-          { "label": "PDF", "href": "assets/curriculum/DidacLL_SoftwareEngineer_CV.pdf" },
-          { "label": "LaTeX source", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/assets/curriculum/DidacLL_SoftwareEngineer_CV.tex" }
+          { "label": "PDF", "href": "files/cv/didac-llorens-cv.pdf" },
+          { "label": "LaTeX source", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/reports/tex/guides/DidacLL_SoftwareEngineer_CV.site-legacy.tex" }
         ] }
       ],
       "profile": [

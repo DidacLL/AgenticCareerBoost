@@ -75,7 +75,7 @@
             { "term": "Mode", "value": "Project detail" },
             { "term": "Route", "value": "projects/acb" },
             { "term": "Theme", "control": "themeToggle" },
-            { "term": "Status", "link": { "label": "public-status.json", "href": "assets/data/public-status.json" } }
+            { "term": "Status", "link": { "label": "status.json", "href": "data/status.json" } }
           ]
         },
         {
@@ -98,7 +98,7 @@
               "type": "prose",
               "paragraphs": [
                 "AgenticCareerBoost is the repository behind this site. It contains role files, workflow instructions, state documents, reports, site source, validation scripts, and pull request history.",
-                "Stable rules live in docs/core. Current state lives in state. Public pages live in site. Reports live in content/reports.",
+                "Stable rules live in agents/rules. Current state lives in agents/state as evidence. Public pages and downloadable artifacts live in site.",
                 "The public route is deployment-derived at runtime. The repository keeps the source material behind the site, CV, reports, notes, and workflow."
               ]
             },
@@ -106,14 +106,14 @@
               "type": "statusDashboard",
               "label": "DASHBOARD",
               "title": "Development state",
-              "status": "assets/data/public-status.json"
+              "status": "data/status.json"
             },
             {
               "type": "previewList",
               "items": [
                 { "title": "Open dashboard", "route": "/dashboard", "image": "assets/img/sprint-paircheck-loop.png", "text": "Full project status view generated from public-status.json." },
-                { "title": "Current state", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/state/current.md", "image": "assets/img/routing-map.png", "text": "Active workflow, blockers, recent closures, and evidence pointers." },
-                { "title": "System guide", "href": "https://github.com/DidacLL/AgenticCareerBoost/raw/main/content/reports/build/agentic-system-guide.pdf", "image": "assets/img/sprint-paircheck-loop.png", "text": "PDF guide for the file-based workflow." }
+                { "title": "Current state", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/state/current.md", "image": "assets/img/routing-map.png", "text": "Active workflow, blockers, recent closures, and evidence pointers." },
+                { "title": "System guide", "href": "files/reports/agentic-system-guide.pdf", "image": "assets/img/sprint-paircheck-loop.png", "text": "PDF guide for the file-based workflow." }
               ]
             }
           ]
@@ -159,7 +159,7 @@
               "items": [
                 { "title": "P3CTeX", "href": "https://github.com/DidacLL/P3CTeX", "image": "assets/img/P3CTeXLogo.png", "text": "Main class and package repository." },
                 { "title": "p3cTeX-UMLST", "href": "https://github.com/DidacLL/p3cTeX-UMLST", "logo": "latexSource", "text": "UML and listings tooling." },
-                { "title": "CV source", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/assets/curriculum/DidacLL_SoftwareEngineer_CV.tex", "logo": "latexSource", "text": "LaTeX source for the CV." }
+                { "title": "CV source", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/reports/tex/guides/DidacLL_SoftwareEngineer_CV.site-legacy.tex", "logo": "latexSource", "text": "LaTeX source for the CV." }
               ]
             }
           ]

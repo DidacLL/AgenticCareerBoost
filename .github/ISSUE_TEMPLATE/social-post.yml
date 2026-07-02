@@ -31,4 +31,4 @@ body:
     id: tone_check
     attributes:
       label: Tone check
-      placeholder: Confirm alignment with docs/core/brand.md — flag any concerns.
+      placeholder: Confirm alignment with agents/rules/core/brand.md - flag any concerns.
