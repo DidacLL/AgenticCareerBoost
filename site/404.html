@@ -6,10 +6,12 @@
   <title>Dídac Llorens</title>
   <script>
     (() => {
+      const projectSiteBase = "/AgenticCareerBoost/site/";
       const path = window.location.pathname.replace(/\/index\.html$/, "/");
-      const clean = path.replace(/^\/+|\/+$/g, "");
-      const target = window.location.origin + "/#" + (clean ? "/" + clean : "/");
-      window.location.replace(target);
+      const base = path.startsWith(projectSiteBase) ? projectSiteBase : "/";
+      const clean = path.slice(base.length).replace(/^\/+|\/+$/g, "");
+      const route = clean ? "/" + clean : "/";
+      window.location.replace(window.location.origin + base + "#" + route);
     })();
   </script>
 </head>
