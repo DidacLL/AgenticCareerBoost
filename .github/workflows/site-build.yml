@@ -8,6 +8,7 @@ on:
       - ".github/workflows/site-build.yml"
       - "site/**"
       - "agents/cv/**"
+      - "agents/reports/tex/**"
       - "agents/state/**"
       - "agents/tools/export_status.py"
       - "agents/tools/validate_static_site.py"
@@ -32,6 +33,23 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+
+      - name: Compile public report PDFs
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: agents/reports/tex
+          root_file: |
+            sprints/*.tex
+            guides/*.tex
+          args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
+
+      - name: Publish public report PDFs into site artifact
+        run: |
+          mkdir -p site/files/reports
+          find agents/reports/tex/build -maxdepth 1 -type f -name '*.pdf' \
+            ! -name 'smoke.pdf' \
+            ! -name 'candidaturas_reconocimiento_tecnico_03072026.pdf' \
+            -exec cp {} site/files/reports/ \;
 
       - name: Render public cover-letter sources
         run: python agents/cv/tools/render-cover-letter.py --all
