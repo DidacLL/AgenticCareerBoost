@@ -269,6 +269,78 @@ def test_site_directory_is_canonical_public_artifact():
     assert "item.newTab" in components
 
 
+def test_site_runtime_routes_are_deployment_base_agnostic():
+    runtime_files = [
+        SITE / "index.html",
+        SITE / "404.html",
+        SITE / "assets" / "js" / "os.js",
+        SITE / "assets" / "js" / "router.js",
+        SITE / "assets" / "js" / "renderer.js",
+        SITE / "assets" / "js" / "components.js",
+        SITE / "assets" / "js" / "widgets.js",
+        SITE / "assets" / "js" / "data-store.js",
+    ]
+    forbidden_tokens = ["/AgenticCareerBoost", "didacll.github.io"]
+    offenders: list[str] = []
+    for path in runtime_files:
+        text = path.read_text(encoding="utf-8")
+        for token in forbidden_tokens:
+            if token in text:
+                offenders.append(f"{path.relative_to(ROOT).as_posix()}: {token}")
+    assert offenders == []
+
+    router = (SITE / "assets" / "js" / "router.js").read_text(encoding="utf-8")
+    components = (SITE / "assets" / "js" / "components.js").read_text(encoding="utf-8")
+    widgets = (SITE / "assets" / "js" / "widgets.js").read_text(encoding="utf-8")
+    data_store = (SITE / "assets" / "js" / "data-store.js").read_text(encoding="utf-8")
+    assert "new URL(import.meta.url)" in router
+    assert "export function siteBasePath()" in router
+    assert 'pushState({}, "", routeHref(route))' in router
+    assert "window.location.hash" not in components
+    assert "routeHref(slide.route)" in widgets
+    assert "hashHref" not in widgets
+    assert "hashHref" not in data_store
+
+
+def test_site_404_discovers_deployment_base():
+    fallback = (SITE / "404.html").read_text(encoding="utf-8")
+    assert "candidateBases(normalizedPath)" in fallback
+    assert "hasSiteContent(candidate)" in fallback
+    assert "content/site.json" in fallback
+    assert "routeForBase(normalizedPath, base)" in fallback
+    assert "${window.location.origin}${base}#${route}" in fallback
+    assert "/AgenticCareerBoost" not in fallback
+    assert "didacll.github.io" not in fallback
+
+
+def test_site_content_routes_remain_app_internal():
+    failures: list[str] = []
+
+    def walk(node, pointer="$"):
+        if isinstance(node, dict):
+            for key, value in node.items():
+                yield from walk(value, f"{pointer}.{key}")
+        elif isinstance(node, list):
+            for index, value in enumerate(node):
+                yield from walk(value, f"{pointer}[{index}]")
+        else:
+            yield pointer, node
+
+    for json_file in (SITE / "content").glob("*.json"):
+        data = json.loads(json_file.read_text(encoding="utf-8"))
+        for pointer, value in walk(data):
+            key = pointer.rsplit(".", 1)[-1].split("[", 1)[0]
+            if key not in {"route", "path"} or not isinstance(value, str):
+                continue
+            if not value.startswith("/"):
+                failures.append(f"{json_file.name}:{pointer} route is not app-absolute: {value}")
+            if value.startswith("/AgenticCareerBoost") or value.startswith("/site/"):
+                failures.append(f"{json_file.name}:{pointer} route includes deployment base: {value}")
+            if "didacll.github.io" in value:
+                failures.append(f"{json_file.name}:{pointer} route includes deployment host: {value}")
+    assert failures == []
+
+
 def test_agentic_project_page_exposes_report_library():
     projects = json.loads((SITE / "content" / "projects.json").read_text(encoding="utf-8"))
     acb = next(item for item in projects["items"] if item["id"] == "agentic-career-boost")

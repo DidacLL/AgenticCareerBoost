@@ -1,12 +1,38 @@
 import { normalizeRoute } from "./data-store.js";
 
+const SITE_BASE_PATH = deploymentBasePath();
+
+function deploymentBasePath() {
+  const marker = "/assets/js/router.js";
+  const path = new URL(import.meta.url).pathname;
+  const markerIndex = path.lastIndexOf(marker);
+  if (markerIndex < 0) return "/";
+  const base = path.slice(0, markerIndex);
+  return base ? `${base}/` : "/";
+}
+
+export function siteBasePath() {
+  return SITE_BASE_PATH;
+}
+
+function stripDeploymentBase(pathname = "/") {
+  const path = String(pathname || "/").replace(/\/index\.html$/, "/");
+  if (SITE_BASE_PATH === "/") return path;
+  const base = SITE_BASE_PATH.replace(/\/$/, "");
+  if (path === base) return "/";
+  if (path.startsWith(SITE_BASE_PATH)) return path.slice(base.length) || "/";
+  return path;
+}
+
 export function routeFromLocation(location = window.location) {
   if (location.hash && location.hash.length > 1) return normalizeRoute(location.hash.slice(1));
-  return normalizeRoute(location.pathname || "/");
+  return normalizeRoute(stripDeploymentBase(location.pathname || "/"));
 }
 
 export function routeHref(route) {
-  return normalizeRoute(route);
+  const normalized = normalizeRoute(route);
+  if (normalized === "/") return SITE_BASE_PATH;
+  return `${SITE_BASE_PATH.replace(/\/$/, "")}${normalized}`;
 }
 
 export function routeMatches(route, target) {
@@ -27,7 +53,7 @@ export function bindRouter(callback) {
       callback(route);
       return;
     }
-    window.history.pushState({}, "", route);
+    window.history.pushState({}, "", routeHref(route));
     callback(route);
   });
 }
