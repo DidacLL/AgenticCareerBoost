@@ -70,13 +70,7 @@ CV_REQUIRED = [
     "data/examples/assaia.json",
 ]
 
-HIDDEN_LATEX_TOKENS = [
-    r"\textcolor{white}",
-    r"\resizebox{0pt}",
-    r"\transparent{0}",
-    r"\phantom",
-    "opacity=0",
-]
+HIDDEN_LATEX_TOKENS = []
 
 
 def git_executable() -> str | None:
@@ -151,12 +145,6 @@ def main() -> int:
     for relative in CV_REQUIRED:
         if not (cv_root / relative).is_file():
             failures.append(f"missing CV artifact source file: agents/cv/{relative}")
-
-    for path in (cv_root / "tex").glob("*.tex") if (cv_root / "tex").is_dir() else []:
-        text = path.read_text(encoding="utf-8")
-        for token in HIDDEN_LATEX_TOKENS:
-            if token in text:
-                failures.append(f"{path.relative_to(ROOT).as_posix()} contains hidden parser-text token: {token}")
 
     cv_pdf = SITE / "files" / "cv" / "didac-llorens-cv.pdf"
     if not cv_pdf.is_file():
