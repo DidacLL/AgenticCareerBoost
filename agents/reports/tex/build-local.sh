@@ -11,8 +11,6 @@
 
 set -euo pipefail
 cd "$(dirname "$0")"
-repo_root="$(cd ../../.. && pwd)"
-public_report_dir="$repo_root/site/files/reports"
 
 COMMON_ARGS=(-r latexmkrc -pdf -interaction=nonstopmode -halt-on-error)
 
@@ -48,6 +46,11 @@ build_with_latexmk() {
     echo "[build-local] OK: build/$(basename "${tex_file%.tex}").pdf"
 }
 
+publish_report_pdf() {
+    local tex_file="$1"
+    python tools/publish-public-reports.py "build/$(basename "${tex_file%.tex}").pdf"
+}
+
 build_tex_file() {
     local tex_file="$1"
     local label="$2"
@@ -56,19 +59,7 @@ build_tex_file() {
     else
         build_with_pdflatex "$tex_file" "$label"
     fi
-    publish_report_pdf "$(basename "${tex_file%.tex}")"
-}
-
-publish_report_pdf() {
-    local base_name="$1"
-    case "$base_name" in
-        smoke|candidaturas_reconocimiento_tecnico_03072026)
-            return
-            ;;
-    esac
-    mkdir -p "$public_report_dir"
-    cp "build/${base_name}.pdf" "$public_report_dir/${base_name}.pdf"
-    echo "[build-local] Published: site/files/reports/${base_name}.pdf"
+    publish_report_pdf "$tex_file"
 }
 
 case "${1:-all}" in
