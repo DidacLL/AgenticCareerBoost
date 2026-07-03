@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "artifacts": [
+    {
+      "kind": "cv",
+      "publish": true,
+      "source": "tex/didac-llorens-cv.tex",
+      "buildPdf": "build/didac-llorens-cv.pdf",
+      "sitePdf": "site/files/cv/didac-llorens-cv.pdf"
+    },
+    {
+      "kind": "cover-letter",
+      "publish": true,
+      "data": "data/examples/assaia.json",
+      "source": "build/generated/assaia-ml-core-cover-letter.tex",
+      "buildPdf": "build/assaia-ml-core-cover-letter.pdf",
+      "sitePdf": "site/files/cover-letters/assaia-ml-core-cover-letter.pdf"
+    },
+    {
+      "kind": "cover-letter",
+      "publish": true,
+      "data": "data/bcnactiva.json",
+      "source": "build/generated/didac-llorens-barcelona-activa-software-engineering.tex",
+      "buildPdf": "build/didac-llorens-barcelona-activa-software-engineering.pdf",
+      "sitePdf": "site/files/cover-letters/didac-llorens-barcelona-activa-software-engineering.pdf"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { loadText, resolveSiteUrl } from "./data-store.js";
 import { routeHref } from "./router.js";
-import { syncLogos } from "./components.js";
+import { isExternalHref, isStaticFileHref, syncLogos } from "./components.js";
 
 const THEME_KEY = "didac-os-theme";
 
@@ -109,10 +109,18 @@ function applyGallerySlide(gallery, content, index) {
     });
   }
   if (link) {
-    const href = slide.route ? routeHref(slide.route) : slide.href || "";
+    const hrefIsFile = isStaticFileHref(slide.href);
+    const href = slide.route && !hrefIsFile ? routeHref(slide.route) : resolveSiteUrl(slide.href || "");
     link.href = href;
-    if (slide.route) link.dataset.route = slide.route;
+    if (slide.route && !hrefIsFile) link.dataset.route = slide.route;
     else delete link.dataset.route;
+    if (isExternalHref(slide.href) || hrefIsFile || slide.newTab) {
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+    } else {
+      link.removeAttribute("target");
+      link.removeAttribute("rel");
+    }
     link.textContent = slide.caption || slide.title || "";
   }
   if (caption) caption.textContent = slide.caption || "";

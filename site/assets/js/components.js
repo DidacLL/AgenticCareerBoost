@@ -27,15 +27,25 @@ export function empty(element) {
   return element;
 }
 
+export function isExternalHref(href = "") {
+  return /^(?:https?:)?\/\//.test(String(href || ""));
+}
+
+export function isStaticFileHref(href = "") {
+  const value = String(href || "").split("#", 1)[0].split("?", 1)[0];
+  return /^(?:\/)?files\/.+\.[a-z0-9]+$/i.test(value) || /\.(?:pdf|zip|txt|csv|json)$/i.test(value);
+}
+
 export function routeLink(item, className = "") {
-  const isExternalHref = item.href && /^(?:https?:)?\/\//.test(item.href);
-  const href = item.route ? routeHref(item.route) : resolveSiteUrl(item.href);
+  const hrefIsFile = isStaticFileHref(item.href);
+  const href = item.route && !hrefIsFile ? routeHref(item.route) : resolveSiteUrl(item.href);
   const attrs = { href, class: className };
-  if (item.route) attrs.dataRoute = item.route;
-  if (isExternalHref || item.newTab) {
+  if (item.route && !hrefIsFile) attrs.dataRoute = item.route;
+  if (isExternalHref(item.href) || hrefIsFile || item.newTab) {
     attrs.target = "_blank";
     attrs.rel = "noopener noreferrer";
   }
+  if (item.download) attrs.download = item.download === true ? "" : item.download;
   return node("a", attrs, item.label || item.title || href || "");
 }
 

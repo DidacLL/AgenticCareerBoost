@@ -238,42 +238,64 @@ def test_report_build_docs_use_agents_report_root():
     assert "Do not manually copy PDFs" in report_readme
 
 
-def test_cv_artifact_family_has_single_canonical_source():
+def cv_manifest() -> list[dict]:
+    data = json.loads((AGENTS / "cv" / "artifacts.json").read_text(encoding="utf-8"))
+    return [item for item in data["artifacts"] if item.get("publish") is True]
+
+
+def safe_relative(value: str) -> Path:
+    path = Path(value)
+    assert not path.is_absolute()
+    assert ".." not in path.parts
+    return path
+
+
+def test_cv_artifact_manifest_declares_public_sources():
     cv_root = AGENTS / "cv"
     required = [
         cv_root / "README.md",
         cv_root / "latexmkrc",
         cv_root / "build-local.sh",
         cv_root / "build-local.ps1",
-        cv_root / "tex" / "didac-llorens-cv.tex",
-        cv_root / "tex" / "cover-letter-template.tex",
+        cv_root / "artifacts.json",
         cv_root / "tools" / "render-cover-letter.py",
-        cv_root / "data" / "examples" / "assaia.json",
+        cv_root / "tools" / "artifact_manifest.py",
     ]
     for path in required:
         assert path.is_file(), path
 
-    stale_sources = [
-        AGENTS / "reports" / "tex" / "guides" / "didac-llorens-cv.tex",
-        AGENTS / "reports" / "tex" / "guides" / "DidacLL_SoftwareEngineer_CV.site-legacy.tex",
-        ROOT / "assets" / "curriculum" / "DidacLL_SoftwareEngineer_CV.tex",
-    ]
-    assert [path for path in stale_sources if path.exists()] == []
+    assert not (ROOT / "assets" / "curriculum").exists()
+    artifacts = cv_manifest()
+    assert artifacts
+    assert {item["kind"] for item in artifacts} >= {"cv", "cover-letter"}
+    for item in artifacts:
+        assert item["kind"] in {"cv", "cover-letter"}
+        source = safe_relative(item["source"])
+        build_pdf = safe_relative(item["buildPdf"])
+        site_pdf = safe_relative(item["sitePdf"])
+        assert build_pdf.parts[:1] == ("build",)
+        assert site_pdf.parts[:2] == ("site", "files")
+        assert build_pdf.suffix == ".pdf"
+        assert site_pdf.suffix == ".pdf"
+        if item["kind"] == "cv":
+            assert (cv_root / source).is_file()
+        if item["kind"] == "cover-letter":
+            data = safe_relative(item["data"])
+            assert (cv_root / data).is_file()
 
 
-def test_cv_public_links_use_canonical_source():
-    canonical = "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/cv/tex/didac-llorens-cv.tex"
+def test_cv_public_links_follow_manifest():
     cv_text = (SITE / "content" / "cv.json").read_text(encoding="utf-8")
     projects_text = (SITE / "content" / "projects.json").read_text(encoding="utf-8")
-    assert "files/cv/didac-llorens-cv.pdf" in cv_text
-    assert canonical in cv_text
-    assert canonical in projects_text
-    for stale in [
-        "DidacLL_SoftwareEngineer_CV.site-legacy.tex",
-        "agents/reports/tex/guides/didac-llorens-cv.tex",
-        "assets/curriculum/",
-        "site/assets/curriculum/",
-    ]:
+    for item in cv_manifest():
+        site_pdf = safe_relative(item["sitePdf"]).as_posix().removeprefix("site/")
+        source = safe_relative(item["source"]).as_posix()
+        if item["kind"] == "cv":
+            source_url = f"https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/cv/{source}"
+            assert site_pdf in cv_text
+            assert source_url in cv_text
+            assert source_url in projects_text
+    for stale in ["assets/curriculum/", "site/assets/curriculum/"]:
         assert stale not in cv_text
         assert stale not in projects_text
 
@@ -281,8 +303,17 @@ def test_cv_public_links_use_canonical_source():
 def test_generated_cv_pdfs_are_ignored_not_tracked():
     git = git_executable()
     assert git is not None, "git executable is required for generated PDF tracking checks"
+    generated_paths: list[str] = []
+    for item in cv_manifest():
+        source = safe_relative(item["source"])
+        build_pdf = safe_relative(item["buildPdf"])
+        site_pdf = safe_relative(item["sitePdf"])
+        generated_paths.extend([site_pdf.as_posix(), f"agents/cv/{build_pdf.as_posix()}"])
+        if source.parts[:1] == ("build",):
+            generated_paths.append(f"agents/cv/{source.as_posix()}")
+
     tracked = subprocess.run(
-        [git, "ls-files", "site/files/cv/*.pdf", "site/files/cover-letters/*.pdf", "agents/reports/tex/guides/*cv*.pdf"],
+        [git, "ls-files", *generated_paths],
         cwd=ROOT,
         check=True,
         capture_output=True,
@@ -291,16 +322,13 @@ def test_generated_cv_pdfs_are_ignored_not_tracked():
     assert tracked == []
 
     ignored = subprocess.run(
-        [git, "check-ignore", "--no-index", "site/files/cv/didac-llorens-cv.pdf", "site/files/cover-letters/assaia-ml-core-cover-letter.pdf"],
+        [git, "check-ignore", "--no-index", *generated_paths],
         cwd=ROOT,
         check=True,
         capture_output=True,
         text=True,
     ).stdout.splitlines()
-    assert set(ignored) == {
-        "site/files/cv/didac-llorens-cv.pdf",
-        "site/files/cover-letters/assaia-ml-core-cover-letter.pdf",
-    }
+    assert set(ignored) == set(generated_paths)
 
 
 def test_site_directory_is_canonical_public_artifact():
@@ -317,6 +345,7 @@ def test_site_directory_is_canonical_public_artifact():
     assert "?v=" not in os_js
     assert "resolveSiteUrl(item.href)" in components
     assert "item.newTab" in components
+    assert "isStaticFileHref" in components
 
 
 def test_site_runtime_routes_are_deployment_base_agnostic():
@@ -345,9 +374,12 @@ def test_site_runtime_routes_are_deployment_base_agnostic():
     data_store = (SITE / "assets" / "js" / "data-store.js").read_text(encoding="utf-8")
     assert "new URL(import.meta.url)" in router
     assert "export function siteBasePath()" in router
+    assert "redirectStaticFileRoute" in router
     assert 'pushState({}, "", routeHref(route))' in router
     assert "window.location.hash" not in components
+    assert 'attrs.target = "_blank"' in components
     assert "routeHref(slide.route)" in widgets
+    assert "resolveSiteUrl(slide.href || \"\")" in widgets
     assert "hashHref" not in widgets
     assert "hashHref" not in data_store
 
@@ -388,6 +420,42 @@ def test_site_content_routes_remain_app_internal():
                 failures.append(f"{json_file.name}:{pointer} route includes deployment base: {value}")
             if "didacll.github.io" in value:
                 failures.append(f"{json_file.name}:{pointer} route includes deployment host: {value}")
+    assert failures == []
+
+
+def test_site_file_hrefs_are_not_app_routes():
+    route_paths = {
+        item["path"]
+        for item in json.loads((SITE / "content" / "site.json").read_text(encoding="utf-8"))["routes"]
+    }
+    failures: list[str] = []
+
+    def walk(node, pointer="$"):
+        if isinstance(node, dict):
+            for key, value in node.items():
+                yield from walk(value, f"{pointer}.{key}")
+        elif isinstance(node, list):
+            for index, value in enumerate(node):
+                yield from walk(value, f"{pointer}[{index}]")
+        else:
+            yield pointer, node
+
+    for json_file in (SITE / "content").glob("*.json"):
+        data = json.loads(json_file.read_text(encoding="utf-8"))
+        for pointer, value in walk(data):
+            key = pointer.rsplit(".", 1)[-1].split("[", 1)[0]
+            if not isinstance(value, str):
+                continue
+            if key == "route" and value.startswith("/files/"):
+                failures.append(f"{json_file.name}:{pointer} file path used as route")
+            if key == "href" and value.startswith("#/files/"):
+                failures.append(f"{json_file.name}:{pointer} file href uses hash routing")
+            if key == "href" and value.startswith("files/"):
+                local = value.split("#", 1)[0].split("?", 1)[0]
+                if value in route_paths:
+                    failures.append(f"{json_file.name}:{pointer} file href collides with route")
+                if not (SITE / local).is_file():
+                    failures.append(f"{json_file.name}:{pointer} missing file href {value}")
     assert failures == []
 
 

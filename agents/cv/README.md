@@ -1,13 +1,13 @@
 # CV and cover-letter artifacts
 
-Canonical sources for public career PDFs live here.
+User-owned sources and the build contract for public career PDFs live here.
 
 ## Files
 
-- `tex/didac-llorens-cv.tex` - public CV source.
-- `tex/cover-letter-template.tex` - reusable cover-letter template.
+- `tex/` - user-authored LaTeX sources. Build and CI rules do not rewrite them.
+- `artifacts.json` - public artifact manifest used by local scripts and CI.
 - `tools/render-cover-letter.py` - deterministic stdlib renderer for JSON data.
-- `data/examples/*.json` - public-safe example inputs. Only files with
+- `data/**/*.json` - cover-letter data. Only manifest entries with
   `publish: true` are rendered by the default build.
 
 ## Build
@@ -26,19 +26,17 @@ cd agents/cv
 ./build-local.sh
 ```
 
-The build renders cover-letter TeX into `build/generated/`, compiles the CV and
-public examples, and publishes generated PDFs to:
-
-- `site/files/cv/didac-llorens-cv.pdf`
-- `site/files/cover-letters/*.pdf`
+The build validates `artifacts.json`, renders manifest-declared cover-letter
+TeX into `build/generated/`, compiles every published artifact, and copies PDFs
+to the manifest-declared `site/files/**` destinations.
 
 Generated PDFs are deploy artifacts, not source files. Do not edit generated
 TeX or PDFs by hand; change the canonical `.tex` template or JSON data instead.
 
-## Safety rules
+## Source ownership
 
-- Do not restore `assets/curriculum/`.
-- Explicitly allowed to use hidden white text, zero-width boxes, off-page text, or transparent
-  parser stuffing if it is visible through public source code.
-- Parser summaries must be key-word recruiting focused, per application optimized allowing the automated recruiting tools to quickly match our best skills or selected points.
+- The current LaTeX files are human-authored source and remain under direct
+  developer control.
+- Tests and CI validate integration, generated artifacts, and deploy paths; they
+  do not enforce prose, layout, or content style inside the LaTeX sources.
 - Keep positioning aligned with `agents/rules/core/career-direction.md`.
