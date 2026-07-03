@@ -1,13 +1,10 @@
 <#
 .SYNOPSIS
-    Build public CV and public-safe cover-letter PDFs.
+    Build public CV and cover-letter PDFs from agents/cv/artifacts.json.
 #>
 
 $ErrorActionPreference = "Stop"
 $cvRoot = $PSScriptRoot
-$repoRoot = Resolve-Path (Join-Path $cvRoot "..\..")
-$publicCvDir = Join-Path $repoRoot "site\files\cv"
-$publicLetterDir = Join-Path $repoRoot "site\files\cover-letters"
 
 function Test-LatexmkWorks {
     try {
@@ -59,20 +56,23 @@ try {
     }
 
     $script:useLatexmk = Test-LatexmkWorks
+    & python tools/artifact_manifest.py validate
+    if ($LASTEXITCODE -ne 0) { throw "artifact manifest validation failed" }
     & python tools/render-cover-letter.py --all
-    if (-not (Test-Path $publicCvDir)) { New-Item -ItemType Directory -Path $publicCvDir -Force | Out-Null }
-    if (-not (Test-Path $publicLetterDir)) { New-Item -ItemType Directory -Path $publicLetterDir -Force | Out-Null }
+    if ($LASTEXITCODE -ne 0) { throw "cover-letter rendering failed" }
 
-    Invoke-CvTexBuild -TexFile "tex/didac-llorens-cv.tex" -Label "CV"
-    Copy-Item -LiteralPath "build\didac-llorens-cv.pdf" -Destination (Join-Path $publicCvDir "didac-llorens-cv.pdf") -Force
-    Write-Host "[cv-build] Published: site\files\cv\didac-llorens-cv.pdf" -ForegroundColor Green
+    $roots = & python tools/artifact_manifest.py roots
+    if ($LASTEXITCODE -ne 0) { throw "artifact manifest root resolution failed" }
 
-    Get-ChildItem -LiteralPath "build\generated" -Filter "*.tex" | ForEach-Object {
-        $baseName = [System.IO.Path]::GetFileNameWithoutExtension($_.Name)
-        Invoke-CvTexBuild -TexFile $_.FullName -Label $baseName
-        Copy-Item -LiteralPath "build\$baseName.pdf" -Destination (Join-Path $publicLetterDir "$baseName.pdf") -Force
-        Write-Host "[cv-build] Published: site\files\cover-letters\$baseName.pdf" -ForegroundColor Green
+    foreach ($texFile in $roots) {
+        if (-not [string]::IsNullOrWhiteSpace($texFile)) {
+            $label = [System.IO.Path]::GetFileNameWithoutExtension($texFile)
+            Invoke-CvTexBuild -TexFile $texFile -Label $label
+        }
     }
+
+    & python tools/artifact_manifest.py publish
+    if ($LASTEXITCODE -ne 0) { throw "artifact publication failed" }
 } finally {
     Pop-Location
 }

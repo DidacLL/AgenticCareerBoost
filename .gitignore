@@ -27,6 +27,6 @@ site/.jekyll-cache/
 site/.sass-cache/
 site/Gemfile.lock
 site/data/status.json
-site/files/cv/*.pdf
-site/files/cover-letters/*.pdf
+site/files/cv/
+site/files/cover-letters/
 /site/.idea/

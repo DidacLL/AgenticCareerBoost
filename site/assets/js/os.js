@@ -1,5 +1,5 @@
 import { loadContent, normalizeRoute } from "./data-store.js";
-import { bindRouter, routeFromLocation } from "./router.js";
+import { bindRouter, redirectStaticFileRoute, routeFromLocation } from "./router.js";
 import { renderRoute } from "./renderer.js";
 import { initTheme, mountLegal, wireWidgets } from "./widgets.js";
 
@@ -10,7 +10,9 @@ async function boot() {
   initTheme(contentState);
   await mountLegal(contentState);
   bindRouter(renderCurrentRoute);
-  await renderCurrentRoute(routeFromLocation());
+  const route = routeFromLocation();
+  if (redirectStaticFileRoute(route)) return;
+  await renderCurrentRoute(route);
 }
 
 async function renderCurrentRoute(route) {
@@ -20,6 +22,7 @@ async function renderCurrentRoute(route) {
     wireWidgets(contentState);
   } catch (error) {
     console.error(error);
+    if (redirectStaticFileRoute(normalized)) return;
     if (normalized !== "/") window.location.hash = "/";
   }
 }

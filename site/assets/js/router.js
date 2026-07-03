@@ -1,4 +1,4 @@
-import { normalizeRoute } from "./data-store.js";
+import { normalizeRoute, resolveSiteUrl } from "./data-store.js";
 
 const SITE_BASE_PATH = deploymentBasePath();
 
@@ -35,6 +35,16 @@ export function routeHref(route) {
   return `${SITE_BASE_PATH.replace(/\/$/, "")}${normalized}`;
 }
 
+export function isStaticFileRoute(route = "") {
+  return /^\/files\/[^?#]+\.[a-z0-9]+$/i.test(normalizeRoute(route));
+}
+
+export function redirectStaticFileRoute(route = "") {
+  if (!isStaticFileRoute(route)) return false;
+  window.location.replace(resolveSiteUrl(route));
+  return true;
+}
+
 export function routeMatches(route, target) {
   const current = normalizeRoute(route);
   const cleanTarget = normalizeRoute(target);
@@ -48,6 +58,7 @@ export function bindRouter(callback) {
     const link = event.target.closest("a[data-route], button[data-route]");
     if (!link) return;
     const route = normalizeRoute(link.dataset.route || link.getAttribute("href") || "/");
+    if (isStaticFileRoute(route)) return;
     event.preventDefault();
     if (routeFromLocation() === route) {
       callback(route);

@@ -11,6 +11,7 @@
     {
       "title": "PDF version",
       "href": "files/cv/didac-llorens-cv.pdf",
+      "newTab": true,
       "logo": "pdf",
       "text": "Same CV, ready to print or send when a plain file is better."
     },
@@ -42,7 +43,7 @@
           { "term": "Theme", "control": "themeToggle" }
         ] },
         { "label": "SOURCE", "links": [
-          { "label": "PDF", "href": "files/cv/didac-llorens-cv.pdf" },
+          { "label": "PDF", "href": "files/cv/didac-llorens-cv.pdf", "newTab": true },
           { "label": "LaTeX source", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/cv/tex/didac-llorens-cv.tex" }
         ] }
       ],

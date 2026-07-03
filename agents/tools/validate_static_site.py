@@ -56,18 +56,14 @@ FORBIDDEN_DEPLOYMENT_TOKENS = [
     "didacll.github.io",
 ]
 
-CANONICAL_CV_SOURCE = "agents/cv/tex/didac-llorens-cv.tex"
-CANONICAL_CV_SOURCE_URL = f"https://github.com/DidacLL/AgenticCareerBoost/blob/main/{CANONICAL_CV_SOURCE}"
-
 CV_REQUIRED = [
     "README.md",
     "latexmkrc",
     "build-local.sh",
     "build-local.ps1",
-    "tex/didac-llorens-cv.tex",
-    "tex/cover-letter-template.tex",
+    "artifacts.json",
     "tools/render-cover-letter.py",
-    "data/examples/assaia.json",
+    "tools/artifact_manifest.py",
 ]
 
 
@@ -79,6 +75,41 @@ def git_executable() -> str | None:
     if windows_git.exists():
         return str(windows_git)
     return None
+
+
+def read_manifest(failures: list[str]) -> list[dict]:
+    path = ROOT / "agents" / "cv" / "artifacts.json"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        failures.append(f"agents/cv/artifacts.json invalid JSON: {exc}")
+        return []
+    artifacts = data.get("artifacts")
+    if not isinstance(artifacts, list) or not artifacts:
+        failures.append("agents/cv/artifacts.json must declare at least one artifact")
+        return []
+    return [item for item in artifacts if item.get("publish") is True]
+
+
+def safe_relative(value: object) -> Path | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    path = Path(text)
+    if path.is_absolute() or ".." in path.parts:
+        return None
+    return path
+
+
+def walk_json(node, pointer="$"):
+    if isinstance(node, dict):
+        for key, value in node.items():
+            yield from walk_json(value, f"{pointer}.{key}")
+    elif isinstance(node, list):
+        for index, value in enumerate(node):
+            yield from walk_json(value, f"{pointer}[{index}]")
+    else:
+        yield pointer, node
 
 
 def main() -> int:
@@ -118,6 +149,9 @@ def main() -> int:
         components_text = components.read_text(encoding="utf-8")
         if "window.location.hash" in components_text:
             failures.append("site/assets/js/components.js must not bypass router with window.location.hash")
+        for token in ("isStaticFileHref", 'attrs.target = "_blank"', "attrs.download"):
+            if token not in components_text:
+                failures.append(f"site/assets/js/components.js missing file-link marker: {token}")
     fallback = SITE / "404.html"
     if fallback.is_file():
         fallback_text = fallback.read_text(encoding="utf-8")
@@ -144,13 +178,41 @@ def main() -> int:
         if not (cv_root / relative).is_file():
             failures.append(f"missing CV artifact source file: agents/cv/{relative}")
 
-    cv_pdf = SITE / "files" / "cv" / "didac-llorens-cv.pdf"
-    if not cv_pdf.is_file():
-        failures.append("missing generated public CV PDF: site/files/cv/didac-llorens-cv.pdf")
-
-    cover_letter_dir = SITE / "files" / "cover-letters"
-    if not cover_letter_dir.is_dir() or not list(cover_letter_dir.glob("*.pdf")):
-        failures.append("missing generated public cover-letter PDF in site/files/cover-letters/")
+    artifacts = read_manifest(failures)
+    manifest_site_paths: set[str] = set()
+    manifest_cv_source_urls: set[str] = set()
+    generated_paths: list[str] = []
+    for item in artifacts:
+        kind = item.get("kind")
+        source = safe_relative(item.get("source"))
+        data = safe_relative(item.get("data"))
+        build_pdf = safe_relative(item.get("buildPdf"))
+        site_pdf = safe_relative(item.get("sitePdf"))
+        if kind not in {"cv", "cover-letter"}:
+            failures.append(f"unsupported CV artifact kind in manifest: {kind}")
+        if source is None or build_pdf is None or site_pdf is None:
+            failures.append(f"CV artifact manifest entry has unsafe or missing paths: {item}")
+            continue
+        if build_pdf.parts[:1] != ("build",):
+            failures.append(f"CV artifact buildPdf must stay under agents/cv/build: {build_pdf}")
+        if site_pdf.parts[:2] != ("site", "files"):
+            failures.append(f"CV artifact sitePdf must stay under site/files: {site_pdf}")
+        if kind == "cv":
+            if not (cv_root / source).is_file():
+                failures.append(f"missing CV source declared by manifest: agents/cv/{source.as_posix()}")
+            manifest_cv_source_urls.add(f"https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/cv/{source.as_posix()}")
+        if kind == "cover-letter":
+            if data is None or not (cv_root / data).is_file():
+                failures.append(f"missing cover-letter data declared by manifest: agents/cv/{data.as_posix() if data else '<missing>'}")
+            if not (cv_root / source).is_file():
+                failures.append(f"missing generated cover-letter TeX declared by manifest: agents/cv/{source.as_posix()}")
+        site_output = ROOT / site_pdf
+        if not site_output.is_file():
+            failures.append(f"missing generated public career PDF: {site_pdf.as_posix()}")
+        manifest_site_paths.add(site_pdf.as_posix().removeprefix("site/"))
+        generated_paths.extend([site_pdf.as_posix(), f"agents/cv/{build_pdf.as_posix()}"])
+        if source.parts[:1] == ("build",):
+            generated_paths.append(f"agents/cv/{source.as_posix()}")
 
     for relative in ("site.json", "pages.json", "projects.json", "blog.json", "cv.json"):
         path = SITE / "content" / relative
@@ -162,26 +224,53 @@ def main() -> int:
     cv_json = SITE / "content" / "cv.json"
     if cv_json.is_file():
         cv_text = cv_json.read_text(encoding="utf-8")
-        if CANONICAL_CV_SOURCE_URL not in cv_text:
-            failures.append("site/content/cv.json must link the canonical agents/cv CV source")
-        if "DidacLL_SoftwareEngineer_CV.site-legacy.tex" in cv_text:
-            failures.append("site/content/cv.json must not link the legacy CV source")
+        for url in manifest_cv_source_urls:
+            if url not in cv_text:
+                failures.append("site/content/cv.json must link the manifest-declared CV source")
 
     for relative in ("cv.json", "projects.json"):
         path = SITE / "content" / relative
         if path.is_file():
             text = path.read_text(encoding="utf-8")
             stale_site_curriculum = "site/assets/" + "curriculum/"
-            for token in ("assets/curriculum/", stale_site_curriculum, "DidacLL_SoftwareEngineer_CV.site-legacy.tex"):
+            for token in ("assets/curriculum/", stale_site_curriculum):
                 if token in text:
                     failures.append(f"site/content/{relative} contains stale CV/curriculum token: {token}")
+
+    route_paths = set()
+    site_json = SITE / "content" / "site.json"
+    if site_json.is_file():
+        try:
+            route_paths = {item["path"] for item in json.loads(site_json.read_text(encoding="utf-8")).get("routes", [])}
+        except Exception:
+            route_paths = set()
+    for json_file in (SITE / "content").glob("*.json"):
+        try:
+            data = json.loads(json_file.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for pointer, value in walk_json(data):
+            if not isinstance(value, str):
+                continue
+            key = pointer.rsplit(".", 1)[-1].split("[", 1)[0]
+            if key == "route" and value.startswith("/files/"):
+                failures.append(f"site/content/{json_file.name}:{pointer} file path stored as app route: {value}")
+            if key == "href" and value.startswith("#/files/"):
+                failures.append(f"site/content/{json_file.name}:{pointer} file link uses hash route: {value}")
+            if key == "href" and value.startswith("files/"):
+                if value in route_paths:
+                    failures.append(f"site/content/{json_file.name}:{pointer} file link collides with app route: {value}")
+                if not (SITE / value.split("#", 1)[0].split("?", 1)[0]).is_file():
+                    failures.append(f"site/content/{json_file.name}:{pointer} missing file link: {value}")
+                if value in manifest_site_paths and '"newTab": true' not in json_file.read_text(encoding="utf-8"):
+                    failures.append(f"site/content/{json_file.name}:{pointer} generated PDF links must opt into newTab")
 
     git = git_executable()
     if git is None:
         failures.append("git executable is required for generated CV artifact validation")
-    else:
+    elif generated_paths:
         tracked = subprocess.run(
-            [git, "ls-files", "site/files/cv/*.pdf", "site/files/cover-letters/*.pdf", "agents/reports/tex/guides/*cv*.pdf"],
+            [git, "ls-files", *generated_paths],
             cwd=ROOT,
             check=True,
             capture_output=True,
@@ -190,14 +279,13 @@ def main() -> int:
         if tracked:
             failures.append(f"generated CV/cover-letter PDFs must not be tracked: {', '.join(tracked)}")
         ignored = subprocess.run(
-            [git, "check-ignore", "--no-index", "site/files/cv/didac-llorens-cv.pdf", "site/files/cover-letters/assaia-ml-core-cover-letter.pdf"],
+            [git, "check-ignore", "--no-index", *generated_paths],
             cwd=ROOT,
             check=False,
             capture_output=True,
             text=True,
         ).stdout.splitlines()
-        expected_ignored = {"site/files/cv/didac-llorens-cv.pdf", "site/files/cover-letters/assaia-ml-core-cover-letter.pdf"}
-        if set(ignored) != expected_ignored:
+        if set(ignored) != set(generated_paths):
             failures.append("generated CV/cover-letter PDF paths must be ignored by .gitignore")
 
     if failures:

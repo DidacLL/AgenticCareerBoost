@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
-# Build public CV and public-safe cover-letter PDFs.
+# Build public CV and cover-letter PDFs from agents/cv/artifacts.json.
 
 set -euo pipefail
 cd "$(dirname "$0")"
 repo_root="$(cd ../.. && pwd)"
-public_cv_dir="$repo_root/site/files/cv"
-public_letter_dir="$repo_root/site/files/cover-letters"
 
 if ! command -v python &>/dev/null; then
     echo "ERROR: python not found." >&2
@@ -16,8 +14,9 @@ if ! command -v pdflatex &>/dev/null && ! command -v latexmk &>/dev/null; then
     exit 1
 fi
 
+python tools/artifact_manifest.py validate
 python tools/render-cover-letter.py --all
-mkdir -p build "$public_cv_dir" "$public_letter_dir"
+mkdir -p build
 
 build_tex() {
     local tex_file="$1"
@@ -35,16 +34,13 @@ build_tex() {
     fi
 }
 
-build_tex tex/didac-llorens-cv.tex "CV"
-cp build/didac-llorens-cv.pdf "$public_cv_dir/didac-llorens-cv.pdf"
-echo "[cv-build] Published: site/files/cv/didac-llorens-cv.pdf"
-
-shopt -s nullglob
-for tex_file in build/generated/*.tex; do
+mapfile -t tex_roots < <(python tools/artifact_manifest.py roots)
+for tex_file in "${tex_roots[@]}"; do
+    [[ -z "$tex_file" ]] && continue
     base_name="$(basename "${tex_file%.tex}")"
     build_tex "$tex_file" "$base_name"
-    cp "build/${base_name}.pdf" "$public_letter_dir/${base_name}.pdf"
-    echo "[cv-build] Published: site/files/cover-letters/${base_name}.pdf"
 done
+
+python tools/artifact_manifest.py publish
 
 echo "[cv-build] Done."

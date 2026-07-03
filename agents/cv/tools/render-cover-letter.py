@@ -1,4 +1,4 @@
-"""Render public-safe cover-letter TeX sources from JSON data."""
+"""Render cover-letter TeX sources from JSON data."""
 
 from __future__ import annotations
 
@@ -12,6 +12,7 @@ CV_ROOT = ROOT / "agents" / "cv"
 DEFAULT_TEMPLATE = CV_ROOT / "tex" / "cover-letter-template.tex"
 DEFAULT_OUTPUT_DIR = CV_ROOT / "build" / "generated"
 DEFAULT_DATA_DIR = CV_ROOT / "data" / "examples"
+DEFAULT_MANIFEST = CV_ROOT / "artifacts.json"
 
 REQUIRED_STRINGS = [
     "slug",
@@ -25,7 +26,6 @@ REQUIRED_STRINGS = [
     "recipient",
     "role",
     "location",
-    "date",
     "greeting",
     "closing",
     "public_note",
@@ -91,7 +91,6 @@ def placeholder_map(data: dict) -> dict[str, str]:
         "RECIPIENT": latex_escape(data["recipient"]),
         "ROLE": latex_escape(data["role"]),
         "LOCATION": latex_escape(data["location"]),
-        "DATE": latex_escape(data["date"]),
         "GREETING": latex_escape(data["greeting"]),
         "BODY_PARAGRAPHS": paragraphs,
         "CLOSING": latex_escape(data["closing"]),
@@ -124,12 +123,24 @@ def public_examples(data_dir: Path) -> list[Path]:
     return paths
 
 
+def manifest_examples(path: Path) -> list[Path]:
+    manifest = json.loads(path.read_text(encoding="utf-8"))
+    paths = []
+    for item in manifest.get("artifacts", []):
+        if item.get("kind") != "cover-letter" or item.get("publish") is not True:
+            continue
+        data_path = CV_ROOT / str(item.get("data", ""))
+        paths.append(data_path)
+    return sorted(paths)
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, help="One cover-letter JSON file")
     parser.add_argument("--all", action="store_true", help="Render all publish=true example files")
     parser.add_argument("--template", type=Path, default=DEFAULT_TEMPLATE)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     return parser.parse_args()
 
 
@@ -137,7 +148,7 @@ def main() -> int:
     args = parse_args()
     if bool(args.input) == bool(args.all):
         raise SystemExit("choose exactly one of --input or --all")
-    inputs = public_examples(DEFAULT_DATA_DIR) if args.all else [args.input]
+    inputs = manifest_examples(args.manifest) if args.all and args.manifest.is_file() else public_examples(DEFAULT_DATA_DIR) if args.all else [args.input]
     if not inputs:
         raise SystemExit("no publish=true cover-letter examples found")
     for data_path in inputs:
