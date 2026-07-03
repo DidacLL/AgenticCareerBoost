@@ -390,6 +390,8 @@ def test_site_404_discovers_deployment_base():
     assert "hasSiteContent(candidate)" in fallback
     assert "content/site.json" in fallback
     assert "routeForBase(normalizedPath, base)" in fallback
+    assert "isStaticFileRoute(clean)" in fallback
+    assert "File not found." in fallback
     assert "${window.location.origin}${base}#${route}" in fallback
     assert "/AgenticCareerBoost" not in fallback
     assert "didacll.github.io" not in fallback
