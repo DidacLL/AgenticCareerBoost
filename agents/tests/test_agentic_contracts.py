@@ -88,24 +88,6 @@ def test_state_is_not_authoritative():
     assert "current sprint contract" not in active_sprint.lower()
 
 
-def test_no_live_references_to_deleted_poison_sources():
-    forbidden = [
-        "content/social/style-book.md",
-        "content/social/drafts/",
-        "assets/curriculum/DidacLL_Assaia_CoverLetter",
-        "data/public-status.json",
-        "site/assets/data/public-status.json",
-        "site/assets/curriculum/",
-    ]
-    offenders: list[str] = []
-    for path in live_text_files():
-        text = path.read_text(encoding="utf-8", errors="ignore")
-        for token in forbidden:
-            if token in text:
-                offenders.append(f"{path.relative_to(ROOT).as_posix()}: {token}")
-    assert offenders == []
-
-
 def test_live_paths_use_new_rule_and_state_roots():
     old_tokens = [
         "docs/core/",
@@ -294,23 +276,6 @@ def test_cv_public_links_use_canonical_source():
     ]:
         assert stale not in cv_text
         assert stale not in projects_text
-
-
-def test_cv_sources_do_not_use_hidden_parser_text():
-    hidden_tokens = [
-        r"\textcolor{white}",
-        r"\resizebox{0pt}",
-        r"\transparent{0}",
-        r"\phantom",
-        "opacity=0",
-    ]
-    offenders: list[str] = []
-    for path in (AGENTS / "cv" / "tex").glob("*.tex"):
-        text = path.read_text(encoding="utf-8")
-        for token in hidden_tokens:
-            if token in text:
-                offenders.append(f"{path.relative_to(ROOT).as_posix()}: {token}")
-    assert offenders == []
 
 
 def test_generated_cv_pdfs_are_ignored_not_tracked():

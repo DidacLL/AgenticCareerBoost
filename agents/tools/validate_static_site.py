@@ -70,8 +70,6 @@ CV_REQUIRED = [
     "data/examples/assaia.json",
 ]
 
-HIDDEN_LATEX_TOKENS = []
-
 
 def git_executable() -> str | None:
     found = shutil.which("git")
