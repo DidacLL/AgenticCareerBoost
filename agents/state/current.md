@@ -3,7 +3,7 @@
 - **Active workflow**: none
 - **Active sprint**: none
 - **Repo-local blockers**: none
-- **Human-owned queue**: Publication, LinkedIn/GitHub account metadata, company
+- **Human-owned queue**: Further publication, LinkedIn/GitHub account metadata, company
   outreach, applications, and manual profile settings remain in
   `agents/state/human-actions.md`.
 
@@ -11,6 +11,11 @@
 
 - Public site canonical root: `https://didacll.github.io/`.
 - AgenticCareerBoost remains the source project and public proof repository: `https://github.com/DidacLL/AgenticCareerBoost`.
+- First LinkedIn presentation of AgenticCareerBoost has already happened as a
+  human-owned external action; no exact post URL is recorded yet.
+- S-005 is rebaselined as a post-launch explanatory series about deployments,
+  structure, history, flaws, and fixes.
+- Pre-S-005 closure ledger: `agents/state/logs/pre-s005-closure-rebaseline.md`.
 - S-004.5 site-quality closure: `agents/state/logs/S-004.5-site-quality/closure.md`.
 - Root URL finalization PR #26 is merged.
 - Site copy dehype branch: `codex/site-copy-dehype`.
@@ -60,6 +65,7 @@
 
 | Date | Type | Summary |
 |------|------|---------|
+| 2026-07-03 | Pre-S-005 closure and rebaseline | Post-S-004.5 routing/CV/deployment recovery documented; S-005 reframed from kickoff to post-launch explanatory series |
 | 2026-07-02 | AgenticCareerBoost intermediate PDF backfill run | Formal backfill reports added for S-002R, S-003, S-004, and S-004.5 without consuming S-005 or restoring discarded draft bodies |
 | 2026-07-02 | AgenticCareerBoost project history narrative run | Project page expanded into a public evidence narrative, report library exposed, formal project-history map added, and LaTeX build scripts made responsible for public report PDF publication without consuming S-005 |
 | 2026-07-02 | AgenticSystem evidence reconciliation run | Local review findings repaired, intentional draft deletion documented, formal reconciliation report added, and validation recorded without consuming S-005 |

@@ -471,7 +471,8 @@ def test_agentic_project_page_exposes_report_library():
         "Context Poisoning",
         "End of Semester Pause",
         "Failed Campaign Kickoff",
-        "Cleanup And Current Version",
+        "Cleanup And First Presentation",
+        "Post-Launch Hardening",
     ]:
         assert label in rendered_text
     assert "Documentation gaps" not in rendered_text

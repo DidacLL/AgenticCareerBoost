@@ -12,10 +12,10 @@
 \title{%
   \textsc{AgenticCareerBoost}\\[0.4em]
   \Large Project History And Evidence Map\\[0.3em]
-  \large Bootstrap Launch $\cdot$ Initial Growth $\cdot$ Context Poisoning $\cdot$ Cleanup%
+  \large Bootstrap Launch $\cdot$ Initial Growth $\cdot$ Context Poisoning $\cdot$ Cleanup $\cdot$ Post-Launch Hardening%
 }
 \author{Didac Llorens \\ \small \href{https://github.com/DidacLL}{github.com/DidacLL}}
-\date{July 2026 --- v0.1}
+\date{July 2026 --- v0.2}
 
 \begin{document}
 \maketitle
@@ -36,11 +36,13 @@ The website should make the project legible quickly. The LaTeX report set should
 carry the heavier proof: what was built, what failed, how the system recovered,
 and which evidence supports each claim. This document maps those two surfaces
 together so future social posts can reuse the same narrative without inventing a
-new story.
+new story. The first LinkedIn presentation has now happened as a human-owned
+external action; the next public work is to unpack the deployments, structure,
+history, and fixes behind the system.
 
 \chapter{Public Timeline}
 
-\takeaway{The current public narrative has six stages. Each stage should point
+\takeaway{The current public narrative has seven stages. Each stage should point
 to evidence rather than asking the reader to trust a summary.}
 
 \begin{longtable}{p{0.08\textwidth} p{0.24\textwidth} p{0.33\textwidth} p{0.23\textwidth}}
@@ -58,7 +60,8 @@ to evidence rather than asking the reader to trust a summary.}
 3 & \stage{Context Poisoning} & Stale drafts, duplicated paths, over-broad workflow ceremony, unclear state authority, and old style/copy material started steering later runs. & \safePath{agentic-system-refactor-retrospective.pdf} \\
 4 & \stage{End of Semester Pause} & Useful artifacts existed, but the public narrative, social readiness, and evidence boundaries were not yet clean enough for a confident launch. & \safePath{s003-website-os-clarity.pdf}; \safePath{s004-documentation-alignment.pdf} \\
 5 & \stage{Failed Campaign Kickoff} & Restart attempts exposed system poison: social/profile artifacts existed, but structure and authority drift made launch unsafe. & \safePath{s002-restart-refresh.pdf}; \safePath{s0045-site-quality.pdf}; refactor retrospective \\
-6 & \stage{Cleanup And Current Version} & Rules/evidence separation, discarded draft policy, root/site simplification, report publication, direct-route validation, and current evidence reconciliation. & Refactor retrospective; evidence reconciliation; this map \\
+6 & \stage{Cleanup And First Presentation} & Rules/evidence separation, discarded draft policy, root/site simplification, report publication, direct-route validation, and a first human-owned LinkedIn presentation. & Refactor retrospective; evidence reconciliation; this map \\
+7 & \stage{Post-Launch Hardening} & Deployment-base routing leaks, generated CV PDF drift, brittle tests, AI-authorship overreach, static-file fallback loops, and generated-artifact hygiene were exposed and repaired. & \safePath{pre-s005-closure-rebaseline.md}; routing/CV validation \\
 \bottomrule
 \end{longtable}
 
@@ -77,7 +80,7 @@ these PDFs; this report explains how they fit together.}
 \textbf{Report} & \textbf{Role in the evidence story} \\
 \midrule
 \endhead
-\safePath{agenticcareerboost-project-history.pdf} & Public narrative bridge across all six timeline stages. \\
+\safePath{agenticcareerboost-project-history.pdf} & Public narrative bridge across the timeline stages, including post-launch hardening. \\
 \safePath{agentic-system-guide.pdf} & Human-facing orientation manual for how to read the repository and its operating model. \\
 \safePath{s000-agentic-os-bootstrap.pdf} & Deep technical case study for the original bootstrap architecture. \\
 \safePath{s001-profile-audit-positioning.pdf} & Initial growth report: profile audit, market research, positioning, and first public-profile direction. \\
@@ -112,7 +115,8 @@ Initial Growth & S-001 formal PDF, S-001.5R corrective PDF, and S-002R restart r
 Context Poisoning & Formal refactor retrospective plus evidence reconciliation. & Covered; use this term consistently and keep discarded draft bodies deleted. \\
 End of Semester Pause & S-003 website clarity and S-004 documentation alignment reports plus state logs. & Covered by backfilled PDFs and logs. \\
 Failed Campaign Kickoff & S-002R restart report, S-004.5 site quality report, social/profile reviews, and refactor retrospective. & Covered without restoring discarded candidate outputs. \\
-Cleanup And Current Version & Refactor, structure simplification, alignment/evidence-safety, reconciliation logs, and published PDFs. & Covered; keep future reports indexed when added. \\
+Cleanup And First Presentation & Refactor, structure simplification, alignment/evidence-safety, reconciliation logs, published PDFs, and first human-owned presentation. & Covered; keep future reports indexed when added. \\
+Post-Launch Hardening & Routing, CV artifact, static-file fallback, validation, and social rebaseline fixes. & Covered by the pre-S-005 closure ledger and current validators. \\
 \bottomrule
 \end{longtable}
 
@@ -143,10 +147,36 @@ That is why the project page should expose all formal reports and not only the
 current dashboard. The dashboard tells the present state. The report library
 shows the development history.
 
+\chapter{Post-Launch Hardening}
+
+\takeaway{The first presentation made the next problems clearer. The fixes are
+part of the project proof because they show where agentic workflows fail when
+deployment, authorship, and validation boundaries are weak.}
+
+The first presentation was not followed by a clean victory lap. It exposed sharper
+engineering problems:
+
+\begin{itemize}
+  \item nested GitHub Pages routes escaped from \safePath{/AgenticCareerBoost/}
+  to root paths;
+  \item direct PDF links could bounce between \safePath{/files/...pdf} and
+  \safePath{#/files/...pdf} when the deploy artifact was missing;
+  \item the CV and cover-letter pipeline depended on generated files and fixed
+  names instead of a manifest;
+  \item generated tests overreached into authorial LaTeX content decisions;
+  \item validation overfit hotfix assumptions instead of testing durable
+  contracts.
+\end{itemize}
+
+The correction was to narrow the contracts: app routes are app routes, static
+files are static files, CV artifacts are manifest-declared build outputs, and
+tests verify integration rather than authorship. That is the story S-005 should
+carry forward.
+
 \chapter{Non-Goals}
 
-This run does not create social posts, reopen S-005, restore discarded draft
-bodies, or create a new site architecture. Its job is alignment: public page,
-report inventory, and evidence history must describe the same project.
+This run does not create final social copy, restore discarded draft bodies, or
+create a new site architecture. Its job is alignment: public page, report
+inventory, evidence history, and S-005 planning must describe the same project.
 
 \end{document}

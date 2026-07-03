@@ -62,7 +62,7 @@ build_tex_file() {
 publish_report_pdf() {
     local base_name="$1"
     case "$base_name" in
-        smoke)
+        smoke|candidaturas_reconocimiento_tecnico_03072026)
             return
             ;;
     esac
