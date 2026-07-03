@@ -38,7 +38,6 @@ Do not steer the campaign toward:
 - generic backend consulting;
 - body-shop staff augmentation;
 - CRUD-only junior backend funnels;
-- prompt-engineering or AI-influencer framing;
 - founder-LARP or fake-startup language.
 
 Data work is acceptable only when it is creative, systems-oriented, automated,

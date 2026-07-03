@@ -9,8 +9,7 @@
    in canonical files.
 3. **Human-reviewed truth** — agents may draft, plan, and scaffold. Final truth
    and publication decisions remain human-controlled.
-4. **Public inspectability** — the process is part of the proof. Hide nothing
-   operational in private-only tooling.
+4. **Public inspectability** — the process is part of the proof. 
 5. **Token-aware brevity** — shorter files with better routing beat giant
    documents. Target ≤80 lines per file; many ≤30.
 

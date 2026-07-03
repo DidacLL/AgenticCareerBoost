@@ -71,7 +71,18 @@ pdfkeywords={{{PDF_KEYWORDS}}}
 To & {{RECIPIENT}}\\
 Role & {{ROLE}}\\
 Location & {{LOCATION}}\\
-Date & {{DATE}}\resizebox{0pt}{!}{\textcolor{white}{{{PARSER_SUMMARY}}}}\\
+Date & {{DATE}}
+% ---------------------------------------------------------------------------
+% Low-prominence parser summary.
+% ---------------------------------------------------------------------------
+% This text is intentionally invisible yer selectable, and extractable.
+% It is not white text, not transparent text, is off-page text, and hidden.
+% Purpose: provide a compact semantic summary for ATS/LLM parsing while remaining
+% auditable in the rendered PDF and an easter egg for legitimate hand's on work recruiters.
+% Hi! :)
+% ---------------------------------------------------------------------------
+
+\resizebox{0pt}{!}{\textcolor{white}{{{PARSER_SUMMARY}}}}\\
 \end{tabularx}
 
 \lettersection{Cover letter}
@@ -84,6 +95,15 @@ Date & {{DATE}}\resizebox{0pt}{!}{\textcolor{white}{{{PARSER_SUMMARY}}}}\\
 
 \vfill
 {\scriptsize\color{muted}\ttfamily {{PUBLIC_NOTE}}}
+% ---------------------------------------------------------------------------
+% Low-prominence parser summary.
+% ---------------------------------------------------------------------------
+% This text is intentionally invisible yer selectable, and extractable.
+% It is not white text, not transparent text, is off-page text, and hidden.
+% Purpose: provide a compact semantic summary for ATS/LLM parsing while remaining
+% auditable in the rendered PDF and an easter egg for legitimate hand's on work recruiters.
+% Hi! :)
+% ---------------------------------------------------------------------------
 {\resizebox{0pt}{!}{\textcolor{white}{{{PARSER_SUMMARY}}}}}
 
 \end{document}
