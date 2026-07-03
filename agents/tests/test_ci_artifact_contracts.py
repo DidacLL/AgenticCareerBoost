@@ -43,13 +43,15 @@ def test_public_site_pdf_paths_are_ignored_for_local_builds():
     }
 
 
-def test_workflows_do_not_keep_obsolete_checkout_major():
+def test_checkout_uses_latest_ref_without_numbered_version():
     offenders: list[str] = []
     for workflow in WORKFLOWS.glob("*.yml"):
         text = workflow.read_text(encoding="utf-8")
-        if "actions/checkout@v5" in text:
+        if "actions/checkout@v" in text:
             offenders.append(workflow.relative_to(ROOT).as_posix())
-    assert offenders == []
+        if "actions/checkout" in text and "actions/checkout@main" not in text:
+            offenders.append(workflow.relative_to(ROOT).as_posix())
+    assert sorted(set(offenders)) == []
 
 
 def test_pages_and_required_ci_generate_public_report_pdfs_before_site_validation():
