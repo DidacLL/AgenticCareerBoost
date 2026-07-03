@@ -54,6 +54,15 @@ jobs:
       - name: Validate static site
         run: python agents/tools/validate_static_site.py
 
+      - name: Upload PR site artifact
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-with-generated-pdfs
+          path: site
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Validate internal Markdown links
         run: bash agents/tools/validate_links.sh
 

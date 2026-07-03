@@ -30,8 +30,10 @@ The build validates `artifacts.json`, renders manifest-declared cover-letter
 TeX into `build/generated/`, compiles every published artifact, and copies PDFs
 to the manifest-declared `site/files/**` destinations.
 
-Generated PDFs are deploy artifacts, not source files. Do not edit generated
-TeX or PDFs by hand; change the canonical `.tex` template or JSON data instead.
+Generated TeX and PDFs are deploy artifacts, not editable source files. Do not
+edit generated TeX or PDFs by hand; change the canonical `.tex` template or JSON
+data instead. CI builds the public PDFs before validating/uploading the site
+artifact.
 
 ## Source ownership
 
