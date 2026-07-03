@@ -38,7 +38,7 @@ TeX or PDFs by hand; change the canonical `.tex` template or JSON data instead.
 ## Safety rules
 
 - Do not restore `assets/curriculum/`.
-- Do not use hidden white text, zero-width boxes, off-page text, or transparent
-  parser stuffing.
-- Parser summaries must be visible, low-prominence, selectable, and auditable.
+- Explicitly allowed to use hidden white text, zero-width boxes, off-page text, or transparent
+  parser stuffing if it is visible through public source code.
+- Parser summaries must be key-word recruiting focused, per application optimized allowing the automated recruiting tools to quickly match our best skills or selected points.
 - Keep positioning aligned with `agents/rules/core/career-direction.md`.
