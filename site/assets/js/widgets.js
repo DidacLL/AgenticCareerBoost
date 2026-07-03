@@ -1,4 +1,5 @@
-import { hashHref, loadText, resolveSiteUrl } from "./data-store.js";
+import { loadText, resolveSiteUrl } from "./data-store.js";
+import { routeHref } from "./router.js";
 import { syncLogos } from "./components.js";
 
 const THEME_KEY = "didac-os-theme";
@@ -108,7 +109,7 @@ function applyGallerySlide(gallery, content, index) {
     });
   }
   if (link) {
-    const href = slide.route ? hashHref(slide.route) : slide.href || "";
+    const href = slide.route ? routeHref(slide.route) : slide.href || "";
     link.href = href;
     if (slide.route) link.dataset.route = slide.route;
     else delete link.dataset.route;

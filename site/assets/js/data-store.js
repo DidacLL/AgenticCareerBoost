@@ -17,11 +17,6 @@ export function resolveSiteUrl(ref = "") {
   return new URL(value.replace(/^\/+/, ""), SITE_ROOT).href;
 }
 
-export function hashHref(route = "/") {
-  const clean = normalizeRoute(route);
-  return `#${clean}`;
-}
-
 export function normalizeRoute(route = "/") {
   const raw = String(route || "/").trim();
   const withoutHash = raw.startsWith("#") ? raw.slice(1) : raw;

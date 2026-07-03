@@ -86,6 +86,23 @@ PDFs and auxiliary files must not be tracked inside `agents/reports/tex/`.
 - `sprints/s0045-site-quality.tex` — site-quality, generated status, runtime
   metadata, and browser-render validation report.
 
+## Public PDF outputs
+
+The report PDFs published by the local build scripts into
+`site/files/reports/` are:
+
+- `agenticcareerboost-project-history.pdf`
+- `agentic-system-guide.pdf`
+- `agentic-system-evidence-reconciliation.pdf`
+- `agentic-system-refactor-retrospective.pdf`
+- `s000-agentic-os-bootstrap.pdf`
+- `s001-profile-audit-positioning.pdf`
+- `s0015r-system-review.pdf`
+- `s002-restart-refresh.pdf`
+- `s003-website-os-clarity.pdf`
+- `s004-documentation-alignment.pdf`
+- `s0045-site-quality.pdf`
+
 ## Rules
 
 - **Never use `\includegraphics` directly.** Use `\screenshotfig` or `\safeincludegraphics`.

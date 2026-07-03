@@ -322,7 +322,6 @@ function renderCvView(block, content) {
         ariaPressed: String(item.id === view.id),
         text: item.label
       });
-      button.addEventListener("click", () => { window.location.hash = `/cv/${item.id}`; });
       return button;
       }))
     ]),

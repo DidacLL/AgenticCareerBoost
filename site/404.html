@@ -6,12 +6,51 @@
   <title>Dídac Llorens</title>
   <script>
     (() => {
-      const projectSiteBase = "/AgenticCareerBoost/site/";
-      const path = window.location.pathname.replace(/\/index\.html$/, "/");
-      const base = path.startsWith(projectSiteBase) ? projectSiteBase : "/";
-      const clean = path.slice(base.length).replace(/^\/+|\/+$/g, "");
-      const route = clean ? "/" + clean : "/";
-      window.location.replace(window.location.origin + base + "#" + route);
+      const normalizedPath = window.location.pathname.replace(/\/index\.html$/, "/");
+
+      function candidateBases(path) {
+        const parts = path.split("/").filter(Boolean);
+        const bases = [];
+        for (let index = parts.length; index >= 0; index -= 1) {
+          bases.push(`/${parts.slice(0, index).join("/")}${index ? "/" : ""}`);
+        }
+        return [...new Set(bases)];
+      }
+
+      async function hasSiteContent(base) {
+        try {
+          const response = await fetch(`${base}content/site.json`, {
+            cache: "no-store",
+            credentials: "same-origin"
+          });
+          return response.ok;
+        } catch (_error) {
+          return false;
+        }
+      }
+
+      function routeForBase(path, base) {
+        if (base === "/") return path.replace(/^\/+|\/+$/g, "");
+        const baseWithoutSlash = base.replace(/\/$/, "");
+        if (path === baseWithoutSlash || path === base) return "";
+        if (path.startsWith(base)) return path.slice(baseWithoutSlash.length).replace(/^\/+|\/+$/g, "");
+        return path.replace(/^\/+|\/+$/g, "");
+      }
+
+      async function redirect() {
+        let base = "/";
+        for (const candidate of candidateBases(normalizedPath)) {
+          if (await hasSiteContent(candidate)) {
+            base = candidate;
+            break;
+          }
+        }
+        const clean = routeForBase(normalizedPath, base);
+        const route = clean ? `/${clean}` : "/";
+        window.location.replace(`${window.location.origin}${base}#${route}`);
+      }
+
+      redirect();
     })();
   </script>
 </head>
