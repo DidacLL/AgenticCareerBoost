@@ -3,7 +3,7 @@
 This file lists tasks that agents must not execute directly. The human owner
 must review, decide, publish, contact, or apply manually.
 
-## Before campaign relaunch
+## Before next campaign posts
 
 1. Review the public LinkedIn headline and About section.
    - Confirm they do not frame the profile as generic backend, data quality, BI,
@@ -25,8 +25,9 @@ must review, decide, publish, contact, or apply manually.
    - Keep AgenticCareerBoost references when the intended target is the project
      repository or project page.
 
-4. Approve the first publication batch.
-   - Pick three low-heat LinkedIn posts.
+4. Approve the next publication batch.
+   - Use the first AgenticCareerBoost LinkedIn presentation as existing context.
+   - Pick three follow-up posts about deployments, structure, and history.
    - Confirm each has evidence.
    - Put links in the first comment or profile Featured area, not the post body.
    - Avoid identical copy across LinkedIn, site, and repository.

@@ -36,7 +36,7 @@
 | N-002 | Draft the "what is this project" elevator pitch for LinkedIn after Sprint 1 | Bootstrap | **RESOLVED** |
 | N-003 | Identify 2-3 existing GitHub repos worth showcasing before Sprint 2 site build | Bootstrap | **RESOLVED** |
 | N-004 | Post-publication A/B tracking strategy | S-000 | open |
-| N-005 | Decide whether kickoff post becomes a recurring series or standalone | S-000 | open |
+| N-005 | Convert the first AgenticCareerBoost presentation into a follow-up explanatory series | S-000 / pre-S-005 | **RESOLVED** — S-005 rebaselined |
 | N-006 | Pre-posting network-seeding via BCN Engineering Slack and GDG Barcelona | S-000 | open |
 | N-007 | User decision on positioning angle; S-004 blocks generic data/backend drift | S-001 / S-004 | active guardrail |
 | N-008 | User decision on profile photo/banner for LinkedIn and GitHub | S-001 | open |
@@ -49,12 +49,12 @@
 | N-015 | Review formal CV wording and add professional email | S-001.5 review | **RESOLVED** |
 | N-016 | Use S-001.5R governance story only after PR, Pages deploy, and PDF report exist | S-001.5R | open |
 | N-017 | Keep social campaign sequence evidence-gated, not sprint-number-gated | S-001.5R | active rule |
-| N-018 | Run three low-heat LinkedIn reactivation posts before campaign launch | S-002R | **DRAFTED / HUMAN-GATED** |
+| N-018 | Run three low-heat LinkedIn reactivation posts before the main campaign | S-002R | **SUPERSEDED** — first presentation happened; S-005 now follows up |
 | N-019 | Refresh April social research with June 2026 agentic AI sources | S-002R | **CLOSED** |
 | N-020 | Keep private reference stance private | S-002R | **CLOSED IN DRAFTS** |
 | N-021 | Manually verify LinkedIn headline/About/Featured | S-002R / S-004 | **IN PROGRESS** |
 | N-022 | Rebuild company shortlist from career-direction guardrails | S-004 | open |
-| N-023 | Approve first three LinkedIn posts manually before publishing | S-004 | human-gated |
+| N-023 | Approve next three LinkedIn follow-up posts manually before publishing | S-004 / pre-S-005 | human-gated |
 | N-024 | Reject data-quality, BI, dashboard-maintenance, and CRUD-consulting pitches | S-004 | active rule |
 | N-025 | Use `https://didacll.github.io/` as the main public-site URL; reserve AgenticCareerBoost for the source project/repository | Root URL migration | active rule |
 | N-026 | Use `https://didacll.github.io/AgenticCareerBoost/` when specifically referencing the AgenticCareerBoost project route or history | S-004.5 | active rule |

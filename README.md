@@ -37,8 +37,8 @@ behavior. Agent rules live in `agents/rules/**`; state records evidence.
 
 ## Current status
 
-No sprint is active. S-004.5 is closed, and S-005 remains the next LinkedIn
-campaign kickoff seed.
+No sprint is active. S-005 is rebaselined as the next post-launch explanatory
+series about deployments, structure, history, flaws, and fixes.
 
 Status evidence:
 

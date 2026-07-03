@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-07-02",
+  "updated": "2026-07-03",
   "index": {
     "documentLabel": "Projects document",
     "meta": [
@@ -130,7 +130,8 @@
                     { "kicker": "03", "title": "Context Poisoning", "text": "The system accumulated stale style, duplicated paths, old drafts, over-broad tests, and state/rule confusion that could steer later agents badly." },
                     { "kicker": "04", "title": "End of Semester Pause", "text": "The work paused with useful artifacts present but with campaign momentum and public explanation still uneven." },
                     { "kicker": "05", "title": "Failed Campaign Kickoff", "text": "The attempted restart exposed the poison: profile/social artifacts existed, but the structure and evidence boundaries were not clean enough to launch confidently." },
-                    { "kicker": "06", "title": "Cleanup And Current Version", "text": "The current version separates rules from evidence, keeps discarded drafts out of future context, publishes formal reports, validates routes, and keeps S-005 ready for a cleaner social launch." }
+                    { "kicker": "06", "title": "Cleanup And First Presentation", "text": "The cleanup separated rules from evidence, kept discarded drafts out of future context, published formal reports, and made the first LinkedIn presentation possible." },
+                    { "kicker": "07", "title": "Post-Launch Hardening", "text": "The public launch exposed sharper bugs: deployment-base routing, generated CV PDFs, static-file fallback loops, brittle tests, and the need to protect human-authored LaTeX from CI overreach." }
                   ]
                 }
               ]
@@ -144,7 +145,7 @@
                   "type": "previewList",
                   "layout": "grid",
                   "items": [
-                    { "title": "Project history map", "href": "files/reports/agenticcareerboost-project-history.pdf", "logo": "pdf", "newTab": true, "text": "Timeline bridge across Bootstrap Launch, Initial Growth, Context Poisoning, pause, failed kickoff, and cleanup." },
+                    { "title": "Project history map", "href": "files/reports/agenticcareerboost-project-history.pdf", "logo": "pdf", "newTab": true, "text": "Timeline bridge across Bootstrap Launch, Initial Growth, Context Poisoning, pause, failed kickoff, cleanup, first presentation, and post-launch hardening." },
                     { "title": "Agentic system guide", "href": "files/reports/agentic-system-guide.pdf", "logo": "pdf", "newTab": true, "text": "Human-facing manual for how to read the repository, roles, workflows, state, and reports." },
                     { "title": "S-000 bootstrap case study", "href": "files/reports/s000-agentic-os-bootstrap.pdf", "logo": "pdf", "newTab": true, "text": "Detailed technical record of the original agentic operating system launch." },
                     { "title": "S-001 positioning report", "href": "files/reports/s001-profile-audit-positioning.pdf", "logo": "pdf", "newTab": true, "text": "Portfolio audit, market research, positioning synthesis, and initial profile direction." },
@@ -169,7 +170,7 @@
                   "paragraphs": [
                     "The current version is intentionally smaller and sharper. Direct user scope controls execution mode. Stable rules live in agents/rules. Evidence lives in agents/state. Formal reports live in agents/reports/tex and are published as PDFs under site/files/reports.",
                     "The website is the curated public mirror, not the authority source. It should explain the project clearly enough for a recruiter or peer to understand the arc, then point to the PDFs and source files for proof.",
-                    "External publication, LinkedIn account changes, outreach, and applications remain human-owned. The repository can prepare evidence and drafts, but it does not pretend that public human actions are already done."
+                    "The first LinkedIn presentation is a human-owned external action that has already happened. The repository now prepares the follow-up evidence: deployments, structure, history, flaws, and fixes, without inventing publication URLs or pretending agents own public posting."
                   ]
                 }
               ]

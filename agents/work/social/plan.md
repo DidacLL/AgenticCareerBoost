@@ -13,11 +13,13 @@ Canonical social plan maintained by `SocialMediaPlanner` and reviewed by
 - `agents/work/social/research/`
 - Approved public artifacts in the repo
 
-## Relaunch correction
+## Post-launch correction
 
-The campaign must not relaunch as a backend/data-quality profile. The public
-story is agentic engineering as visible proof, supported by research/applied AI,
-ML/data systems, formal documentation, and product-company systems work.
+The first LinkedIn presentation of AgenticCareerBoost already happened as a
+human-owned external action. The campaign must now continue as an explanatory
+series, not an initial announcement. The public story is agentic engineering as visible
+proof, supported by research/applied AI, ML/data systems, formal documentation,
+and product-company systems work.
 
 Allowed data framing: systems, automation, models, pipelines, research, domain
 reasoning, compliance, or tooling.
@@ -31,22 +33,21 @@ Campaign planning follows publishable evidence, not sprint numbering. Sprint IDs
 may appear in supporting artifacts, but public scheduling is based on whether
 the evidence exists and is recruiter-safe.
 
-1. Low-heat reactivation — short posts that reopen activity without overclaiming.
-   Use only human-reviewed drafts.
-2. Profile audit reveal — use the headline/profile audit narrative after GitHub,
-   LinkedIn, recruiter surfaces, and profile copy are synced.
-3. Agentic OS reveal — lead with the repo as public proof. Show routing,
-   workflow boundaries, review gates, and model-agnostic design.
-4. Governance proof — show truth hierarchy, PairCheck, remediation, and human
-   approval boundaries.
-5. Documentation proof — show formal reports, LaTeX, diagrams, CI, and evidence
-   trail.
-6. Targeted application bridge — adapt the same proof to specific companies and
+1. First presentation — already published by the human; do not recreate or
+   invent a URL.
+2. Deployments — explain root site vs AgenticCareerBoost project path, GitHub
+   Pages constraints, deployment-base routing, and the PDF/static-file loop.
+3. Structure — explain `agents/`, `site/`, reports, state, validators, and
+   human-owned publication boundaries.
+4. History — explain bootstrap, growth, context poisoning, cleanup, first
+   presentation, and post-launch hardening.
+5. Targeted application bridge — adapt the same proof to specific companies and
    roles only when they pass `agents/rules/core/career-direction.md`.
 
 ## Publication prerequisites
 
 - Do not publish any campaign post until the human has approved the exact text.
+- Do not treat S-005 as a launch announcement; it is a follow-up series.
 - Do not post profile-audit claims until LinkedIn, GitHub, and public links are
   manually checked.
 - Do not frame the campaign as data quality, generic backend, or junior CRUD.
@@ -71,7 +72,7 @@ the evidence exists and is recruiter-safe.
 
 - T-001 — publication cadence and scheduling tool
 - N-004 — A/B tracking after publication
-- N-005 — recurring series vs standalone kickoff
+- N-005 — resolved: first presentation becomes a recurring explanatory series
 - N-006 — pre-posting network seeding
 - N-013 — UOC fair contact/follow-up tracking
 - N-022 — final company shortlist after relaunch calibration

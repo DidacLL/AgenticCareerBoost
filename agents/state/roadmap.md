@@ -11,5 +11,5 @@ Upcoming sprint seeds. Each becomes a full plan via the Plan workflow.
 | S-002 | Static site rebuild | **CLOSED** — static site, project pages, dashboard, configurable CV, browser gates |
 | S-003 | Website OS clarity | **CLOSED** — public journey, project voice, Blog scaffold, role paths, metadata |
 | S-004 | Documentation alignment | **CLOSED** — career guardrail, README, AGENTS routing, social plan, human tasks |
-| S-005 | LinkedIn campaign kickoff | Human-approved low-heat reactivation and first evidence-backed posts |
+| S-005 | Post-launch explanatory series | Follow-up posts explaining deployments, structure, history, flaws, and fixes after the first LinkedIn presentation |
 | S-006 | Portfolio gap closure | Build ML/research/agentic proof project and Python showcase |
