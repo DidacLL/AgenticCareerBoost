@@ -44,12 +44,7 @@ jobs:
           args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
 
       - name: Publish public report PDFs into site artifact
-        run: |
-          mkdir -p site/files/reports
-          find agents/reports/tex/build -maxdepth 1 -type f -name '*.pdf' \
-            ! -name 'smoke.pdf' \
-            ! -name 'candidaturas_reconocimiento_tecnico_03072026.pdf' \
-            -exec cp {} site/files/reports/ \;
+        run: python agents/reports/tex/tools/publish-public-reports.py
 
       - name: Render public cover-letter sources
         run: python agents/cv/tools/render-cover-letter.py --all
