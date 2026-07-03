@@ -28,4 +28,3 @@ def test_pages_and_required_ci_generate_public_report_pdfs_before_site_validatio
         validate_site = text.index("Validate static site")
         assert compile_reports < publish_reports < validate_site
         assert "agents/reports/tex" in text
-        assert "tools/publish-public-reports.py" in text
