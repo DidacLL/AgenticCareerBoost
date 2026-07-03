@@ -19,16 +19,21 @@ vendor/
 .bundle/
 /.codex-tmp/
 agents/cv/build/
+agents/reports/tex/build/
 agents/reports/tex/guides/*cv*.pdf
+
+# Generated public site artifacts
+site/files/cv/
+site/files/cover-letters/
+site/files/reports/*.pdf
+site/data/status.json
 
 # Jekyll and local site outputs
 site/_site/
 site/.jekyll-cache/
 site/.sass-cache/
 site/Gemfile.lock
-site/data/status.json
-site/files/cv/
-site/files/cover-letters/
 /site/.idea/
+
+# Local private report sources
 agents/reports/tex/guides/candidaturas_reconocimiento_tecnico_03072026.tex
-site/files/reports/agentic-system-evidence-reconciliation.pdf
