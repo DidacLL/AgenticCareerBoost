@@ -10,9 +10,12 @@ bottom=1.35cm,
 left=1.55cm,
 right=1.55cm
 ]{geometry}
-\usepackage{array}
-\usepackage{tabularx}
 \usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{transparent}
 \definecolor{ink}{HTML}{111827}
 \definecolor{muted}{HTML}{4B5563}
 \definecolor{line}{HTML}{D1D5DB}
@@ -68,7 +71,7 @@ pdfkeywords={{{PDF_KEYWORDS}}}
 To & {{RECIPIENT}}\\
 Role & {{ROLE}}\\
 Location & {{LOCATION}}\\
-Date & {{DATE}}\\
+Date & {{DATE}}\resizebox{0pt}{!}{\textcolor{white}{{{PARSER_SUMMARY}}}}\\
 \end{tabularx}
 
 \lettersection{Cover letter}
@@ -79,10 +82,8 @@ Date & {{DATE}}\\
 
 {{CLOSING}}
 
-\vspace{0.45em}
-{\scriptsize\color{muted}\ttfamily {{PUBLIC_NOTE}}}
-
 \vfill
+{\scriptsize\color{muted}\ttfamily {{PUBLIC_NOTE}}}
 {\resizebox{0pt}{!}{\textcolor{white}{{{PARSER_SUMMARY}}}}}
 
 \end{document}
