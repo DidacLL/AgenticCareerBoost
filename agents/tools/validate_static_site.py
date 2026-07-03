@@ -246,6 +246,8 @@ def main() -> int:
             route_paths = {item["path"] for item in json.loads(site_json.read_text(encoding="utf-8")).get("routes", [])}
         except Exception:
             route_paths = set()
+
+    public_pdf_paths: set[str] = set()
     for json_file in (SITE / "content").glob("*.json"):
         try:
             data = json.loads(json_file.read_text(encoding="utf-8"))
@@ -260,35 +262,65 @@ def main() -> int:
             if key == "href" and value.startswith("#/files/"):
                 failures.append(f"site/content/{json_file.name}:{pointer} file link uses hash route: {value}")
             if key == "href" and value.startswith("files/"):
+                local = value.split("#", 1)[0].split("?", 1)[0]
+                if local.lower().endswith(".pdf"):
+                    public_pdf_paths.add(f"site/{local}")
                 if value in route_paths:
                     failures.append(f"site/content/{json_file.name}:{pointer} file link collides with app route: {value}")
-                if not (SITE / value.split("#", 1)[0].split("?", 1)[0]).is_file():
+                if not (SITE / local).is_file():
                     failures.append(f"site/content/{json_file.name}:{pointer} missing file link: {value}")
                 if value in manifest_site_paths and '"newTab": true' not in json_file.read_text(encoding="utf-8"):
                     failures.append(f"site/content/{json_file.name}:{pointer} generated PDF links must opt into newTab")
 
     git = git_executable()
     if git is None:
-        failures.append("git executable is required for generated CV artifact validation")
-    elif generated_paths:
-        tracked = subprocess.run(
-            [git, "ls-files", *generated_paths],
+        failures.append("git executable is required for generated artifact validation")
+    else:
+        tracked_site_files = subprocess.run(
+            [git, "ls-files", "site/files"],
             cwd=ROOT,
             check=True,
             capture_output=True,
             text=True,
         ).stdout.splitlines()
-        if tracked:
-            failures.append(f"generated CV/cover-letter PDFs must not be tracked: {', '.join(tracked)}")
-        ignored = subprocess.run(
-            [git, "check-ignore", "--no-index", *generated_paths],
-            cwd=ROOT,
-            check=False,
-            capture_output=True,
-            text=True,
-        ).stdout.splitlines()
-        if set(ignored) != set(generated_paths):
-            failures.append("generated CV/cover-letter PDF paths must be ignored by .gitignore")
+        tracked_public_pdfs = [path for path in tracked_site_files if path.lower().endswith(".pdf")]
+        if tracked_public_pdfs:
+            failures.append(f"public site PDFs must be generated, not tracked: {', '.join(tracked_public_pdfs)}")
+
+        if public_pdf_paths:
+            ignored_public_pdfs = subprocess.run(
+                [git, "check-ignore", "--no-index", *sorted(public_pdf_paths)],
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            ).stdout.splitlines()
+            missing_ignored_public_pdfs = sorted(public_pdf_paths - set(ignored_public_pdfs))
+            if missing_ignored_public_pdfs:
+                failures.append(
+                    "public site PDF output paths must be ignored by .gitignore: "
+                    + ", ".join(missing_ignored_public_pdfs)
+                )
+
+        if generated_paths:
+            tracked = subprocess.run(
+                [git, "ls-files", *generated_paths],
+                cwd=ROOT,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.splitlines()
+            if tracked:
+                failures.append(f"generated CV/cover-letter PDFs must not be tracked: {', '.join(tracked)}")
+            ignored = subprocess.run(
+                [git, "check-ignore", "--no-index", *generated_paths],
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            ).stdout.splitlines()
+            if set(ignored) != set(generated_paths):
+                failures.append("generated CV/cover-letter PDF paths must be ignored by .gitignore")
 
     if failures:
         print("Static site validation failed:")

@@ -228,14 +228,27 @@ def test_report_build_docs_use_agents_report_root():
     makefile = (AGENTS / "reports" / "tex" / "Makefile").read_text(encoding="utf-8")
     ps_build = (AGENTS / "reports" / "tex" / "build-local.ps1").read_text(encoding="utf-8")
     sh_build = (AGENTS / "reports" / "tex" / "build-local.sh").read_text(encoding="utf-8")
+    publisher = AGENTS / "reports" / "tex" / "tools" / "publish-public-reports.py"
     report_readme = (SITE / "files" / "reports" / "README.md").read_text(encoding="utf-8")
+    assert publisher.is_file()
     assert "content/reports/tex" not in makefile
     assert "agents/reports/tex" in makefile
-    assert "site" in ps_build and "files" in ps_build and "reports" in ps_build
-    assert "Copy-Item" in ps_build
-    assert "site/files/reports" in sh_build
-    assert "cp " in sh_build
+    assert "publish-public-reports.py" in sh_build
+    assert "publish-public-reports.py" in ps_build
+    assert "site/files/reports" in report_readme
     assert "Do not manually copy PDFs" in report_readme
+
+
+def test_required_ci_uploads_generated_site_artifact_for_prs():
+    required_ci = (ROOT / ".github" / "workflows" / "required-ci.yml").read_text(encoding="utf-8")
+    assert "Render public cover-letter sources" in required_ci
+    assert "Compile CV and cover-letter PDFs" in required_ci
+    assert "Publish generated career PDFs into site artifact" in required_ci
+    assert "Validate static site" in required_ci
+    assert "Upload PR site artifact" in required_ci
+    assert "github.event_name == 'pull_request'" in required_ci
+    assert "actions/upload-artifact@v4" in required_ci
+    assert "path: site" in required_ci
 
 
 def cv_manifest() -> list[dict]:

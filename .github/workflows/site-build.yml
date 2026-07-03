@@ -8,6 +8,7 @@ on:
       - ".github/workflows/site-build.yml"
       - "site/**"
       - "agents/cv/**"
+      - "agents/reports/tex/**"
       - "agents/state/**"
       - "agents/tools/export_status.py"
       - "agents/tools/validate_static_site.py"
@@ -26,10 +27,24 @@ jobs:
     name: Validate and upload site Pages artifact
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@main
+        with:
+          persist-credentials: false
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+
+      - name: Compile public report PDFs
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: agents/reports/tex
+          root_file: |
+            sprints/*.tex
+            guides/*.tex
+          args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
+
+      - name: Publish public report PDFs into site artifact
+        run: python agents/reports/tex/tools/publish-public-reports.py
 
       - name: Render public cover-letter sources
         run: python agents/cv/tools/render-cover-letter.py --all

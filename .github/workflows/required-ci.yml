@@ -15,7 +15,9 @@ jobs:
     name: required-ci
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@main
+        with:
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -24,6 +26,18 @@ jobs:
 
       - name: Install pytest
         run: python -m pip install --upgrade pip pytest
+
+      - name: Compile public report PDFs
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: agents/reports/tex
+          root_file: |
+            sprints/*.tex
+            guides/*.tex
+          args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
+
+      - name: Publish public report PDFs into site artifact
+        run: python agents/reports/tex/tools/publish-public-reports.py
 
       - name: Render public cover-letter sources
         run: python agents/cv/tools/render-cover-letter.py --all
@@ -53,6 +67,15 @@ jobs:
 
       - name: Validate static site
         run: python agents/tools/validate_static_site.py
+
+      - name: Upload PR site artifact
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-with-generated-pdfs
+          path: site
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Validate internal Markdown links
         run: bash agents/tools/validate_links.sh

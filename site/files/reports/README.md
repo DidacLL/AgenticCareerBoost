@@ -1,14 +1,15 @@
 # Published reports
 
-This directory stores the latest compiled PDFs that should remain visible in
-the repository after CI completes.
+This directory is the `site/files/reports/` mount point inside the generated `site/` artifact.
+
+PDF files in this directory are generated build outputs. They must not be committed to the repository, because committed PDFs can drift from the canonical LaTeX sources and can accidentally preserve temporary validation outputs.
 
 - Source files live in `agents/reports/tex/`.
 - Local builds write to `agents/reports/tex/build/`.
-- Pull requests that update report sources regenerate the intended public PDFs
-  here through the LaTeX build scripts. Do not manually copy PDFs into this
-  directory as a separate agent step. CI compiles the same sources and uploads
-  PDFs as workflow artifacts, but it does not auto-commit to protected `main`.
+- CI builds the public report PDFs from the LaTeX sources and copies them here before validating and uploading the site artifact.
+- Static site validation fails if any PDF under `site/files/` is tracked by git.
+- `site/content/projects.json` may link to `files/reports/*.pdf`, but those links are valid only after the CI build has produced the deploy artifact.
+- Do not manually copy PDFs into this directory as a separate agent step.
 - Expected public outputs include:
   - `agenticcareerboost-project-history.pdf` — project-history bridge and evidence map
   - `agentic-system-guide.pdf` — human-facing manual
@@ -21,4 +22,4 @@ the repository after CI completes.
   - `s003-website-os-clarity.pdf` — S-003 public route-map and website clarity report
   - `s004-documentation-alignment.pdf` — S-004 career guardrail and relaunch calibration report
   - `s0045-site-quality.pdf` — S-004.5 site quality and runtime validation report
-- `smoke.pdf` is a CI compile check only and is not part of the published set.
+- `smoke.pdf` and private local candidate PDFs are compile checks only and are not part of the published set.
