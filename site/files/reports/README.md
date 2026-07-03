@@ -7,6 +7,7 @@ PDF files in this directory are generated build outputs. They must not be commit
 - Source files live in `agents/reports/tex/`.
 - Local builds write to `agents/reports/tex/build/`.
 - CI builds the public report PDFs from the LaTeX sources and copies them here before validating and uploading the site artifact.
+- Static site validation fails if any PDF under `site/files/` is tracked by git.
 - `site/content/projects.json` may link to `files/reports/*.pdf`, but those links are valid only after the CI build has produced the deploy artifact.
 - Do not manually copy PDFs into this directory as a separate agent step.
 - Expected public outputs include:
