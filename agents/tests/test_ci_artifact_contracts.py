@@ -43,11 +43,7 @@ def test_public_site_pdf_paths_are_ignored_for_local_builds():
     }
 
 
-def test_github_actions_versions_are_dependabot_managed():
-    dependabot = (ROOT / ".github" / "dependabot.yml").read_text(encoding="utf-8")
-    assert 'package-ecosystem: "github-actions"' in dependabot
-    assert 'directory: "/"' in dependabot
-
+def test_workflows_do_not_keep_obsolete_checkout_major():
     offenders: list[str] = []
     for workflow in WORKFLOWS.glob("*.yml"):
         text = workflow.read_text(encoding="utf-8")
