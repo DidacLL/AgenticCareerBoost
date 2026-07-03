@@ -217,7 +217,7 @@
               "items": [
                 { "title": "P3CTeX", "href": "https://github.com/DidacLL/P3CTeX", "image": "assets/img/P3CTeXLogo.png", "text": "Main class and package repository." },
                 { "title": "p3cTeX-UMLST", "href": "https://github.com/DidacLL/p3cTeX-UMLST", "logo": "latexSource", "text": "UML and listings tooling." },
-                { "title": "CV source", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/reports/tex/guides/DidacLL_SoftwareEngineer_CV.site-legacy.tex", "logo": "latexSource", "text": "LaTeX source for the CV." }
+                { "title": "CV source", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/cv/tex/didac-llorens-cv.tex", "logo": "latexSource", "text": "LaTeX source for the CV." }
               ]
             }
           ]

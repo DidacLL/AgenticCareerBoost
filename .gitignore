@@ -18,6 +18,8 @@ node_modules/
 vendor/
 .bundle/
 /.codex-tmp/
+agents/cv/build/
+agents/reports/tex/guides/*cv*.pdf
 
 # Jekyll and local site outputs
 site/_site/
@@ -25,4 +27,6 @@ site/.jekyll-cache/
 site/.sass-cache/
 site/Gemfile.lock
 site/data/status.json
+site/files/cv/*.pdf
+site/files/cover-letters/*.pdf
 /site/.idea/

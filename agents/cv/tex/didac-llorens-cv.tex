@@ -49,11 +49,9 @@ urlcolor=linkblue
 	pdfauthor={Dídac Llorens},
 	pdfsubject={
 		Software Engineering CV for Dídac Llorens, Barcelona-based UOC Software
-		Engineering student specializing in Machine Learning and Artificial
-		Intelligence, expected graduation February 2027. Current profile combines
-		ML/AI learning, agentic workflow systems, backend foundations, LaTeX tooling,
-		technical documentation, public project pages, and 15 years of regulated
-		banking and insurance operations experience.
+		Engineering and Computer Science graduate mention in Machine Learning and Artificial
+		Intelligence. Current profile combines ML/AI learning, agentic workflow systems, backend foundations, LaTeX tooling,
+		technical documentation, public project pages, and 15 years of regulated banking and insurance operations experience.
 	},
 	pdfkeywords={
 		Dídac Llorens,
@@ -67,7 +65,6 @@ urlcolor=linkblue
 		Artificial Intelligence,
 		ML Engineering,
 		AI Engineering,
-		Data Engineering,
 		MLOps,
 		Research Engineering,
 		Applied AI,
@@ -91,7 +88,6 @@ urlcolor=linkblue
 		LaTeX,
 		TeX,
 		Markdown,
-		Static Sites,
 		Technical Documentation,
 		Technical Writing,
 		Systems Design,
@@ -102,10 +98,7 @@ urlcolor=linkblue
 		P3CTeX,
 		p3cTeX-UMLST,
 		IronBank,
-		Banking Operations,
-		Insurance Operations,
 		Regulated Environments,
-		Data Quality,
 		Audit Trails,
 		Failure Mode Thinking,
 		Stakeholder Communication,
@@ -114,8 +107,6 @@ urlcolor=linkblue
 		Process Discipline,
 		AI Compliance,
 		EU AI Act Awareness,
-		Fintech Domain Knowledge,
-		Career Transition,
 		Systems Minded Builder,
 		Technical Generalist,
 		Tooling Depth,
@@ -127,7 +118,7 @@ urlcolor=linkblue
 
 \AtBeginDocument{%
 	\pdfinfo{%
-		/CandidateProfile (Software Engineering student at UOC, specializing in Machine Learning and Artificial Intelligence, expected graduation February 2027. Barcelona-based. Current work combines ML/AI, agentic workflow systems, backend foundations, LaTeX tooling, technical documentation, and public project pages.)
+		/CandidateProfile  (Barcelona-based UOC Software Engineering and Computer Science graduate mention in Machine Learning and Artificial Intelligence. Current work combines ML/AI, agentic workflow systems, backend foundations, LaTeX tooling, technical documentation, and public project pages.)
 		/PrimaryRoleFamilies (ML Engineering; Data Engineering; Agentic AI Tooling; Backend Engineering; Platform Engineering; Research Engineering)
 		/CoreDifferentiators (Formal Software Engineering degree with ML/AI specialization; 15 years regulated banking and insurance operations; public systems-level projects; LaTeX tooling depth; agentic workflow design; documentation discipline)
 		/SelectedProjects (AgenticCareerBoost; P3CTeX; p3cTeX-UMLST; IronBank)
@@ -139,14 +130,18 @@ urlcolor=linkblue
 % ---------------------------------------------------------------------------
 % Low-prominence parser summary.
 % ---------------------------------------------------------------------------
-% This text is intentionally visible, selectable, and extractable.
-% It is not white text, not transparent text, not off-page text, and not hidden.
+% This text is intentionally invisible yer selectable, and extractable.
+% It is not white text, not transparent text, is off-page text, and hidden.
 % Purpose: provide a compact semantic summary for ATS/LLM parsing while remaining
-% auditable in the rendered PDF.
+% auditable in the rendered PDF and an easter egg for legitimate hand's on work recruiters.
+% Hi! :)
 % ---------------------------------------------------------------------------
 
 \newcommand{\cvParserSummary}{%
-	\par{\tiny\textcolor{muted}{Parser summary: Dídac Llorens / Didac Llorens; Barcelona; UOC Software Engineering; ML/AI specialization; expected graduation February 2027. Role routing: ML/Data, applied AI, agentic workflow systems, backend/platform, developer tooling, research engineering. Stack: Java, Spring Boot, REST APIs, SQL, Python, Linux, Git, GitHub Actions, LaTeX, Markdown, static sites. Public projects: AgenticCareerBoost, P3CTeX, p3cTeX-UMLST, IronBank.}}\par
+	\resizebox{0pt}{!}{\textcolor{muted}{Parser summary: Dídac Llorens / Didac Llorens;  Barcelona based; UOC Software Engineering; Computer Science graduate mention in Machine Learning and Artificial
+			Intelligence; 15 years of experience; Role routing: ML/Data, applied AI, agentic workflow systems, backend/platform, developer tooling, research engineering. Stack: Java, Spring Boot, REST APIs, SQL, Python, Linux, Git, CI/CD pipeline, LaTeX. Public projects: AgenticCareerBoost, P3CTeX, p3cTeX-UMLST, IronBank.
+			}
+		}
 }
 
 \pagestyle{empty}
@@ -195,17 +190,9 @@ urlcolor=linkblue
 }
 
 \newcommand{\cvbanner}{%
-	\IfFileExists{418-banner.png}{%
-		\includegraphics[width=1.15\linewidth,trim=0 0 0 34pt,clip]{418-banner.png}%
-	}{%
-		\IfFileExists{418-banner.jpg}{%
-			\includegraphics[width=1.15\linewidth,trim=0 0 0 34pt,clip]{418-banner.jpg}%
-		}{%
-			\IfFileExists{418-banner.pdf}{%
-				\includegraphics[width=1.15\linewidth,trim=0 0 0 34pt,clip]{418-banner.pdf}%
-			}{}%
-		}%
-	}%
+	\IfFileExists{../../../site/assets/img/418-banner.png}{%
+		\includegraphics[width=1.15\linewidth,trim=0 0 0 34pt,clip]{../../../site/assets/img/418-banner.png}%
+	}{}
 	\cvParserSummary
 }
 
@@ -217,12 +204,12 @@ urlcolor=linkblue
 	\vspace*{-6em}
 	{\resizebox{0.50\linewidth}{!}{\ttfamily\bfseries Dídac Llorens}}\par
 	\vspace{0.26em}
-{\resizebox{\linewidth}{!}{\ttfamily Software Engineering · ML/AI · Agentic Systems · Tooling \hspace{3em} Barcelona	\hspace*{-1.5em}}}\par
+{\resizebox{\linewidth}{!}{\ttfamily Software Engineering · Computer Science · ML/AI · Agentic Systems · Tooling \hspace{3em} Barcelona	\hspace*{-1.5em}}}\par
 	\vspace{0.20em}
 	{\resizebox{0.90\linewidth}{!}{\scriptsize\ttfamily
 			\href{mailto:didacllorensbravo@hotmail.com}{didacllorensbravo@hotmail.com}
 			\sep
-			\href{https://didacll.github.io/AgenticCareerBoost/}{AgenticCareerBoost}
+			\href{https://didacll.github.io/}{Portfolio}
 			\sep
 			\href{https://github.com/DidacLL}{github.com/DidacLL}
 			\sep
@@ -235,11 +222,11 @@ urlcolor=linkblue
 		\scriptsize
 
 		\railsection{Profile}
-		Software Engineering student at Universitat Oberta de Catalunya, specializing in Machine Learning and Artificial Intelligence.
+		Software Engineering last year student at Universitat Oberta de Catalunya, specializing in Computer Science with mention in Machine Learning.
 
 		Expected graduation: February 2027.
 
-		Current work: agentic systems, LaTeX tooling, backend foundations, technical writing, and public project pages.\footnotemark
+		Current work: agentic systems, model-agnostic Agentic Systems research, LaTeX tooling, backend foundations, technical writing, and public project pages.\footnotemark
 
 		\railsection{Before engineering}
 		15 years in banking and insurance operations.
@@ -288,7 +275,7 @@ urlcolor=linkblue
 		\small
 
 		\mainsection{Current direction}
-		Software Engineering student focused on ML/AI, agentic workflow systems, backend foundations, and technical tooling. I publish current work through repositories, reports, and project pages, with a previous background in regulated banking and insurance operations.
+		Software Engineering focused on ML/AI, agentic workflow systems, backend foundations, and technical tooling. I publish current work through repositories, reports, and project pages, with a previous background in regulated banking and insurance operations.
 
 		\mainsection{Selected work}
 
@@ -343,4 +330,3 @@ urlcolor=linkblue
 	\footnotetext{Project links are included so the PDF can be checked quickly without searching across profiles.}
 	\cvParserSummary
 \end{document}
-

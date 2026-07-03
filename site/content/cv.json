@@ -16,7 +16,7 @@
     },
     {
       "title": "CV source",
-      "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/reports/tex/guides/DidacLL_SoftwareEngineer_CV.site-legacy.tex",
+      "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/cv/tex/didac-llorens-cv.tex",
       "logo": "latexSource",
       "text": "Open the TeX source if you want to see how it is built."
     }
@@ -43,7 +43,7 @@
         ] },
         { "label": "SOURCE", "links": [
           { "label": "PDF", "href": "files/cv/didac-llorens-cv.pdf" },
-          { "label": "LaTeX source", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/reports/tex/guides/DidacLL_SoftwareEngineer_CV.site-legacy.tex" }
+          { "label": "LaTeX source", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/cv/tex/didac-llorens-cv.tex" }
         ] }
       ],
       "profile": [

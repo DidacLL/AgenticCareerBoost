@@ -25,6 +25,24 @@ jobs:
       - name: Install pytest
         run: python -m pip install --upgrade pip pytest
 
+      - name: Render public cover-letter sources
+        run: python agents/cv/tools/render-cover-letter.py --all
+
+      - name: Compile CV and cover-letter PDFs
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: agents/cv
+          root_file: |
+            tex/didac-llorens-cv.tex
+            build/generated/*.tex
+          args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
+
+      - name: Publish generated career PDFs into site artifact
+        run: |
+          mkdir -p site/files/cv site/files/cover-letters
+          cp agents/cv/build/didac-llorens-cv.pdf site/files/cv/didac-llorens-cv.pdf
+          cp agents/cv/build/*-cover-letter.pdf site/files/cover-letters/
+
       - name: Generate site status data
         run: python agents/tools/export_status.py
 
