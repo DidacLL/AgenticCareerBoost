@@ -160,6 +160,8 @@ def main() -> int:
             "hasSiteContent(candidate)",
             "content/site.json",
             "routeForBase(normalizedPath, base)",
+            "isStaticFileRoute(clean)",
+            "File not found.",
             "${window.location.origin}${base}#${route}",
         ):
             if token not in fallback_text:

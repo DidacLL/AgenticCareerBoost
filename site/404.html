@@ -37,6 +37,10 @@
         return path.replace(/^\/+|\/+$/g, "");
       }
 
+      function isStaticFileRoute(route) {
+        return /^\/?files\/[^?#]+\.[a-z0-9]+$/i.test(route);
+      }
+
       async function redirect() {
         let base = "/";
         for (const candidate of candidateBases(normalizedPath)) {
@@ -46,6 +50,10 @@
           }
         }
         const clean = routeForBase(normalizedPath, base);
+        if (isStaticFileRoute(clean)) {
+          document.body.textContent = "File not found.";
+          return;
+        }
         const route = clean ? `/${clean}` : "/";
         window.location.replace(`${window.location.origin}${base}#${route}`);
       }
