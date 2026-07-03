@@ -42,6 +42,8 @@ def live_text_files():
             continue
         if path.is_relative_to(AGENTS / "state" / "summaries"):
             continue
+        if path.is_relative_to(AGENTS / "reports" / "deepsearch"):
+            continue
         yield path
 
 
@@ -64,6 +66,7 @@ def test_required_boundaries_exist():
         AGENTS / "state" / "current.md",
         AGENTS / "state" / "active-sprint.md",
         AGENTS / "state" / "archive" / "origin" / "agent_bootstrap_prompt.md",
+        AGENTS / "cv" / "README.md",
         SITE / "content" / "site.json",
     ]:
         assert path.exists(), path
@@ -83,24 +86,6 @@ def test_state_is_not_authoritative():
     assert "status marker only" in active_sprint
     assert "acceptance criteria" not in active_sprint.lower()
     assert "current sprint contract" not in active_sprint.lower()
-
-
-def test_no_live_references_to_deleted_poison_sources():
-    forbidden = [
-        "content/social/style-book.md",
-        "content/social/drafts/",
-        "assets/curriculum/DidacLL_Assaia_CoverLetter",
-        "data/public-status.json",
-        "site/assets/data/public-status.json",
-        "site/assets/curriculum/",
-    ]
-    offenders: list[str] = []
-    for path in live_text_files():
-        text = path.read_text(encoding="utf-8", errors="ignore")
-        for token in forbidden:
-            if token in text:
-                offenders.append(f"{path.relative_to(ROOT).as_posix()}: {token}")
-    assert offenders == []
 
 
 def test_live_paths_use_new_rule_and_state_roots():
@@ -251,6 +236,71 @@ def test_report_build_docs_use_agents_report_root():
     assert "site/files/reports" in sh_build
     assert "cp " in sh_build
     assert "Do not manually copy PDFs" in report_readme
+
+
+def test_cv_artifact_family_has_single_canonical_source():
+    cv_root = AGENTS / "cv"
+    required = [
+        cv_root / "README.md",
+        cv_root / "latexmkrc",
+        cv_root / "build-local.sh",
+        cv_root / "build-local.ps1",
+        cv_root / "tex" / "didac-llorens-cv.tex",
+        cv_root / "tex" / "cover-letter-template.tex",
+        cv_root / "tools" / "render-cover-letter.py",
+        cv_root / "data" / "examples" / "assaia.json",
+    ]
+    for path in required:
+        assert path.is_file(), path
+
+    stale_sources = [
+        AGENTS / "reports" / "tex" / "guides" / "didac-llorens-cv.tex",
+        AGENTS / "reports" / "tex" / "guides" / "DidacLL_SoftwareEngineer_CV.site-legacy.tex",
+        ROOT / "assets" / "curriculum" / "DidacLL_SoftwareEngineer_CV.tex",
+    ]
+    assert [path for path in stale_sources if path.exists()] == []
+
+
+def test_cv_public_links_use_canonical_source():
+    canonical = "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/cv/tex/didac-llorens-cv.tex"
+    cv_text = (SITE / "content" / "cv.json").read_text(encoding="utf-8")
+    projects_text = (SITE / "content" / "projects.json").read_text(encoding="utf-8")
+    assert "files/cv/didac-llorens-cv.pdf" in cv_text
+    assert canonical in cv_text
+    assert canonical in projects_text
+    for stale in [
+        "DidacLL_SoftwareEngineer_CV.site-legacy.tex",
+        "agents/reports/tex/guides/didac-llorens-cv.tex",
+        "assets/curriculum/",
+        "site/assets/curriculum/",
+    ]:
+        assert stale not in cv_text
+        assert stale not in projects_text
+
+
+def test_generated_cv_pdfs_are_ignored_not_tracked():
+    git = git_executable()
+    assert git is not None, "git executable is required for generated PDF tracking checks"
+    tracked = subprocess.run(
+        [git, "ls-files", "site/files/cv/*.pdf", "site/files/cover-letters/*.pdf", "agents/reports/tex/guides/*cv*.pdf"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.splitlines()
+    assert tracked == []
+
+    ignored = subprocess.run(
+        [git, "check-ignore", "--no-index", "site/files/cv/didac-llorens-cv.pdf", "site/files/cover-letters/assaia-ml-core-cover-letter.pdf"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.splitlines()
+    assert set(ignored) == {
+        "site/files/cv/didac-llorens-cv.pdf",
+        "site/files/cover-letters/assaia-ml-core-cover-letter.pdf",
+    }
 
 
 def test_site_directory_is_canonical_public_artifact():

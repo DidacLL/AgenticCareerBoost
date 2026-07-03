@@ -35,9 +35,7 @@ $texRoot = $PSScriptRoot
 $repoRoot = Resolve-Path (Join-Path $texRoot "..\..\..")
 $publicReportDir = Join-Path $repoRoot "site\files\reports"
 $nonReportPdfs = @(
-    "smoke",
-    "didac-llorens-cv",
-    "DidacLL_SoftwareEngineer_CV.site-legacy"
+    "smoke"
 )
 
 function Test-LatexmkWorks {
