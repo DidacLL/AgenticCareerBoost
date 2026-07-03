@@ -1,6 +1,6 @@
 # Published reports
 
-This directory is the public report mount point inside the generated `site/` artifact.
+This directory is the `site/files/reports/` mount point inside the generated `site/` artifact.
 
 PDF files in this directory are generated build outputs. They must not be committed to the repository, because committed PDFs can drift from the canonical LaTeX sources and can accidentally preserve temporary validation outputs.
 
