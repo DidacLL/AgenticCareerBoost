@@ -1,6 +1,6 @@
 # Sprint output
 
-<!-- Fill this template for every sprint plan and closure. -->
+<!-- Fill this template for executable sprint contracts and closures. -->
 
 ## Meta
 
@@ -10,38 +10,41 @@
 
 ## Tasks
 
-| # | Task | Target | Specialty | Scope | Writes | Acceptance | Memory | Evidence link |
-|---|------|--------|-----------|-------|--------|------------|--------|---------------|
-| 1 | | | | | | | | |
-| 2 | | | | | | | | |
+| # | Task | Requested output | Write surface | Validation surface | Review | Evidence |
+|---|------|------------------|---------------|--------------------|--------|----------|
+| 1 | | | | | | |
+| 2 | | | | | | |
 
-## Pair-check assignments
+## Review assignments
 
-| Task # | PairCheck-A | PairCheck-B | Verdict |
-|--------|-------------|-------------|---------|
+| Task # | Reviewer / PairCheck | Required when | Verdict |
+|--------|----------------------|---------------|---------|
 | 1 | | | |
 | 2 | | | |
 
+## Validation / review trace
+
+| Surface | Evidence |
+|---|---|
+| _declared surface_ | _readback, source review, human review, targeted check, CI run, or deploy run_ |
+
 ## Closure artifacts
 
-- [ ] Repository artifact(s)
-- [ ] Website / repo update trace
-- [ ] Public-narrative decision
-- [ ] Formal engineering documentation
-- [ ] Condensed technical backlog
-- [ ] Condensed narrative backlog
+Mark each dimension `done`, `deferred`, `waived`, or `not applicable`.
+
+- Repository artifact(s): _state + evidence_
+- Website / repo update trace: _state + evidence_
+- Public-narrative decision: _state + evidence_
+- Formal engineering documentation: _state + evidence_
+- Condensed technical backlog: _state + evidence_
+- Condensed narrative backlog: _state + evidence_
 
 ## Backlog deltas
 
 ### Technical
 
-- _item_
+- _item or none_
 
 ### Narrative
 
-- _item_
-
-## CI trace
-
-- Commit(s): _hash(es)_
-- Workflow run: _link_
+- _item or none_
