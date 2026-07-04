@@ -19,18 +19,23 @@ Full rationale: [`agents/rules/core/truth-hierarchy.md`](agents/rules/core/truth
 must never define behavior rules, voice rules, acceptance criteria, or future
 run scope. If state contradicts rules, the rule layer wins.
 
-## Execution mode first
+Default context stays compact. Pull logs, reports, and historical evidence only
+when the run contract needs them.
+
+## Execution mode and run contract first
 
 Before choosing a workflow, classify the user request using
 [`agents/rules/core/execution-modes.md`](agents/rules/core/execution-modes.md).
+Then declare the run contract using
+[`agents/rules/core/run-contract.md`](agents/rules/core/run-contract.md).
 
-Direct user scope controls the run. Phrases such as "answer only", "text only",
-"copy only", "no code", "no tests", or "no site code" are hard negative
-scopes. Do not escalate to sprint, run tests, create logs, update state, or
-touch undeclared files when the selected mode forbids it.
+Direct user scope controls the run. The selected execution mode decides whether
+the run answers, designs, edits, operates, or executes. The run contract decides
+which sources are authoritative, which surfaces may change, which validation is
+meaningful, and whether state changes.
 
 Missing required routes still block the task. Missing optional routes do not
-block answer-only or text-only work.
+block answer-only, design, or text-only work.
 
 ## Mandatory career guardrail
 
