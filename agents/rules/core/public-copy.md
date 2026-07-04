@@ -17,12 +17,17 @@ LLM-shaped portfolio prose.
 - Lead with the artifact, not with a pitch.
 - Explain what the work proves, why it exists, and where the reader can inspect
   it.
+- Evidence supports the story; it does not choose the story.
+- For campaign architecture, define reader effect, tension, and claim shape
+  first. Then select evidence.
 - Use first person when it clarifies authorship or decision-making, not as
   constant self-defense.
-- Prefer concrete evidence words: source, files, reports, checks, routes,
-  state, commits, review gates, diagrams, PDFs.
+- Prefer concrete evidence words when they serve the claim: source, files,
+  reports, checks, routes, state, commits, review gates, diagrams, PDFs.
 - Keep technical claims tied to visible artifacts or human-approved plans.
 - Use sharpness against weak framings or systems, never against people.
+- Temporary critique from a repair session belongs in the current planning
+  artifact, not in canonical voice rules.
 
 ## Avoid
 

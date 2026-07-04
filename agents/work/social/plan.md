@@ -27,22 +27,26 @@ reasoning, compliance, or tooling.
 Rejected data framing: manual data quality, BI maintenance, dashboard cleanup,
 spreadsheet-heavy reporting, or repetitive non-creative cleanup.
 
-## Current campaign sequence
+## S-005 status
 
-Campaign planning follows publishable evidence, not sprint numbering. Sprint IDs
-may appear in supporting artifacts, but public scheduling is based on whether
-the evidence exists and is recruiter-safe.
+S-005 is a campaign seed, not an active sequence.
 
-1. First presentation — already published by the human; do not recreate or
-   invent a URL.
-2. Deployments — explain root site vs AgenticCareerBoost project path, GitHub
-   Pages constraints, deployment-base routing, and the PDF/static-file loop.
-3. Structure — explain `agents/`, `site/`, reports, state, validators, and
-   human-owned publication boundaries.
-4. History — explain bootstrap, growth, context poisoning, cleanup, first
-   presentation, and post-launch hardening.
-5. Targeted application bridge — adapt the same proof to specific companies and
-   roles only when they pass `agents/rules/core/career-direction.md`.
+Before drafting posts, create a concept architecture that defines:
+
+- reader effect
+- public tension
+- evidence map
+- continuity between posts
+- human approval point
+- supporting artifacts
+
+The post order is produced by the concept architecture.
+
+## Available evidence pool
+
+Deployment history, site structure, report pipeline, validation history, and
+workflow hardening may be used as supporting evidence when selected by the
+concept architecture.
 
 ## Publication prerequisites
 

@@ -9,8 +9,8 @@
 | T-003 | Set up LaTeX build toolchain in `content/reports/` | Bootstrap | **CLOSED** (S-000) |
 | T-004 | Decide whether published LaTeX PDFs should also be mirrored into GitHub Pages | S-000 | deferred |
 | T-005 | Replace `\screenshotfig` placeholders with real screenshots in S-000 and S-001 docs | S-000 / S-001 | medium |
-| T-006 | Build end-to-end ML systems project; avoid manual data-quality framing | S-001 / S-004 | **high** |
-| T-007 | Add Python-based projects to GitHub to close Gap GP-03 | S-001 | **high** |
+| T-006 | Build end-to-end ML systems project; avoid manual data-quality framing | S-001 / S-004 | candidate / non-blocking — inherited from pre-application timeline; must be replanned from current application reality before becoming sprint scope |
+| T-007 | Add Python-based projects to GitHub to close Gap GP-03 | S-001 | candidate / non-blocking — inherited from pre-application timeline; must be replanned from current application reality before becoming sprint scope |
 | T-008 | Verify S-001 LaTeX report PDF publication through CI after push | S-001 / S-001.5 review | high |
 | T-009 | Apply GitHub profile/repo metadata cleanup from S-001.5 checklist manually | S-001.5 / S-002R | **IN PROGRESS** — README merged; account/profile fields remain human-owned |
 | T-010 | Complete full S-002 site rebuild with project detail pages, CV hardening, stable assets, and post-deploy checks | S-001.5 | **CLOSED** (S-002R / PR #12) |
@@ -22,7 +22,7 @@
 | T-016 | Rebuild site with topic-led landing, repo-backed project pages, AgenticCareerBoost dashboard, URL-param CV, and print CSS | S-002R | **CLOSED** |
 | T-017 | Track whether the Website OS shell should be generated from shared templates instead of duplicated static page markup | Site hotfix | medium |
 | T-018 | Keep `agents/rules/core/career-direction.md` updated after each market recalibration | S-004 | **high** |
-| T-019 | Add a real ML/research/agentic proof project before broad applications | S-004 | **high** |
+| T-019 | Add a real ML/research/agentic proof project before broad applications | S-004 | candidate / non-blocking — inherited from pre-application timeline; must be replanned from current application reality before becoming sprint scope |
 | T-020 | Keep website changes out of non-site sprints unless explicitly assigned | S-004 | medium |
 | T-021 | Merge root-site URL finalization after review: notes alias, dashboard, project pages, CV page, and state cleanup | Root URL migration | **high / active** |
 | T-022 | Extract repeated static page chrome into a generator/template only if future site edits make duplication costly | S-004.5 | low / deferred |
