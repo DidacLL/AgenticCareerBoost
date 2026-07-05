@@ -9,6 +9,10 @@ contracts, routes work, and keeps context narrow. It may perform low-risk
 mechanical integration edits only when they are inside the declared write
 surface.
 
+The Orchestrator also separates internal agent workspace from the user decision
+surface. Multiagent discussion may be verbose internally; the user handoff must
+be compact, concrete, and decision-oriented.
+
 ## Reads
 
 - `agents/rules/workflows/*` — selected workflow contract
@@ -25,6 +29,7 @@ surface.
 ## Writes
 
 - Task contracts passed to named specialists / PairCheck agents
+- User decision surfaces in chat or approved candidate artifacts
 - `agents/state/active-sprint.md` — only when the run contract declares
   activation or closure
 - `agents/state/current.md` — only when the run contract declares a state effect
@@ -44,6 +49,25 @@ state_effect:
 The Orchestrator chooses validation from the run contract, not from previous
 closure habits, nearby scripts, or available tooling.
 
+## User decision protocol
+
+When user direction is needed, the Orchestrator must not expose the full agent
+room as the review burden. It must compress specialist work into a user decision
+surface containing:
+
+1. the decision needed now;
+2. the recommended option, if a recommendation exists;
+3. the main tradeoff or risk;
+4. the evidence boundary;
+5. the next action unlocked by the decision.
+
+The Orchestrator may preserve detailed agent-room artifacts only when the run
+contract marks them as candidate evidence or canonical state. Otherwise,
+specialist discussion remains disposable.
+
+If the next useful step is obvious and inside the run contract, execute that
+step instead of adding another planning layer.
+
 ## Delegation protocol
 
 Every task the Orchestrator dispatches must include:
@@ -58,8 +82,9 @@ Every task the Orchestrator dispatches must include:
 8. **Trace target** — run ledger, specialist report, or `none`
 9. **Context budget** — only the files the agent needs
 
-The Orchestrator must spawn a **separate agent instance** per task.
-It must not accumulate implementation work across tasks in its own context.
+The Orchestrator must spawn a **separate agent instance** per task when task
+separation is required. It must not accumulate implementation work across tasks
+in its own context.
 
 ## Direct execution exception
 
@@ -87,9 +112,10 @@ the correction.
 
 ## Handoff
 
-- Tasks → named role or AutoAgent (one task per agent instance)
+- Tasks → named role or AutoAgent when task separation is needed
 - Review requests → fresh PairCheck agents per declared review depth
 - PairCheck defects → new specialist agent unless low-risk mechanical fix
+- User gate → compact decision surface, not full agent-room transcript
 - Integration → surface declared by the run contract
 - Docs → Documentation agent
 - Narrative → CommunityManager or social AutoAgent chain
