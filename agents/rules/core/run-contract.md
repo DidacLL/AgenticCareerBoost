@@ -27,6 +27,30 @@ review_depth:
 Validation follows the touched surface. Available tooling does not define
 validation.
 
+## Sealed-context boundary
+
+Private user material is sealed by default. A run may use it only when the user
+explicitly allows that exact use, and even then it remains non-operational input.
+
+Sealed material must not be:
+
+- quoted, summarized, paraphrased, or converted into examples;
+- used as search, grep, regex, validator, test, fixture, or prompt text;
+- transformed into negative checks, sentinel terms, derived keyword lists, or
+  tool arguments;
+- written into repository artifacts, logs, rules, reviews, comments, commits,
+  pull requests, generated outputs, or public surfaces;
+- transferred to subagents unless the user explicitly authorizes that transfer
+  for the current run.
+
+Read-only access is not automatically safe. If a private input is echoed into a
+command, trace, review, test, or artifact, the boundary has already failed.
+
+Allowed use is limited to silent, in-context calibration for the current answer
+or task. The output may describe the authorized use category, but must not expose
+terms, concepts, examples, fingerprints, or other recognizable derivatives from
+the sealed source.
+
 ## Validation by touched surface
 
 | Touched surface | Valid validation |
