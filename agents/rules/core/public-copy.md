@@ -29,6 +29,17 @@ LLM-shaped portfolio prose.
 - Temporary critique from a repair session belongs in the current planning
   artifact, not in canonical voice rules.
 
+## Sealed material
+
+Private user material used for tone or style is sealed context. It may guide the
+current drafting attempt only when explicitly authorized, and it must not become
+copy, examples, review text, search terms, tests, logs, or repository material.
+
+Voice review may describe public-facing qualities such as cadence, directness,
+formality, or sharpness. It must not expose recognizable terms, private topics,
+political concerns, distinctive phrases, or derived fingerprints from sealed
+sources.
+
 ## Avoid
 
 - AI-hype, founder-LARP, generic backend, data-quality, BI, or dashboard-cleanup
@@ -40,6 +51,8 @@ LLM-shaped portfolio prose.
 - Making every paragraph a manifesto.
 - Inventing publication links, company interest, or account state before the
   human has approved or performed the action.
+- Using private material as negative examples, literal scan patterns, derived
+  scan patterns, fixtures, validators, or prompt content.
 
 ## Channel boundary
 
