@@ -42,6 +42,20 @@ Before drafting posts, create a concept architecture that defines:
 
 The post order is produced by the concept architecture.
 
+## Human decision surface
+
+Social planning may use verbose agent-room material, but the human review
+surface must stay small. The user should see the decision, the recommendation,
+the tradeoff, and the next unlocked action, not every internal card, critique,
+or review note.
+
+After concept architecture is accepted, do not keep adding intermediate planning
+artifacts by default. Move to the smallest useful writing output: a rough draft,
+opening pass, or concrete option set, depending on the approved gate.
+
+Extra campaign artifacts are justified only when they will be reused as source
+material or when the user explicitly asks for them.
+
 ## Available evidence pool
 
 Deployment history, site structure, report pipeline, validation history, and
