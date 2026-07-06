@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-06-28",
+  "updated": "2026-07-06",
   "defaultTitle": "Dídac Llorens",
   "baseDescription": "Dídac Llorens: software engineer in Barcelona working on agentic workflows, developer tooling, technical documentation, and backend/data systems.",
   "identity": {
@@ -118,6 +118,7 @@
     { "path": "/projects/p3ctex", "title": "P3CTeX - Dídac Llorens", "description": "LaTeX tooling for reports, diagrams, listings, CV material, and repeatable document builds.", "source": "projects", "id": "p3ctex" },
     { "path": "/projects/ironbank", "title": "IronBank - Dídac Llorens", "description": "Java/Spring Boot banking simulation from the Ironhack period.", "source": "projects", "id": "ironbank" },
     { "path": "/dashboard", "title": "Project Status - Dídac Llorens", "description": "Repo-backed public status dashboard for AgenticCareerBoost and the static site.", "source": "pages", "id": "dashboard" },
+    { "path": "/application-tracker", "title": "Application Tracker Demo - Dídac Llorens", "description": "Read-only public demo of the local Application Tracker dashboard using fake data.", "source": "pages", "id": "application-tracker" },
     { "path": "/blog", "title": "Blog - Dídac Llorens", "description": "Blog entries on agentic workflows, static publishing, documentation, project maintenance, AI industry topics, and recent papers.", "source": "blog", "id": "index" },
     { "path": "/blog/agents-need-receipts", "title": "Agents Need Receipts - Dídac Llorens", "description": "Agent-assisted work, project files, review, and technical memory.", "source": "blog", "id": "agents-need-receipts" },
     { "path": "/blog/static-sites-as-workbenches", "title": "Static Sites as Workbenches - Dídac Llorens", "description": "Static publishing, route structures, and plain files for personal technical work.", "source": "blog", "id": "static-sites-as-workbenches" },
@@ -140,6 +141,7 @@
     "/projects/p3ctex/": "/projects/p3ctex",
     "/projects/ironbank/": "/projects/ironbank",
     "/dashboard/": "/dashboard",
+    "/application-tracker/": "/application-tracker",
     "/blog/": "/blog",
     "/blog/agents-need-receipts/": "/blog/agents-need-receipts",
     "/blog/static-sites-as-workbenches/": "/blog/static-sites-as-workbenches",
