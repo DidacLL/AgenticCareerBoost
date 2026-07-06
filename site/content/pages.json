@@ -106,7 +106,7 @@
             { "label": "AgenticCareerBoost", "route": "/projects/agentic-career-boost" },
             { "label": "Projects", "route": "/projects" },
             { "label": "Blog notes", "route": "/blog" },
-            { "label": "Application Tracker demo", "route": "/application-tracker" }
+            { "label": "Application Tracker demo", "route": "/application-tracker", "newTab": true }
           ]
         }
       ],
@@ -132,7 +132,7 @@
               { "kicker": "data", "title": "Generated status", "href": "data/status.json", "text": "status.json" },
               { "kicker": "source", "title": "Canonical files", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/state/current.md", "text": "agents/state/current.md and active sprint state" },
               { "kicker": "evidence", "title": "Implementation trace", "href": "https://github.com/DidacLL/AgenticCareerBoost/tree/main/agents/state/logs/S-004.5-site-quality", "text": "S-004.5 logs and review evidence" },
-              { "kicker": "demo", "title": "Application Tracker", "route": "/application-tracker", "text": "Read-only public demo using fake application data." }
+              { "kicker": "demo", "title": "Application Tracker", "route": "/application-tracker", "newTab": true, "text": "Read-only public demo using fake application data." }
             ] }
           ]
         }
@@ -163,6 +163,9 @@
           { "type": "prose", "paragraphs": [
             "This public route shows the dashboard behavior with fake data only. It demonstrates tracked applications, generated artifact references, call cards, and clickable keyword definitions.",
             "The real tracker runs locally and writes to application-tracker/.private. The public route does not include the Raw intake form and cannot access private application data."
+          ] },
+          { "type": "actions", "items": [
+            { "label": "Open demo in new tab", "route": "/application-tracker", "newTab": true }
           ] },
           { "type": "fragment", "src": "content/fragments/application-tracker-demo.html" }
         ] }
@@ -245,7 +248,7 @@
           { "label": "ML/Data systems", "route": "/focus/ml" },
           { "label": "Agentic", "route": "/focus/agentic" },
           { "label": "Backend", "route": "/focus/backend" },
-          { "label": "Application Tracker demo", "route": "/application-tracker" }
+          { "label": "Application Tracker demo", "route": "/application-tracker", "newTab": true }
         ] }
       ],
       "header": { "label": "CONTACT", "title": "Contact", "subtitle": "Barcelona · software engineering · public work." },
