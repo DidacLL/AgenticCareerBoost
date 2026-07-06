@@ -2,28 +2,29 @@
 
 This tracker is for private job-application work. Use it locally for real data. Do not commit real applications, offers, recruiter messages, form answers, cover letters, generated PDFs, or SQLite files.
 
-## One app surface, two data modes
+## One tracker surface
 
-There should not be a separate fake Application Tracker applet. The dashboard is the same human-facing surface in both cases:
+There should not be a separate fake Application Tracker applet. The tracker dashboard is the same human-facing surface in both local modes:
 
-- local private mode: the Python tracker serves the dashboard and writes real data to `.private`;
-- static/public mode: the same dashboard surface may be shown as a demo, but it must fall back to fake data because GitHub Pages cannot access your local `.private` folder.
+- full local mode: the tracker serves the dashboard, writes real data to `.private`, and shows Raw intake;
+- read-only local mode: the tracker serves the same dashboard from the same local data, but removes Raw intake and write controls.
+
+The public website can document this workflow inside the AgenticCareerBoost project page, but it cannot read your local private tracker store.
+
+## No-CLI local launch
+
+On Windows, double-click one of these files:
+
+```text
+application-tracker/Open Application Tracker.cmd
+application-tracker/Open Application Tracker Read Only.cmd
+```
+
+The first launcher opens the full local tracker with Raw intake enabled. The second launcher opens the same tracker dashboard in read-only mode. Both start the local server and open the browser automatically.
 
 ## Local private mode
 
-Use this mode for real applications.
-
-```bash
-python application-tracker/acb_tracker.py dashboard
-```
-
-Open the local URL printed by the command, normally:
-
-```text
-http://127.0.0.1:8765
-```
-
-The dashboard runs from your machine and writes to:
+Use this mode for real applications. The dashboard runs from your machine and writes to:
 
 ```text
 application-tracker/.private/applications.sqlite
@@ -35,19 +36,17 @@ or to the folder configured with:
 ACB_APPLICATION_TRACKER_HOME=/path/to/private/tracker-home
 ```
 
-The local dashboard includes a Raw intake form. That form posts to the local `/raw-intake` route and writes into the private SQLite database.
+The full local dashboard includes a Raw intake form. That form posts to the local `/raw-intake` route and writes into the private SQLite database.
 
-## Static/public mode
+## Public/deployed site mode
 
-GitHub Pages is static hosting. It cannot safely write to your local `.private` folder, cannot read arbitrary local folders without explicit browser file selection, and cannot run the Python tracker.
+The deployed site does not run the tracker and does not load fake applications. It exposes an Application Tracker section inside the AgenticCareerBoost project page that explains the local launch flow and privacy boundary.
 
-A public route can point to the same dashboard shell as a demo or explanation surface. When it cannot access the local tracker payload, it must load fake/demo data only. It must not pretend to be connected to your private tracker.
-
-For real data capture, use local private mode.
+The public site must not pretend to be connected to your private tracker. It must not expose Raw intake, save, upload, or private-data capture controls.
 
 ## Fast capture workflow
 
-Use the Raw intake form in the local dashboard when you have incomplete information.
+Use the Raw intake form in the full local dashboard when you have incomplete information.
 
 Examples:
 
@@ -61,7 +60,7 @@ The Raw intake form saves the data as `needs_agent`. If the item is a literal jo
 
 ## Agent enrichment workflow
 
-1. Start the local dashboard.
+1. Open the full local tracker.
 2. Paste raw owned data into the Raw intake form.
 3. Keep source URLs and notes when available.
 4. Ask an agent to inspect the local tracker state and complete missing fields.
@@ -83,7 +82,7 @@ The agent must not assume missing details when the raw text is insufficient. It 
 
 ## Minimal manual capture
 
-From the dashboard, paste:
+From the full local dashboard, paste:
 
 ```text
 Company: recruiter or company name
