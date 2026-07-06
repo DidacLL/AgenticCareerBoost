@@ -39,3 +39,5 @@ site/Gemfile.lock
 agents/reports/tex/guides/candidaturas_reconocimiento_tecnico_03072026.tex
 agents/cv/data/gameloft-barcelona-cpp.json
 agents/cv/data/n26-backend.json
+*.gz
+agents/cv/tex/didac-llorens-cv.pdf
