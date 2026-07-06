@@ -11,7 +11,7 @@ import sqlite3
 from datetime import date, datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 
 TRACKER_ROOT = Path(__file__).resolve().parent
 REPO_ROOT = TRACKER_ROOT.parent
@@ -195,6 +195,19 @@ def init_db() -> None:
                 notes TEXT,
                 created_at TEXT NOT NULL
             );
+
+            CREATE TABLE IF NOT EXISTS raw_intake (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                application_id TEXT REFERENCES applications(id) ON DELETE SET NULL,
+                kind TEXT NOT NULL,
+                title TEXT,
+                source_url TEXT,
+                raw_text TEXT NOT NULL,
+                notes TEXT,
+                processing_status TEXT NOT NULL DEFAULT 'needs_agent',
+                created_at TEXT NOT NULL,
+                processed_at TEXT
+            );
             """
         )
     print(f"initialized {db_path()}")
@@ -239,6 +252,11 @@ def listify(value: object) -> list:
     return [value]
 
 
+def first_form_value(fields: dict[str, list[str]], key: str, default: str = "") -> str:
+    values = fields.get(key, [])
+    return values[0].strip() if values else default
+
+
 def create_application(args: argparse.Namespace) -> None:
     init_db()
     now = datetime.now().isoformat(timespec="seconds")
@@ -270,6 +288,43 @@ def create_application(args: argparse.Namespace) -> None:
     print(app_id)
 
 
+def ensure_application(conn: sqlite3.Connection, company: str, role: str, source_url: str | None = None) -> str:
+    company = company.strip() or "Unknown company"
+    role = role.strip() or "Unknown role"
+    existing = conn.execute(
+        "SELECT id FROM applications WHERE lower(company) = lower(?) AND lower(role) = lower(?) ORDER BY created_at DESC LIMIT 1",
+        (company, role),
+    ).fetchone()
+    if existing:
+        app_id = existing["id"]
+        conn.execute(
+            "UPDATE applications SET source_url = COALESCE(?, source_url), last_touch = ?, next_action = COALESCE(next_action, ?) WHERE id = ?",
+            (source_url, datetime.now().isoformat(timespec="seconds"), "Complete missing tracker cells from raw intake", app_id),
+        )
+        return app_id
+    app_id = make_id(company, role)
+    now = datetime.now().isoformat(timespec="seconds")
+    conn.execute(
+        """
+        INSERT INTO applications(id, company, role, source_url, status, priority, created_at, last_touch, next_action, notes)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            app_id,
+            company,
+            role,
+            source_url,
+            "found",
+            "medium",
+            now,
+            now,
+            "Complete missing tracker cells from raw intake",
+            "Created from browser raw intake.",
+        ),
+    )
+    return app_id
+
+
 def ingest_offer(args: argparse.Namespace) -> None:
     init_db()
     text = read_text_arg(args.text, args.file)
@@ -279,6 +334,10 @@ def ingest_offer(args: argparse.Namespace) -> None:
         conn.execute(
             "INSERT INTO offer_snapshots(application_id, raw_text, cleaned_text, captured_at) VALUES (?, ?, ?, ?)",
             (args.id, text, args.cleaned_text, now),
+        )
+        conn.execute(
+            "INSERT INTO raw_intake(application_id, kind, title, source_url, raw_text, notes, processing_status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            (args.id, "offer", "Literal offer snapshot", None, text, "Saved through set-offer/ingest-offer.", "needs_agent", now),
         )
         touch(conn, args.id, args.next_action)
     print(f"stored offer snapshot for {args.id}")
@@ -344,6 +403,56 @@ def attach_file(args: argparse.Namespace) -> None:
         )
         touch(conn, args.id, args.next_action)
     print(f"attached file reference for {args.id}: {args.path}")
+
+
+def save_raw_intake_record(
+    *,
+    company: str,
+    role: str,
+    kind: str,
+    title: str,
+    source_url: str,
+    raw_text: str,
+    notes: str,
+    create_or_update_application: bool = True,
+) -> str | None:
+    init_db()
+    now = datetime.now().isoformat(timespec="seconds")
+    if not raw_text.strip():
+        raise ValueError("raw intake text cannot be empty")
+    with connect() as conn:
+        app_id = None
+        if create_or_update_application and (company.strip() or role.strip()):
+            app_id = ensure_application(conn, company, role, source_url or None)
+        conn.execute(
+            """
+            INSERT INTO raw_intake(application_id, kind, title, source_url, raw_text, notes, processing_status, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (app_id, kind or "unknown", title or None, source_url or None, raw_text, notes or None, "needs_agent", now),
+        )
+        if app_id and kind == "offer":
+            conn.execute(
+                "INSERT INTO offer_snapshots(application_id, raw_text, cleaned_text, captured_at) VALUES (?, ?, ?, ?)",
+                (app_id, raw_text, None, now),
+            )
+        if app_id:
+            touch(conn, app_id, "Complete missing tracker cells from raw intake")
+    return app_id
+
+
+def raw_intake(args: argparse.Namespace) -> None:
+    app_id = save_raw_intake_record(
+        company=args.company or "",
+        role=args.role or "",
+        kind=args.kind,
+        title=args.title or "",
+        source_url=args.source_url or "",
+        raw_text=read_text_arg(args.text, args.file),
+        notes=args.notes or "",
+        create_or_update_application=not args.no_application,
+    )
+    print(app_id or "stored raw intake without application")
 
 
 def update_application(args: argparse.Namespace) -> None:
@@ -528,6 +637,31 @@ def import_seed(args: argparse.Namespace) -> None:
                     conn.execute(
                         "INSERT INTO offer_snapshots(application_id, raw_text, cleaned_text, captured_at) VALUES (?, ?, ?, ?)",
                         (app_id, raw_text, cleaned_text, captured_at),
+                    )
+                    conn.execute(
+                        "INSERT INTO raw_intake(application_id, kind, title, source_url, raw_text, notes, processing_status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                        (app_id, "offer", "Imported offer text", app.get("source_url"), raw_text, "Imported from local seed.", "needs_agent", captured_at),
+                    )
+
+            if "raw_intake" in app:
+                for raw in listify(app.get("raw_intake")):
+                    if not raw:
+                        continue
+                    raw_text = raw if isinstance(raw, str) else raw.get("raw_text") or raw.get("text")
+                    if not raw_text:
+                        continue
+                    conn.execute(
+                        "INSERT INTO raw_intake(application_id, kind, title, source_url, raw_text, notes, processing_status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                        (
+                            app_id,
+                            "raw" if isinstance(raw, str) else raw.get("kind", "raw"),
+                            None if isinstance(raw, str) else raw.get("title"),
+                            app.get("source_url") if isinstance(raw, str) else raw.get("source_url") or app.get("source_url"),
+                            raw_text,
+                            None if isinstance(raw, str) else raw.get("notes"),
+                            "needs_agent" if isinstance(raw, str) else raw.get("processing_status", "needs_agent"),
+                            now if isinstance(raw, str) else raw.get("created_at") or now,
+                        ),
                     )
 
             if "company_research" in app:
@@ -747,6 +881,14 @@ def application_payload() -> dict:
             conn.execute("SELECT * FROM application_files ORDER BY created_at DESC, id DESC").fetchall(),
             "application_id",
         )
+        raw_items = rows_by_id(
+            conn.execute("SELECT * FROM raw_intake ORDER BY created_at DESC, id DESC").fetchall(),
+            "application_id",
+        )
+        loose_raw_items = [
+            dict(row)
+            for row in conn.execute("SELECT * FROM raw_intake WHERE application_id IS NULL ORDER BY created_at DESC, id DESC")
+        ]
 
     for item in applications:
         app_id = item["id"]
@@ -757,11 +899,13 @@ def application_payload() -> dict:
         item["research"] = research.get(app_id)
         item["form_answers"] = form_answers.get(app_id, [])
         item["files"] = files.get(app_id, [])
+        item["raw_intake"] = raw_items.get(app_id, [])
     return {
         "generated_at": datetime.now().isoformat(timespec="seconds"),
         "statuses": STATUSES,
         "counts": counts,
         "applications": applications,
+        "loose_raw_intake": loose_raw_items,
         "glossary": glossary,
     }
 
@@ -781,7 +925,9 @@ def dashboard_html(payload: dict) -> str:
     header { padding: 1.2rem 1.4rem; background: #111827; color: white; }
     main { padding: 1rem; display: grid; gap: 1rem; grid-template-columns: minmax(0, 1.6fr) minmax(320px, .9fr); align-items: start; }
     .toolbar { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; grid-column: 1 / -1; }
-    input, select { padding: .55rem .65rem; border: 1px solid #cbd5e1; border-radius: .55rem; background: white; }
+    input, select, textarea { padding: .55rem .65rem; border: 1px solid #cbd5e1; border-radius: .55rem; background: white; font: inherit; }
+    textarea { min-height: 12rem; resize: vertical; }
+    label { display: grid; gap: .25rem; font-size: .82rem; color: #334155; }
     .board { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: .85rem; }
     .column { background: #e5e7eb; border-radius: .85rem; padding: .7rem; min-height: 10rem; }
     .column h2 { font-size: .86rem; text-transform: uppercase; letter-spacing: .08em; color: #334155; margin: .2rem .15rem .65rem; }
@@ -789,14 +935,15 @@ def dashboard_html(payload: dict) -> str:
     .card h3 { margin: 0 0 .25rem; font-size: .95rem; }
     .meta { color: #64748b; font-size: .82rem; }
     .side { display: grid; gap: 1rem; position: sticky; top: 1rem; }
-    .detail, .glossary { background: white; border: 1px solid #dbe3ef; border-radius: .85rem; padding: 1rem; }
-    .detail h2, .glossary h2 { margin-top: 0; }
+    .detail, .glossary, .intake { background: white; border: 1px solid #dbe3ef; border-radius: .85rem; padding: 1rem; }
+    .detail h2, .glossary h2, .intake h2 { margin-top: 0; }
     .field { margin: .75rem 0; }
     .field strong { display: block; color: #334155; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .2rem; }
     .keywords { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .5rem; }
     .keyword { border: 1px solid #cbd5e1; border-radius: 999px; background: #f8fafc; padding: .28rem .52rem; font-size: .78rem; cursor: pointer; }
     .keyword:hover { background: #e2e8f0; }
     pre { white-space: pre-wrap; background: #f1f5f9; padding: .8rem; border-radius: .65rem; overflow: auto; max-height: 28rem; }
+    button.primary { padding: .6rem .8rem; border: 0; border-radius: .55rem; background: #111827; color: white; cursor: pointer; }
     .empty { color: #64748b; font-style: italic; }
     .rows { display: grid; gap: .55rem; }
     .row { border: 1px solid #e2e8f0; border-radius: .6rem; padding: .55rem; background: #f8fafc; }
@@ -815,6 +962,29 @@ def dashboard_html(payload: dict) -> str:
   </section>
   <section id="board" class="board"></section>
   <aside class="side">
+    <section class="intake">
+      <h2>Raw intake</h2>
+      <p class="meta">Local server mode only. Saves your owned raw data into `.private` for later agent enrichment.</p>
+      <form method="post" action="/raw-intake" class="rows">
+        <label>Company <input name="company" placeholder="Company or recruiter"></label>
+        <label>Role <input name="role" placeholder="Role title"></label>
+        <label>Kind
+          <select name="kind">
+            <option value="offer">Literal job offer</option>
+            <option value="company-research">Company research</option>
+            <option value="form-question">Form question / answer</option>
+            <option value="cover-letter">Cover letter draft</option>
+            <option value="note">Free note</option>
+            <option value="raw">Unclassified raw data</option>
+          </select>
+        </label>
+        <label>Title <input name="title" placeholder="Optional short title"></label>
+        <label>Source URL <input name="source_url" placeholder="Optional URL"></label>
+        <label>Raw text <textarea name="raw_text" required placeholder="Paste the offer, recruiter email, form question, draft, notes, or other owned data here."></textarea></label>
+        <label>Notes <input name="notes" placeholder="Optional processing hint for the agent"></label>
+        <button class="primary" type="submit">Save to local tracker</button>
+      </form>
+    </section>
     <section id="detail" class="detail"><p class="empty">Select an application.</p></section>
     <section id="glossary" class="glossary"><p class="empty">Click a keyword to load its definition.</p></section>
   </aside>
@@ -842,10 +1012,11 @@ function matches(app) {
   const card = app.call_card || {};
   const offer = app.offer || {};
   const research = app.research || {};
+  const raw = (app.raw_intake || []).map(item => item.raw_text).join('\n');
   const haystack = [
     app.company, app.role, app.notes, app.next_action,
     card.call_signals, card.technical_reading, card.pitch,
-    offer.raw_text, offer.cleaned_text,
+    offer.raw_text, offer.cleaned_text, raw,
     research.summary, research.business_model, research.red_flags,
     ...(app.keywords || [])
   ];
@@ -898,6 +1069,7 @@ function renderDetail(app) {
     ${callField('Prepare first', card.prepare_first)}
     ${callField('Prepare later', card.prepare_later)}
     <h3>Literal offer snapshot</h3><pre>${escapeHtml(offer.raw_text || 'No offer text stored yet.')}</pre>
+    <h3>Raw intake awaiting agent</h3>${renderRawIntake(app.raw_intake || [])}
     <h3>Company research</h3>
     ${callField('Summary', research.summary)}
     ${callField('Business model', research.business_model)}
@@ -924,6 +1096,11 @@ function renderFormAnswers(items) {
 function renderFiles(items) {
   if (!items.length) return '<p class="empty">No file references stored.</p>';
   return `<div class="rows">${items.map(item => `<div class="row"><strong>${escapeHtml(item.kind)}</strong><div>${escapeHtml(item.label || '')}</div><code>${escapeHtml(item.path)}</code>${item.notes ? `<p>${escapeHtml(item.notes)}</p>` : ''}</div>`).join('')}</div>`;
+}
+
+function renderRawIntake(items) {
+  if (!items.length) return '<p class="empty">No raw intake stored.</p>';
+  return `<div class="rows">${items.map(item => `<div class="row"><strong>${escapeHtml(item.kind)} · ${escapeHtml(item.processing_status)}</strong><div>${escapeHtml(item.title || '')}</div><pre>${escapeHtml(item.raw_text || '')}</pre></div>`).join('')}</div>`;
 }
 
 function keywordButtons(terms, limit) {
@@ -988,6 +1165,34 @@ class DashboardHandler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(content)))
         self.end_headers()
         self.wfile.write(content)
+
+    def do_POST(self) -> None:  # noqa: N802
+        parsed = urlparse(self.path)
+        if parsed.path != "/raw-intake":
+            self.send_error(404)
+            return
+        length = int(self.headers.get("Content-Length", "0"))
+        fields = parse_qs(self.rfile.read(length).decode("utf-8"), keep_blank_values=True)
+        try:
+            app_id = save_raw_intake_record(
+                company=first_form_value(fields, "company"),
+                role=first_form_value(fields, "role"),
+                kind=first_form_value(fields, "kind", "raw"),
+                title=first_form_value(fields, "title"),
+                source_url=first_form_value(fields, "source_url"),
+                raw_text=first_form_value(fields, "raw_text"),
+                notes=first_form_value(fields, "notes"),
+                create_or_update_application=True,
+            )
+        except Exception as exc:  # pragma: no cover - defensive server response
+            self.send_error(400, str(exc))
+            return
+        location = "/dashboard.html"
+        if app_id:
+            location = f"/dashboard.html?saved={app_id}"
+        self.send_response(303)
+        self.send_header("Location", location)
+        self.end_headers()
 
     def log_message(self, format: str, *args: object) -> None:
         return
@@ -1069,6 +1274,18 @@ def build_parser() -> argparse.ArgumentParser:
     file_ref.add_argument("--notes")
     file_ref.add_argument("--next-action")
     file_ref.set_defaults(func=attach_file)
+
+    raw = sub.add_parser("raw-intake")
+    raw.add_argument("--company")
+    raw.add_argument("--role")
+    raw.add_argument("--kind", default="raw")
+    raw.add_argument("--title")
+    raw.add_argument("--source-url")
+    raw.add_argument("--text")
+    raw.add_argument("--file")
+    raw.add_argument("--notes")
+    raw.add_argument("--no-application", action="store_true")
+    raw.set_defaults(func=raw_intake)
 
     update = sub.add_parser("update")
     update.add_argument("--id", required=True)
