@@ -2,9 +2,14 @@
 
 This tracker is for private job-application work. Use it locally for real data. Do not commit real applications, offers, recruiter messages, form answers, cover letters, generated PDFs, or SQLite files.
 
-## Two modes
+## One app surface, two data modes
 
-### Local private mode
+There should not be a separate fake Application Tracker applet. The dashboard is the same human-facing surface in both cases:
+
+- local private mode: the Python tracker serves the dashboard and writes real data to `.private`;
+- static/public mode: the same dashboard surface may be shown as a demo, but it must fall back to fake data because GitHub Pages cannot access your local `.private` folder.
+
+## Local private mode
 
 Use this mode for real applications.
 
@@ -30,11 +35,15 @@ or to the folder configured with:
 ACB_APPLICATION_TRACKER_HOME=/path/to/private/tracker-home
 ```
 
-### Public/static mode
+The local dashboard includes a Raw intake form. That form posts to the local `/raw-intake` route and writes into the private SQLite database.
 
-A GitHub Pages applet can show fake/demo data and can help prepare downloadable JSON files, but it must not be used as the private source of truth. GitHub Pages is static hosting: it cannot safely write to your local `.private` folder, cannot read arbitrary local folders without explicit browser file selection, and cannot run the Python tracker.
+## Static/public mode
 
-For real data, use local private mode.
+GitHub Pages is static hosting. It cannot safely write to your local `.private` folder, cannot read arbitrary local folders without explicit browser file selection, and cannot run the Python tracker.
+
+A public route can point to the same dashboard shell as a demo or explanation surface. When it cannot access the local tracker payload, it must load fake/demo data only. It must not pretend to be connected to your private tracker.
+
+For real data capture, use local private mode.
 
 ## Fast capture workflow
 
