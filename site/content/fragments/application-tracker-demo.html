@@ -1,109 +1,21 @@
-<style>
-  .tracker-demo { display: grid; gap: 1rem; }
-  .tracker-demo__notice { border: 1px solid var(--line); border-radius: 1rem; padding: 1rem; background: var(--panel-muted); }
-  .tracker-demo__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: .85rem; }
-  .tracker-demo__column { border: 1px solid var(--line); border-radius: 1rem; padding: .85rem; background: var(--panel-muted); }
-  .tracker-demo__column h4 { margin: 0 0 .65rem; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
-  .tracker-card { display: grid; gap: .45rem; border: 1px solid var(--line); border-radius: .85rem; padding: .8rem; background: var(--panel); }
-  .tracker-card + .tracker-card { margin-top: .65rem; }
-  .tracker-card strong { display: block; }
-  .tracker-card small { color: var(--muted); }
-  .tracker-tags { display: flex; gap: .35rem; flex-wrap: wrap; }
-  .tracker-tags a, .tracker-tags span { border: 1px solid var(--line); border-radius: 999px; padding: .18rem .48rem; font-size: .78rem; text-decoration: none; }
-  .tracker-demo__detail { display: grid; gap: .8rem; }
-  .tracker-demo__detail article { border: 1px solid var(--line); border-radius: 1rem; padding: 1rem; background: var(--panel); }
-  .tracker-demo__detail h4 { margin-top: 0; }
-  .tracker-demo__detail pre { white-space: pre-wrap; overflow: auto; background: var(--panel-muted); border: 1px solid var(--line); border-radius: .75rem; padding: .75rem; }
-  .tracker-glossary { display: grid; gap: .5rem; }
-  .tracker-glossary details { border: 1px solid var(--line); border-radius: .75rem; padding: .65rem .8rem; background: var(--panel); }
-  .tracker-glossary summary { cursor: pointer; font-weight: 700; }
-</style>
-
-<div class="tracker-demo" aria-label="Read-only Application Tracker demo">
-  <section class="tracker-demo__notice">
-    <p class="os-label">READ-ONLY DEMO</p>
-    <p>This public route uses the same Application Tracker dashboard concept with fake data. It does not include the Raw intake form and it cannot read or write <code>.private</code>. Real application capture runs only from the local tracker server.</p>
-  </section>
-
-  <section class="tracker-demo__grid" aria-label="Demo application board">
-    <div class="tracker-demo__column">
-      <h4>Applied</h4>
-      <article class="tracker-card">
-        <strong>Northstar Systems — AI Automation Specialist</strong>
-        <small>medium · next: prepare recruiter call</small>
-        <div class="tracker-tags">
-          <a href="#tracker-term-workflows">AI workflows</a>
-          <a href="#tracker-term-api">API integration</a>
-          <a href="#tracker-term-governance">Governance</a>
-        </div>
-      </article>
-      <article class="tracker-card">
-        <strong>SignalForge — Backend Tooling Engineer</strong>
-        <small>medium · next: refine technical pitch</small>
-        <div class="tracker-tags">
-          <a href="#tracker-term-observability">Observability</a>
-          <a href="#tracker-term-ci">CI gates</a>
-        </div>
-      </article>
-    </div>
-
-    <div class="tracker-demo__column">
-      <h4>Interview</h4>
-      <article class="tracker-card">
-        <strong>Orion Data Lab — ML/Data Systems Engineer</strong>
-        <small>high · next: review data pipeline tradeoffs</small>
-        <div class="tracker-tags">
-          <a href="#tracker-term-pipelines">Data pipelines</a>
-          <a href="#tracker-term-validation">Validation</a>
-          <a href="#tracker-term-models">Model behavior</a>
-        </div>
-      </article>
-    </div>
-
-    <div class="tracker-demo__column">
-      <h4>Follow up</h4>
-      <article class="tracker-card">
-        <strong>Atlas Ops — Agentic Workflow Engineer</strong>
-        <small>high · next: send focused follow-up</small>
-        <div class="tracker-tags">
-          <a href="#tracker-term-boundaries">Context boundaries</a>
-          <a href="#tracker-term-artifacts">Generated artifacts</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="tracker-demo__detail" aria-label="Demo tracker details">
-    <article>
-      <p class="os-label">CALL CARD</p>
-      <h4>Orion Data Lab — ML/Data Systems Engineer</h4>
-      <p><strong>Call signals:</strong> data quality, reproducible workflows, model-adjacent engineering, stakeholder translation.</p>
-      <p><strong>Technical reading:</strong> likely needs someone who can move between data pipelines, validation, and applied ML constraints without overselling model work.</p>
-      <p><strong>Pitch:</strong> position the profile as systems-first: data flow, tooling, validation, documentation, and domain accountability.</p>
-      <p><strong>Smart question:</strong> “Where do pipeline failures usually surface first: data contracts, model behavior, or downstream operations?”</p>
+<section class="tracker-embed" aria-label="Local read-only Application Tracker">
+  <div class="tracker-embed__notice">
+    <p class="os-label">LOCAL TRACKER / READ-ONLY</p>
+    <p>This is not a separate sample dashboard. The Application Tracker uses the same local dashboard and the same local data store; the read-only wrapper removes only the Raw intake/write surface.</p>
+    <p>The public site cannot read the local tracker store. Start the local read-only wrapper, then open the URL printed by the command.</p>
+  </div>
+  <div class="tracker-embed__steps">
+    <article class="tracker-embed__step">
+      <p class="os-label">01 / START</p>
+      <pre>python application-tracker/acb_tracker_readonly.py</pre>
     </article>
-
-    <article>
-      <p class="os-label">GENERATED ARTIFACTS</p>
-      <h4>Private/local examples</h4>
-      <pre>application-tracker/.private/generated/orion-cover-letter.pdf
-application-tracker/.private/generated/orion-form-answers.md
-application-tracker/.private/generated/orion-interview-guide.md</pre>
-      <p>These paths are fake examples. In local mode the tracker stores private paths and text in SQLite; this public route only demonstrates the shape.</p>
+    <article class="tracker-embed__step">
+      <p class="os-label">02 / OPEN</p>
+      <p>Open the read-only tracker URL printed by the local command.</p>
     </article>
-
-    <article id="tracker-glossary" class="tracker-glossary">
-      <p class="os-label">KEYWORD GLOSSARY</p>
-      <details id="tracker-term-workflows"><summary>AI workflows</summary><p>Automated or semi-automated task flows where model calls, deterministic tools, review gates, and human decisions are explicitly separated.</p></details>
-      <details id="tracker-term-api"><summary>API integration</summary><p>Connecting systems through explicit interfaces while preserving authentication, data shape, retries, and failure behavior.</p></details>
-      <details id="tracker-term-governance"><summary>Governance</summary><p>Rules for accountability, data handling, approvals, traceability, and operational limits.</p></details>
-      <details id="tracker-term-observability"><summary>Observability</summary><p>Logs, metrics, traces, and diagnostic surfaces that make system behavior inspectable.</p></details>
-      <details id="tracker-term-ci"><summary>CI gates</summary><p>Automated validation checks that prevent broken or unsafe changes from entering the main branch.</p></details>
-      <details id="tracker-term-pipelines"><summary>Data pipelines</summary><p>Structured movement and transformation of data from sources into reliable downstream artifacts.</p></details>
-      <details id="tracker-term-validation"><summary>Validation</summary><p>Checks that data, outputs, or generated artifacts satisfy explicit constraints before use.</p></details>
-      <details id="tracker-term-models"><summary>Model behavior</summary><p>Observed behavior of an ML or AI model under real inputs, constraints, and failure cases.</p></details>
-      <details id="tracker-term-boundaries"><summary>Context boundaries</summary><p>Explicit limits around what an agent, module, or workflow may see, infer, modify, or expose.</p></details>
-      <details id="tracker-term-artifacts"><summary>Generated artifacts</summary><p>Outputs created by a workflow, such as cover letters, form answers, PDFs, dashboards, reports, or interview guides.</p></details>
+    <article class="tracker-embed__step">
+      <p class="os-label">03 / BOUNDARY</p>
+      <p>No Raw intake, save, or write controls are exposed on the public site.</p>
     </article>
-  </section>
-</div>
+  </div>
+</section>
