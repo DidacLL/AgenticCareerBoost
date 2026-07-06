@@ -120,3 +120,4 @@ application-tracker/.private/
 application-tracker/**/*.sqlite
 application-tracker/**/*.db
 application-tracker/.gitignore
+agents/reports/tex/guides/candidaturas_reconocimiento_tecnico_03072026.tex
