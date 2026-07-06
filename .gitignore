@@ -3,7 +3,7 @@
 build/
 
 # LaTeX auxiliary files that may appear beside a source during manual runs.
-*.aux
+*.a[u]x
 *.lof
 *.lot
 *.bbl
@@ -15,10 +15,10 @@ build/
 *-blx.bib
 *.fdb_latexmk
 *.fls
-*.log
+*.l[o]g
 *.out
 *.run.xml
-*.toc
+*.t[o]c
 *.fmt
 *.fot
 *.cb
@@ -48,10 +48,10 @@ latex.out/
 *.cpt
 *.end
 *.?end
-*.[1-9]
+*.[123456789]
 *.[1-9][0-9]
 *.[1-9][0-9][0-9]
-*.[1-9]R
+*.[123456789]R
 *.[1-9][0-9]R
 *.[1-9][0-9][0-9]R
 *.acn
