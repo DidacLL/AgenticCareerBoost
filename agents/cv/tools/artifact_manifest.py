@@ -11,10 +11,7 @@ from pathlib import Path
 CV_ROOT = Path(__file__).resolve().parents[1]
 ROOT = CV_ROOT.parents[1]
 DEFAULT_MANIFEST = CV_ROOT / "artifacts.json"
-COVER_LETTER_MESSAGE = (
-    "cover letters are private/local working documents; render one explicitly "
-    "with agents/cv/tools/render-cover-letter.py --input"
-)
+NON_CV_MESSAGE = "only public CV artifacts are supported by agents/cv/artifacts.json"
 
 
 def as_relative_path(value: object, field: str) -> Path:
@@ -43,10 +40,8 @@ def public_artifacts(path: Path = DEFAULT_MANIFEST) -> list[dict]:
     artifacts = []
     for item in published(path):
         kind = item.get("kind")
-        if kind == "cover-letter":
-            raise ValueError(COVER_LETTER_MESSAGE)
         if kind != "cv":
-            raise ValueError(f"unsupported public artifact kind: {kind}")
+            raise ValueError(f"unsupported public artifact kind: {kind}; {NON_CV_MESSAGE}")
         artifacts.append(item)
     if not artifacts:
         raise ValueError(f"{path}: manifest must declare at least one public CV artifact")
