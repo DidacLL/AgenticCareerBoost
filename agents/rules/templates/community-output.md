@@ -20,6 +20,9 @@
 - [ ] Evidence linked (repo, commit, diagram, or doc)
 - [ ] No content cloned verbatim across channels
 - [ ] Supports technical identity, not generic self-promotion
+- [ ] Sealed-context boundary respected
+- [ ] Fresh review used when required
+- [ ] Pre-draft prose gate passed when required
 
 ## Linked evidence
 

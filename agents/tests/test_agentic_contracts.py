@@ -160,6 +160,8 @@ def test_site_json_public_file_refs_resolve():
             if value.startswith("/"):
                 failures.append(f"{json_file.name}:{pointer} root path {value}")
                 continue
+            if is_deploy_generated_site_ref(value):
+                continue
             if not (SITE / value.split("#", 1)[0].split("?", 1)[0]).is_file():
                 failures.append(f"{json_file.name}:{pointer} missing {value}")
     assert failures == []
@@ -235,10 +237,18 @@ def test_report_build_docs_use_agents_report_root():
 
 def test_required_ci_uploads_generated_site_artifact_for_prs():
     required_ci = (ROOT / ".github" / "workflows" / "required-ci.yml").read_text(encoding="utf-8")
-    assert "Render public cover-letter sources" in required_ci
-    assert "Compile CV and cover-letter PDFs" in required_ci
+    site_build = (ROOT / ".github" / "workflows" / "site-build.yml").read_text(encoding="utf-8")
+    old_render_step = "Render public " + "cover-letter sources"
+    old_compile_step = "Compile CV and " + "cover-letter PDFs"
+    for workflow in (required_ci, site_build):
+        assert old_render_step not in workflow
+        assert old_compile_step not in workflow
+        assert "render-cover-letter.py" not in workflow
+        assert "Compile public career PDFs" in workflow
     assert "Publish generated career PDFs into site artifact" in required_ci
+    assert "Publish generated career PDFs into site artifact" in site_build
     assert "Validate static site" in required_ci
+    assert "Validate static site" in site_build
     assert "Upload PR site artifact" in required_ci
     assert "github.event_name == 'pull_request'" in required_ci
     assert "actions/upload-artifact@v4" in required_ci
@@ -255,6 +265,16 @@ def safe_relative(value: str) -> Path:
     assert not path.is_absolute()
     assert ".." not in path.parts
     return path
+
+
+def is_deploy_generated_site_ref(value: str) -> bool:
+    local = value.split("#", 1)[0].split("?", 1)[0]
+    if local == "data/status.json":
+        return True
+    path = Path(local)
+    if path.suffix.lower() != ".pdf":
+        return False
+    return path.parts[:2] in {("files", "cv"), ("files", "reports")}
 
 
 def test_cv_artifact_manifest_declares_public_sources():
@@ -274,9 +294,9 @@ def test_cv_artifact_manifest_declares_public_sources():
     assert not (ROOT / "assets" / "curriculum").exists()
     artifacts = cv_manifest()
     assert artifacts
-    assert {item["kind"] for item in artifacts} >= {"cv", "cover-letter"}
+    assert {item["kind"] for item in artifacts} == {"cv"}
     for item in artifacts:
-        assert item["kind"] in {"cv", "cover-letter"}
+        assert item["kind"] == "cv"
         source = safe_relative(item["source"])
         build_pdf = safe_relative(item["buildPdf"])
         site_pdf = safe_relative(item["sitePdf"])
@@ -284,11 +304,7 @@ def test_cv_artifact_manifest_declares_public_sources():
         assert site_pdf.parts[:2] == ("site", "files")
         assert build_pdf.suffix == ".pdf"
         assert site_pdf.suffix == ".pdf"
-        if item["kind"] == "cv":
-            assert (cv_root / source).is_file()
-        if item["kind"] == "cover-letter":
-            data = safe_relative(item["data"])
-            assert (cv_root / data).is_file()
+        assert (cv_root / source).is_file()
 
 
 def test_cv_public_links_follow_manifest():
@@ -461,10 +477,38 @@ def test_site_file_hrefs_are_not_app_routes():
                 failures.append(f"{json_file.name}:{pointer} file href uses hash routing")
             if key == "href" and value.startswith("files/"):
                 local = value.split("#", 1)[0].split("?", 1)[0]
+                if local.startswith("files/cover-letters/"):
+                    failures.append(f"{json_file.name}:{pointer} cover-letter href is not a public site artifact")
+                    continue
                 if value in route_paths:
                     failures.append(f"{json_file.name}:{pointer} file href collides with route")
+                if is_deploy_generated_site_ref(value):
+                    continue
                 if not (SITE / local).is_file():
                     failures.append(f"{json_file.name}:{pointer} missing file href {value}")
+    assert failures == []
+
+
+def test_site_content_does_not_publish_cover_letters():
+    failures: list[str] = []
+
+    def walk(node, pointer="$"):
+        if isinstance(node, dict):
+            for key, value in node.items():
+                yield from walk(value, f"{pointer}.{key}")
+        elif isinstance(node, list):
+            for index, value in enumerate(node):
+                yield from walk(value, f"{pointer}[{index}]")
+        else:
+            yield pointer, node
+
+    for json_file in (SITE / "content").glob("*.json"):
+        data = json.loads(json_file.read_text(encoding="utf-8"))
+        for pointer, value in walk(data):
+            key = pointer.rsplit(".", 1)[-1].split("[", 1)[0]
+            if key == "href" and isinstance(value, str) and value.startswith("files/cover-letters/"):
+                failures.append(f"{json_file.name}:{pointer} cover-letter href is not a public site artifact")
+
     assert failures == []
 
 

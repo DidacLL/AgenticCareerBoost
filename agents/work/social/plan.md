@@ -29,9 +29,19 @@ spreadsheet-heavy reporting, or repetitive non-creative cleanup.
 
 ## S-005 status
 
-S-005 is a campaign seed, not an active sequence.
+S-005 is repair-gated and not an active sequence.
 
-Before drafting posts, create a concept architecture that defines:
+The 2026-07 deepsearch reports are review evidence for the repair branch, not
+canonical social-plan authority. Future S-005 work follows the current direct
+prompt, this plan, and stable rules.
+
+Old, rejected, poisoned, or superseded artifacts are not requirements, voice
+sources, examples, acceptance criteria, or drafting input. They may be located
+by filename/path for cleanup or exclusion, but must not be opened for writing
+direction unless the current user prompt explicitly promotes them.
+
+Before drafting a new campaign with no approved direction, create the smallest
+concept architecture that defines:
 
 - reader effect
 - public tension
@@ -40,7 +50,30 @@ Before drafting posts, create a concept architecture that defines:
 - human approval point
 - supporting artifacts
 
-The post order is produced by the concept architecture.
+The post order is produced by the concept architecture only when the current run
+does not already define the topic, direction, or post spine.
+
+For S-005 repair recovery, do not create another concept map by default. Once
+stale artifacts are excluded from drafting authority, the next creative task is
+a fresh opening, fragment, or compact outline for anti-slop review.
+
+## Human decision surface
+
+Social planning may use verbose agent-room material, but the human review
+surface must stay small. The user should see the decision, the recommendation,
+the tradeoff, and the next unlocked action, not every internal card, critique,
+or review note.
+
+After concept architecture is accepted, do not keep adding intermediate planning
+artifacts by default. Move to the smallest useful writing output: a rough draft,
+opening pass, or concrete option set, depending on the approved gate.
+
+Extra campaign artifacts are justified only when they will be reused as source
+material or when the user explicitly asks for them.
+
+For high-risk public writing, a full draft may be saved or surfaced to the human
+only after a fresh `AntiSlopContrarian` instance passes a fragment, opening, or
+compact outline against `public-copy.md`.
 
 ## Available evidence pool
 
@@ -66,10 +99,15 @@ concept architecture.
 - Planner updates strategy; Writer produces the smallest useful writing output
   for the approved gate. Multiple options are required only when the user asks
   for alternatives or the decision surface needs comparison.
+- Creative options must come from fresh writer instances when independence is a
+  quality requirement.
+- High-risk public writing uses memory path `none` for investigator, planner,
+  concept, writer, voice, anti-slop, and CommunityManager tasks unless the user
+  explicitly approves a public memory source.
 - CommunityManager sharpens the final draft and rejects hype, bitterness,
   self-pity, generic AI framing, and unsupported contrarian takes.
-- Current voice follows `agents/rules/core/public-copy.md`; previous discarded
-  drafts do not override it.
+- Current voice follows `agents/rules/core/public-copy.md`; discarded drafts,
+  stale artifacts, and bridge artifacts do not override it.
 - Repo truth comes first; do not plan posts around artifacts that do not exist.
 - Human-only actions stay in `agents/state/human-actions.md`.
 

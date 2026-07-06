@@ -88,7 +88,23 @@ def read_manifest(failures: list[str]) -> list[dict]:
     if not isinstance(artifacts, list) or not artifacts:
         failures.append("agents/cv/artifacts.json must declare at least one artifact")
         return []
-    return [item for item in artifacts if item.get("publish") is True]
+    public = []
+    for item in artifacts:
+        if item.get("publish") is not True:
+            continue
+        kind = item.get("kind")
+        if kind == "cover-letter":
+            failures.append(
+                "cover letters are private/local documents and must not be published by agents/cv/artifacts.json"
+            )
+            continue
+        if kind != "cv":
+            failures.append(f"unsupported public CV artifact kind in manifest: {kind}")
+            continue
+        public.append(item)
+    if not public:
+        failures.append("agents/cv/artifacts.json must declare at least one public CV artifact")
+    return public
 
 
 def safe_relative(value: object) -> Path | None:
@@ -187,11 +203,10 @@ def main() -> int:
     for item in artifacts:
         kind = item.get("kind")
         source = safe_relative(item.get("source"))
-        data = safe_relative(item.get("data"))
         build_pdf = safe_relative(item.get("buildPdf"))
         site_pdf = safe_relative(item.get("sitePdf"))
-        if kind not in {"cv", "cover-letter"}:
-            failures.append(f"unsupported CV artifact kind in manifest: {kind}")
+        if kind != "cv":
+            failures.append(f"unsupported public CV artifact kind in manifest: {kind}")
         if source is None or build_pdf is None or site_pdf is None:
             failures.append(f"CV artifact manifest entry has unsafe or missing paths: {item}")
             continue
@@ -203,11 +218,6 @@ def main() -> int:
             if not (cv_root / source).is_file():
                 failures.append(f"missing CV source declared by manifest: agents/cv/{source.as_posix()}")
             manifest_cv_source_urls.add(f"https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/cv/{source.as_posix()}")
-        if kind == "cover-letter":
-            if data is None or not (cv_root / data).is_file():
-                failures.append(f"missing cover-letter data declared by manifest: agents/cv/{data.as_posix() if data else '<missing>'}")
-            if not (cv_root / source).is_file():
-                failures.append(f"missing generated cover-letter TeX declared by manifest: agents/cv/{source.as_posix()}")
         site_output = ROOT / site_pdf
         if not site_output.is_file():
             failures.append(f"missing generated public career PDF: {site_pdf.as_posix()}")
@@ -263,6 +273,11 @@ def main() -> int:
                 failures.append(f"site/content/{json_file.name}:{pointer} file link uses hash route: {value}")
             if key == "href" and value.startswith("files/"):
                 local = value.split("#", 1)[0].split("?", 1)[0]
+                if local.startswith("files/cover-letters/"):
+                    failures.append(
+                        f"site/content/{json_file.name}:{pointer} cover-letter links are private/local only: {value}"
+                    )
+                    continue
                 if local.lower().endswith(".pdf"):
                     public_pdf_paths.add(f"site/{local}")
                 if value in route_paths:
@@ -311,7 +326,7 @@ def main() -> int:
                 text=True,
             ).stdout.splitlines()
             if tracked:
-                failures.append(f"generated CV/cover-letter PDFs must not be tracked: {', '.join(tracked)}")
+                failures.append(f"generated public career PDFs must not be tracked: {', '.join(tracked)}")
             ignored = subprocess.run(
                 [git, "check-ignore", "--no-index", *generated_paths],
                 cwd=ROOT,
@@ -320,7 +335,7 @@ def main() -> int:
                 text=True,
             ).stdout.splitlines()
             if set(ignored) != set(generated_paths):
-                failures.append("generated CV/cover-letter PDF paths must be ignored by .gitignore")
+                failures.append("generated public career PDF paths must be ignored by .gitignore")
 
     if failures:
         print("Static site validation failed:")

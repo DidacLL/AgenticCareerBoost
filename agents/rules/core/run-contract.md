@@ -1,8 +1,20 @@
 # Run contract
 
-Every non-trivial run declares its contract before workflow selection becomes operational.
-The contract keeps scope, context, writes, validation, and state effects aligned with
-what the user actually requested.
+Every non-trivial run declares its contract before workflow selection becomes
+operational. The contract keeps scope, context, writes, validation, and state
+effects aligned with what the user actually requested.
+
+## Direct prompt and remediation authority
+
+The direct user prompt is the highest authority for the current run. If the user
+declares a remediation source order, poisoned artifact family, or explicit
+override, record it in `source_authority` and follow it before normal workflow
+defaults, state pointers, logs, or previous work artifacts.
+
+When the user marks old artifacts as poisoned, agents may locate them by path or
+filename for quarantine/removal, but must not read them for requirements,
+examples, acceptance criteria, voice, or future scope. Workflow files then become
+repair targets, not competing authority.
 
 ## Required fields
 
@@ -27,29 +39,24 @@ review_depth:
 Validation follows the touched surface. Available tooling does not define
 validation.
 
-## Sealed-context boundary
+## Human surface rule
 
-Private user material is sealed by default. A run may use it only when the user
-explicitly allows that exact use, and even then it remains non-operational input.
+Separate three surfaces before producing work:
 
-Sealed material must not be:
+1. **Agent workspace** — temporary reasoning, review, scratch artifacts, or
+   verbose specialist material. It is not a human review requirement.
+2. **Human decision surface** — the smallest concrete summary, choice, draft, or
+   verdict the user needs to act. This is the default surface for approval.
+3. **Canonical state** — durable rules, accepted outputs, active state, or
+   closure evidence promoted by the run contract.
 
-- quoted, summarized, paraphrased, or converted into examples;
-- used as search, grep, regex, validator, test, fixture, or prompt text;
-- transformed into negative checks, sentinel terms, derived keyword lists, or
-  tool arguments;
-- written into repository artifacts, logs, rules, reviews, comments, commits,
-  pull requests, generated outputs, or public surfaces;
-- transferred to subagents unless the user explicitly authorizes that transfer
-  for the current run.
+A run must not make the user read the agent workspace to remain in control. When
+human judgment is required, compress the agent workspace into a human decision
+surface with the decision, tradeoff, evidence boundary, and next action.
 
-Read-only access is not automatically safe. If a private input is echoed into a
-command, trace, review, test, or artifact, the boundary has already failed.
-
-Allowed use is limited to silent, in-context calibration for the current answer
-or task. The output may describe the authorized use category, but must not expose
-terms, concepts, examples, fingerprints, or other recognizable derivatives from
-the sealed source.
+Do not create additional planning artifacts merely to expose agent discussion.
+Create or persist an artifact only when the run contract needs it as candidate
+evidence, canonical state, or reusable source material.
 
 ## Validation by touched surface
 
@@ -75,9 +82,19 @@ the sealed source.
 | Selected role | Role behavior |
 | State current and active-sprint | Compact status only |
 | Roadmap and backlog | Candidate seeds, not commitments |
-| Logs, research, and reports | Historical evidence only |
+| Logs, research, and reports | Historical or review evidence only unless the current user prompt explicitly names them as inputs for this run |
 | Work artifacts | Drafts, plans, and candidate outputs |
 | Generated site files | Produced artifacts, not source authority |
 
-Historical evidence can explain why something happened. It does not define the
-next run unless a rule file promotes that behavior.
+Historical evidence can explain why something happened. It does not become a
+durable rule or future-run authority unless promoted through the rule layer.
+
+## Sealed context
+
+Private, sensitive, or user-sealed material is never operational input. It must
+not appear in prompts, delegated contracts, examples, fixtures, validators,
+searches, grep patterns, logs, review text, or generated repository material.
+
+Privacy validation is process-based: prove that sealed material was not moved
+across tool or agent boundaries. Do not validate privacy by scanning with
+literal or derived private terms.

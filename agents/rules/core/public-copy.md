@@ -29,16 +29,35 @@ LLM-shaped portfolio prose.
 - Temporary critique from a repair session belongs in the current planning
   artifact, not in canonical voice rules.
 
+## Prose firewall
+
+Before a full public draft is saved, surfaced to the human, or placed in a
+decision surface, test an opening, scene fragment, or compact outline. It should
+show concrete project action, real stakes, authored judgment, and evidence that
+serves the story instead of replacing it.
+
+Reject fragments that read like reusable social-copy templates: neat symmetry,
+generic uplift, unsupported contrarian posture, or thesis explanation before the
+reader has a concrete reason to care.
+
+Passing this gate means the draft has narrative pressure and a human reason to
+exist. It does not mean the draft is publishable.
+
 ## Sealed material
 
-Private user material used for tone or style is sealed context. It may guide the
-current drafting attempt only when explicitly authorized, and it must not become
-copy, examples, review text, search terms, tests, logs, or repository material.
+Private user material used for tone or style is sealed context. Do not ingest,
+read, quote, summarize, or use the source material for drafting. If the user
+explicitly authorizes a voice direction, use only the current user-approved
+public descriptors, never the sealed source text or derived fingerprints.
 
 Voice review may describe public-facing qualities such as cadence, directness,
 formality, or sharpness. It must not expose recognizable terms, private topics,
 political concerns, distinctive phrases, or derived fingerprints from sealed
 sources.
+
+Do not validate privacy with private or private-derived token lists. A clean
+privacy review checks process boundaries, not whether a leaked fingerprint can
+be found after it has already been operationalized.
 
 ## Avoid
 
@@ -46,9 +65,8 @@ sources.
   positioning.
 - Sales-representative tone, recruiter-style filler, and empty claims of
   usefulness.
-- Repeated "not X, but Y" structures and defensive justification loops.
-- Symmetrical generated phrasing that sounds polished but not authored.
-- Making every paragraph a manifesto.
+- Formulaic contrast, defensive justification loops, and manifesto paragraphs.
+- Multiple options that differ in wording but not in narrative shape.
 - Inventing publication links, company interest, or account state before the
   human has approved or performed the action.
 - Using private material as negative examples, literal scan patterns, derived

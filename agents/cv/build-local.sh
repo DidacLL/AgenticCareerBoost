@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build public CV and cover-letter PDFs from agents/cv/artifacts.json.
+# Build public career PDFs from agents/cv/artifacts.json.
 
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -15,7 +15,6 @@ if ! command -v pdflatex &>/dev/null && ! command -v latexmk &>/dev/null; then
 fi
 
 python tools/artifact_manifest.py validate
-python tools/render-cover-letter.py --all
 mkdir -p build
 
 build_tex() {

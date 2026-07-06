@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Build public CV and cover-letter PDFs from agents/cv/artifacts.json.
+    Build public career PDFs from agents/cv/artifacts.json.
 #>
 
 $ErrorActionPreference = "Stop"
@@ -58,8 +58,6 @@ try {
     $script:useLatexmk = Test-LatexmkWorks
     & python tools/artifact_manifest.py validate
     if ($LASTEXITCODE -ne 0) { throw "artifact manifest validation failed" }
-    & python tools/render-cover-letter.py --all
-    if ($LASTEXITCODE -ne 0) { throw "cover-letter rendering failed" }
 
     $roots = & python tools/artifact_manifest.py roots
     if ($LASTEXITCODE -ne 0) { throw "artifact manifest root resolution failed" }

@@ -9,6 +9,34 @@ contracts, routes work, and keeps context narrow. It may perform low-risk
 mechanical integration edits only when they are inside the declared write
 surface.
 
+The Orchestrator also separates internal agent workspace from the user decision
+surface. Multiagent discussion may be verbose internally; the user handoff must
+be compact, concrete, and decision-oriented.
+
+## Poisoned source protocol
+
+When the user marks artifacts, state, logs, or prior sprint outputs as poisoned,
+the Orchestrator treats that declaration as part of the direct prompt and higher
+authority than workflow defaults. The poisoned material may be located by path or
+filename for removal, quarantine, or exclusion, but it must not be read for
+requirements, voice, examples, acceptance criteria, or future scope.
+
+Delegated task contracts must name the approved authority boundary and pass only
+sanitized context. If a specialist needs poisoned content to proceed, stop and
+escalate instead of widening context.
+
+## Creative dispatch protocol
+
+For public writing work, the Orchestrator enforces fresh writer/reviewer
+instances and a pre-draft prose gate when required by `public-copy.md` or the
+user prompt. Once campaign direction is known, the next task is the smallest
+useful writing output unless a missing decision blocks drafting.
+
+When a run declares stale, poisoned, rejected, or superseded artifacts, the
+Orchestrator excludes them from delegated context by filename/path. For public
+full drafts, the Orchestrator must confirm pre-draft anti-slop review before
+saving the draft or surfacing it to the human.
+
 ## Reads
 
 - `agents/rules/workflows/*` — selected workflow contract
@@ -25,6 +53,7 @@ surface.
 ## Writes
 
 - Task contracts passed to named specialists / PairCheck agents
+- User decision surfaces in chat or approved candidate artifacts
 - `agents/state/active-sprint.md` — only when the run contract declares
   activation or closure
 - `agents/state/current.md` — only when the run contract declares a state effect
@@ -44,6 +73,29 @@ state_effect:
 The Orchestrator chooses validation from the run contract, not from previous
 closure habits, nearby scripts, or available tooling.
 
+## User decision protocol
+
+When user direction is needed, the Orchestrator must not expose the full agent
+room as the review burden. It must compress specialist work into a user decision
+surface containing:
+
+1. the decision needed now;
+2. the recommended option, if a recommendation exists;
+3. the main tradeoff or risk;
+4. the evidence boundary;
+5. the next action unlocked by the decision.
+
+The Orchestrator may preserve detailed agent-room artifacts only when the run
+contract marks them as candidate evidence or canonical state. Otherwise,
+specialist discussion remains disposable.
+
+If the next useful step is obvious and inside the run contract, execute that
+step instead of adding another planning layer.
+
+For social/public writing, the human decision surface must contain only the
+draft candidate or compact choice, the key tradeoff/risk, evidence boundary, and
+next action. It must not require reading planning cards or agent-room notes.
+
 ## Delegation protocol
 
 Every task the Orchestrator dispatches must include:
@@ -57,9 +109,14 @@ Every task the Orchestrator dispatches must include:
 7. **Memory path** — one family path or `none`
 8. **Trace target** — run ledger, specialist report, or `none`
 9. **Context budget** — only the files the agent needs
+10. **Gate status** — required prose/safety gate, or `not applicable`
 
-The Orchestrator must spawn a **separate agent instance** per task.
-It must not accumulate implementation work across tasks in its own context.
+The Orchestrator must spawn a **separate agent instance** per task when task
+separation is required. It must not accumulate implementation work across tasks
+in its own context.
+
+Creative alternatives require separate writer instances. A single context must
+not generate multiple variants and present them as independent options.
 
 ## Direct execution exception
 
@@ -87,9 +144,10 @@ the correction.
 
 ## Handoff
 
-- Tasks → named role or AutoAgent (one task per agent instance)
+- Tasks → named role or AutoAgent when task separation is needed
 - Review requests → fresh PairCheck agents per declared review depth
 - PairCheck defects → new specialist agent unless low-risk mechanical fix
+- User gate → compact decision surface, not full agent-room transcript
 - Integration → surface declared by the run contract
 - Docs → Documentation agent
 - Narrative → CommunityManager or social AutoAgent chain
