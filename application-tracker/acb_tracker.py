@@ -11,7 +11,7 @@ import sqlite3
 from datetime import date, datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import urlparse
 
 TRACKER_ROOT = Path(__file__).resolve().parent
 REPO_ROOT = TRACKER_ROOT.parent
@@ -157,6 +157,34 @@ def init_db() -> None:
                 my_positioning TEXT,
                 refresh_needed INTEGER NOT NULL DEFAULT 0
             );
+
+            CREATE TABLE IF NOT EXISTS call_cards (
+                application_id TEXT PRIMARY KEY REFERENCES applications(id) ON DELETE CASCADE,
+                call_signals TEXT,
+                technical_reading TEXT,
+                pitch TEXT,
+                smart_question TEXT,
+                risk_to_avoid TEXT,
+                prepare_first TEXT,
+                prepare_later TEXT,
+                updated_at TEXT NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS glossary_terms (
+                term TEXT PRIMARY KEY,
+                category TEXT,
+                short_definition TEXT,
+                detail TEXT,
+                interview_angle TEXT,
+                updated_at TEXT NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS application_keywords (
+                application_id TEXT NOT NULL REFERENCES applications(id) ON DELETE CASCADE,
+                term TEXT NOT NULL REFERENCES glossary_terms(term) ON DELETE CASCADE,
+                importance TEXT NOT NULL DEFAULT 'recognize',
+                PRIMARY KEY (application_id, term)
+            );
             """
         )
     print(f"initialized {db_path()}")
@@ -275,6 +303,132 @@ def add_text(args: argparse.Namespace) -> None:
     print(f"stored {args.kind} for {args.id}")
 
 
+def import_seed(args: argparse.Namespace) -> None:
+    init_db()
+    seed_path = Path(args.file).expanduser().resolve()
+    data = json.loads(seed_path.read_text(encoding="utf-8"))
+    now = datetime.now().isoformat(timespec="seconds")
+    imported = 0
+    with connect() as conn:
+        for term in data.get("glossary", []):
+            name = str(term.get("term", "")).strip()
+            if not name:
+                continue
+            conn.execute(
+                """
+                INSERT INTO glossary_terms(term, category, short_definition, detail, interview_angle, updated_at)
+                VALUES (?, ?, ?, ?, ?, ?)
+                ON CONFLICT(term) DO UPDATE SET
+                    category = excluded.category,
+                    short_definition = excluded.short_definition,
+                    detail = excluded.detail,
+                    interview_angle = excluded.interview_angle,
+                    updated_at = excluded.updated_at
+                """,
+                (
+                    name,
+                    term.get("category"),
+                    term.get("short_definition"),
+                    term.get("detail"),
+                    term.get("interview_angle"),
+                    now,
+                ),
+            )
+        for app in data.get("applications", []):
+            company = str(app.get("company", "")).strip()
+            role = str(app.get("role", "")).strip()
+            if not company or not role:
+                raise ValueError(f"{seed_path}: every application needs company and role")
+            app_id = str(app.get("id") or make_id(company, role)).strip()
+            existing = conn.execute("SELECT created_at FROM applications WHERE id = ?", (app_id,)).fetchone()
+            created_at = existing["created_at"] if existing else app.get("created_at") or now
+            conn.execute(
+                """
+                INSERT INTO applications (
+                    id, company, role, source, source_url, location, remote_mode,
+                    status, priority, created_at, applied_at, last_touch, next_action, notes
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(id) DO UPDATE SET
+                    company = excluded.company,
+                    role = excluded.role,
+                    source = excluded.source,
+                    source_url = excluded.source_url,
+                    location = excluded.location,
+                    remote_mode = excluded.remote_mode,
+                    status = excluded.status,
+                    priority = excluded.priority,
+                    applied_at = excluded.applied_at,
+                    last_touch = excluded.last_touch,
+                    next_action = excluded.next_action,
+                    notes = excluded.notes
+                """,
+                (
+                    app_id,
+                    company,
+                    role,
+                    app.get("source"),
+                    app.get("source_url"),
+                    app.get("location"),
+                    app.get("remote_mode"),
+                    app.get("status", "applied"),
+                    app.get("priority", "medium"),
+                    created_at,
+                    app.get("applied_at"),
+                    now,
+                    app.get("next_action"),
+                    app.get("notes"),
+                ),
+            )
+            card = app.get("call_card") or {}
+            conn.execute(
+                """
+                INSERT INTO call_cards (
+                    application_id, call_signals, technical_reading, pitch, smart_question,
+                    risk_to_avoid, prepare_first, prepare_later, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(application_id) DO UPDATE SET
+                    call_signals = excluded.call_signals,
+                    technical_reading = excluded.technical_reading,
+                    pitch = excluded.pitch,
+                    smart_question = excluded.smart_question,
+                    risk_to_avoid = excluded.risk_to_avoid,
+                    prepare_first = excluded.prepare_first,
+                    prepare_later = excluded.prepare_later,
+                    updated_at = excluded.updated_at
+                """,
+                (
+                    app_id,
+                    card.get("call_signals"),
+                    card.get("technical_reading"),
+                    card.get("pitch"),
+                    card.get("smart_question"),
+                    card.get("risk_to_avoid"),
+                    card.get("prepare_first"),
+                    card.get("prepare_later"),
+                    now,
+                ),
+            )
+            conn.execute("DELETE FROM application_keywords WHERE application_id = ?", (app_id,))
+            for term in app.get("keywords", []):
+                name = str(term).strip()
+                if not name:
+                    continue
+                conn.execute(
+                    """
+                    INSERT INTO glossary_terms(term, category, short_definition, detail, interview_angle, updated_at)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                    ON CONFLICT(term) DO NOTHING
+                    """,
+                    (name, "unclassified", "", "", "", now),
+                )
+                conn.execute(
+                    "INSERT OR IGNORE INTO application_keywords(application_id, term, importance) VALUES (?, ?, ?)",
+                    (app_id, name, "recognize"),
+                )
+            imported += 1
+    print(f"imported {imported} applications from {seed_path}")
+
+
 def require_app(conn: sqlite3.Connection, app_id: str) -> sqlite3.Row:
     row = conn.execute("SELECT * FROM applications WHERE id = ?", (app_id,)).fetchone()
     if row is None:
@@ -332,107 +486,199 @@ def application_payload() -> dict:
             ).fetchall()
             for row in rows:
                 latest_text.setdefault(row["application_id"], {})[key] = row["value"]
+
+        call_cards = {
+            row["application_id"]: dict(row)
+            for row in conn.execute("SELECT * FROM call_cards")
+        }
+        keywords: dict[str, list[str]] = {}
+        for row in conn.execute("SELECT application_id, term FROM application_keywords ORDER BY term COLLATE NOCASE"):
+            keywords.setdefault(row["application_id"], []).append(row["term"])
+        glossary = {
+            row["term"]: dict(row)
+            for row in conn.execute("SELECT * FROM glossary_terms ORDER BY term COLLATE NOCASE")
+        }
+
     for item in applications:
-        item["texts"] = latest_text.get(item["id"], {})
-    return {"generated_at": datetime.now().isoformat(timespec="seconds"), "statuses": STATUSES, "counts": counts, "applications": applications}
+        app_id = item["id"]
+        item["texts"] = latest_text.get(app_id, {})
+        item["call_card"] = call_cards.get(app_id, {})
+        item["keywords"] = keywords.get(app_id, [])
+    return {
+        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "statuses": STATUSES,
+        "counts": counts,
+        "applications": applications,
+        "glossary": glossary,
+    }
 
 
 def dashboard_html(payload: dict) -> str:
     data = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
-    return f"""<!doctype html>
-<html lang=\"en\">
+    timestamp = html.escape(payload["generated_at"])
+    template = """<!doctype html>
+<html lang="en">
 <head>
-  <meta charset=\"utf-8\">
-  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Application Tracker</title>
   <style>
-    :root {{ font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif; color: #111827; background: #f8fafc; }}
-    body {{ margin: 0; }}
-    header {{ padding: 1.2rem 1.4rem; background: #111827; color: white; }}
-    main {{ padding: 1rem; display: grid; gap: 1rem; }}
-    .toolbar {{ display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; }}
-    input, select {{ padding: .55rem .65rem; border: 1px solid #cbd5e1; border-radius: .55rem; background: white; }}
-    .board {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: .85rem; }}
-    .column {{ background: #e5e7eb; border-radius: .85rem; padding: .7rem; min-height: 10rem; }}
-    .column h2 {{ font-size: .86rem; text-transform: uppercase; letter-spacing: .08em; color: #334155; margin: .2rem .15rem .65rem; }}
-    .card {{ background: white; border: 1px solid #dbe3ef; border-radius: .75rem; padding: .75rem; margin-bottom: .65rem; box-shadow: 0 1px 2px rgba(15, 23, 42, .06); cursor: pointer; }}
-    .card h3 {{ margin: 0 0 .25rem; font-size: .95rem; }}
-    .meta {{ color: #64748b; font-size: .82rem; }}
-    .detail {{ background: white; border: 1px solid #dbe3ef; border-radius: .85rem; padding: 1rem; }}
-    .detail h2 {{ margin-top: 0; }}
-    pre {{ white-space: pre-wrap; background: #f1f5f9; padding: .8rem; border-radius: .65rem; overflow: auto; }}
-    .empty {{ color: #64748b; font-style: italic; }}
+    :root { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111827; background: #f8fafc; }
+    body { margin: 0; }
+    header { padding: 1.2rem 1.4rem; background: #111827; color: white; }
+    main { padding: 1rem; display: grid; gap: 1rem; grid-template-columns: minmax(0, 1.6fr) minmax(320px, .9fr); align-items: start; }
+    .toolbar { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; grid-column: 1 / -1; }
+    input, select { padding: .55rem .65rem; border: 1px solid #cbd5e1; border-radius: .55rem; background: white; }
+    .board { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: .85rem; }
+    .column { background: #e5e7eb; border-radius: .85rem; padding: .7rem; min-height: 10rem; }
+    .column h2 { font-size: .86rem; text-transform: uppercase; letter-spacing: .08em; color: #334155; margin: .2rem .15rem .65rem; }
+    .card { background: white; border: 1px solid #dbe3ef; border-radius: .75rem; padding: .75rem; margin-bottom: .65rem; box-shadow: 0 1px 2px rgba(15, 23, 42, .06); cursor: pointer; }
+    .card h3 { margin: 0 0 .25rem; font-size: .95rem; }
+    .meta { color: #64748b; font-size: .82rem; }
+    .side { display: grid; gap: 1rem; position: sticky; top: 1rem; }
+    .detail, .glossary { background: white; border: 1px solid #dbe3ef; border-radius: .85rem; padding: 1rem; }
+    .detail h2, .glossary h2 { margin-top: 0; }
+    .field { margin: .75rem 0; }
+    .field strong { display: block; color: #334155; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .2rem; }
+    .keywords { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .5rem; }
+    .keyword { border: 1px solid #cbd5e1; border-radius: 999px; background: #f8fafc; padding: .28rem .52rem; font-size: .78rem; cursor: pointer; }
+    .keyword:hover { background: #e2e8f0; }
+    pre { white-space: pre-wrap; background: #f1f5f9; padding: .8rem; border-radius: .65rem; overflow: auto; }
+    .empty { color: #64748b; font-style: italic; }
+    @media (max-width: 950px) { main { grid-template-columns: 1fr; } .side { position: static; } }
   </style>
 </head>
 <body>
 <header>
   <h1>Application Tracker</h1>
-  <div>Generated {html.escape(payload['generated_at'])}</div>
+  <div>Generated __GENERATED_AT__</div>
 </header>
 <main>
-  <section class=\"toolbar\">
-    <input id=\"search\" type=\"search\" placeholder=\"Search company, role, notes\">
-    <select id=\"status\"><option value=\"\">All statuses</option></select>
+  <section class="toolbar">
+    <input id="search" type="search" placeholder="Search company, role, notes, keywords">
+    <select id="status"><option value="">All statuses</option></select>
   </section>
-  <section id=\"board\" class=\"board\"></section>
-  <section id=\"detail\" class=\"detail\"><p class=\"empty\">Select an application.</p></section>
+  <section id="board" class="board"></section>
+  <aside class="side">
+    <section id="detail" class="detail"><p class="empty">Select an application.</p></section>
+    <section id="glossary" class="glossary"><p class="empty">Click a keyword to load its definition.</p></section>
+  </aside>
 </main>
-<script type=\"application/json\" id=\"payload\">{data}</script>
+<script type="application/json" id="payload">__PAYLOAD__</script>
 <script>
 const payload = JSON.parse(document.getElementById('payload').textContent);
 const board = document.getElementById('board');
 const detail = document.getElementById('detail');
+const glossary = document.getElementById('glossary');
 const search = document.getElementById('search');
 const statusFilter = document.getElementById('status');
-for (const status of payload.statuses) {{
+
+for (const status of payload.statuses) {
   const option = document.createElement('option');
   option.value = status;
-  option.textContent = `${{status}} (${{payload.counts[status] || 0}})`;
+  option.textContent = `${status} (${payload.counts[status] || 0})`;
   statusFilter.appendChild(option);
-}}
-function matches(app) {{
+}
+
+function matches(app) {
   const needle = search.value.trim().toLowerCase();
   if (statusFilter.value && app.status !== statusFilter.value) return false;
   if (!needle) return true;
-  return [app.company, app.role, app.notes, app.next_action].some(value => String(value || '').toLowerCase().includes(needle));
-}}
-function renderBoard() {{
+  const card = app.call_card || {};
+  const haystack = [
+    app.company, app.role, app.notes, app.next_action,
+    card.call_signals, card.technical_reading, card.pitch,
+    ...(app.keywords || [])
+  ];
+  return haystack.some(value => String(value || '').toLowerCase().includes(needle));
+}
+
+function renderBoard() {
   board.textContent = '';
   const visible = payload.applications.filter(matches);
-  for (const status of payload.statuses) {{
+  for (const status of payload.statuses) {
     const column = document.createElement('section');
     column.className = 'column';
     const title = document.createElement('h2');
     title.textContent = status;
     column.appendChild(title);
-    for (const app of visible.filter(item => item.status === status)) {{
+    for (const app of visible.filter(item => item.status === status)) {
       const card = document.createElement('article');
       card.className = 'card';
-      card.innerHTML = `<h3>${{escapeHtml(app.company)}} — ${{escapeHtml(app.role)}}</h3>
-        <div class=\"meta\">${{escapeHtml(app.priority)}} · ${{escapeHtml(app.last_touch || '')}}</div>
-        <div class=\"meta\">${{escapeHtml(app.next_action || 'No next action')}}</div>`;
-      card.addEventListener('click', () => renderDetail(app));
+      card.innerHTML = `<h3>${escapeHtml(app.company)} — ${escapeHtml(app.role)}</h3>
+        <div class="meta">${escapeHtml(app.priority)} · ${escapeHtml(app.last_touch || '')}</div>
+        <div class="meta">${escapeHtml(app.next_action || 'No next action')}</div>
+        ${keywordButtons(app.keywords || [], 5)}`;
+      card.addEventListener('click', event => {
+        if (!event.target.closest('[data-term]')) renderDetail(app);
+      });
+      wireKeywordButtons(card);
       column.appendChild(card);
-    }}
+    }
     board.appendChild(column);
-  }}
-}}
-function renderDetail(app) {{
-  const texts = app.texts || {{}};
-  detail.innerHTML = `<h2>${{escapeHtml(app.company)}} — ${{escapeHtml(app.role)}}</h2>
-    <p><strong>Status:</strong> ${{escapeHtml(app.status)}} · <strong>Priority:</strong> ${{escapeHtml(app.priority)}}</p>
-    <p><strong>Source:</strong> ${{escapeHtml(app.source || '')}} ${{app.source_url ? `<a href=\"${{escapeAttr(app.source_url)}}\" target=\"_blank\" rel=\"noreferrer\">open</a>` : ''}}</p>
-    <p><strong>Location:</strong> ${{escapeHtml(app.location || '')}} · <strong>Remote:</strong> ${{escapeHtml(app.remote_mode || '')}}</p>
-    <p><strong>Next action:</strong> ${{escapeHtml(app.next_action || '')}}</p>
-    <p><strong>Notes:</strong> ${{escapeHtml(app.notes || '')}}</p>
-    <h3>Evaluation</h3><pre>${{escapeHtml(texts.evaluation || 'No evaluation stored.')}}</pre>
-    <h3>Cover letter</h3><pre>${{escapeHtml(texts.cover_letter || 'No cover letter stored.')}}</pre>
-    <h3>Interview guide</h3><pre>${{escapeHtml(texts.interview_guide || 'No interview guide stored.')}}</pre>`;
-}}
-function escapeHtml(value) {{
-  return String(value ?? '').replace(/[&<>\"]/g, ch => ({{'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}}[ch]));
-}}
-function escapeAttr(value) {{ return escapeHtml(value).replace(/'/g, '&#39;'); }}
+  }
+}
+
+function renderDetail(app) {
+  const texts = app.texts || {};
+  const card = app.call_card || {};
+  detail.innerHTML = `<h2>${escapeHtml(app.company)} — ${escapeHtml(app.role)}</h2>
+    <p><strong>Status:</strong> ${escapeHtml(app.status)} · <strong>Priority:</strong> ${escapeHtml(app.priority)}</p>
+    <p><strong>Source:</strong> ${escapeHtml(app.source || '')} ${app.source_url ? `<a href="${escapeAttr(app.source_url)}" target="_blank" rel="noreferrer">open</a>` : ''}</p>
+    <p><strong>Location:</strong> ${escapeHtml(app.location || '')} · <strong>Remote:</strong> ${escapeHtml(app.remote_mode || '')}</p>
+    <p><strong>Next action:</strong> ${escapeHtml(app.next_action || '')}</p>
+    <p><strong>Notes:</strong> ${escapeHtml(app.notes || '')}</p>
+    ${keywordButtons(app.keywords || [], 80)}
+    ${callField('Call signals', card.call_signals)}
+    ${callField('Technical reading', card.technical_reading)}
+    ${callField('Pitch', card.pitch)}
+    ${callField('Smart question', card.smart_question)}
+    ${callField('Risk to avoid', card.risk_to_avoid)}
+    ${callField('Prepare first', card.prepare_first)}
+    ${callField('Prepare later', card.prepare_later)}
+    <h3>Evaluation</h3><pre>${escapeHtml(texts.evaluation || 'No evaluation stored.')}</pre>
+    <h3>Cover letter</h3><pre>${escapeHtml(texts.cover_letter || 'No cover letter stored.')}</pre>
+    <h3>Interview guide</h3><pre>${escapeHtml(texts.interview_guide || 'No interview guide stored.')}</pre>`;
+  wireKeywordButtons(detail);
+}
+
+function callField(label, value) {
+  if (!value) return '';
+  return `<div class="field"><strong>${escapeHtml(label)}</strong><div>${escapeHtml(value)}</div></div>`;
+}
+
+function keywordButtons(terms, limit) {
+  if (!terms.length) return '';
+  return `<div class="keywords">${terms.slice(0, limit).map(term => `<button class="keyword" type="button" data-term="${escapeAttr(term)}">${escapeHtml(term)}</button>`).join('')}</div>`;
+}
+
+function wireKeywordButtons(root) {
+  for (const button of root.querySelectorAll('[data-term]')) {
+    button.addEventListener('click', event => {
+      event.stopPropagation();
+      renderGlossary(button.dataset.term);
+    });
+  }
+}
+
+function renderGlossary(term) {
+  const item = payload.glossary[term];
+  if (!item) {
+    glossary.innerHTML = `<h2>${escapeHtml(term)}</h2><p class="empty">No definition stored for this term yet.</p>`;
+    return;
+  }
+  glossary.innerHTML = `<h2>${escapeHtml(term)}</h2>
+    ${callField('Category', item.category)}
+    ${callField('Meaning', item.short_definition)}
+    ${callField('Detail', item.detail)}
+    ${callField('Interview angle', item.interview_angle)}`;
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+}
+function escapeAttr(value) { return escapeHtml(value).replace(/'/g, '&#39;'); }
+
 search.addEventListener('input', renderBoard);
 statusFilter.addEventListener('change', renderBoard);
 renderBoard();
@@ -440,6 +686,7 @@ renderBoard();
 </body>
 </html>
 """
+    return template.replace("__GENERATED_AT__", timestamp).replace("__PAYLOAD__", data)
 
 
 def export_dashboard(args: argparse.Namespace) -> None:
@@ -525,6 +772,10 @@ def build_parser() -> argparse.ArgumentParser:
     add.add_argument("--version")
     add.add_argument("--next-action")
     add.set_defaults(func=add_text)
+
+    seed = sub.add_parser("import-seed")
+    seed.add_argument("--file", required=True, help="Local JSON seed with applications and glossary terms")
+    seed.set_defaults(func=import_seed)
 
     listing = sub.add_parser("list")
     listing.add_argument("--status", choices=STATUSES)
