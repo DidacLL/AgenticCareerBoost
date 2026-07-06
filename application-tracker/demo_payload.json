@@ -1,0 +1,326 @@
+{
+  "generated_at": "2026-07-06T00:00:00",
+  "statuses": [
+    "found",
+    "evaluating",
+    "ready_to_apply",
+    "applied",
+    "follow_up",
+    "interview",
+    "technical_test",
+    "offer",
+    "rejected",
+    "rejected_by_me",
+    "archived"
+  ],
+  "counts": {
+    "applied": 2,
+    "follow_up": 1,
+    "interview": 1,
+    "ready_to_apply": 1
+  },
+  "applications": [
+    {
+      "id": "demo-orion-data-lab-ml-data-systems-engineer",
+      "company": "Orion Data Lab",
+      "role": "ML/Data Systems Engineer",
+      "source": "public demo",
+      "source_url": "",
+      "location": "Barcelona / hybrid",
+      "remote_mode": "hybrid",
+      "status": "interview",
+      "priority": "high",
+      "created_at": "2026-07-01T09:00:00",
+      "applied_at": "2026-07-02",
+      "last_touch": "2026-07-06T10:30:00",
+      "next_action": "Prepare system-design answer around data validation and model-adjacent workflow boundaries.",
+      "notes": "Demo record showing interview preparation and generated artifacts.",
+      "texts": {
+        "evaluation": "Strong fit for systems-first ML/data engineering. Main risk: avoid presenting model training depth as production experience. Position around pipelines, validation, documentation and operational constraints.",
+        "cover_letter": "Dear hiring team,\n\nI am interested in the ML/Data Systems Engineer role because it sits at the boundary I work best in: data flows, automation, validation, and practical AI tooling. My strongest contribution is not to oversell model work, but to make model-adjacent systems inspectable, documented, and safe to operate.\n\nBest,\nDídac",
+        "interview_guide": "Prepare: data contracts, validation layers, failure surfacing, monitoring, and stakeholder translation. Ask where pipeline failures are usually detected first: source data, model behavior, or downstream operations."
+      },
+      "call_card": {
+        "application_id": "demo-orion-data-lab-ml-data-systems-engineer",
+        "call_signals": "Data quality, reproducible workflows, model-adjacent engineering, stakeholder translation.",
+        "technical_reading": "Likely needs someone who can move between data pipelines, validation, and applied ML constraints without overselling model authorship.",
+        "pitch": "Systems-first profile: data flow, tooling, validation, documentation, and domain accountability.",
+        "smart_question": "Where do pipeline failures usually surface first: data contracts, model behavior, or downstream operations?",
+        "risk_to_avoid": "Do not frame conceptual ML knowledge as production model ownership.",
+        "prepare_first": "Data contracts, validation checks, and examples of turning messy inputs into controlled artifacts.",
+        "prepare_later": "Monitoring, governance, and how generated artifacts are reviewed before public use.",
+        "updated_at": "2026-07-06T10:30:00"
+      },
+      "keywords": ["Data pipelines", "Validation", "Model behavior", "Generated artifacts", "Governance"],
+      "offer": {
+        "application_id": "demo-orion-data-lab-ml-data-systems-engineer",
+        "raw_text": "Demo offer excerpt: build and maintain data workflows, collaborate with ML teams, validate data quality, document operational assumptions, and support internal AI tooling.",
+        "cleaned_text": "ML/data systems role focused on data workflows, validation, documentation, and AI tooling support.",
+        "captured_at": "2026-07-01T09:15:00"
+      },
+      "research": {
+        "application_id": "demo-orion-data-lab-ml-data-systems-engineer",
+        "company": "Orion Data Lab",
+        "summary": "Demo company focused on operational analytics and internal AI tooling.",
+        "business_model": "B2B analytics platform and implementation services.",
+        "red_flags": "Clarify whether ML work means model development, data engineering, or prompt/tooling support.",
+        "sources_json": "[]",
+        "updated_at": "2026-07-06T10:30:00"
+      },
+      "form_answers": [
+        {
+          "question": "Why are you interested in this role?",
+          "draft_answer": "Because the role connects data workflows, validation, documentation, and AI tooling, which is where my current work is strongest.",
+          "submitted_answer": "",
+          "submitted_at": ""
+        }
+      ],
+      "files": [
+        {
+          "kind": "cover-letter-pdf",
+          "path": "application-tracker/.private/generated/orion-cover-letter.pdf",
+          "label": "Cover letter PDF",
+          "notes": "Demo path only; real generated files stay private.",
+          "created_at": "2026-07-06T10:30:00"
+        },
+        {
+          "kind": "interview-guide",
+          "path": "application-tracker/.private/generated/orion-interview-guide.md",
+          "label": "Interview guide",
+          "notes": "Demo path only; real generated files stay private.",
+          "created_at": "2026-07-06T10:30:00"
+        }
+      ],
+      "raw_intake": []
+    },
+    {
+      "id": "demo-atlas-ops-agentic-workflow-engineer",
+      "company": "Atlas Ops",
+      "role": "Agentic Workflow Engineer",
+      "source": "public demo",
+      "source_url": "",
+      "location": "Remote / EU",
+      "remote_mode": "remote",
+      "status": "follow_up",
+      "priority": "high",
+      "created_at": "2026-07-03T12:00:00",
+      "applied_at": "2026-07-03",
+      "last_touch": "2026-07-06T12:00:00",
+      "next_action": "Send follow-up with concise project evidence and boundary-oriented workflow examples.",
+      "notes": "Demo record showing follow-up state.",
+      "texts": {
+        "evaluation": "High positioning value. Main evidence should be repo-backed workflow design, review gates, static/public boundary control, and human approval loops.",
+        "cover_letter": "Demo follow-up: I can show a concrete workflow where public pages, local data, validation, and generated artifacts are separated instead of blurred into one unsafe automation surface.",
+        "interview_guide": "Prepare examples: local/private tracker boundary, static site generation, PR review loop, and why agent outputs need receipts."
+      },
+      "call_card": {
+        "application_id": "demo-atlas-ops-agentic-workflow-engineer",
+        "call_signals": "Agent orchestration, review gates, public/private data boundaries, workflow observability.",
+        "technical_reading": "Role likely needs practical workflow design rather than abstract prompt enthusiasm.",
+        "pitch": "I design agentic systems where state, evidence, generated artifacts and human approval are kept inspectable.",
+        "smart_question": "Which failures matter most in your workflows: wrong context, unsafe writes, stale state, or unreviewed generated output?",
+        "risk_to_avoid": "Avoid sounding like the work is just prompt writing.",
+        "prepare_first": "Explain file-based state, validation, PR checks and public/private separation.",
+        "prepare_later": "Discuss how to test workflow contracts without freezing temporary implementation details.",
+        "updated_at": "2026-07-06T12:00:00"
+      },
+      "keywords": ["Agentic workflows", "Context boundaries", "Review gates", "Static export"],
+      "offer": null,
+      "research": null,
+      "form_answers": [],
+      "files": [],
+      "raw_intake": []
+    },
+    {
+      "id": "demo-nova-care-backend-tooling-engineer",
+      "company": "Nova Care Systems",
+      "role": "Backend Tooling Engineer",
+      "source": "public demo",
+      "source_url": "",
+      "location": "Barcelona",
+      "remote_mode": "hybrid",
+      "status": "applied",
+      "priority": "medium",
+      "created_at": "2026-07-04T15:00:00",
+      "applied_at": "2026-07-04",
+      "last_touch": "2026-07-05T11:00:00",
+      "next_action": "Wait for recruiter response; prepare backend/domain-rule examples.",
+      "notes": "Demo record for backend/platform positioning.",
+      "texts": {},
+      "call_card": {
+        "application_id": "demo-nova-care-backend-tooling-engineer",
+        "call_signals": "Backend systems, domain rules, tooling, documentation, maintainability.",
+        "technical_reading": "Position around clear domain transitions and operational constraints.",
+        "pitch": "Backend work is strongest when rules, permissions, failures and data transitions are explicit.",
+        "smart_question": "Which domain transitions currently create the most support or maintenance cost?",
+        "risk_to_avoid": "Do not over-center AI if the role is backend-first.",
+        "prepare_first": "Spring/Java project explanation and domain-rule examples.",
+        "prepare_later": "Testing strategy and documentation workflow.",
+        "updated_at": "2026-07-05T11:00:00"
+      },
+      "keywords": ["Backend", "Domain rules", "Testing", "Documentation"],
+      "offer": null,
+      "research": null,
+      "form_answers": [],
+      "files": [],
+      "raw_intake": []
+    },
+    {
+      "id": "demo-kestra-product-engineer-ai",
+      "company": "Kestra",
+      "role": "Product Engineer, AI",
+      "source": "public demo",
+      "source_url": "",
+      "location": "Remote",
+      "remote_mode": "remote",
+      "status": "ready_to_apply",
+      "priority": "medium",
+      "created_at": "2026-07-06T09:00:00",
+      "applied_at": "",
+      "last_touch": "2026-07-06T09:30:00",
+      "next_action": "Decide whether the AI/product angle matches current campaign direction.",
+      "notes": "Demo record showing pre-application evaluation.",
+      "texts": {
+        "evaluation": "Potentially attractive but requires careful positioning around product engineering and workflow tooling, not generic AI enthusiasm."
+      },
+      "call_card": {},
+      "keywords": ["Product engineering", "Workflow orchestration", "AI tooling"],
+      "offer": null,
+      "research": null,
+      "form_answers": [],
+      "files": [],
+      "raw_intake": []
+    }
+  ],
+  "loose_raw_intake": [],
+  "glossary": {
+    "Data pipelines": {
+      "term": "Data pipelines",
+      "category": "data systems",
+      "short_definition": "Structured movement and transformation of data into reliable downstream artifacts.",
+      "detail": "For interviews, explain where validation, monitoring and ownership enter the flow.",
+      "interview_angle": "Ask where failures are detected first and who owns corrections.",
+      "updated_at": "2026-07-06T00:00:00"
+    },
+    "Validation": {
+      "term": "Validation",
+      "category": "quality",
+      "short_definition": "Checks that data, outputs, or generated artifacts satisfy explicit constraints before use.",
+      "detail": "Validation matters because generated or transformed outputs can look plausible while being operationally wrong.",
+      "interview_angle": "Discuss schema checks, review gates, tests and manual approval points.",
+      "updated_at": "2026-07-06T00:00:00"
+    },
+    "Model behavior": {
+      "term": "Model behavior",
+      "category": "AI",
+      "short_definition": "Observed behavior of an ML or AI model under real inputs, constraints and failure cases.",
+      "detail": "Useful framing when you support model-adjacent systems without claiming ownership of model training.",
+      "interview_angle": "Separate conceptual ML knowledge from production model ownership.",
+      "updated_at": "2026-07-06T00:00:00"
+    },
+    "Generated artifacts": {
+      "term": "Generated artifacts",
+      "category": "workflow",
+      "short_definition": "Outputs created by a workflow, such as cover letters, form answers, PDFs or interview guides.",
+      "detail": "The important part is traceability: generated artifacts need source context, review and storage boundaries.",
+      "interview_angle": "Explain how artifacts are reviewed before public or external use.",
+      "updated_at": "2026-07-06T00:00:00"
+    },
+    "Governance": {
+      "term": "Governance",
+      "category": "risk",
+      "short_definition": "Rules for accountability, data handling, approvals, traceability and operational limits.",
+      "detail": "For this project, governance means private data stays local and public pages remain curated summaries.",
+      "interview_angle": "Ask how approvals and responsibility are handled around generated outputs.",
+      "updated_at": "2026-07-06T00:00:00"
+    },
+    "Agentic workflows": {
+      "term": "Agentic workflows",
+      "category": "agent systems",
+      "short_definition": "Workflows where model calls, deterministic tools, review gates and human decisions are explicitly separated.",
+      "detail": "A useful agentic workflow is inspectable and recoverable, not just an uncontrolled chain of prompts.",
+      "interview_angle": "Discuss state, evidence, boundaries and failure recovery.",
+      "updated_at": "2026-07-06T00:00:00"
+    },
+    "Context boundaries": {
+      "term": "Context boundaries",
+      "category": "agent systems",
+      "short_definition": "Explicit limits around what an agent, module or workflow may see, infer, modify or expose.",
+      "detail": "Boundaries avoid leaking private context into public outputs or giving an agent more authority than needed.",
+      "interview_angle": "Explain public/private split and why raw intake is local-only.",
+      "updated_at": "2026-07-06T00:00:00"
+    },
+    "Review gates": {
+      "term": "Review gates",
+      "category": "workflow",
+      "short_definition": "Human or automated checkpoints before changes become public, committed or externally sent.",
+      "detail": "Review gates prevent temporary drafts from becoming public claims or stable architecture by accident.",
+      "interview_angle": "Connect this to PRs, CI and manual approval.",
+      "updated_at": "2026-07-06T00:00:00"
+    },
+    "Static export": {
+      "term": "Static export",
+      "category": "publishing",
+      "short_definition": "A generated static artifact that can be hosted without a backend.",
+      "detail": "For the tracker demo, static export means fixed public demo data rendered through the same dashboard code path.",
+      "interview_angle": "Use it to explain deployed/private boundary management.",
+      "updated_at": "2026-07-06T00:00:00"
+    },
+    "Backend": {
+      "term": "Backend",
+      "category": "software engineering",
+      "short_definition": "Server-side logic, persistence, APIs, domain rules and operational behavior.",
+      "detail": "Backend positioning should focus on behavior and constraints rather than framework-name dropping.",
+      "interview_angle": "Ask about domain transitions, support costs and failure modes.",
+      "updated_at": "2026-07-06T00:00:00"
+    },
+    "Domain rules": {
+      "term": "Domain rules",
+      "category": "software design",
+      "short_definition": "The business constraints that define valid state changes and behavior.",
+      "detail": "Domain rules are where backend work becomes more than CRUD.",
+      "interview_angle": "Discuss examples around permissions, state transitions and validation.",
+      "updated_at": "2026-07-06T00:00:00"
+    },
+    "Testing": {
+      "term": "Testing",
+      "category": "quality",
+      "short_definition": "Automated or manual checks that verify behavior against expectations.",
+      "detail": "Tests should protect real contracts, not freeze temporary implementation mistakes.",
+      "interview_angle": "Mention the difference between useful contract tests and brittle over-specification.",
+      "updated_at": "2026-07-06T00:00:00"
+    },
+    "Documentation": {
+      "term": "Documentation",
+      "category": "communication",
+      "short_definition": "Technical explanation that preserves intent, constraints and operational knowledge.",
+      "detail": "Documentation is part of system reliability when agents and humans collaborate over time.",
+      "interview_angle": "Explain how docs prevent stale context and future misinterpretation.",
+      "updated_at": "2026-07-06T00:00:00"
+    },
+    "Product engineering": {
+      "term": "Product engineering",
+      "category": "software engineering",
+      "short_definition": "Engineering work that balances user value, system constraints and implementation tradeoffs.",
+      "detail": "Position carefully: product sense plus technical execution, not vague product enthusiasm.",
+      "interview_angle": "Ask how product decisions are validated technically.",
+      "updated_at": "2026-07-06T00:00:00"
+    },
+    "Workflow orchestration": {
+      "term": "Workflow orchestration",
+      "category": "platform",
+      "short_definition": "Coordinating tasks, data movement, tools, dependencies and execution order.",
+      "detail": "In agentic systems, orchestration must include boundaries and review, not only sequencing.",
+      "interview_angle": "Discuss how failures are surfaced and resumed.",
+      "updated_at": "2026-07-06T00:00:00"
+    },
+    "AI tooling": {
+      "term": "AI tooling",
+      "category": "AI",
+      "short_definition": "Tools that make AI-assisted work usable, inspectable and integrated into real workflows.",
+      "detail": "The tooling layer often matters more than the model call itself.",
+      "interview_angle": "Explain review surfaces, generated artifacts and limits.",
+      "updated_at": "2026-07-06T00:00:00"
+    }
+  }
+}
