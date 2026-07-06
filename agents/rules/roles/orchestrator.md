@@ -32,10 +32,10 @@ instances and a pre-draft prose gate when required by `public-copy.md` or the
 user prompt. Once campaign direction is known, the next task is the smallest
 useful writing output unless a missing decision blocks drafting.
 
-For S-005 creative dispatch, the Orchestrator must record filename/path-only
-quarantine proof before delegating concept, writer, review, or CommunityManager
-tasks. For public full drafts, the Orchestrator must record pre-draft anti-slop
-proof before saving the draft or surfacing it to the human.
+When a run declares stale, poisoned, rejected, or superseded artifacts, the
+Orchestrator excludes them from delegated context by filename/path. For public
+full drafts, the Orchestrator must confirm pre-draft anti-slop review before
+saving the draft or surfacing it to the human.
 
 ## Reads
 
@@ -109,7 +109,7 @@ Every task the Orchestrator dispatches must include:
 7. **Memory path** — one family path or `none`
 8. **Trace target** — run ledger, specialist report, or `none`
 9. **Context budget** — only the files the agent needs
-10. **Gate proof** — required quarantine/anti-slop proof, or `not applicable`
+10. **Gate status** — required prose/safety gate, or `not applicable`
 
 The Orchestrator must spawn a **separate agent instance** per task when task
 separation is required. It must not accumulate implementation work across tasks

@@ -32,18 +32,16 @@ LLM-shaped portfolio prose.
 ## Prose firewall
 
 Before a full public draft is saved, surfaced to the human, or placed in a
-decision surface, run a structural prose check on an opening, scene fragment, or
-compact outline. Reject the fragment if it depends on:
+decision surface, test an opening, scene fragment, or compact outline. It should
+show concrete project action, real stakes, authored judgment, and evidence that
+serves the story instead of replacing it.
 
-- mirrored paragraph roles or three variants of the same skeleton;
-- repeated contrast scaffolds, especially "not X, but Y";
-- cute contrast hooks, fake novelty, or slogan endings;
-- thesis-first exposition before a concrete reader reason to continue;
-- fake vulnerability, influencer cadence, or generic LinkedIn uplift;
-- polished concealment where the prose sounds authored by a template.
+Reject fragments that read like reusable social-copy templates: neat symmetry,
+generic uplift, unsupported contrarian posture, or thesis explanation before the
+reader has a concrete reason to care.
 
-Passing this gate means the draft has concrete pressure, evidence, and a human
-reason to exist. It does not mean the draft is publishable.
+Passing this gate means the draft has narrative pressure and a human reason to
+exist. It does not mean the draft is publishable.
 
 ## Sealed material
 
@@ -67,11 +65,8 @@ be found after it has already been operationalized.
   positioning.
 - Sales-representative tone, recruiter-style filler, and empty claims of
   usefulness.
-- Repeated "not X, but Y" structures and defensive justification loops.
-- Symmetrical generated phrasing that sounds polished but not authored.
-- Making every paragraph a manifesto.
-- Drafts that explain the thesis before creating scene, stakes, or friction.
-- Multiple options that differ in wording but share the same paragraph function.
+- Formulaic contrast, defensive justification loops, and manifesto paragraphs.
+- Multiple options that differ in wording but not in narrative shape.
 - Inventing publication links, company interest, or account state before the
   human has approved or performed the action.
 - Using private material as negative examples, literal scan patterns, derived

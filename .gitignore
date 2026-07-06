@@ -37,6 +37,3 @@ site/Gemfile.lock
 
 # Local private report sources
 agents/reports/tex/guides/candidaturas_reconocimiento_tecnico_03072026.tex
-/agents/cv/data
-/site/files/reports
-agents/reports/tex/guides/candidaturas_reconocimiento_tecnico_03072026.tex

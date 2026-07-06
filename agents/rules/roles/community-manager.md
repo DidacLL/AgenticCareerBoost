@@ -16,9 +16,8 @@ execution aligned with plan, brand, and audience.
 - `agents/work/social/plan.md` — canonical social plan
 - `agents/rules/roles/autoagents.md` — social specialist routines
 - `agents/rules/templates/community-output.md` — output format
-- One declared family memory path or `none`; high-risk public writing and S-005
-  repair-gated work use `none` unless the user explicitly approves a public
-  memory source
+- One declared family memory path or `none`; high-risk public writing uses
+  `none` unless the user explicitly approves a public memory source
 
 ## Writes
 
@@ -37,10 +36,10 @@ execution aligned with plan, brand, and audience.
 - Save or surface a full public draft before the required fragment/outline
   anti-slop gate passes
 - Convert agent-room planning cards into human review burden
-- Accept prose that is structurally symmetrical, slogan-led, fake-vulnerable,
-  thesis-first, or generic LinkedIn cadence
-- Read old S-005 artifacts, stale social memory, or prior rejected drafts when
-  the current run declares them poisoned or repair-gated
+- Accept prose that lacks concrete stakes, authored judgment, or a clear reason
+  for the reader to continue
+- Read stale artifacts, rejected drafts, or blocked memory when the current run
+  excludes them
 
 ## Handoff
 

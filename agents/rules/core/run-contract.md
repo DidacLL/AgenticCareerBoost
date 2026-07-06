@@ -82,13 +82,12 @@ evidence, canonical state, or reusable source material.
 | Selected role | Role behavior |
 | State current and active-sprint | Compact status only |
 | Roadmap and backlog | Candidate seeds, not commitments |
-| Logs, research, and reports | Historical evidence only unless the direct user prompt promotes a named report as current-run remediation authority |
+| Logs, research, and reports | Historical or review evidence only unless the current user prompt explicitly names them as inputs for this run |
 | Work artifacts | Drafts, plans, and candidate outputs |
 | Generated site files | Produced artifacts, not source authority |
 
-Historical evidence can explain why something happened. It does not define the
-next run unless the direct user prompt or a rule file promotes that source for
-the current run.
+Historical evidence can explain why something happened. It does not become a
+durable rule or future-run authority unless promoted through the rule layer.
 
 ## Sealed context
 
