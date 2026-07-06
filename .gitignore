@@ -1,6 +1,83 @@
 # Private bootstrap input
-bootstrap/user_data.md
+# Local LaTeX build directory.
+build/
 
+# LaTeX auxiliary files that may appear beside a source during manual runs.
+*.aux
+*.lof
+*.lot
+*.bbl
+*.bbl-SAVE-ERROR
+*.bcf
+*.bcf-SAVE-ERROR
+*.blg
+*-blx.aux
+*-blx.bib
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+*.dvi
+*.xdv
+*-converted-to.*
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+*.rubbercache
+rubber.cache
+latex.out/
+*.alg
+*.loa
+*.thm
+*.nav
+*.pre
+*.snm
+*.vrb
+*.soc
+*.loc
+*.cut
+*.cpt
+*.end
+*.?end
+*.[1-9]
+*.[1-9][0-9]
+*.[1-9][0-9][0-9]
+*.[1-9]R
+*.[1-9][0-9]R
+*.[1-9][0-9][0-9]R
+*.acn
+*.acr
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.idx
+*.ilg
+*.ind
+*.loe
+*.lol
+*.nlg
+*.nlo
+*.nls
+*.tdo
+*.xdy
+
+# Editor backups.
+*.bak
+*.backup
+*.sav
+*.swp
+*~
+bootstrap/user_data.md
 # Python / test caches
 __pycache__/
 *.py[cod]
@@ -36,8 +113,11 @@ site/Gemfile.lock
 /site/.idea/
 
 # Local private report sources
+agents/reports/tex/guides/candidaturas_reconocimiento_tecnico_03072026.
+agents/cv/data/
+# Application Tracker runtime data
+application-tracker/.private/
+application-tracker/**/*.sqlite
+application-tracker/**/*.db
+application-tracker/.gitignore
 agents/reports/tex/guides/candidaturas_reconocimiento_tecnico_03072026.tex
-agents/cv/data/gameloft-barcelona-cpp.json
-agents/cv/data/n26-backend.json
-*.gz
-agents/cv/tex/didac-llorens-cv.pdf

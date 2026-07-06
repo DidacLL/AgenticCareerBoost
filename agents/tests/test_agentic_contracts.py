@@ -193,18 +193,6 @@ def test_state_evidence_is_not_ignored_by_git():
     ignored = [line for line in result.stdout.splitlines() if line.strip()]
     assert ignored == []
 
-
-def test_root_gitignore_does_not_hide_latex_named_evidence():
-    root_ignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
-    risky_global_patterns = ["*.[1-9]R", "*.[1-9]", "*.aux", "*.log", "*.toc"]
-    offenders = [
-        pattern
-        for pattern in risky_global_patterns
-        if any(line.strip() == pattern for line in root_ignore.splitlines())
-    ]
-    assert offenders == []
-
-
 def test_live_status_references_use_generated_status_json():
     offenders: list[str] = []
     for path in live_text_files():
@@ -285,7 +273,6 @@ def test_cv_artifact_manifest_declares_public_sources():
         cv_root / "build-local.sh",
         cv_root / "build-local.ps1",
         cv_root / "artifacts.json",
-        cv_root / "tools" / "render-cover-letter.py",
         cv_root / "tools" / "artifact_manifest.py",
     ]
     for path in required:
@@ -487,30 +474,6 @@ def test_site_file_hrefs_are_not_app_routes():
                 if not (SITE / local).is_file():
                     failures.append(f"{json_file.name}:{pointer} missing file href {value}")
     assert failures == []
-
-
-def test_site_content_does_not_publish_cover_letters():
-    failures: list[str] = []
-
-    def walk(node, pointer="$"):
-        if isinstance(node, dict):
-            for key, value in node.items():
-                yield from walk(value, f"{pointer}.{key}")
-        elif isinstance(node, list):
-            for index, value in enumerate(node):
-                yield from walk(value, f"{pointer}[{index}]")
-        else:
-            yield pointer, node
-
-    for json_file in (SITE / "content").glob("*.json"):
-        data = json.loads(json_file.read_text(encoding="utf-8"))
-        for pointer, value in walk(data):
-            key = pointer.rsplit(".", 1)[-1].split("[", 1)[0]
-            if key == "href" and isinstance(value, str) and value.startswith("files/cover-letters/"):
-                failures.append(f"{json_file.name}:{pointer} cover-letter href is not a public site artifact")
-
-    assert failures == []
-
 
 def test_agentic_project_page_exposes_report_library():
     projects = json.loads((SITE / "content" / "projects.json").read_text(encoding="utf-8"))

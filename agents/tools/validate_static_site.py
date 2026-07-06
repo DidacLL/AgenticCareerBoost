@@ -62,7 +62,6 @@ CV_REQUIRED = [
     "build-local.sh",
     "build-local.ps1",
     "artifacts.json",
-    "tools/render-cover-letter.py",
     "tools/artifact_manifest.py",
 ]
 
