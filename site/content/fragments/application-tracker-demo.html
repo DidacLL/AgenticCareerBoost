@@ -2,20 +2,20 @@
   <div class="tracker-embed__notice">
     <p class="os-label">LOCAL TRACKER / READ-ONLY</p>
     <p>This is not a separate sample dashboard. The Application Tracker uses the same local dashboard and the same local data store; the read-only wrapper removes only the Raw intake/write surface.</p>
-    <p>The public site cannot read the local tracker store. Start the local read-only wrapper, then open the URL printed by the command.</p>
+    <p>The public site cannot read the local tracker store. For local use, open the tracker with the double-click launchers in the repository.</p>
   </div>
   <div class="tracker-embed__steps">
     <article class="tracker-embed__step">
-      <p class="os-label">01 / START</p>
-      <pre>python application-tracker/acb_tracker_readonly.py</pre>
+      <p class="os-label">01 / FULL LOCAL MODE</p>
+      <p>Double-click <code>application-tracker/Open Application Tracker.cmd</code> to open the full local tracker with Raw intake enabled.</p>
     </article>
     <article class="tracker-embed__step">
-      <p class="os-label">02 / OPEN</p>
-      <p>Open the read-only tracker URL printed by the local command.</p>
+      <p class="os-label">02 / READ-ONLY LOCAL MODE</p>
+      <p>Double-click <code>application-tracker/Open Application Tracker Read Only.cmd</code> to open the same tracker dashboard without Raw intake/write controls.</p>
     </article>
     <article class="tracker-embed__step">
-      <p class="os-label">03 / BOUNDARY</p>
-      <p>No Raw intake, save, or write controls are exposed on the public site.</p>
+      <p class="os-label">03 / DEPLOYED SITE</p>
+      <p>The deployed site only documents the tracker and points to the local launch flow. It does not load private tracker data and does not expose write controls.</p>
     </article>
   </div>
 </section>
