@@ -1,0 +1,39 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[a4paper,top=1.35cm,bottom=1.35cm,left=1.55cm,right=1.55cm]{geometry}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[colorlinks=true,urlcolor=blue,pdftitle={{{PDF_TITLE}}},pdfauthor={{{CANDIDATE_NAME}}}]{hyperref}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.58em}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\lettersection}[1]{\vspace{0.55em}{\large\bfseries\ttfamily #1}\par\vspace{0.25em}\hrule\vspace{0.35em}}
+
+\begin{document}
+
+{\Huge\bfseries\ttfamily {{CANDIDATE_NAME}}}\par
+\vspace{0.18em}
+{\large\ttfamily {{HEADLINE}}}\par
+
+\vspace{0.65em}
+
+\begin{tabularx}{\linewidth}{@{}>{\bfseries\ttfamily}p{2.75cm} Y@{}}
+To & {{RECIPIENT}}\\
+Role & {{ROLE}}\\
+Location & {{LOCATION}}\\
+Date & \today
+\end{tabularx}
+
+\lettersection{Application letter}
+
+{{GREETING}}
+
+{{BODY_PARAGRAPHS}}
+
+{{CLOSING}}
+
+\end{document}
