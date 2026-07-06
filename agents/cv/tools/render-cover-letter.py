@@ -58,6 +58,21 @@ def safe_url(value: object) -> str:
     return text
 
 
+def safe_output_tex_name(value: object) -> str:
+    text = str(value).strip()
+    path = Path(text)
+    if (
+        not text
+        or "/" in text
+        or "\\" in text
+        or path.is_absolute()
+        or len(path.parts) != 1
+        or ".." in path.parts
+    ):
+        raise ValueError(f"output_pdf must be a plain filename: {text}")
+    return path.with_suffix("").name + ".tex"
+
+
 def load_letter(path: Path) -> dict:
     data = json.loads(path.read_text(encoding="utf-8"))
     missing = [key for key in REQUIRED_STRINGS if not str(data.get(key, "")).strip()]
@@ -97,7 +112,7 @@ def placeholder_map(data: dict) -> dict[str, str]:
 
 def render_letter(data_path: Path, template_path: Path, output_dir: Path) -> Path:
     data = load_letter(data_path)
-    output_name = str(data["output_pdf"]).removesuffix(".pdf") + ".tex"
+    output_name = safe_output_tex_name(data["output_pdf"])
     output_path = output_dir / output_name
     output_dir.mkdir(parents=True, exist_ok=True)
     rendered = template_path.read_text(encoding="utf-8")

@@ -11,6 +11,10 @@ from pathlib import Path
 CV_ROOT = Path(__file__).resolve().parents[1]
 ROOT = CV_ROOT.parents[1]
 DEFAULT_MANIFEST = CV_ROOT / "artifacts.json"
+COVER_LETTER_MESSAGE = (
+    "cover letters are private/local working documents; render one explicitly "
+    "with agents/cv/tools/render-cover-letter.py --input"
+)
 
 
 def as_relative_path(value: object, field: str) -> Path:
@@ -35,26 +39,35 @@ def published(path: Path = DEFAULT_MANIFEST) -> list[dict]:
     return [item for item in load_manifest(path) if item.get("publish") is True]
 
 
+def public_artifacts(path: Path = DEFAULT_MANIFEST) -> list[dict]:
+    artifacts = []
+    for item in published(path):
+        kind = item.get("kind")
+        if kind == "cover-letter":
+            raise ValueError(COVER_LETTER_MESSAGE)
+        if kind != "cv":
+            raise ValueError(f"unsupported public artifact kind: {kind}")
+        artifacts.append(item)
+    if not artifacts:
+        raise ValueError(f"{path}: manifest must declare at least one public CV artifact")
+    return artifacts
+
+
 def build_roots(path: Path = DEFAULT_MANIFEST) -> list[str]:
     roots = []
-    for item in published(path):
+    for item in public_artifacts(path):
         source = as_relative_path(item.get("source"), "source")
         roots.append(source.as_posix())
     return roots
 
 
 def data_inputs(path: Path = DEFAULT_MANIFEST) -> list[Path]:
-    inputs = []
-    for item in published(path):
-        if item.get("kind") != "cover-letter":
-            continue
-        data = as_relative_path(item.get("data"), "data")
-        inputs.append(CV_ROOT / data)
-    return inputs
+    public_artifacts(path)
+    return []
 
 
 def copy_published(path: Path = DEFAULT_MANIFEST) -> None:
-    for item in published(path):
+    for item in public_artifacts(path):
         build_pdf = as_relative_path(item.get("buildPdf"), "buildPdf")
         site_pdf = as_relative_path(item.get("sitePdf"), "sitePdf")
         source = CV_ROOT / build_pdf
@@ -67,10 +80,8 @@ def copy_published(path: Path = DEFAULT_MANIFEST) -> None:
 
 
 def validate(path: Path = DEFAULT_MANIFEST) -> None:
-    for item in published(path):
+    for item in public_artifacts(path):
         kind = item.get("kind")
-        if kind not in {"cv", "cover-letter"}:
-            raise ValueError(f"unsupported artifact kind: {kind}")
         source = as_relative_path(item.get("source"), "source")
         build_pdf = as_relative_path(item.get("buildPdf"), "buildPdf")
         site_pdf = as_relative_path(item.get("sitePdf"), "sitePdf")
@@ -82,10 +93,6 @@ def validate(path: Path = DEFAULT_MANIFEST) -> None:
             raise ValueError(f"artifact outputs must be PDFs: {site_pdf}")
         if kind == "cv" and not (CV_ROOT / source).is_file():
             raise FileNotFoundError(f"missing CV source: {source}")
-        if kind == "cover-letter":
-            data = as_relative_path(item.get("data"), "data")
-            if not (CV_ROOT / data).is_file():
-                raise FileNotFoundError(f"missing cover-letter data: {data}")
 
 
 def parse_args() -> argparse.Namespace:
