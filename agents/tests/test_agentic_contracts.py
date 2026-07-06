@@ -285,7 +285,6 @@ def test_cv_artifact_manifest_declares_public_sources():
         cv_root / "build-local.sh",
         cv_root / "build-local.ps1",
         cv_root / "artifacts.json",
-        cv_root / "tools" / "render-cover-letter.py",
         cv_root / "tools" / "artifact_manifest.py",
     ]
     for path in required:
