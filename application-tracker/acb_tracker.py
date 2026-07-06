@@ -185,6 +185,16 @@ def init_db() -> None:
                 importance TEXT NOT NULL DEFAULT 'recognize',
                 PRIMARY KEY (application_id, term)
             );
+
+            CREATE TABLE IF NOT EXISTS application_files (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                application_id TEXT NOT NULL REFERENCES applications(id) ON DELETE CASCADE,
+                kind TEXT NOT NULL,
+                path TEXT NOT NULL,
+                label TEXT,
+                notes TEXT,
+                created_at TEXT NOT NULL
+            );
             """
         )
     print(f"initialized {db_path()}")
@@ -205,6 +215,28 @@ def make_id(company: str, role: str) -> str:
             candidate = f"{base}-{index}"
             index += 1
     return candidate
+
+
+def read_text_arg(value: str | None, file_value: str | None) -> str:
+    if file_value:
+        return Path(file_value).expanduser().read_text(encoding="utf-8")
+    if value is None:
+        raise SystemExit("provide --text or --file")
+    return value
+
+
+def read_optional_text(value: str | None, file_value: str | None) -> str | None:
+    if file_value:
+        return Path(file_value).expanduser().read_text(encoding="utf-8")
+    return value
+
+
+def listify(value: object) -> list:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return value
+    return [value]
 
 
 def create_application(args: argparse.Namespace) -> None:
@@ -238,14 +270,6 @@ def create_application(args: argparse.Namespace) -> None:
     print(app_id)
 
 
-def read_text_arg(value: str | None, file_value: str | None) -> str:
-    if file_value:
-        return Path(file_value).read_text(encoding="utf-8")
-    if value is None:
-        raise SystemExit("provide --text or --file")
-    return value
-
-
 def ingest_offer(args: argparse.Namespace) -> None:
     init_db()
     text = read_text_arg(args.text, args.file)
@@ -258,6 +282,68 @@ def ingest_offer(args: argparse.Namespace) -> None:
         )
         touch(conn, args.id, args.next_action)
     print(f"stored offer snapshot for {args.id}")
+
+
+def set_research(args: argparse.Namespace) -> None:
+    init_db()
+    now = datetime.now().isoformat(timespec="seconds")
+    summary = read_optional_text(args.summary, args.summary_file)
+    business_model = read_optional_text(args.business_model, args.business_model_file)
+    red_flags = read_optional_text(args.red_flags, args.red_flags_file)
+    with connect() as conn:
+        app = require_app(conn, args.id)
+        conn.execute(
+            """
+            INSERT INTO company_research(application_id, company, summary, business_model, red_flags, sources_json, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                args.id,
+                args.company or app["company"],
+                summary,
+                business_model,
+                red_flags,
+                args.sources_json,
+                now,
+            ),
+        )
+        touch(conn, args.id, args.next_action)
+    print(f"stored company research for {args.id}")
+
+
+def add_form_answer(args: argparse.Namespace) -> None:
+    init_db()
+    draft_answer = read_optional_text(args.draft_answer, args.draft_file)
+    submitted_answer = read_optional_text(args.submitted_answer, args.submitted_file)
+    if draft_answer is None and submitted_answer is None:
+        raise SystemExit("provide --draft-answer/--draft-file or --submitted-answer/--submitted-file")
+    with connect() as conn:
+        require_app(conn, args.id)
+        conn.execute(
+            """
+            INSERT INTO form_answers(application_id, question, draft_answer, submitted_answer, submitted_at)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (args.id, args.question, draft_answer, submitted_answer, args.submitted_at),
+        )
+        touch(conn, args.id, args.next_action)
+    print(f"stored form answer for {args.id}")
+
+
+def attach_file(args: argparse.Namespace) -> None:
+    init_db()
+    now = datetime.now().isoformat(timespec="seconds")
+    with connect() as conn:
+        require_app(conn, args.id)
+        conn.execute(
+            """
+            INSERT INTO application_files(application_id, kind, path, label, notes, created_at)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (args.id, args.kind, args.path, args.label, args.notes, now),
+        )
+        touch(conn, args.id, args.next_action)
+    print(f"attached file reference for {args.id}: {args.path}")
 
 
 def update_application(args: argparse.Namespace) -> None:
@@ -408,6 +494,7 @@ def import_seed(args: argparse.Namespace) -> None:
                     now,
                 ),
             )
+
             conn.execute("DELETE FROM application_keywords WHERE application_id = ?", (app_id,))
             for term in app.get("keywords", []):
                 name = str(term).strip()
@@ -425,6 +512,137 @@ def import_seed(args: argparse.Namespace) -> None:
                     "INSERT OR IGNORE INTO application_keywords(application_id, term, importance) VALUES (?, ?, ?)",
                     (app_id, name, "recognize"),
                 )
+
+            if "offer_text" in app or "offer_snapshots" in app:
+                conn.execute("DELETE FROM offer_snapshots WHERE application_id = ?", (app_id,))
+                snapshots = []
+                if app.get("offer_text"):
+                    snapshots.append({"raw_text": app.get("offer_text"), "cleaned_text": app.get("offer_cleaned_text")})
+                snapshots.extend(listify(app.get("offer_snapshots")))
+                for snapshot in snapshots:
+                    raw_text = snapshot if isinstance(snapshot, str) else snapshot.get("raw_text") or snapshot.get("text")
+                    if not raw_text:
+                        continue
+                    cleaned_text = None if isinstance(snapshot, str) else snapshot.get("cleaned_text")
+                    captured_at = now if isinstance(snapshot, str) else snapshot.get("captured_at") or now
+                    conn.execute(
+                        "INSERT INTO offer_snapshots(application_id, raw_text, cleaned_text, captured_at) VALUES (?, ?, ?, ?)",
+                        (app_id, raw_text, cleaned_text, captured_at),
+                    )
+
+            if "company_research" in app:
+                conn.execute("DELETE FROM company_research WHERE application_id = ?", (app_id,))
+                for research in listify(app.get("company_research")):
+                    if not research:
+                        continue
+                    conn.execute(
+                        """
+                        INSERT INTO company_research(application_id, company, summary, business_model, red_flags, sources_json, updated_at)
+                        VALUES (?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            app_id,
+                            research.get("company", company),
+                            research.get("summary"),
+                            research.get("business_model"),
+                            research.get("red_flags"),
+                            research.get("sources_json") or json.dumps(research.get("sources", []), ensure_ascii=False),
+                            research.get("updated_at") or now,
+                        ),
+                    )
+
+            if "evaluations" in app:
+                conn.execute("DELETE FROM evaluations WHERE application_id = ?", (app_id,))
+                for evaluation in listify(app.get("evaluations")):
+                    if not evaluation:
+                        continue
+                    conn.execute(
+                        "INSERT INTO evaluations(application_id, verdict, fit_score, risk_score, effort_score, reasoning, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                        (
+                            app_id,
+                            evaluation.get("verdict"),
+                            evaluation.get("fit_score"),
+                            evaluation.get("risk_score"),
+                            evaluation.get("effort_score"),
+                            evaluation.get("reasoning"),
+                            evaluation.get("created_at") or now,
+                        ),
+                    )
+
+            if "form_answers" in app:
+                conn.execute("DELETE FROM form_answers WHERE application_id = ?", (app_id,))
+                for answer in listify(app.get("form_answers")):
+                    if not answer or not answer.get("question"):
+                        continue
+                    conn.execute(
+                        "INSERT INTO form_answers(application_id, question, draft_answer, submitted_answer, submitted_at) VALUES (?, ?, ?, ?, ?)",
+                        (
+                            app_id,
+                            answer.get("question"),
+                            answer.get("draft_answer"),
+                            answer.get("submitted_answer"),
+                            answer.get("submitted_at"),
+                        ),
+                    )
+
+            if "cover_letters" in app:
+                conn.execute("DELETE FROM cover_letters WHERE application_id = ?", (app_id,))
+                for letter in listify(app.get("cover_letters")):
+                    if not letter:
+                        continue
+                    if isinstance(letter, str):
+                        draft_text = letter
+                        submitted_text = None
+                        version = None
+                        created = now
+                    else:
+                        draft_text = letter.get("draft_text") or letter.get("text")
+                        submitted_text = letter.get("submitted_text")
+                        version = letter.get("version")
+                        created = letter.get("created_at") or now
+                    if not draft_text and not submitted_text:
+                        continue
+                    conn.execute(
+                        "INSERT INTO cover_letters(application_id, draft_text, submitted_text, version, created_at) VALUES (?, ?, ?, ?, ?)",
+                        (app_id, draft_text, submitted_text, version, created),
+                    )
+
+            if "interview_guides" in app:
+                conn.execute("DELETE FROM interview_guides WHERE application_id = ?", (app_id,))
+                for guide in listify(app.get("interview_guides")):
+                    text = guide if isinstance(guide, str) else guide.get("guide_text") or guide.get("text")
+                    if not text:
+                        continue
+                    created = now if isinstance(guide, str) else guide.get("created_at") or now
+                    conn.execute(
+                        "INSERT INTO interview_guides(application_id, guide_text, created_at) VALUES (?, ?, ?)",
+                        (app_id, text, created),
+                    )
+
+            if "generated_files" in app or "files" in app:
+                conn.execute("DELETE FROM application_files WHERE application_id = ?", (app_id,))
+                for file_item in listify(app.get("generated_files")) + listify(app.get("files")):
+                    if not file_item:
+                        continue
+                    if isinstance(file_item, str):
+                        kind = "generated"
+                        path = file_item
+                        label = None
+                        notes = None
+                        created = now
+                    else:
+                        kind = file_item.get("kind", "generated")
+                        path = file_item.get("path")
+                        label = file_item.get("label")
+                        notes = file_item.get("notes")
+                        created = file_item.get("created_at") or now
+                    if not path:
+                        continue
+                    conn.execute(
+                        "INSERT INTO application_files(application_id, kind, path, label, notes, created_at) VALUES (?, ?, ?, ?, ?, ?)",
+                        (app_id, kind, path, label, notes, created),
+                    )
+
             imported += 1
     print(f"imported {imported} applications from {seed_path}")
 
@@ -467,6 +685,17 @@ def list_applications(args: argparse.Namespace) -> None:
         print(f"{row['status']:14} {row['priority']:7} {row['id']} :: {row['company']} — {row['role']}")
 
 
+def latest_by_id(rows: list[sqlite3.Row], key: str) -> dict[str, dict]:
+    return {row[key]: dict(row) for row in rows}
+
+
+def rows_by_id(rows: list[sqlite3.Row], key: str) -> dict[str, list[dict]]:
+    grouped: dict[str, list[dict]] = {}
+    for row in rows:
+        grouped.setdefault(row[key], []).append(dict(row))
+    return grouped
+
+
 def application_payload() -> dict:
     init_db()
     with connect() as conn:
@@ -498,12 +727,36 @@ def application_payload() -> dict:
             row["term"]: dict(row)
             for row in conn.execute("SELECT * FROM glossary_terms ORDER BY term COLLATE NOCASE")
         }
+        offers = latest_by_id(
+            conn.execute(
+                "SELECT * FROM offer_snapshots WHERE id IN (SELECT MAX(id) FROM offer_snapshots GROUP BY application_id)"
+            ).fetchall(),
+            "application_id",
+        )
+        research = latest_by_id(
+            conn.execute(
+                "SELECT * FROM company_research WHERE id IN (SELECT MAX(id) FROM company_research GROUP BY application_id)"
+            ).fetchall(),
+            "application_id",
+        )
+        form_answers = rows_by_id(
+            conn.execute("SELECT * FROM form_answers ORDER BY id").fetchall(),
+            "application_id",
+        )
+        files = rows_by_id(
+            conn.execute("SELECT * FROM application_files ORDER BY created_at DESC, id DESC").fetchall(),
+            "application_id",
+        )
 
     for item in applications:
         app_id = item["id"]
         item["texts"] = latest_text.get(app_id, {})
         item["call_card"] = call_cards.get(app_id, {})
         item["keywords"] = keywords.get(app_id, [])
+        item["offer"] = offers.get(app_id)
+        item["research"] = research.get(app_id)
+        item["form_answers"] = form_answers.get(app_id, [])
+        item["files"] = files.get(app_id, [])
     return {
         "generated_at": datetime.now().isoformat(timespec="seconds"),
         "statuses": STATUSES,
@@ -543,8 +796,10 @@ def dashboard_html(payload: dict) -> str:
     .keywords { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .5rem; }
     .keyword { border: 1px solid #cbd5e1; border-radius: 999px; background: #f8fafc; padding: .28rem .52rem; font-size: .78rem; cursor: pointer; }
     .keyword:hover { background: #e2e8f0; }
-    pre { white-space: pre-wrap; background: #f1f5f9; padding: .8rem; border-radius: .65rem; overflow: auto; }
+    pre { white-space: pre-wrap; background: #f1f5f9; padding: .8rem; border-radius: .65rem; overflow: auto; max-height: 28rem; }
     .empty { color: #64748b; font-style: italic; }
+    .rows { display: grid; gap: .55rem; }
+    .row { border: 1px solid #e2e8f0; border-radius: .6rem; padding: .55rem; background: #f8fafc; }
     @media (max-width: 950px) { main { grid-template-columns: 1fr; } .side { position: static; } }
   </style>
 </head>
@@ -555,7 +810,7 @@ def dashboard_html(payload: dict) -> str:
 </header>
 <main>
   <section class="toolbar">
-    <input id="search" type="search" placeholder="Search company, role, notes, keywords">
+    <input id="search" type="search" placeholder="Search company, role, notes, keywords, offer text">
     <select id="status"><option value="">All statuses</option></select>
   </section>
   <section id="board" class="board"></section>
@@ -585,9 +840,13 @@ function matches(app) {
   if (statusFilter.value && app.status !== statusFilter.value) return false;
   if (!needle) return true;
   const card = app.call_card || {};
+  const offer = app.offer || {};
+  const research = app.research || {};
   const haystack = [
     app.company, app.role, app.notes, app.next_action,
     card.call_signals, card.technical_reading, card.pitch,
+    offer.raw_text, offer.cleaned_text,
+    research.summary, research.business_model, research.red_flags,
     ...(app.keywords || [])
   ];
   return haystack.some(value => String(value || '').toLowerCase().includes(needle));
@@ -622,6 +881,8 @@ function renderBoard() {
 function renderDetail(app) {
   const texts = app.texts || {};
   const card = app.call_card || {};
+  const offer = app.offer || {};
+  const research = app.research || {};
   detail.innerHTML = `<h2>${escapeHtml(app.company)} — ${escapeHtml(app.role)}</h2>
     <p><strong>Status:</strong> ${escapeHtml(app.status)} · <strong>Priority:</strong> ${escapeHtml(app.priority)}</p>
     <p><strong>Source:</strong> ${escapeHtml(app.source || '')} ${app.source_url ? `<a href="${escapeAttr(app.source_url)}" target="_blank" rel="noreferrer">open</a>` : ''}</p>
@@ -636,6 +897,14 @@ function renderDetail(app) {
     ${callField('Risk to avoid', card.risk_to_avoid)}
     ${callField('Prepare first', card.prepare_first)}
     ${callField('Prepare later', card.prepare_later)}
+    <h3>Literal offer snapshot</h3><pre>${escapeHtml(offer.raw_text || 'No offer text stored yet.')}</pre>
+    <h3>Company research</h3>
+    ${callField('Summary', research.summary)}
+    ${callField('Business model', research.business_model)}
+    ${callField('Red flags', research.red_flags)}
+    ${callField('Sources JSON', research.sources_json)}
+    <h3>Form answers</h3>${renderFormAnswers(app.form_answers || [])}
+    <h3>Generated/private files</h3>${renderFiles(app.files || [])}
     <h3>Evaluation</h3><pre>${escapeHtml(texts.evaluation || 'No evaluation stored.')}</pre>
     <h3>Cover letter</h3><pre>${escapeHtml(texts.cover_letter || 'No cover letter stored.')}</pre>
     <h3>Interview guide</h3><pre>${escapeHtml(texts.interview_guide || 'No interview guide stored.')}</pre>`;
@@ -645,6 +914,16 @@ function renderDetail(app) {
 function callField(label, value) {
   if (!value) return '';
   return `<div class="field"><strong>${escapeHtml(label)}</strong><div>${escapeHtml(value)}</div></div>`;
+}
+
+function renderFormAnswers(items) {
+  if (!items.length) return '<p class="empty">No form answers stored.</p>';
+  return `<div class="rows">${items.map(item => `<div class="row"><strong>${escapeHtml(item.question)}</strong><pre>${escapeHtml(item.submitted_answer || item.draft_answer || '')}</pre></div>`).join('')}</div>`;
+}
+
+function renderFiles(items) {
+  if (!items.length) return '<p class="empty">No file references stored.</p>';
+  return `<div class="rows">${items.map(item => `<div class="row"><strong>${escapeHtml(item.kind)}</strong><div>${escapeHtml(item.label || '')}</div><code>${escapeHtml(item.path)}</code>${item.notes ? `<p>${escapeHtml(item.notes)}</p>` : ''}</div>`).join('')}</div>`;
 }
 
 function keywordButtons(terms, limit) {
@@ -749,6 +1028,47 @@ def build_parser() -> argparse.ArgumentParser:
     offer.add_argument("--cleaned-text")
     offer.add_argument("--next-action")
     offer.set_defaults(func=ingest_offer)
+
+    set_offer = sub.add_parser("set-offer")
+    set_offer.add_argument("--id", required=True)
+    set_offer.add_argument("--text")
+    set_offer.add_argument("--file")
+    set_offer.add_argument("--cleaned-text")
+    set_offer.add_argument("--next-action")
+    set_offer.set_defaults(func=ingest_offer)
+
+    research = sub.add_parser("set-research")
+    research.add_argument("--id", required=True)
+    research.add_argument("--company")
+    research.add_argument("--summary")
+    research.add_argument("--summary-file")
+    research.add_argument("--business-model")
+    research.add_argument("--business-model-file")
+    research.add_argument("--red-flags")
+    research.add_argument("--red-flags-file")
+    research.add_argument("--sources-json")
+    research.add_argument("--next-action")
+    research.set_defaults(func=set_research)
+
+    form = sub.add_parser("add-form-answer")
+    form.add_argument("--id", required=True)
+    form.add_argument("--question", required=True)
+    form.add_argument("--draft-answer")
+    form.add_argument("--draft-file")
+    form.add_argument("--submitted-answer")
+    form.add_argument("--submitted-file")
+    form.add_argument("--submitted-at")
+    form.add_argument("--next-action")
+    form.set_defaults(func=add_form_answer)
+
+    file_ref = sub.add_parser("attach-file")
+    file_ref.add_argument("--id", required=True)
+    file_ref.add_argument("--kind", required=True)
+    file_ref.add_argument("--path", required=True)
+    file_ref.add_argument("--label")
+    file_ref.add_argument("--notes")
+    file_ref.add_argument("--next-action")
+    file_ref.set_defaults(func=attach_file)
 
     update = sub.add_parser("update")
     update.add_argument("--id", required=True)
