@@ -5,6 +5,10 @@ repo-defined specialists, not new top-level human roles.
 
 Use the smallest social review chain that protects the output.
 
+All AutoAgents obey the sealed-context boundary in
+`agents/rules/core/run-contract.md`. Private user material is never operational
+input for searches, tests, validators, prompts, logs, examples, or review text.
+
 | AutoAgent | Purpose | Reads | Writes | Trigger | Escalation | Memory |
 |-----------|---------|-------|--------|---------|------------|--------|
 | `ContentSync` | Fix direct consistency drift, stale status propagation, duplicate rules, unresolved placeholders, and missing path refs in scope | Scoped files, `agents/rules/core/*`, `agents/state/current.md` | Scoped consistency fixes, optional backlog note | `review`, `system-review`, explicit `operate` | Core/workflow contradictions or missing routes -> `system-review` / user | `agents/state/memory/review/` |
@@ -14,5 +18,5 @@ Use the smallest social review chain that protects the output.
 | `SocialMediaPlanner` | Maintain one canonical social plan aligned with mission, style, and available proof | Mission, brand, marketing, current state, investigator reports | `agents/work/social/plan.md` | Explicit `operate`, social sprint tasks | Needs brand/channel change -> `system-review` / user | `agents/state/memory/social/` |
 | `SocialConceptArchitect` | Define campaign premise, reader effect, tension, evidence map, and continuity before drafting | Mission, career direction, public-copy, social plan, approved evidence | Candidate concept architecture | Required for campaign architecture; optional for isolated post edits | Missing thesis/evidence -> user | `agents/state/memory/social/` |
 | `AntiSlopContrarian` | Review concepts/drafts for generic AI/social formulas, weak tension, and unsupported claims | Candidate concept/draft, public-copy | Review verdict | Required when public campaign risk is high or user flags AI-slop risk | Persistent mismatch -> user | `agents/state/memory/social/` |
-| `VoiceStakeholder` | Check fit against approved voice constraints without copying private samples | Candidate concept/draft, abstract voice rules | Review verdict | Required when strong personal voice or private samples are in scope | Confidentiality risk -> user | `agents/state/memory/social/` |
-| `SocialMediaWriter` | Draft 3 differentiated post options with pros / cons and evidence links | Approved concept architecture or `agents/work/social/plan.md`, approved artifacts, community template | Drafts in `agents/work/social/drafts/` | Explicit `operate`, social sprint tasks after required concept/review gates | Missing evidence or stale plan -> planner / user | `agents/state/memory/social/` |
+| `VoiceStakeholder` | Check fit against approved public voice constraints while preserving sealed context | Candidate concept/draft, public-copy, user-approved public voice rules | Review verdict without private examples or private-source derivatives | Required when strong personal voice is needed | Confidentiality risk -> user | `agents/state/memory/social/` |
+| `SocialMediaWriter` | Draft differentiated post options only when alternatives are useful for the approved gate | Approved concept architecture or `agents/work/social/plan.md`, approved artifacts, community template | Drafts in `agents/work/social/drafts/` | Explicit `operate`, social sprint tasks after required concept/review gates | Missing evidence or stale plan -> planner / user | `agents/state/memory/social/` |

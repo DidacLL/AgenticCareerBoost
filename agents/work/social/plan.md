@@ -63,8 +63,9 @@ concept architecture.
 ## Operating rules
 
 - Research is dated and source-disciplined before planning changes.
-- Planner updates strategy; Writer always delivers 3 options with pros / cons
-  and linked evidence.
+- Planner updates strategy; Writer produces the smallest useful writing output
+  for the approved gate. Multiple options are required only when the user asks
+  for alternatives or the decision surface needs comparison.
 - CommunityManager sharpens the final draft and rejects hype, bitterness,
   self-pity, generic AI framing, and unsupported contrarian takes.
 - Current voice follows `agents/rules/core/public-copy.md`; previous discarded
