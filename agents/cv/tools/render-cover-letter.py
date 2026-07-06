@@ -112,7 +112,8 @@ def render_letter(data_path: Path, template_path: Path, output_dir: Path) -> Pat
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--input", type=Path, required=True, help="One cover-letter JSON file")
+    parser.add_argument("--input", type=Path, help="One cover-letter JSON file")
+    parser.add_argument("--all", action="store_true", help="Compatibility no-op for public CI")
     parser.add_argument("--template", type=Path, default=DEFAULT_TEMPLATE)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     return parser.parse_args()
@@ -120,6 +121,11 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    if args.all:
+        print("cover-letter batch rendering skipped; use --input for an explicit local letter")
+        return 0
+    if args.input is None:
+        raise SystemExit("choose --input for one local cover-letter JSON file")
     output_path = render_letter(args.input.resolve(), args.template.resolve(), args.output_dir.resolve())
     print(f"rendered {output_path.relative_to(ROOT)}")
     return 0
