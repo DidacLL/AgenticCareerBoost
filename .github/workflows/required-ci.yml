@@ -62,6 +62,9 @@ jobs:
       - name: Generate site status data
         run: python agents/tools/export_status.py
 
+      - name: Generate Application Tracker public demo
+        run: python application-tracker/export_demo_dashboard.py
+
       - name: Validate static site
         run: python agents/tools/validate_static_site.py
 
