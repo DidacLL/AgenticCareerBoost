@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-06-28",
+  "updated": "2026-07-06",
   "pages": {
     "home": {
       "documentLabel": "Home document",
@@ -43,12 +43,12 @@
           "title": "Technical profile",
           "blocks": [
             {
-            "type": "split",
-            "layout": "intro",
-            "blocks": [
-              {
-                "type": "stack",
-                "layout": "introCopy",
+              "type": "split",
+              "layout": "intro",
+              "blocks": [
+                {
+                  "type": "stack",
+                  "layout": "introCopy",
                   "blocks": [
                     { "type": "imageStrip", "image": "assets/img/418_informal_banner.jpg", "alt": "418 banner artwork with Dídac Llorens visual identity" },
                     { "type": "prose", "lead": "I work on software projects where workflow, implementation, documentation, and review need to stay aligned.", "paragraphs": ["My current focus is agentic workflow engineering, developer tooling, static publishing, LaTeX/report systems, and public technical artifacts. My background combines banking and insurance operations, Java/Spring backend development, ML/AI studies, and formal technical documentation."] },
@@ -105,7 +105,8 @@
           "links": [
             { "label": "AgenticCareerBoost", "route": "/projects/agentic-career-boost" },
             { "label": "Projects", "route": "/projects" },
-            { "label": "Blog notes", "route": "/blog" }
+            { "label": "Blog notes", "route": "/blog" },
+            { "label": "Application Tracker demo", "route": "/application-tracker" }
           ]
         }
       ],
@@ -130,10 +131,41 @@
             { "type": "noteList", "items": [
               { "kicker": "data", "title": "Generated status", "href": "data/status.json", "text": "status.json" },
               { "kicker": "source", "title": "Canonical files", "href": "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/state/current.md", "text": "agents/state/current.md and active sprint state" },
-              { "kicker": "evidence", "title": "Implementation trace", "href": "https://github.com/DidacLL/AgenticCareerBoost/tree/main/agents/state/logs/S-004.5-site-quality", "text": "S-004.5 logs and review evidence" }
+              { "kicker": "evidence", "title": "Implementation trace", "href": "https://github.com/DidacLL/AgenticCareerBoost/tree/main/agents/state/logs/S-004.5-site-quality", "text": "S-004.5 logs and review evidence" },
+              { "kicker": "demo", "title": "Application Tracker", "route": "/application-tracker", "text": "Read-only public demo using fake application data." }
             ] }
           ]
         }
+      ]
+    },
+    "application-tracker": {
+      "documentLabel": "Application Tracker demo document",
+      "meta": [
+        { "label": "SYSTEM", "rows": [
+          { "term": "Mode", "value": "Read-only demo" },
+          { "term": "Data", "value": "Fake public sample" },
+          { "term": "Private tracker", "value": "Local only" },
+          { "term": "Theme", "control": "themeToggle" }
+        ] }
+      ],
+      "header": {
+        "label": "APPLICATION TRACKER",
+        "title": "Application Tracker demo",
+        "subtitle": "Read-only public view of the local Application Tracker dashboard concept."
+      },
+      "breadcrumb": [
+        { "label": "Home", "route": "/" },
+        { "label": "Projects", "route": "/projects" },
+        { "label": "Application Tracker" }
+      ],
+      "blocks": [
+        { "type": "panel", "label": "DEMO", "title": "Read-only tracking board", "blocks": [
+          { "type": "prose", "paragraphs": [
+            "This public route shows the dashboard behavior with fake data only. It demonstrates tracked applications, generated artifact references, call cards, and clickable keyword definitions.",
+            "The real tracker runs locally and writes to application-tracker/.private. The public route does not include the Raw intake form and cannot access private application data."
+          ] },
+          { "type": "fragment", "src": "content/fragments/application-tracker-demo.html" }
+        ] }
       ]
     },
     "focus": {
@@ -212,7 +244,8 @@
         { "label": "FOCUS VIEWS", "links": [
           { "label": "ML/Data systems", "route": "/focus/ml" },
           { "label": "Agentic", "route": "/focus/agentic" },
-          { "label": "Backend", "route": "/focus/backend" }
+          { "label": "Backend", "route": "/focus/backend" },
+          { "label": "Application Tracker demo", "route": "/application-tracker" }
         ] }
       ],
       "header": { "label": "CONTACT", "title": "Contact", "subtitle": "Barcelona · software engineering · public work." },
