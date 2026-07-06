@@ -338,7 +338,7 @@ def application_payload() -> dict:
 
 
 def dashboard_html(payload: dict) -> str:
-    data = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
+    data = json.dumps(payload, ensure_ascii=False)
     return f"""<!doctype html>
 <html lang=\"en\">
 <head>
@@ -377,7 +377,7 @@ def dashboard_html(payload: dict) -> str:
   <section id=\"board\" class=\"board\"></section>
   <section id=\"detail\" class=\"detail\"><p class=\"empty\">Select an application.</p></section>
 </main>
-<script type=\"application/json\" id=\"payload\">{data}</script>
+<script type=\"application/json\" id=\"payload\">{html.escape(data)}</script>
 <script>
 const payload = JSON.parse(document.getElementById('payload').textContent);
 const board = document.getElementById('board');
