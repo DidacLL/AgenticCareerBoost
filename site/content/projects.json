@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-07-03",
+  "updated": "2026-07-06",
   "index": {
     "documentLabel": "Projects document",
     "meta": [
@@ -116,6 +116,21 @@
               "label": "DASHBOARD",
               "title": "Development state",
               "status": "data/status.json"
+            },
+            {
+              "type": "section",
+              "label": "01A.0 / APPLICATION TRACKER",
+              "title": "Application Tracker",
+              "blocks": [
+                {
+                  "type": "prose",
+                  "paragraphs": [
+                    "The Application Tracker is part of the local AgenticCareerBoost workflow: it stores applications, offer snapshots, call cards, generated artifacts, and keyword definitions in a private local database.",
+                    "The public project page does not duplicate the tracker and does not show fake applications. It points to the local read-only wrapper, which reuses the real dashboard and removes only the Raw intake/write surface."
+                  ]
+                },
+                { "type": "fragment", "src": "content/fragments/application-tracker-demo.html" }
+              ]
             },
             {
               "type": "section",
