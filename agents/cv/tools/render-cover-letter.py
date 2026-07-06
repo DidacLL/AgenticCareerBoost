@@ -1,4 +1,4 @@
-"""Render cover-letter TeX sources from JSON data."""
+"""Render cover-letter TeX sources from explicit local JSON data."""
 
 from __future__ import annotations
 
@@ -11,8 +11,6 @@ ROOT = Path(__file__).resolve().parents[3]
 CV_ROOT = ROOT / "agents" / "cv"
 DEFAULT_TEMPLATE = CV_ROOT / "tex" / "cover-letter-template.tex"
 DEFAULT_OUTPUT_DIR = CV_ROOT / "build" / "generated"
-DEFAULT_DATA_DIR = CV_ROOT / "data" / "examples"
-DEFAULT_MANIFEST = CV_ROOT / "artifacts.json"
 
 REQUIRED_STRINGS = [
     "slug",
@@ -69,8 +67,6 @@ def load_letter(path: Path) -> dict:
         raise ValueError(f"{path}: paragraphs must be a non-empty list")
     if not isinstance(data.get("keywords"), list) or not data["keywords"]:
         raise ValueError(f"{path}: keywords must be a non-empty list")
-    if not data.get("publish", False):
-        raise ValueError(f"{path}: publish must be true for public rendering")
     return data
 
 
@@ -114,46 +110,18 @@ def render_letter(data_path: Path, template_path: Path, output_dir: Path) -> Pat
     return output_path
 
 
-def public_examples(data_dir: Path) -> list[Path]:
-    paths = []
-    for path in sorted(data_dir.glob("*.json")):
-        data = json.loads(path.read_text(encoding="utf-8"))
-        if data.get("publish", False):
-            paths.append(path)
-    return paths
-
-
-def manifest_examples(path: Path) -> list[Path]:
-    manifest = json.loads(path.read_text(encoding="utf-8"))
-    paths = []
-    for item in manifest.get("artifacts", []):
-        if item.get("kind") != "cover-letter" or item.get("publish") is not True:
-            continue
-        data_path = CV_ROOT / str(item.get("data", ""))
-        paths.append(data_path)
-    return sorted(paths)
-
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--input", type=Path, help="One cover-letter JSON file")
-    parser.add_argument("--all", action="store_true", help="Render all publish=true example files")
+    parser.add_argument("--input", type=Path, required=True, help="One cover-letter JSON file")
     parser.add_argument("--template", type=Path, default=DEFAULT_TEMPLATE)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
-    parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    if bool(args.input) == bool(args.all):
-        raise SystemExit("choose exactly one of --input or --all")
-    inputs = manifest_examples(args.manifest) if args.all and args.manifest.is_file() else public_examples(DEFAULT_DATA_DIR) if args.all else [args.input]
-    if not inputs:
-        raise SystemExit("no publish=true cover-letter examples found")
-    for data_path in inputs:
-        output_path = render_letter(data_path.resolve(), args.template.resolve(), args.output_dir.resolve())
-        print(f"rendered {output_path.relative_to(ROOT)}")
+    output_path = render_letter(args.input.resolve(), args.template.resolve(), args.output_dir.resolve())
+    print(f"rendered {output_path.relative_to(ROOT)}")
     return 0
 
 
