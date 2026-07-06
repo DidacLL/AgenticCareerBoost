@@ -29,9 +29,27 @@ spreadsheet-heavy reporting, or repetitive non-creative cleanup.
 
 ## S-005 status
 
-S-005 is a campaign seed, not an active sequence.
+S-005 is repair-gated and not an active sequence.
 
-Before drafting posts, create a concept architecture that defines:
+The S-005 architecture repair authority is:
+
+1. direct user prompt;
+2. `agents/reports/deepsearch/7-6-2026-ExecutiveReport.md`;
+3. `agents/reports/deepsearch/7-6-2026-creativewritingReport.md`;
+4. current rules only as repair targets.
+
+Old S-005 artifacts are not requirements, voice sources, examples, acceptance
+criteria, or drafting input. They may be located by filename/path only for
+quarantine or removal.
+
+Before any future S-005 drafting task, run a filename/path-only sweep for old
+S-005 artifacts across active repo context, including social work files and
+state/log references. Remove or quarantine matches outside active drafting
+context, or explicitly exclude retained state/log evidence from drafting
+authority. Do not open those files during the sweep.
+
+Before drafting a new campaign with no approved direction, create the smallest
+concept architecture that defines:
 
 - reader effect
 - public tension
@@ -40,7 +58,13 @@ Before drafting posts, create a concept architecture that defines:
 - human approval point
 - supporting artifacts
 
-The post order is produced by the concept architecture.
+The post order is produced by the concept architecture only when the current run
+does not already define the topic, direction, or post spine.
+
+For S-005 repair recovery, do not create another concept map by default. Once
+the repair gate and filename/path-only quarantine sweep pass, the next S-005
+creative task is a fresh opening, fragment, or compact outline for anti-slop
+review.
 
 ## Human decision surface
 
@@ -55,6 +79,10 @@ opening pass, or concrete option set, depending on the approved gate.
 
 Extra campaign artifacts are justified only when they will be reused as source
 material or when the user explicitly asks for them.
+
+For S-005 and other high-risk public writing, a full draft may be saved or
+surfaced to the human only after a fresh `AntiSlopContrarian` instance passes a
+fragment, opening, or compact outline against `public-copy.md`.
 
 ## Available evidence pool
 
@@ -80,10 +108,15 @@ concept architecture.
 - Planner updates strategy; Writer produces the smallest useful writing output
   for the approved gate. Multiple options are required only when the user asks
   for alternatives or the decision surface needs comparison.
+- Creative options must come from fresh writer instances when independence is a
+  quality requirement.
+- S-005 and other high-risk public writing use memory path `none` for
+  investigator, planner, concept, writer, voice, anti-slop, and CommunityManager
+  tasks unless the user explicitly approves a public memory source.
 - CommunityManager sharpens the final draft and rejects hype, bitterness,
   self-pity, generic AI framing, and unsupported contrarian takes.
 - Current voice follows `agents/rules/core/public-copy.md`; previous discarded
-  drafts do not override it.
+  drafts, old S-005 files, and bridge artifacts do not override it.
 - Repo truth comes first; do not plan posts around artifacts that do not exist.
 - Human-only actions stay in `agents/state/human-actions.md`.
 

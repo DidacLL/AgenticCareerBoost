@@ -4,6 +4,18 @@ Every non-trivial run declares its contract before workflow selection becomes
 operational. The contract keeps scope, context, writes, validation, and state
 effects aligned with what the user actually requested.
 
+## Direct prompt and remediation authority
+
+The direct user prompt is the highest authority for the current run. If the user
+declares a remediation source order, poisoned artifact family, or explicit
+override, record it in `source_authority` and follow it before normal workflow
+defaults, state pointers, logs, or previous work artifacts.
+
+When the user marks old artifacts as poisoned, agents may locate them by path or
+filename for quarantine/removal, but must not read them for requirements,
+examples, acceptance criteria, voice, or future scope. Workflow files then become
+repair targets, not competing authority.
+
 ## Required fields
 
 ```text
@@ -70,9 +82,20 @@ evidence, canonical state, or reusable source material.
 | Selected role | Role behavior |
 | State current and active-sprint | Compact status only |
 | Roadmap and backlog | Candidate seeds, not commitments |
-| Logs, research, and reports | Historical evidence only |
+| Logs, research, and reports | Historical evidence only unless the direct user prompt promotes a named report as current-run remediation authority |
 | Work artifacts | Drafts, plans, and candidate outputs |
 | Generated site files | Produced artifacts, not source authority |
 
 Historical evidence can explain why something happened. It does not define the
-next run unless a rule file promotes that behavior.
+next run unless the direct user prompt or a rule file promotes that source for
+the current run.
+
+## Sealed context
+
+Private, sensitive, or user-sealed material is never operational input. It must
+not appear in prompts, delegated contracts, examples, fixtures, validators,
+searches, grep patterns, logs, review text, or generated repository material.
+
+Privacy validation is process-based: prove that sealed material was not moved
+across tool or agent boundaries. Do not validate privacy by scanning with
+literal or derived private terms.
