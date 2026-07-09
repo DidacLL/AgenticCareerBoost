@@ -31,15 +31,21 @@ def test_gallery_project_slides_are_generated_from_project_items_contract():
     site = load_json("content/site.json")
     projects = load_json("content/projects.json")
     route_paths = {item["path"] for item in site["routes"]}
-    gallery_text = json.dumps(site.get("gallery", []), ensure_ascii=False)
+    gallery = site.get("gallery", [])
+
+    assert len(gallery) == 1
+    manual = gallery[0]
+    assert manual["image"] == "assets/img/me.png"
+    assert manual.get("kind") != "project"
+    assert "projectId" not in manual
+
+    project_routes = {project["route"] for project in projects["items"]}
+    assert manual.get("route") not in project_routes
+    assert all(link.get("route") not in project_routes for link in manual.get("links", []))
 
     for project in projects["items"]:
         assert project["route"] in route_paths
         assert (SITE / project["image"]).is_file()
-        assert project["title"] not in gallery_text
-        assert project["subtitle"] not in gallery_text
-        assert project["summary"] not in gallery_text
-        assert all(tag not in gallery_text for tag in project.get("tags", []))
 
 
 def test_gallery_runtime_uses_shared_project_projection_and_route_links():
