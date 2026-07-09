@@ -388,8 +388,9 @@ def test_site_runtime_routes_are_deployment_base_agnostic():
     assert 'pushState({}, "", routeHref(route))' in router
     assert "window.location.hash" not in components
     assert 'attrs.target = "_blank"' in components
-    assert "routeHref(slide.route)" in widgets
-    assert "resolveSiteUrl(slide.href || \"\")" in widgets
+    assert "routeHref(" in widgets
+    assert "resolveSiteUrl(" in widgets
+    assert "dataset.route" in widgets
     assert "hashHref" not in widgets
     assert "hashHref" not in data_store
 
@@ -474,6 +475,7 @@ def test_site_file_hrefs_are_not_app_routes():
                 if not (SITE / local).is_file():
                     failures.append(f"{json_file.name}:{pointer} missing file href {value}")
     assert failures == []
+
 
 def test_agentic_project_page_exposes_report_library():
     projects = json.loads((SITE / "content" / "projects.json").read_text(encoding="utf-8"))
