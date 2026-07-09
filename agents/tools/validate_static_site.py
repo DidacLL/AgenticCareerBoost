@@ -31,6 +31,7 @@ REQUIRED = [
     "assets/js/renderer.js",
     "assets/js/components.js",
     "assets/js/widgets.js",
+    "assets/js/gallery-model.js",
     "content/site.json",
     "content/pages.json",
     "content/projects.json",
@@ -48,6 +49,7 @@ RUNTIME_FILES = [
     "assets/js/renderer.js",
     "assets/js/components.js",
     "assets/js/widgets.js",
+    "assets/js/gallery-model.js",
     "assets/js/data-store.js",
 ]
 
@@ -153,6 +155,7 @@ def main() -> int:
     router = SITE / "assets" / "js" / "router.js"
     components = SITE / "assets" / "js" / "components.js"
     widgets = SITE / "assets" / "js" / "widgets.js"
+    gallery_model = SITE / "assets" / "js" / "gallery-model.js"
     data_store = SITE / "assets" / "js" / "data-store.js"
     if router.is_file():
         router_text = router.read_text(encoding="utf-8")
@@ -183,10 +186,18 @@ def main() -> int:
                 failures.append(f"site/404.html missing deployment-base discovery marker: {token}")
     if widgets.is_file():
         widgets_text = widgets.read_text(encoding="utf-8")
-        if "routeHref(slide.route)" not in widgets_text:
-            failures.append("site/assets/js/widgets.js must use routeHref for gallery route links")
+        for token in ("routeHref(", "dataset.route"):
+            if token not in widgets_text:
+                failures.append(f"site/assets/js/widgets.js missing gallery route marker: {token}")
         if "hashHref" in widgets_text:
             failures.append("site/assets/js/widgets.js must not generate hash route hrefs")
+    if gallery_model.is_file():
+        gallery_model_text = gallery_model.read_text(encoding="utf-8")
+        for token in ("content?.projects?.items", "project.image", "project.title", "project.route"):
+            if token not in gallery_model_text:
+                failures.append(f"site/assets/js/gallery-model.js missing project-derived gallery marker: {token}")
+        if "hashHref" in gallery_model_text:
+            failures.append("site/assets/js/gallery-model.js must not generate hash route hrefs")
     if data_store.is_file() and "hashHref" in data_store.read_text(encoding="utf-8"):
         failures.append("site/assets/js/data-store.js must not expose a second internal route href helper")
 
