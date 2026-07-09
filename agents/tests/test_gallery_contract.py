@@ -51,7 +51,7 @@ def test_gallery_runtime_uses_shared_project_projection_and_route_links():
     assert "content.site.gallery" not in widgets
     assert "buildGallerySlides(content)" in components
     assert "buildGallerySlides(content)" in widgets
-    assert "content.projects.items" in helper
+    assert "content?.projects?.items" in helper
     assert "project.image" in helper
     assert "project.title" in helper
     assert "project.route" in helper
