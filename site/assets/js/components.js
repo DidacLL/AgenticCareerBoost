@@ -1,4 +1,5 @@
 import { loadJson, loadText, resolveSiteUrl } from "./data-store.js";
+import { buildGallerySlides, galleryLinks } from "./gallery-model.js";
 import { routeHref, routeMatches } from "./router.js";
 
 export function node(tag, attrs = {}, children = []) {
@@ -201,16 +202,23 @@ function renderImageStrip(block) {
   ]);
 }
 
+function renderGalleryLinks(slide) {
+  const links = galleryLinks(slide);
+  return node("span", { class: "holo-links", dataGalleryLinks: "" }, links.map((item) => {
+    const link = routeLink(item, "gallery-link");
+    link.dataset.galleryLink = "";
+    return link;
+  }));
+}
+
 function renderGallery(content) {
-  const slides = content.site.gallery || [];
+  const slides = buildGallerySlides(content);
   const first = slides[0] || {};
   const copy = node("span", { dataGalleryCopy: "" });
   (first.lines || []).forEach((line, index) => {
     if (index) copy.append(node("br"));
     copy.append(line);
   });
-  const link = routeLink({ route: first.route, href: first.href, label: first.caption || first.title || "" });
-  link.dataset.galleryLink = "";
   return node("figure", { class: "holo-window", dataHoloWindow: "", dataGalleryIndex: "0" }, [
     node("div", { class: "holo-toolbar" }, [
       node("button", { type: "button", class: "holo-step", dataGalleryPrev: "", ariaLabel: "Previous shortcut", text: "<" }),
@@ -218,12 +226,12 @@ function renderGallery(content) {
       node("button", { type: "button", class: "holo-step", dataGalleryNext: "", ariaLabel: "Next shortcut", text: ">" }),
       node("button", { type: "button", dataHoloToggle: "", ariaExpanded: "false", text: content.site.shell?.galleryToggleLabels?.expand || "" })
     ]),
-    node("div", { class: "holo-screen" }, [
+    node("div", { class: first.contain ? "holo-screen is-gallery-project" : "holo-screen" }, [
       node("img", { dataGalleryImage: "", src: first.image ? resolveSiteUrl(first.image) : "", alt: first.alt || "" }),
       node("div", { class: "holo-overlay", ariaHidden: "true" }, [
         node("strong", { dataGalleryTitle: "", text: first.title || "" }),
         copy,
-        link
+        renderGalleryLinks(first)
       ])
     ]),
     node("figcaption", {}, [node("span", { dataGalleryCaption: "", text: first.caption || "" })])
