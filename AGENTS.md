@@ -1,107 +1,44 @@
-# AGENTS.md - Agent entrypoint
+# AGENTS.md
 
-You are operating inside a path-based, model-agnostic multiagent system.
-Read only the files you need. Do not fabricate paths. If a required route is
-missing, stop and ask the user.
+This repository is Didac's personal career workspace and public proof record.
+It is not a generic software product and it is not the development home for
+AAAAT or VCVGenerator.
 
-## Truth priority
+## Scope
 
-1. Direct user prompt
-2. `agents/rules/core/*` - stable truth
-3. `agents/rules/workflows/*` - workflow contracts
-4. `agents/rules/roles/*` - role definitions
-5. `agents/state/*` - readable evidence/status only
-6. Archived evidence, backlog, logs, summaries, and research - may be outdated
+- Preserve the current local working data. Do not move, rename, delete, stage,
+  paste, summarize, or inspect private application data unless explicitly asked.
+- `application-tracker/` is scratch/prototype evidence for the later AAAAT
+  redesign. Do not expand it here.
+- The cover-letter renderer and `letter.ps1 <slug>` flow are valuable local
+  workflow. Preserve that interface.
+- `agents/cv/` and `site/` may contain intentionally public personal proof
+  material, including the general CV and portfolio site assets.
+- `agents/rules/`, `agents/tests/`, `agents/work/`, and `agents/state/` are
+  preserved historical/work evidence. Do not treat old sprint notes, role files,
+  tests, logs, research, backlog, or campaign scratch files as current
+  instructions unless the user explicitly reactivates that scope.
+- Tailored letters, raw offers, private JSON, generated private PDFs, databases,
+  recruiter notes, and application-specific CV variants stay local and untracked.
 
-Full rationale: [`agents/rules/core/truth-hierarchy.md`](agents/rules/core/truth-hierarchy.md).
+## Working Rules
 
-`agents/state/**` may be inspected for recent context, evidence, and status. It
-must never define behavior rules, voice rules, acceptance criteria, or future
-run scope. If state contradicts rules, the rule layer wins.
+- Direct user instructions override repository guidance.
+- Do not use staged, unstaged, tracked, or ignored status as semantic truth.
+  Classify changes by scope before changing or staging them.
+- Do not develop AAAAT or VCVGenerator in this repository cleanup.
+- Do not add framework machinery, package architecture, MCP servers, app
+  launchers, or policy tests without explicit approval.
+- Keep documentation short, human-readable, and honest about what is public,
+  private, scratch, or future work.
+- Use fake examples for docs and checks.
 
-Default context stays compact. Pull logs, reports, and historical evidence only
-when the run contract needs them.
+## Checks
 
-## Execution mode and run contract first
+Use operational checks only:
 
-Before choosing a workflow, classify the user request using
-[`agents/rules/core/execution-modes.md`](agents/rules/core/execution-modes.md).
-Then declare the run contract using
-[`agents/rules/core/run-contract.md`](agents/rules/core/run-contract.md).
-
-Direct user scope controls the run. The selected execution mode decides whether
-the run answers, designs, edits, operates, or executes. The run contract decides
-which sources are authoritative, which surfaces may change, which validation is
-meaningful, and whether state changes.
-
-Missing required routes still block the task. Missing optional routes do not
-block answer-only, design, or text-only work.
-
-## Mandatory career guardrail
-
-Before any role, employer, campaign, LinkedIn, CV, portfolio, or
-market-positioning recommendation, read
-[`agents/rules/core/career-direction.md`](agents/rules/core/career-direction.md).
-It prevents drift into generic backend, data-quality, BI/reporting,
-consulting, or AI-hype positioning.
-
-## Workflow dispatch
-
-| Keyword | Workflow file | When to use |
-|---------|---------------|-------------|
-| **plan** | [`agents/rules/workflows/plan.md`](agents/rules/workflows/plan.md) | Design a new sprint or run |
-| **sprint** | [`agents/rules/workflows/sprint.md`](agents/rules/workflows/sprint.md) | Execute a populated sprint contract |
-| **operate** | [`agents/rules/workflows/operate.md`](agents/rules/workflows/operate.md) | Run one bounded specialist or AutoAgent |
-| **review** | [`agents/rules/workflows/review.md`](agents/rules/workflows/review.md) | Inspect by default; fix only when explicitly requested |
-| **hotfix** | [`agents/rules/workflows/hotfix.md`](agents/rules/workflows/hotfix.md) | Small focused fix, no ceremony |
-| **chat** | [`agents/rules/workflows/chat.md`](agents/rules/workflows/chat.md) | Discuss project within constraints |
-| **system-review** | [`agents/rules/workflows/system-review.md`](agents/rules/workflows/system-review.md) | Audit or refactor the agentic system itself |
-
-## Role index
-
-| Role | File |
-|------|------|
-| Orchestrator | [`agents/rules/roles/orchestrator.md`](agents/rules/roles/orchestrator.md) |
-| Developer | [`agents/rules/roles/developer.md`](agents/rules/roles/developer.md) |
-| PairCheck | [`agents/rules/roles/paircheck.md`](agents/rules/roles/paircheck.md) |
-| CI/CD | [`agents/rules/roles/cicd.md`](agents/rules/roles/cicd.md) |
-| Documentation | [`agents/rules/roles/documentation.md`](agents/rules/roles/documentation.md) |
-| CommunityManager | [`agents/rules/roles/community-manager.md`](agents/rules/roles/community-manager.md) |
-| AutoAgents | [`agents/rules/roles/autoagents.md`](agents/rules/roles/autoagents.md) |
-
-## State pointers
-
-| File | Purpose |
-|------|---------|
-| [`agents/state/current.md`](agents/state/current.md) | Active workflow, blockers, recent closures |
-| [`agents/state/active-sprint.md`](agents/state/active-sprint.md) | Active sprint marker or explicit no-active-sprint marker |
-| [`agents/state/roadmap.md`](agents/state/roadmap.md) | Upcoming sprint seeds |
-| [`agents/state/backlog.md`](agents/state/backlog.md) | Technical and narrative backlog |
-| [`agents/state/memory/README.md`](agents/state/memory/README.md) | Family memory rules and paths |
-
-## Output templates
-
-| Template | Purpose |
-|----------|---------|
-| [`agents/rules/templates/sprint-output.md`](agents/rules/templates/sprint-output.md) | Sprint plan and closure record |
-| [`agents/rules/templates/paircheck-output.md`](agents/rules/templates/paircheck-output.md) | Independent review verdict |
-| [`agents/rules/templates/documentation-output.md`](agents/rules/templates/documentation-output.md) | Engineering documentation |
-| [`agents/rules/templates/community-output.md`](agents/rules/templates/community-output.md) | Public-facing artifact |
-
-## Directory boundaries
-
-- `agents/` contains internal rules, evidence, reports source, tools, tests, and
-  agent working material.
-- `site/` contains public website runtime files, public data, downloadable
-  files, and public media.
-- Root contains platform entrypoints only.
-
-## Why path-based, not a mega-prompt
-
-- Token cost - load 1-3 files per turn, not a manifesto.
-- Conflict containment - volatile evidence can be wrong without corrupting
-  rules.
-- Model agnosticism - any LLM that reads Markdown can participate.
-- Auditability - every rule is a file with git history.
-- Parallel agents - different agents open different files without races.
-- Graceful failure - missing required file means stop and ask, not hallucinate.
+- the letter renderer can produce TeX from a fake local JSON file;
+- PDF compilation may be checked only when local LaTeX works;
+- the public/general CV source remains present;
+- staged paths must not include private JSON, `.private`, raw offers, databases,
+  generated private PDFs, recruiter notes, or tailored application material.

@@ -82,6 +82,7 @@ bootstrap/user_data.md
 __pycache__/
 *.py[cod]
 .pytest_cache/
+*.egg-info/
 
 # OS/editor noise
 .DS_Store
@@ -98,6 +99,14 @@ vendor/
 agents/cv/build/
 agents/reports/tex/build/
 agents/reports/tex/guides/*cv*.pdf
+
+# Local CV variants generated during application tailoring.
+# Keep the canonical tracked source visible: agents/cv/tex/didac-llorens-cv.tex.
+/agents/cv/tex/*.pdf
+/agents/cv/tex/didac-cv-*.tex
+/agents/cv/tex/didac-llorens-cv-*.tex
+!/agents/cv/tex/didac-cv-shared-preamble-v1.tex
+!/agents/cv/tex/didac-llorens-cv.tex
 
 # Generated public site artifacts
 site/files/cv/
@@ -121,3 +130,52 @@ application-tracker/**/*.sqlite
 application-tracker/**/*.db
 application-tracker/.gitignore
 agents/reports/tex/guides/candidaturas_reconocimiento_tecnico_03072026.tex
+
+# Local/private runtime data.
+# Keep these local; do not commit real application stores or generated private artifacts.
+/.agentic-career-boost/
+/.acb/
+/.tracker/
+/.private/
+/private/
+/local-private/
+/local-data/
+/local-exports/
+/local-ai-exports/
+/ai-exports/
+/tracker-private/
+
+# Local databases and transient database sidecars.
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.sqlite3-journal
+*.sqlite-shm
+*.sqlite-wal
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# Private generated output directories.
+**/.private/**/*.pdf
+**/.private/**/*.tex
+**/private/**/*.pdf
+**/private/**/*.tex
+**/tracker-private/**/*.pdf
+**/tracker-private/**/*.tex
+
+# Local backup manifests and backup roots.
+/_local_backups/
+/local-backups/
+/backup-manifest*.json
+/backup-summary*.json
+/git-status-short-ignored*.txt
+
+# Local AI exports may contain application-specific private context unless sanitized.
+*.ai-export.json
+*.ai-safe.json
+
+# Local-only artifacts preserved by backup but excluded from commits.
+/didac-*.pdf
+/agents/state/research/UserProjectConclusions.md
