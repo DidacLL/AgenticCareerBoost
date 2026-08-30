@@ -1,62 +1,71 @@
 # AgenticCareerBoost
 
-Public repository for Dídac Llorens' career operating system: agent rules,
-state evidence, formal reports, CV artifacts, and a static website.
+AgenticCareerBoost is my personal career workspace and public proof record. It
+holds the practical systems, LaTeX work, public site assets, and scratch tooling
+I use while improving my job-search workflow.
 
-## Public entrypoints
+This repository is not a generic software product. Some tools inside it are
+prototypes or temporary local workflow, and some material is intentional public
+career evidence.
 
-- [Website](https://didacll.github.io/)
-- [CV PDF](site/files/cv/didac-llorens-cv.pdf)
-- [AgenticCareerBoost Project History](site/files/reports/agenticcareerboost-project-history.pdf)
-- [Agentic System Guide](site/files/reports/agentic-system-guide.pdf)
-- [AgenticSystem refactor retrospective](site/files/reports/agentic-system-refactor-retrospective.pdf)
-- [AgenticSystem evidence reconciliation](site/files/reports/agentic-system-evidence-reconciliation.pdf)
-- [S-000 case study](site/files/reports/s000-agentic-os-bootstrap.pdf)
-- [Sprint S-001 report](site/files/reports/s001-profile-audit-positioning.pdf)
-- [Sprint S-001.5R report](site/files/reports/s0015r-system-review.pdf)
-- [Sprint S-002R report](site/files/reports/s002-restart-refresh.pdf)
-- [Sprint S-003 report](site/files/reports/s003-website-os-clarity.pdf)
-- [Sprint S-004 report](site/files/reports/s004-documentation-alignment.pdf)
-- [Sprint S-004.5 report](site/files/reports/s0045-site-quality.pdf)
+## What Is Here
 
-## Structure
+- `application-tracker/` - scratch tracker and cover-letter renderer, kept as
+  prototype evidence for the later AAAAT redesign.
+- `application-tracker/letter.ps1` - simple local cover-letter generation flow.
+- `agents/cv/` - public/general CV LaTeX workflow and related build material.
+- `site/` - personal public site and portfolio proof.
+- `agents/reports/` - historical public proof/report material where still useful.
+- `agents/work/social/` - preserved campaign planning, research, and social
+  scratch material.
+- `agents/state/` - historical logs, decisions, research, and previous run
+  records.
+- `agents/rules/` and `agents/tests/` - legacy harness material kept as
+  evidence, not as the current control system.
 
-| Path | Purpose |
-|------|---------|
-| `AGENTS.md` | Root instruction entrypoint for agents |
-| `agents/rules/` | Authoritative rules, workflows, roles, and templates |
-| `agents/state/` | Evidence, current status, logs, research, and archives |
-| `agents/reports/tex/` | LaTeX report and CV sources |
-| `agents/tools/` | Repo-local validation/export tools |
-| `agents/tests/` | Targeted behavior and structure checks |
-| `site/` | Public website runtime, media, data, and downloadable files |
-| root HTML/SEO files | GitHub Pages entrypoints and crawler files |
+## Private Boundary
 
-`agents/state/**` is useful context, but it is never authoritative for future
-behavior. Agent rules live in `agents/rules/**`; state records evidence.
+This repo is currently also my live local workspace, so private application data
+may exist locally while AAAAT is not ready. That data must remain local.
 
-## Current status
+Do not stage or share:
 
-No sprint is active. S-005 is rebaselined as the next post-launch explanatory
-series about deployments, structure, history, flaws, and fixes.
+- `application-tracker/.private/`
+- tailored cover-letter JSON;
+- raw job offers or recruiter messages;
+- SQLite/databases;
+- generated private letters or CV variants;
+- private notes.
 
-Status evidence:
+Public/general CV and personal site assets may remain when they are intentional
+public proof. They should not be reused as fixtures for future tooling.
 
-- [Current state](agents/state/current.md)
-- [Active sprint marker](agents/state/active-sprint.md)
-- [Roadmap](agents/state/roadmap.md)
-- [Career direction guardrail](agents/rules/core/career-direction.md)
-- [Execution modes](agents/rules/core/execution-modes.md)
-- [Public copy rules](agents/rules/core/public-copy.md)
+## Current Useful Workflow
 
-## Local checks
+The valuable working path is the simple cover-letter renderer:
 
-```bash
-python agents/tools/export_status.py
-python agents/tools/validate_static_site.py
-bash agents/tools/validate_links.sh
-python -m pytest agents/tests -q
+```powershell
+cd application-tracker
+.\letter.ps1 example-slug
 ```
 
-The status JSON at `site/data/status.json` is generated from
-`agents/state/**`. Do not edit it by hand.
+It reads local JSON from `.private/example-slug.json`, renders a TeX cover
+letter with `render_letter.py`, and writes generated files under
+`.private/generated/`.
+
+The canonical/general CV source remains under `agents/cv/`. Tailored variants
+should stay private or ignored.
+
+The historical `agents/` material is intentionally preserved because this is a
+proof repo. It shows the research, campaign work, earlier system design, and
+failure/correction history. It should not be read as mandatory process for new
+work.
+
+## Future Direction
+
+Application Tracker is a prototype for AAAAT. VCVGenerator belongs with that
+future redesign. They should not be developed further in this cleanup branch.
+
+The goal here is a clean, understandable career workspace that shows practical
+engineering judgment: useful local automation, careful data boundaries, strong
+LaTeX/document work, and honest public evidence.

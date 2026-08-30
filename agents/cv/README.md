@@ -1,21 +1,26 @@
-# CV artifacts
+# CV LaTeX Area
 
-User-owned sources and the build contract for public career PDFs live here.
+This folder keeps the public/general CV LaTeX workflow and related build
+material. It is part of the public career proof in this repository.
 
-## Files
+The canonical source is the general CV, not tailored application variants.
 
-- `tex/` - user-authored LaTeX sources for public career PDFs. Build and CI rules do not rewrite them.
-- `artifacts.json` - public career artifact manifest used by local scripts and CI.
-- `tools/artifact_manifest.py` - public CV artifact manifest helper.
+## Boundaries
 
-## Public build
+Allowed here:
 
-The default public build validates `artifacts.json`, compiles the public CV artifact declared there, and copies the generated PDF to the manifest-declared `site/files/**` destination.
+- public/general CV source;
+- shared LaTeX support used by that CV;
+- build helpers for intentional public CV artifacts;
+- fake or public-safe examples.
 
-Application-specific letters are local working documents. Their tooling lives under `application-tracker/` and is not part of the public CV build.
+Keep out of commits:
 
-## Source ownership
+- tailored CV variants for specific applications;
+- generated private PDFs;
+- private application notes;
+- raw offer material;
+- private JSON/data.
 
-- The current CV LaTeX files are human-authored source and remain under direct developer control.
-- Tests and CI validate public integration, generated public artifacts, and deploy paths.
-- Keep positioning aligned with `agents/rules/core/career-direction.md`.
+VCVGenerator is future work together with AAAAT. Do not implement it in this
+cleanup branch.

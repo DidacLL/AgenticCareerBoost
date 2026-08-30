@@ -1,26 +1,23 @@
 # agents/reports/
 
-Formal engineering documentation in LaTeX.
+This folder keeps formal report sources and public proof documents from the
+evolution of ACB.
 
-This folder is for the published documentation side of the repo. The quick
-human orientation layer stays in the root `README.md`, while this area holds
-the formal PDFs and their source tree.
+Some reports describe earlier agent-harness experiments. They are useful as
+evidence of work, decisions, failures, and corrections. They are not current
+instructions for future agents.
 
-## What belongs where
+## What Belongs Here
 
-- [README quick overview](../../README.md) - the shortest human entrypoint for
-  mission, status, and navigation.
-- [Human guide/manual](../../site/files/reports/agentic-system-guide.pdf) - the formal human-facing
-  guide. Use this when you want the operating model explained without reading
-  every contract file first.
-- [S-000 case study](../../site/files/reports/s000-agentic-os-bootstrap.pdf) - the formal sprint
-  report. Use this when you want the evidence-backed technical account of the
-  bootstrap sprint.
+- LaTeX sources for curated public reports.
+- Screenshots or figures used by those reports.
+- Build helpers for regenerating report PDFs.
+- Historical reports that are useful to understand the project trajectory.
 
-## Build notes
+## Boundary
 
-- Catalan is permitted per `agents/rules/core/brand.md` language policy.
-- Build with TeX Live from `agents/reports/tex/`.
-- Local build output lands in `agents/reports/tex/build/` and stays ignored.
-- Published PDFs live under `site/files/reports/` or `site/files/cv/`.
-- Source template: [`agents/rules/templates/documentation-output.md`](../rules/templates/documentation-output.md)
+The short human entrypoint is the root `README.md`. Use this folder when a
+reader wants deeper evidence, not as a mandatory process layer.
+
+Local build output stays ignored. Published PDFs belong under
+`site/files/reports/` when they are intentionally public.
