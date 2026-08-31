@@ -1,10 +1,9 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
-interface Props { title: string; description: string; label: string; subtitle?: string; activePath?: string; }
-const { title, description, label, subtitle, activePath } = Astro.props;
+interface Props { title:string; description:string; label:string; subtitle?:string; activePath?:string; }
+const {title,description,label,subtitle,activePath}=Astro.props;
 ---
-<BaseLayout title={title} description={description} activePath={activePath}>
-  <p class="breadcrumb"><a href={import.meta.env.BASE_URL}>Home</a> / {label}</p>
-  <header class="doc-header"><p class="os-label">{label}</p><h2>{title}</h2>{subtitle && <p>{subtitle}</p>}</header>
-  <slot />
+<BaseLayout title={title} description={description} activePath={activePath} label={label}>
+  <header class="document-header"><p class="system-label">{label}</p><div><h2>{title}</h2>{subtitle && <p>{subtitle}</p>}</div></header>
+  <article class="document-body"><slot /></article>
 </BaseLayout>
