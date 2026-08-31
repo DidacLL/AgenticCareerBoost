@@ -1,10 +1,10 @@
 # AgenticCareerBoost — Site Refactor Progress
 ## Execution tracker
 
-**Master authority:** `docs/site-refactor/masterplan.md`  
+**Master authority:** `agents/acb_site_refactor_masterplan.md`  
 **This tracker does not redefine architecture.** It records execution only.  
 **Baseline expected before first write:** `main@aa7d57c809db41bbbf042eebbfdeba4454476295`  
-**Execution branch:** `refactor/site-astro`  
+**Execution branch:** `DidacLl/siterefactor`  
 **Production cutover:** outside this tracker
 
 > All earlier trackers from this conversation are invalid and must not be used.
@@ -16,9 +16,9 @@
 | Field | Value |
 |---|---|
 | Planning audit | COMPLETE |
-| Repository writes authorized | NO — requires explicit user instruction to execute masterplan |
+| Repository writes authorized | YES — current user instruction authorizes P1–P3 on `DidacLl/siterefactor` only |
 | Current remote baseline | `main@aa7d57c809db41bbbf042eebbfdeba4454476295` |
-| `refactor/site-astro` exists | NO at audit time |
+| `DidacLl/siterefactor` exists | YES — initial handoff commit contains only the two control documents |
 | Production touched | NO |
 | `didacll.github.io` touched | NO |
 | PR created for refactor | NO |
@@ -55,14 +55,14 @@
 
 ## 3. Pre-execution stop gate
 
-Before creating the branch, all rows must be PASS.
+At execution handoff, all rows must be PASS.
 
 | Check | Expected | Result |
 |---|---|---|
-| ACB `main` SHA | `aa7d57c809db41bbbf042eebbfdeba4454476295` | PENDING EXECUTION |
-| `refactor/site-astro` absent | absent | PENDING EXECUTION |
-| No requested write to `main` | true | PENDING EXECUTION |
-| No requested write to root publication repo | true | PENDING EXECUTION |
+| ACB `main` SHA | `aa7d57c809db41bbbf042eebbfdeba4454476295` | PASS — rechecked at execution start |
+| `DidacLl/siterefactor` lineage | direct descendant; handoff delta is only the two control documents | PASS — rechecked at execution start |
+| No requested write to `main` | true | PASS — branch-only authority |
+| No requested write to root publication repo | true | PASS — explicitly forbidden |
 
 If any row fails: STOP; no branch/write is allowed.
 
@@ -85,7 +85,8 @@ If any row fails: STOP; no branch/write is allowed.
 
 Allowed:
 
-- `docs/site-refactor/**`
+- `agents/acb_site_refactor_masterplan.md`
+- `agents/acb_site_refactor_tracker.md`
 - `site/**`
 - root `localdeploy.bat`
 - new `.github/workflows/site-check.yml`
@@ -103,9 +104,9 @@ Forbidden:
 
 | ID | Task | Status | Evidence |
 |---|---|---|---|
-| P1-01 | Recheck exact baseline SHA and branch absence | PENDING | branch/main read |
-| P1-02 | Create `refactor/site-astro` from exact baseline | PENDING | branch ref |
-| P1-03 | Add frozen masterplan + tracker to `docs/site-refactor/` | PENDING | files |
+| P1-01 | Recheck exact baseline SHA and execution-branch lineage | COMPLETE | `main` identical to baseline; handoff delta inspected |
+| P1-02 | Use existing `DidacLl/siterefactor` branch from exact baseline | COMPLETE | pre-existing branch descends directly from baseline |
+| P1-03 | Keep frozen masterplan + tracker at authoritative `agents/` paths | COMPLETE | existing handoff commit; references normalized |
 | P1-04 | Add `site/package.json` with exact Astro 7.2.9 + sitemap 3.7.3 | PENDING | file |
 | P1-05 | Add `.npmrc`, `astro.config.mjs`, `tsconfig.json` | PENDING | files |
 | P1-06 | Configure static/directory/trailing-slash/publicDir/env-driven origin+base | PENDING | config |
@@ -303,7 +304,7 @@ The browser field records factual interaction/loading checks only. It never reco
 
 ## 11. Scope-diff ledger
 
-Complete at P3 after `compare main...refactor/site-astro`.
+Complete at P3 after `compare main...DidacLl/siterefactor`.
 
 | Category | Expected | Observed | Verdict |
 |---|---|---|---|
@@ -344,7 +345,7 @@ These are not blockers and must not expand execution:
 This section is filled only after P3 human approval.
 
 ```text
-Final branch: refactor/site-astro
+Final branch: DidacLl/siterefactor
 Final SHA: PENDING
 P1 visual gate: PENDING
 P2 visual gate: PENDING
