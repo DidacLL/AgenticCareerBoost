@@ -6,4 +6,7 @@ export async function getStaticPaths() { return (await getCollection("projects")
 const { project } = Astro.props;
 const { Content } = await render(project);
 ---
-<ProjectLayout project={project}><Content />{project.id === "agentic-career-boost" && <ArtifactList />}</ProjectLayout>
+<ProjectLayout project={project}>
+  <Content />
+  {project.id === "agentic-career-boost" && <ArtifactList slot="evidence" />}
+</ProjectLayout>
