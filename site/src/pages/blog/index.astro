@@ -1,0 +1,9 @@
+---
+import { getCollection } from "astro:content";
+import DocumentLayout from "../../layouts/DocumentLayout.astro";
+import { paths } from "../../lib/paths";
+const posts = (await getCollection("posts")).sort((a,b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<DocumentLayout title="Blog — Dídac Llorens" description="Notes on AI workflows, static publishing, documentation, project maintenance, and software work." label="BLOG" subtitle="Notes on agentic workflows, static publishing, documentation, project maintenance, AI industry topics, and recent papers." activePath="/blog/">
+  <section class="os-panel"><p class="os-label">02 / NOTES</p><div class="project-list">{posts.map((post) => <a class="project-card" href={paths.post(post.id)}><div><p class="eyebrow">{post.data.date.toLocaleDateString("en-CA")}</p><h3>{post.data.title}</h3><p>{post.data.description}</p><ul class="tags">{post.data.tags.map((tag) => <li>{tag}</li>)}</ul></div></a>)}</div></section>
+</DocumentLayout>
