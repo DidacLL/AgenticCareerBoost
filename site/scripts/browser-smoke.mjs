@@ -40,14 +40,15 @@ await page.locator("[data-theme-toggle]").click();
 const theme = await page.locator("html").getAttribute("data-theme");
 await page.reload({ waitUntil: "networkidle" });
 if (await page.locator("html").getAttribute("data-theme") !== theme) throw new Error("Theme did not persist after reload.");
-const gallery = page.locator("[data-gallery]");
-const before = await gallery.getAttribute("data-slide");
-await page.locator("[data-gallery-next]").click();
-if (await gallery.getAttribute("data-slide") === before) throw new Error("Gallery next did not change state.");
-await page.locator("[data-gallery-previous]").click();
-if (await gallery.getAttribute("data-slide") !== before) throw new Error("Gallery previous did not restore state.");
-await page.locator("[data-gallery-expand]").click();
-if (await gallery.getAttribute("data-expanded") !== "true") throw new Error("Gallery did not expand.");
+const monitor = page.locator("[data-monitor]");
+const image = page.locator("[data-monitor-image]");
+const before = await image.getAttribute("src");
+await page.locator("[data-monitor-next]").click();
+if (await image.getAttribute("src") === before) throw new Error("Monitor next did not change the signal.");
+await page.locator("[data-monitor-prev]").click();
+if (await image.getAttribute("src") !== before) throw new Error("Monitor previous did not restore the signal.");
+await page.locator("[data-monitor-expand]").click();
+if (await monitor.getAttribute("data-expanded") !== "true") throw new Error("Monitor did not expand.");
 for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
   await page.setViewportSize(viewport);
   for (const route of ["/", "/projects/agentic-career-boost/", "/cv/print/", "/blog/agents-need-receipts/"]) {
