@@ -6,7 +6,8 @@ export function internalPath(path = "/") {
 }
 
 export function href(path = "/") {
-  return new URL(internalPath(path).replace(/^\//, ""), import.meta.env.BASE_URL).pathname;
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  return `${base}${internalPath(path)}`;
 }
 
 export function asset(path: string) {
