@@ -1,333 +1,147 @@
 \documentclass[a4paper,10pt]{article}
 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[english]{babel}
-\usepackage[
-a4paper,
-top=0.90cm,
-bottom=0.90cm,
-left=1.00cm,
-right=1.00cm
-]{geometry}
-\usepackage{graphicx}
-\usepackage{array}
-\usepackage{tabularx}
-\usepackage{enumitem}
-\usepackage{xcolor}
-\usepackage{transparent}
-% Machine-readable PDF metadata.
-% Not printed on the page; visible in PDF properties and readable by parsers.
-\definecolor{ink}{HTML}{111827}
-\definecolor{muted}{HTML}{4B5563}
-\definecolor{soft}{HTML}{F3F4F6}
-\definecolor{line}{HTML}{D1D5DB}
-\definecolor{linkblue}{HTML}{1D4ED8}
-\definecolor{accent}{HTML}{0F172A}
+\input{tex/didac-cv-shared-preamble-v1.tex}
 
-\usepackage[
-colorlinks=true,
-linkcolor=accent,
-urlcolor=linkblue
-]{hyperref}
-% Machine-readable PDF/XMP metadata support.
-% Must be loaded before hyperref.
-\usepackage{hyperxmp}
-% ---------------------------------------------------------------------------
-% Machine-readable CV metadata
-% ---------------------------------------------------------------------------
-% This metadata is not printed in the CV body. It is stored in the PDF metadata
-% and XMP packet for parsers, search tools, ATS systems, and LLM-based readers.
-% Keep it factual: no hidden claims, no invisible keyword stuffing.
-% ---------------------------------------------------------------------------
-
-\hypersetup{
-	unicode=true,
-	pdfencoding=auto,
-	pdflang={en},
-	pdftitle={Dídac Llorens -- Software Engineering CV},
-	pdfauthor={Dídac Llorens},
-	pdfsubject={
-		Software Engineering CV for Dídac Llorens, Barcelona-based systems-minded software engineer and UOC Software Engineering candidate specializing in Machine Learning and Artificial Intelligence. Current profile combines model-agnostic agentic workflow systems, applied AI/ML learning, backend foundations, local-first application tooling, LaTeX tooling, formal technical documentation, public project delivery, regulated-domain maturity, and formal arts/design training from Escola Massana.
-	},
-	pdfkeywords={
-		Dídac Llorens,
-		Didac Llorens,
-		Barcelona,
-		Universitat Oberta de Catalunya,
-		UOC,
-		Software Engineering,
-		Computer Science,
-		Machine Learning,
-		Artificial Intelligence,
-		ML Engineering,
-		AI Engineering,
-		MLOps,
-		Research Engineering,
-		Applied AI,
-		Agentic Systems,
-		Agentic AI,
-		Agentic AI Tooling,
-		Workflow Systems,
-		Model Agnostic Systems,
-		Developer Tooling,
-		Platform Engineering,
-		Backend Engineering,
-		Java,
-		Spring Boot,
-		REST APIs,
-		SQL,
-		Python,
-		SQLite,
-		Linux,
-		Git,
-		GitHub,
-		GitHub Actions,
-		LaTeX,
-		TeX,
-		Markdown,
-		Technical Documentation,
-		Technical Writing,
-		Visual Systems,
-		Creative Engineering,
-		Escola Massana,
-		Arts and Design,
-		Systems Design,
-		Documentation Discipline,
-		Public Technical Work,
-		Repository Based Workflow,
-		AgenticCareerBoost,
-		P3CTeX,
-		AAAAT,
-		Agent-Agnostic Auto Application Tracker,
-		Application Tracker,
-		Local-first Tooling,
-		IronBank,
-		Regulated Environments,
-		Audit Trails,
-		Failure Mode Thinking,
-		Stakeholder Communication,
-		Team Leadership,
-		Case Triage,
-		Process Discipline,
-		AI Compliance,
-		EU AI Act Awareness,
-		Systems Minded Builder,
-		Technical Generalist,
-		Tooling Depth,
-		Visible Iteration Discipline
-	}
-}
-% Optional custom PDF info fields.
-% These are not printed. Some parsers expose them; others ignore them.
-
-\AtBeginDocument{%
-	\pdfinfo{%
-		/CandidateProfile  (Barcelona-based systems-minded software engineer and UOC Computer Science candidate mention in Machine Learning and Artificial Intelligence. Current work combines model-agnostic agentic workflow systems, applied AI/ML learning, backend foundations, local-first application tooling, LaTeX tooling, formal technical documentation, public project delivery, regulated-domain maturity, and arts/design training from Escola Massana.)
-		/PrimaryRoleFamilies (ML Engineering; Data Engineering; Agentic AI Tooling; Backend Engineering; Platform Engineering; Research Engineering)
-		/CoreDifferentiators (Formal Software Engineering/ Computer Science degree with ML/AI specialization; 15 years regulated banking and insurance operations; Escola Massana arts/design training; public systems-level projects; local-first application tooling; LaTeX tooling depth; agentic workflow design; documentation discipline; visual judgment)
-		/SelectedProjects (AgenticCareerBoost; P3CTeX; AAAAT; IronBank)
-		/TechnicalStack (Java; Spring Boot; REST APIs; SQL; Python; SQLite; Linux; Git; GitHub Actions; LaTeX; technical reports)
-		/DomainBackground (Banking operations; insurance operations; regulated processes; data quality; audit habits; case triage; stakeholder communication; team leadership; arts and design training; visual systems)
-	}%
-}
-% ---------------------------------------------------------------------------
-% Low-prominence parser summary.
-% ---------------------------------------------------------------------------
-% This text is intentionally invisible yer selectable, and extractable.
-% It is not white text, not transparent text, is off-page text, and hidden.
-% Purpose: provide a compact semantic summary for ATS/LLM parsing while remaining
-% auditable in the rendered PDF and an easter egg for legitimate hand's on work recruiters.
-% Hi! :)
-% ---------------------------------------------------------------------------
-
-\newcommand{\cvParserSummary}{%
-	\resizebox{0pt}{!}{\textcolor{white}{Parser summary: Dídac Llorens / Didac Llorens; Barcelona-based systems-minded software engineer and UOC Computer Science candidate mention in Machine Learning and Artificial Intelligence. ; 15 years regulated-domain experience; Escola Massana Designer; Role routing: agentic workflow systems, applied AI, ML/data systems, backend/platform, developer tooling, research engineering. Stack: Java, Spring Boot, REST APIs, SQL, Python, SQLite, Linux, Git, CI/CD pipeline, LaTeX. Public projects: AgenticCareerBoost, P3CTeX, AAAAT, IronBank.}}
-}
-
-\pagestyle{empty}
-\raggedbottom
-\urlstyle{same}
-
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0.12em}
-\renewcommand{\arraystretch}{1.01}
-\setlist[itemize]{leftmargin=1.05em,itemsep=0.03em,topsep=0.05em,parsep=0em}
-
-\newlength{\RailWidth}
-\newlength{\MainWidth}
-\newlength{\BodyHeight}
-\setlength{\RailWidth}{0.25\textwidth}
-\setlength{\MainWidth}{0.70\textwidth}
-\setlength{\BodyHeight}{0.835\textheight}
-
-\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash\hyphenpenalty=10000\exhyphenpenalty=10000}p{#1}}
-
-\newcommand{\sep}{\textcolor{line}{\quad|\quad}}
-\newcommand{\tag}[1]{\scriptsize\colorbox{soft}{\strut\hspace{0.22em}#1\hspace{0.22em}}}
-
-\newcommand{\mainsection}[1]{%
-	\vspace{1.30em}%
-	{\hspace*{\fill}\large\bfseries\ttfamily\color{accent}#1~~}\par
-	\vspace{0.3em}%
-	{\color{line}\hrule}%
-	\vspace{0.5em}%
-}
-
-\newcommand{\railsection}[1]{%
-	\vspace{3em}%
-	{\large\bfseries\ttfamily\MakeUppercase{#1}}\par
-	\vspace{.7em}%
-	{\color{line}\hrule}%
-	\vspace{.7em}%
-}
-
-\newcommand{\project}[4]{%
-	{\bfseries #1}\hfill{\scriptsize\textcolor{muted}{#2}}\par
-	#3\par
-	{\scriptsize #4}\par
-	\vspace{0.18em}%
-}
-
-\newcommand{\cvbanner}{%
-	\IfFileExists{../../../site/assets/img/418-banner.png}{%
-		\includegraphics[width=1.15\linewidth,trim=0 0 0 34pt,clip]{../../../site/assets/img/418-banner.png}%
-	}{}
-	\cvParserSummary
-}
+\cvsetup
+  {Software Engineering CV}
+  {Software Engineering · AI Workflows · LaTeX · Backend Tooling}
+  {AI-assisted workflows, LaTeX tooling, static publishing, local-first career workflow, Java, Spring Boot, SQL, Python, GitHub Actions}
+  {Public general CV for a software engineer focused on practical AI-assisted workflows, LaTeX/report tooling, static publishing, local-first career workflow evidence, and backend/data systems.}
 
 \begin{document}
-	\enlargethispage{3\baselineskip}
-	\color{ink}
-	\small
-	\vspace*{-4em}\hspace*{-0.07\linewidth}{\transparent{0.24}\cvbanner}\par
-	\vspace*{-6em}
-	{\resizebox{0.50\linewidth}{!}{\ttfamily\bfseries Dídac Llorens}}\par
-	\vspace{0.26em}
-{\resizebox{\linewidth}{!}{\ttfamily Software Engineering · Computer Science · Agentic Systems · ML/AI · Backend Tooling \hspace{3em} Barcelona	\hspace*{-1.5em}}}\par
-	\vspace{0.20em}
-	{\resizebox{0.90\linewidth}{!}{\scriptsize\ttfamily
-			\href{mailto:didacllorensbravo@hotmail.com}{didacllorensbravo@hotmail.com}
-			\sep
-			\href{https://didacll.github.io/}{Portfolio}
-			\sep
-			\href{https://github.com/DidacLL}{github.com/DidacLL}
-			\sep
-			\href{https://www.linkedin.com/in/didacllorens/}{linkedin.com/in/didacllorens}
-	}}\par
+  \cvheader
 
-	\vspace{0.42em}
+  \begin{minipage}[t][\BodyHeight]{\RailWidth}
+    \scriptsize
 
-	\begin{minipage}[t][\BodyHeight]{\RailWidth}
-		\scriptsize
-		\railsection{Profile}
-		Systems-minded software engineer building model-agnostic agentic workflows, backend/tooling foundations, and formal technical documentation.
+    \railsection{Profile}
+    Systems-minded software engineer in Barcelona, finishing Computer Science /
+    Software Engineering at UOC with Machine Learning and Artificial
+    Intelligence specialization.
 
-		UOC Computer Science candidate specializing in Machine Learning and Artificial Intelligence. Expected graduation: February 2027.
+    Current public evidence: ACB, P3CTeX, a future AAAAT direction, and older
+    Java/Spring backend work. I use AI-assisted workflows, but keep public
+    claims source-backed and reviewable.
 
-		Current evidence: 4 public projects covering agentic systems, LaTeX tooling, local-first application tooling, backend foundations, technical reports, and project pages.\footnotemark
+    \railsection{Before engineering}
+    \cvBeforeEngineering
 
-		\railsection{Before engineering}
-		15 years in banking and insurance operations, plus formal arts/design grade at Escola Massana, Barcelona.
+    \railsection{Technical map}
+    \textbf{Backend / systems}\\
+    Java, Spring Boot, REST APIs, SQL, Linux, Git.
 
-		Team leadership, case triage, regulated processes, customer-facing problem resolution, and stakeholder communication.
+    \vspace{0.20em}
+    \textbf{AI / data}\\
+    Python learning path, ML/AI coursework, model behavior, inference basics,
+    data quality.
 
-		Useful transfer: regulated-domain maturity, visual judgment, creative problem framing, pressure, procedures, data quality, and audit habits.
+    \vspace{0.20em}
+    \textbf{Tooling / documents}\\
+    \LaTeX, static sites, GitHub Actions, technical reports, local scripts.
 
-		\railsection{Technical map}
-		\textbf{Backend / systems}\\
-		Java, Spring Boot, REST APIs, SQL, Linux, Git.
+    \vspace{0.20em}
+    \textbf{Work style}\\
+    Source-backed work, small scopes, buildable documents, visible correction
+    history.
 
-		\vspace{0.20em}
-		\textbf{AI / data}\\
-		Python, ML/AI coursework, model behavior, inference basics, data quality.
+    \railsection{Role direction}
+    \begin{center}
+      \cvpill{AI workflow tooling}\\[0.32em]
+      \cvpill{Applied AI / ML}\\[0.32em]
+      \cvpill{Backend / Platform}\\[0.32em]
+      \cvpill{Technical Tooling}\\[0.32em]
+      \cvpill{Document Systems}\\[0.32em]
+    \end{center}
 
-		\vspace{0.20em}
-		\textbf{Tooling / documents}\\
-		\LaTeX, RAG and agentic systems, GitHub Actions, technical reports, static sites.
+    \vspace*{\fill}
+    \railsection{Main links}
+    \cvMainLinks
+  \end{minipage}
+  \hfill
+  {\color{line}\vrule width 0.7pt}
+  \hfill
+  \begin{minipage}[t][\BodyHeight]{\MainWidth}
+    \small
 
-		\vspace{0.20em}
-		\textbf{Work style}\\
-		Repository-first work, small scopes, buildable documents.
+    \mainsection{Current direction}
+    I build practical software and documentation systems where workflow,
+    implementation, generated artifacts, and review need to stay aligned. My
+    current public work combines AI-assisted workflow practice, LaTeX/report
+    tooling, static publishing, local-first career workflow evidence, backend
+    foundations, and regulated-domain judgment from banking and insurance.
 
-		\railsection{Role direction}
-		\begin{center}
-			\tag{Agentic AI Tooling}\\[0.32em]
-			\tag{Applied AI / ML}\\[0.32em]
-			\tag{Research Engineering}\\[0.32em]
-			\tag{Backend / Platform}\\[0.32em]
-			\tag{Technical Tooling}\\[0.32em]
-		\end{center}
+    \mainsection{Selected work}
 
-		\vspace*{\fill}
-		\railsection{Main links}
-		\begin{center}
-			{\resizebox{0.82\linewidth}{!}{\href{https://github.com/DidacLL}{github.com/DidacLL}}}\\[0.35em]
-			{\resizebox{0.92\linewidth}{!}{\href{https://www.linkedin.com/in/didacllorens/}{linkedin.com/in/didacllorens}}}\\[0.35em]
-			{\resizebox{0.86\linewidth}{!}{\href{https://github.com/DidacLL/AgenticCareerBoost}{AgenticCareerBoost}}}
-		\end{center}
-	\end{minipage}
-	\hfill
-	{\color{line}\vrule width 0.7pt}
-	\hfill
-	\begin{minipage}[t][\BodyHeight]{\MainWidth}
-		\small
+    \project
+      {AgenticCareerBoost}
+      {career proof · static site · reports · local workflow}
+      {Personal career workspace and public proof record. It contains the
+       public site, general CV, formal reports, selected history, social
+       research evidence, and a local scratch tracker/letter-renderer workflow.
+       The value is not productization; it is source-backed work, clear
+       boundaries, and visible correction when automation became too heavy.}
+      {\href{https://github.com/DidacLL/AgenticCareerBoost}{Repository} ·
+       \href{https://didacll.github.io/}{Public site}}
 
-		\mainsection{Current direction}
-		Systems-minded software engineer focused on agentic workflow systems, applied AI/ML tooling, backend foundations, local-first application tooling, and formal technical documentation. I turn ambiguous technical work into inspectable repositories, buildable reports, and public project pages, backed by regulated-domain experience and arts/design training.
+    \project
+      {P3CTeX}
+      {\LaTeX tooling · academic documents}
+      {Custom LaTeX class and package ecosystem for repeatable academic and
+       technical documents. Standardizes document structure, reusable commands,
+       screenshots, listings, styling, and local build scripts across coursework
+       deliverables.}
+      {\href{https://github.com/DidacLL/P3CTeX}{Repository}}
 
-		\mainsection{Selected work}
+    \project
+      {AAAAT}
+      {future work · local-first job-search tooling}
+      {Future separate job-search workspace informed by the ACB scratch
+       tracker. The intended direction is local-first tracking of
+       opportunities, recruiter conversations, reusable profile material, and
+       generated CV/cover-letter artifacts, with private data kept local by
+       default.}
+      {\href{https://github.com/DidacLL/AAAAT}{Repository}}
 
-		\project
-		{AgenticCareerBoost}
-		{Agentic systems · static site · reports}
-		{GitHub-based workflow system for organizing technical work, publishing reports, and maintaining a public project surface through GitHub Pages. Connects role/workflow documents, compact project state, generated reports, and public pages into one traceable delivery system.}
-		{\href{https://github.com/DidacLL/AgenticCareerBoost}{Repository} · \href{https://didacll.github.io/}{Public site}}
+    \project
+      {IronBank}
+      {Java · Spring Boot · backend}
+      {Older Java/Spring Boot banking simulation from IronHack. Connects
+       banking-domain experience with REST APIs, service boundaries,
+       persistence, and data-oriented application design.}
+      {\href{https://github.com/DidacLL/Ironhack-IronBank_FinalProject_vBNKsys}{Repository}}
 
-		\project
-		{P3CTeX}
-		{LaTeX tooling · academic documents}
-		{Custom LaTeX class and package ecosystem for repeatable academic document production. Standardizes document structure, reusable commands, screenshots, listings, styling, and local build scripts across coursework deliverables.}
-		{\href{https://github.com/DidacLL/P3CTeX}{Repository}}
+    \mainsection{Engineering fit}
+    \begin{itemize}
+      \item Turns technical ambiguity into scoped repositories, build scripts,
+        documentation, public pages, and reviewable artifacts.
+      \item Designs workflows where private data, generated outputs, source
+        context, visual clarity, and human review stay separated.
+      \item Brings 15 years of operational experience from banking and
+        insurance: pressure, procedures, customer impact, data quality, and
+        regulated environments.
+      \item Adds Escola Massana arts/design training: composition, craft, taste,
+        and creative judgment for technical artifacts.
+    \end{itemize}
 
-		\project
-		{AAAAT}
-		{Python · SQLite · local-first tooling}
-		{Local-first job application workspace for tracking opportunities, recruiter conversations, reusable profile material, and per-application CV and cover-letter artifacts. Keeps private career data in local storage while exposing a safe fake-data demo path for public review.}
-		{\href{https://github.com/DidacLL/AAAAT}{Repository}}
+    \mainsection{Education}
+    \cvEducation
 
-		\project
-		{IronBank}
-		{Java · Spring Boot · backend}
-		{Java/Spring Boot banking simulation from IronHack. Connects banking-domain experience with REST APIs, service boundaries, persistence, and data-oriented application design.}
-		{\href{https://github.com/DidacLL/Ironhack-IronBank_FinalProject_vBNKsys}{Repository}}
+    \mainsection{Role angles}
+    \begin{tabularx}{\linewidth}{L{2.55cm} Y}
+      \textbf{AI workflows}
+        & Model-agnostic workflow structure, local/private boundaries,
+          generated artifact review, public proof pages, and source-backed
+          documentation.\\
+      \textbf{Applied AI / ML}
+        & ML/AI specialization, Python learning path, SQL, data quality,
+          technical reporting, and regulated-domain context.\\
+      \textbf{Backend / tooling}
+        & Java, Spring Boot, REST APIs, SQL, Git, Linux, Python, SQLite,
+          LaTeX tooling, build scripts, and static delivery.\\
+    \end{tabularx}
+  \end{minipage}
 
-		\mainsection{Engineering fit}
-		\begin{itemize}
-			\item Turns technical ambiguity into structured repositories, scoped workflows, build scripts, documentation, and public project pages.
-			\item Designs systems where runtime behavior, user context, data, evidence, visual clarity, and documentation need to stay aligned.
-			\item Brings 15 years of operational experience from banking and insurance: pressure, procedures, customer impact, data quality, and regulated environments.
-			\item Adds Escola Massana arts/design training: composition, craft, taste, and creative judgment for technical artifacts.
-		\end{itemize}
-
-		\mainsection{Education}
-		\begin{tabularx}{\linewidth}{L{2.95cm} Y}
-			\textbf{Universitat Oberta de Catalunya} &Computer Science/Software Engineering degree. Mention: Machine Learning and Artificial Intelligence specialization. Expected graduation: February 2027.\\[3em]
-			\textbf{IronHack} & Java Backend Development bootcamp including intensive production level training. Capstone: IronBank microservices banking simulation.\\[3em]
-			\textbf{Additional training} & Android/Kotlin app development at Fundación Francisco Puerto; FullStack React at Barcelona ITAcademy; Linux administration at PUE -- Consorci per a la Formació Continua de Catalunya.\\[3em]
-			\textbf{Escola Massana} & Técnico Superior en Artes Plásticas y Diseño. Formal arts/design training in Barcelona.\\
-		\end{tabularx}
-
-		\mainsection{Role angles}
-		\begin{tabularx}{\linewidth}{L{2.55cm} Y}
-			\textbf{Agentic AI} & Model-agnostic workflow structure, repository state, role documents, project reports, and public project pages.\\
-			\textbf{Applied AI / ML} & ML/AI specialization, Python learning path, SQL, data quality, technical reporting, and regulated-domain context.\\
-			\textbf{Backend / Tooling} & Java, Spring Boot, REST APIs, SQL, Git, Linux, Python, SQLite, LaTeX tooling, build scripts, and static delivery.\\
-		\end{tabularx}
-
-	\end{minipage}
-
-	\footnotetext{Project links are included so the PDF can be checked quickly without searching across profiles.}
-	\cvParserSummary
+  \footnotetext{Project links are included so the PDF can be checked quickly
+  without searching across profiles.}
+  \cvParserSummary
 \end{document}

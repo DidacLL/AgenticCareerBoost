@@ -3,13 +3,12 @@
 This folder keeps the public/general CV LaTeX workflow and related build
 material. It is part of the public career proof in this repository.
 
-The canonical public source is the monolithic general CV:
-`tex/didac-llorens-cv.tex`.
+The canonical public source is `tex/didac-llorens-cv.tex`. It uses the shared
+support file `tex/didac-cv-shared-preamble-v1.tex`, so the public CV and the
+current LaTeX workflow are represented by the same tracked code.
 
-`tex/didac-cv-shared-preamble-v1.tex` is preserved as useful support for
-local/tailored CV work and future cleanup. It is not the public CV architecture
-yet; a dedicated CV cleanup should decide if and when to split the canonical
-source.
+Tailored/local variants may also use the shared preamble, but they stay ignored
+unless they are intentionally promoted to public proof.
 
 ## Boundaries
 
