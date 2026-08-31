@@ -2,11 +2,15 @@
 import DocumentLayout from "./DocumentLayout.astro";
 import type { CollectionEntry } from "astro:content";
 import { paths } from "../lib/paths";
-const { cv, projects } = Astro.props as { cv: CollectionEntry<"cv">; projects: CollectionEntry<"projects">[] };
+const { cv, views, projects } = Astro.props as {
+  cv: CollectionEntry<"cv">;
+  views: CollectionEntry<"cv">[];
+  projects: CollectionEntry<"projects">[];
+};
 ---
 <DocumentLayout title={`${cv.data.title} — Dídac Llorens`} description={cv.data.description} label={cv.data.label} activePath="/cv/ml/">
   <article class="os-panel">
-    <nav class="doc-tabs" aria-label="CV views"><a href={paths.cv("ml")}>ML/Data</a><a href={paths.cv("agentic")}>AI Workflows</a><a href={paths.cv("backend")}>Backend</a><a href={paths.cv("print")}>Print</a></nav>
+    <nav class="doc-tabs" aria-label="CV views">{views.map((view) => <a class:list={{ active: view.id === cv.id }} href={paths.cv(view.id)}>{view.data.label}</a>)}</nav>
     <slot />
     <section class="os-section"><p class="os-label">LANES</p><ul class="tags">{cv.data.lanes.map((lane) => <li>{lane}</li>)}</ul></section>
     <section class="os-section"><p class="os-label">SELECTED WORK</p><div class="project-list">{projects.map((project) => <a href={paths.project(project.id)}>{project.data.title} — {project.data.summary}</a>)}</div></section>
