@@ -6,7 +6,7 @@
       "publish": true,
       "source": "tex/didac-llorens-cv.tex",
       "buildPdf": "build/didac-llorens-cv.pdf",
-      "sitePdf": "site/files/cv/didac-llorens-cv.pdf"
+      "sitePdf": "site/assets/files/cv/didac-llorens-cv.pdf"
     }
   ]
 }
