@@ -1,0 +1,57 @@
+name: Site check
+
+on:
+  push:
+    branches: [DidacLl/siterefactor]
+    paths:
+      - "site/**"
+      - "localdeploy.bat"
+      - ".github/workflows/site-check.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.20.0
+      - name: Install pinned site dependencies
+        run: npm install --prefix site --no-package-lock
+      - name: Build root-base site
+        run: npm run build --prefix site
+        env:
+          SITE_ORIGIN: https://example.invalid
+          SITE_BASE: /
+          SITE_INDEXABLE: "false"
+      - name: Verify root-base artifact
+        run: node site/scripts/verify-build.mjs site/dist /
+      - name: Build project-base site
+        run: npm run build --prefix site
+        env:
+          SITE_ORIGIN: https://example.invalid
+          SITE_BASE: /AgenticCareerBoost/
+          SITE_INDEXABLE: "false"
+      - name: Verify project-base artifact
+        run: node site/scripts/verify-build.mjs site/dist /AgenticCareerBoost/
+      - name: Install browser smoke dependency
+        run: npm install --prefix site --no-save playwright@1.62.1
+      - name: Install Chromium
+        run: npx --prefix site playwright install --with-deps chromium
+      - name: Rebuild root-base site for browser smoke
+        run: npm run build --prefix site
+        env:
+          SITE_ORIGIN: https://example.invalid
+          SITE_BASE: /
+          SITE_INDEXABLE: "false"
+      - name: Browser functional smoke
+        run: node site/scripts/browser-smoke.mjs site/dist
