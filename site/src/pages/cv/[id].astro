@@ -2,10 +2,11 @@
 import { getCollection, render } from "astro:content";
 import CvLayout from "../../layouts/CvLayout.astro";
 export async function getStaticPaths() {
-  const projects = await getCollection("projects");
-  return (await getCollection("cv")).map((cv) => ({ params: { id: cv.id }, props: { cv, projects } }));
+ const views=(await getCollection("cv")).sort((a,b)=>a.data.order-b.data.order);
+ const projects=await getCollection("projects");
+ return views.map((cv)=>({params:{id:cv.id},props:{cv,views,projects}}));
 }
-const { cv, projects } = Astro.props;
-const { Content } = await render(cv);
+const { cv, views, projects }=Astro.props;
+const { Content }=await render(cv);
 ---
-<CvLayout cv={cv} projects={projects}><Content /></CvLayout>
+<CvLayout cv={cv} views={views} projects={projects}><Content /></CvLayout>
