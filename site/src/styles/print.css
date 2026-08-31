@@ -1,0 +1,1 @@
+@media print { body { background: #fff; color: #000; } .os-rail, .os-meta, .doc-tabs, .system-banner, .theme-toggle { display: none !important; } .os-shell { display: block; padding: 0; width: auto; } .os-document { border: 0; } a { text-decoration: none; } }
