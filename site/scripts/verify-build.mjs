@@ -17,7 +17,7 @@ for (const file of sourceFiles) {
   if (text.includes("https://didacll.github.io") || text.includes("http://didacll.github.io") || text.includes('href="/AgenticCareerBoost/') || text.includes('src="/AgenticCareerBoost/')) throw new Error(`Host or deployment prefix found in source: ${file}`);
 }
 const pageFile = (route) => join(output, route === "/" ? "index.html" : route.replace(/^\//, "") + "index.html");
-const refs = (html) => [...html.matchAll(/(?:href|src)=["']([^"'#]+)["']/gi)].map((match) => match[1]);
+const deferredP2Routes = new Set(["/blog/", "/cv/ml/", "/contact/", "/focus/ml/", "/focus/agentic/", "/focus/backend/"]);\nconst refs = (html) => [...html.matchAll(/(?:href|src)=["']([^"'#]+)["']/gi)].map((match) => match[1]);
 for (const route of routes) {
   const file = pageFile(route);
   if (!existsSync(file)) throw new Error(`Missing generated route: ${route}`);
