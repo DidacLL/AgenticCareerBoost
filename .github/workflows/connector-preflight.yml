@@ -1,0 +1,32 @@
+name: Connector capability preflight
+
+on:
+  push:
+    branches:
+      - preflight/chatgpt-github-capabilities-20260831
+    paths:
+      - '.preflight/**'
+      - '.github/workflows/connector-preflight.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify branch checkout and runner
+        run: |
+          printf 'source_sha=%s\n' "$GITHUB_SHA" > preflight-output.txt
+          printf 'ref=%s\n' "$GITHUB_REF" >> preflight-output.txt
+          printf 'node=' >> preflight-output.txt
+          node --version >> preflight-output.txt
+          printf 'python=' >> preflight-output.txt
+          python3 --version >> preflight-output.txt
+      - name: Upload ordinary Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: connector-preflight-${{ github.sha }}
+          path: preflight-output.txt
+          retention-days: 1
