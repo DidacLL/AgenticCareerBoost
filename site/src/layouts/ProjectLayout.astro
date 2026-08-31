@@ -1,0 +1,17 @@
+---
+import DocumentLayout from "./DocumentLayout.astro";
+import type { CollectionEntry } from "astro:content";
+import { asset } from "../lib/paths";
+const { project } = Astro.props as { project: CollectionEntry<"projects"> };
+---
+<DocumentLayout title={`${project.data.title} — Dídac Llorens`} description={project.data.description} label={project.data.label ?? "PROJECT"} subtitle={project.data.summary} activePath="/projects/">
+  <article>
+    <img src={asset(project.data.image)} alt={project.data.imageAlt} loading="eager" />
+    <section class="os-panel">
+      <dl class="facts"><dt>Project</dt><dd>{project.data.title}</dd><dt>Status</dt><dd>{project.data.status ?? "Public technical record"}</dd></dl>
+      <ul class="tags">{project.data.tags.map((tag) => <li>{tag}</li>)}</ul>
+    </section>
+    <section class="os-section"><slot /></section>
+    {project.data.repository && <p><a href={project.data.repository}>Repository</a></p>}
+  </article>
+</DocumentLayout>
