@@ -1,0 +1,57 @@
+[
+  {
+    "file": "agenticcareerboost-project-history.pdf",
+    "title": "AgenticCareerBoost project history",
+    "description": "Repository development history and public project record."
+  },
+  {
+    "file": "agentic-system-guide.pdf",
+    "title": "Agentic system guide",
+    "description": "Technical guide to the agentic engineering system."
+  },
+  {
+    "file": "s000-agentic-os-bootstrap.pdf",
+    "title": "S000 — Agentic OS bootstrap",
+    "description": "Historical bootstrap record."
+  },
+  {
+    "file": "s001-profile-audit-positioning.pdf",
+    "title": "S001 — Profile audit and positioning",
+    "description": "Historical profile and positioning review."
+  },
+  {
+    "file": "s0015r-system-review.pdf",
+    "title": "S001.5R — System review",
+    "description": "Historical system review."
+  },
+  {
+    "file": "s002-restart-refresh.pdf",
+    "title": "S002 — Restart and refresh",
+    "description": "Historical restart record."
+  },
+  {
+    "file": "s003-website-os-clarity.pdf",
+    "title": "S003 — Website OS clarity",
+    "description": "Historical public-site clarity review."
+  },
+  {
+    "file": "s004-documentation-alignment.pdf",
+    "title": "S004 — Documentation alignment",
+    "description": "Historical documentation alignment review."
+  },
+  {
+    "file": "s0045-site-quality.pdf",
+    "title": "S004.5 — Site quality",
+    "description": "Historical site-quality review."
+  },
+  {
+    "file": "agentic-system-refactor-retrospective.pdf",
+    "title": "Agentic system refactor retrospective",
+    "description": "Refactor retrospective."
+  },
+  {
+    "file": "agentic-system-evidence-reconciliation.pdf",
+    "title": "Agentic system evidence reconciliation",
+    "description": "Evidence reconciliation record."
+  }
+]
