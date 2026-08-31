@@ -1,0 +1,52 @@
+---
+import "../styles/tokens.css";
+import "../styles/base.css";
+import "../styles/site.css";
+import "../styles/print.css";
+import { site } from "../data/site";
+import { asset, href } from "../lib/paths";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props { title: string; description: string; activePath?: string; }
+const { title, description, activePath = "/" } = Astro.props;
+const canonical = new URL(Astro.url.pathname.replace(/^\//, ""), Astro.site).href;
+const indexable = import.meta.env.SITE_INDEXABLE === "true";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {!indexable && <meta name="robots" content="noindex,nofollow" />}
+    <script is:inline>document.documentElement.dataset.theme=localStorage.getItem("didac-site-theme")==="dark"?"dark":"light";</script>
+  </head>
+  <body>
+    <main class="os-shell" aria-labelledby="identity-title">
+      <aside class="os-rail" aria-label="Identity and navigation">
+        <div class="identity-block">
+          <span class="os-mark">{site.identity.mark}</span>
+          <h1 id="identity-title">{site.identity.name}</h1>
+          <p>{site.identity.role}</p><p>{site.identity.location}</p>
+        </div>
+        <nav class="os-nav" aria-label="Primary navigation">
+          {site.navigation.map((item) => <a class:list={{ "is-active": activePath === item.path }} aria-current={activePath === item.path ? "page" : undefined} href={href(item.path)}><span>{item.number}</span> {item.label}</a>)}
+        </nav>
+        <div class="rail-links">{site.external.map((item) => <a href={item.href}>{item.label}</a>)}</div>
+      </aside>
+      <section class="os-document">
+        <figure class="system-banner"><img src={asset(site.banner.image)} alt={site.banner.alt} loading="eager" /></figure>
+        <nav class="doc-tabs" aria-label="Primary navigation">{site.navigation.map((item) => <a class:list={{ "is-active": activePath === item.path }} aria-current={activePath === item.path ? "page" : undefined} href={href(item.path)}>{item.label}</a>)}</nav>
+        <slot />
+        <Footer />
+      </section>
+      <aside class="os-meta" aria-label="Metadata and controls">
+        <section><p class="os-label">SYSTEM</p><dl class="meta-list"><div><dt>Mode</dt><dd>Static document</dd></div><div><dt>Theme</dt><dd><ThemeToggle /></dd></div></dl></section>
+        <section><p class="os-label">FOCUS VIEWS</p><div class="rail-links"><a href={href("/focus/ml")}>focus/ml</a><a href={href("/focus/agentic")}>focus/agentic</a><a href={href("/focus/backend")}>focus/backend</a></div></section>
+      </aside>
+    </main>
+  </body>
+</html>
