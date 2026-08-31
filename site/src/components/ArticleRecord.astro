@@ -1,0 +1,6 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { paths } from "../lib/paths";
+const { post }=Astro.props as {post:CollectionEntry<"posts">};
+---
+<a class="preview-row article-record" href={paths.post(post.id)}><span class="article-date">{post.data.date.toLocaleDateString("en-CA")}</span><span class="preview-row__copy"><p class="system-label">RECORD / {post.data.tags.join(" · ")}</p><h3>{post.data.title} <span aria-hidden="true">→</span></h3><p>{post.data.description}</p></span></a>
