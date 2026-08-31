@@ -61,5 +61,5 @@ For public examples, use a synthetic slug and synthetic company:
 - `render_letter.py` creates the TeX source.
 - `letter.ps1` runs the renderer and then `pdflatex`.
 - If LaTeX is not available, keep the generated TeX and compile later.
-- Application Tracker code here is prototype material for AAAAT, not the target
-  architecture.
+- Application Tracker code here is prototype material for AAAAT and documents
+  the current local workflow.

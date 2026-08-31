@@ -11,7 +11,7 @@ career evidence.
 ## What Is Here
 
 - `application-tracker/` - scratch tracker and cover-letter renderer, kept as
-  prototype evidence for the later AAAAT redesign.
+  evidence of the local workflow that later informed AAAAT.
 - `application-tracker/letter.ps1` - simple local cover-letter generation flow.
 - `agents/cv/` - public/general CV LaTeX workflow and related build material.
 - `site/` - personal public site and portfolio proof.
@@ -26,7 +26,7 @@ career evidence.
 ## Private Boundary
 
 This repo is currently also my live local workspace, so private application data
-may exist locally while AAAAT is not ready. That data must remain local.
+may exist locally. That data must remain local.
 
 Do not stage or share:
 
@@ -61,10 +61,11 @@ proof repo. It shows the research, campaign work, earlier system design, and
 failure/correction history. It should not be read as mandatory process for new
 work.
 
-## Future Direction
+## Project Boundary
 
-Application Tracker is a prototype for AAAAT. VCVGenerator belongs with that
-future redesign. They should not be developed further in this cleanup branch.
+Application Tracker is preserved here as prototype evidence and as a local
+renderer workflow. Product development for the next job-search tools happens
+outside this repository.
 
 The goal here is a clean, understandable career workspace that shows practical
 engineering judgment: useful local automation, careful data boundaries, strong

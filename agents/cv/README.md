@@ -28,5 +28,5 @@ Keep out of commits:
 - raw offer material;
 - private JSON/data.
 
-VCVGenerator is future work together with AAAAT. Do not implement it in this
-cleanup branch.
+CV generator product work lives outside this repository. This folder documents
+the public CV source and the local LaTeX support used by current CV work.
