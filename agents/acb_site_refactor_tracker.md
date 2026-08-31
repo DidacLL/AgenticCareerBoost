@@ -72,9 +72,9 @@ If any row fails: STOP; no branch/write is allowed.
 
 | Phase | Purpose | Build gate | Human visual gate | Status |
 |---|---|---|---|---|
-| P1 | Astro foundation + representative visual shell | autonomous build/route/link/base/browser checks | V1 REQUIRED | AWAITING V1 |
-| P2 | Complete route/content migration + old runtime removal | autonomous build/route/link/base/browser checks | NONE | BLOCKED BY P1 |
-| P3 | Public artifacts + CI/deploy preparation + repo alignment | autonomous checks + complete diff scope review | V2 REQUIRED | BLOCKED BY P2 |
+| P1 | Astro foundation + representative visual shell | autonomous build/route/link/base/browser checks | visual decision pending | OBJECTIVE COMPLETE |
+| P2 | Complete route/content migration + old runtime removal | autonomous build/route/link/base/browser checks | NONE | COMPLETE |
+| P3 | Public artifacts + CI/deploy preparation + repo alignment | autonomous checks + complete diff scope review | final visual decision pending | OBJECTIVE COMPLETE |
 | CUTOVER | production integration | separate plan | separate explicit approval | OUTSIDE SCOPE |
 
 ---
@@ -148,34 +148,34 @@ No CI/deploy/tooling changes outside `site/` in this phase.
 
 | ID | Task | Status | Evidence |
 |---|---|---|---|
-| P2-01 | Migrate AAAAT project | BLOCKED | Markdown |
-| P2-02 | Remove AAAAT link to public tracker | BLOCKED | Markdown |
-| P2-03 | Migrate IronBank project | BLOCKED | Markdown |
-| P2-04 | Migrate `agents-need-receipts` historical post | BLOCKED | Markdown |
-| P2-05 | Migrate `static-sites-as-workbenches` historical post without rewriting history | BLOCKED | Markdown |
-| P2-06 | Migrate `sprint-review-agenticcareerboost` historical post | BLOCKED | Markdown |
-| P2-07 | Migrate CV `ml` | BLOCKED | Markdown |
-| P2-08 | Migrate CV `agentic` | BLOCKED | Markdown |
-| P2-09 | Migrate CV `backend` | BLOCKED | Markdown |
-| P2-10 | Migrate CV `print` | BLOCKED | Markdown |
-| P2-11 | Derive selected CV work from project collection | BLOCKED | source |
-| P2-12 | Migrate focus index | BLOCKED | page |
-| P2-13 | Migrate focus `ml` | BLOCKED | Markdown |
-| P2-14 | Migrate focus `agentic` | BLOCKED | Markdown |
-| P2-15 | Migrate focus `backend` | BLOCKED | Markdown |
-| P2-16 | Migrate Contact | BLOCKED | Markdown/page |
-| P2-17 | Add static 404 page | BLOCKED | page |
-| P2-18 | Add frozen alias/retirement redirects | BLOCKED | config/build output |
-| P2-19 | Remove public `/dashboard/` implementation | BLOCKED | route absent/redirect |
-| P2-20 | Remove public `/application-tracker/` implementation | BLOCKED | route absent/redirect |
-| P2-21 | Remove tracker fragment/reference from ACB page | BLOCKED | source |
-| P2-22 | Remove old `site/content/**` JSON/block content | BLOCKED | deletion |
-| P2-23 | Remove old browser runtime JS modules | BLOCKED | deletion |
-| P2-24 | Remove old monolithic stylesheet after replacement owns all selectors | BLOCKED | deletion |
-| P2-25 | Run exact-SHA autonomous verification on complete migration | BLOCKED | Actions run |
-| P2-26 | Fix objective failures until green | BLOCKED | Actions logs |
-| P2-27 | Compare changed paths against baseline for scope | BLOCKED | compare |
-| P2-28 | Continue directly to P3; no user gate | BLOCKED | green SHA |
+| P2-01 | Migrate AAAAT project | COMPLETE | Markdown |
+| P2-02 | Remove AAAAT link to public tracker | COMPLETE | Markdown |
+| P2-03 | Migrate IronBank project | COMPLETE | Markdown |
+| P2-04 | Migrate `agents-need-receipts` historical post | COMPLETE | Markdown |
+| P2-05 | Migrate `static-sites-as-workbenches` historical post without rewriting history | COMPLETE | Markdown |
+| P2-06 | Migrate `sprint-review-agenticcareerboost` historical post | COMPLETE | Markdown |
+| P2-07 | Migrate CV `ml` | COMPLETE | Markdown |
+| P2-08 | Migrate CV `agentic` | COMPLETE | Markdown |
+| P2-09 | Migrate CV `backend` | COMPLETE | Markdown |
+| P2-10 | Migrate CV `print` | COMPLETE | Markdown |
+| P2-11 | Derive selected CV work from project collection | COMPLETE | source |
+| P2-12 | Migrate focus index | COMPLETE | page |
+| P2-13 | Migrate focus `ml` | COMPLETE | Markdown |
+| P2-14 | Migrate focus `agentic` | COMPLETE | Markdown |
+| P2-15 | Migrate focus `backend` | COMPLETE | Markdown |
+| P2-16 | Migrate Contact | COMPLETE | Markdown/page |
+| P2-17 | Add static 404 page | COMPLETE | page |
+| P2-18 | Add frozen alias/retirement redirects | COMPLETE | config/build output |
+| P2-19 | Remove public `/dashboard/` implementation | COMPLETE | route absent/redirect |
+| P2-20 | Remove public `/application-tracker/` implementation | COMPLETE | route absent/redirect |
+| P2-21 | Remove tracker fragment/reference from ACB page | COMPLETE | source |
+| P2-22 | Remove old `site/content/**` JSON/block content | COMPLETE | deletion |
+| P2-23 | Remove old browser runtime JS modules | COMPLETE | deletion |
+| P2-24 | Remove old monolithic stylesheet after replacement owns all selectors | COMPLETE | deletion |
+| P2-25 | Run exact-SHA autonomous verification on complete migration | COMPLETE | Actions run |
+| P2-26 | Fix objective failures until green | COMPLETE | Actions logs |
+| P2-27 | Compare changed paths against baseline for scope | COMPLETE | compare |
+| P2-28 | Continue directly to P3; no user gate | COMPLETE | green SHA |
 
 ---
 
@@ -212,28 +212,28 @@ Still forbidden:
 
 | ID | Task | Status | Evidence |
 |---|---|---|---|
-| P3-01 | Change CV public build target to `site/assets/files/cv/` | BLOCKED | manifest/tool |
-| P3-02 | Add `reports.json` publication catalog for the 11 current public PDFs | BLOCKED | data file |
-| P3-03 | Make report publisher consume catalog and target `site/assets/files/reports/` | BLOCKED | publisher |
-| P3-04 | Make ACB project evidence library consume same report catalog | BLOCKED | source |
-| P3-05 | Update ignored generated-output paths | BLOCKED | `.gitignore` |
-| P3-06 | Update ACB main-only `site-build.yml` to build/upload `site/dist` | BLOCKED | workflow diff |
-| P3-07 | Keep project mirror `SITE_INDEXABLE=false` | BLOCKED | workflow/config |
-| P3-08 | Update `required-ci.yml` to Astro build; remove status/tracker/old validator | BLOCKED | workflow diff |
-| P3-09 | Delete `export-status.yml` | BLOCKED | deletion |
-| P3-10 | Delete obsolete `export_status.py` | BLOCKED | deletion |
-| P3-11 | Delete obsolete `validate_static_site.py` | BLOCKED | deletion |
-| P3-12 | Update `site/README.md` to factual Astro architecture | BLOCKED | doc |
-| P3-13 | Update root README only for public-surface facts made stale by refactor | BLOCKED | doc |
-| P3-14 | Update root AGENTS minimally for approved site architecture boundary | BLOCKED | doc |
-| P3-15 | Remove unused legacy root/site web files named in masterplan | BLOCKED | deletion list |
-| P3-16 | Confirm Application Tracker implementation files are untouched | BLOCKED | compare |
-| P3-17 | Confirm historical logs/report/CV sources are untouched except allowed artifact path tool changes | BLOCKED | compare |
-| P3-18 | Run final exact-SHA autonomous verification | BLOCKED | Actions run |
-| P3-19 | Fix all objective failures until green | BLOCKED | Actions logs |
-| P3-20 | Compare final branch vs frozen baseline and inspect every changed path for scope | BLOCKED | compare |
-| P3-21 | Record final green branch head SHA | BLOCKED | SHA |
-| P3-22 | V2: user performs final visual/feel review locally and accepts/rejects | HUMAN VISUAL GATE | user response |
+| P3-01 | Change CV public build target to `site/assets/files/cv/` | COMPLETE | manifest/tool |
+| P3-02 | Add `reports.json` publication catalog for the 11 current public PDFs | COMPLETE | data file |
+| P3-03 | Make report publisher consume catalog and target `site/assets/files/reports/` | COMPLETE | publisher |
+| P3-04 | Make ACB project evidence library consume same report catalog | COMPLETE | source |
+| P3-05 | Update ignored generated-output paths | COMPLETE | `.gitignore` |
+| P3-06 | Update ACB main-only `site-build.yml` to build/upload `site/dist` | COMPLETE | workflow diff |
+| P3-07 | Keep project mirror `SITE_INDEXABLE=false` | COMPLETE | workflow/config |
+| P3-08 | Update `required-ci.yml` to Astro build; remove status/tracker/old validator | COMPLETE | workflow diff |
+| P3-09 | Delete `export-status.yml` | COMPLETE | deletion |
+| P3-10 | Delete obsolete `export_status.py` | COMPLETE | deletion |
+| P3-11 | Delete obsolete `validate_static_site.py` | COMPLETE | deletion |
+| P3-12 | Update `site/README.md` to factual Astro architecture | COMPLETE | doc |
+| P3-13 | Update root README only for public-surface facts made stale by refactor | COMPLETE | doc |
+| P3-14 | Update root AGENTS minimally for approved site architecture boundary | COMPLETE | doc |
+| P3-15 | Remove unused legacy root/site web files named in masterplan | COMPLETE | deletion list |
+| P3-16 | Confirm Application Tracker implementation files are untouched | COMPLETE | compare |
+| P3-17 | Confirm historical logs/report/CV sources are untouched except allowed artifact path tool changes | COMPLETE | compare |
+| P3-18 | Run final exact-SHA autonomous verification | COMPLETE | Actions run |
+| P3-19 | Fix all objective failures until green | COMPLETE | Actions logs |
+| P3-20 | Compare final branch vs frozen baseline and inspect every changed path for scope | COMPLETE | compare |
+| P3-21 | Record final green branch head SHA | COMPLETE | SHA |
+| P3-22 | V2: user performs final visual/feel review locally and accepts/rejects | PENDING FINAL VISUAL | user response |
 
 ---
 
@@ -296,7 +296,7 @@ There is no P2 user gate. Objective build/function verification is agent-owned a
 |---|---|---|---|---|---|---|
 | P1 | `c7607b9d84ce7476dd2ac9602685f4837f8d0c92` | `33426586056` | PASS | PASS | PASS | PASS |
 | P2 | pending | pending | pending | pending | pending | pending |
-| P3 | pending | pending | pending | pending | pending | pending |
+| P3 | `40522b4be74df1e62f1a7a5eafb11032129ef0f5` | `33452336495` | PASS | PASS | PASS | PASS |
 
 The browser field records factual interaction/loading checks only. It never records aesthetic approval.
 
@@ -367,3 +367,7 @@ At that point the execution stops. The branch remains the complete development s
 - P2 completed and passed site-check run `33429107445` at `2977e5102593103896cc8fb1c93d37f335e7826c`.
 - P3 source verification passed site-check run `33430327781` at `765d4bbb81196ea9dcf8362f457f777a3b5cd912`: root/subpath builds, route/base verifier, and browser smoke all passed.
 - No PR, merge, deployment, main write, root-publication write, or Application Tracker implementation change was made.
+
+- Presentation recovery completed at `40522b4be74df1e62f1a7a5eafb11032129ef0f5`: the Astro/Markdown/static architecture remains intact while the shared shell, responsive rails, technical-document typography, signal/monitor treatment, route compositions, and narrow-screen behavior were rebuilt.
+- Recovery verification: site-check run `33452336495` passed root-base and project-base builds, artifact/route/base verification, navigation, persisted theme behavior, monitor controls, route loading, same-origin request/browser-error checks, and 390px overflow checks.
+- Scope review against `main@aa7d57c809db41bbbf042eebbfdeba4454476295` found only frozen-plan and recovery paths: no `site/assets/img/**` binary change, no Application Tracker implementation change, no private-data path, no main/root-publication write, PR, merge, or deployment.
