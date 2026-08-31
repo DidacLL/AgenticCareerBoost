@@ -1,0 +1,17 @@
+---
+import { getCollection, render } from "astro:content";
+import DocumentLayout from "../../layouts/DocumentLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { paths } from "../../lib/paths";
+export async function getStaticPaths() {
+ const projects=await getCollection("projects");
+ return (await getCollection("focus")).map((focus)=>({params:{id:focus.id},props:{focus,projects}}));
+}
+const { focus, projects }=Astro.props;
+const { Content }=await render(focus);
+const related=projects.filter((project)=>focus.data.relatedProjectIds.includes(project.id));
+---
+<DocumentLayout title={`${focus.data.title} — Dídac Llorens`} description={focus.data.description} label={focus.data.label} subtitle={focus.data.description} activePath="/focus/">
+  <article class="os-panel"><Content /></article>
+  <section class="os-section"><a href={paths.cv(focus.data.relatedCvId)}>Open the related CV view.</a><div class="project-list">{related.map((project)=><ProjectCard project={project} />)}</div></section>
+</DocumentLayout>
