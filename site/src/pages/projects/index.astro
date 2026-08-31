@@ -1,10 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import DocumentLayout from "../../layouts/DocumentLayout.astro";
-import ProjectCard from "../../components/ProjectCard.astro";
-const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+import ProjectPreview from "../../components/ProjectPreview.astro";
+const projects=(await getCollection("projects")).sort((a,b)=>a.data.order-b.data.order);
 ---
-<DocumentLayout title="Projects — Dídac Llorens" description="Selected projects by Dídac Llorens: AgenticCareerBoost, P3CTeX, AAAAT, and IronBank." label="PROJECTS" subtitle="AgenticCareerBoost, P3CTeX, AAAAT, and IronBank." activePath="/projects/">
-  <section class="os-panel"><p>This page groups the current public projects and older technical work. AgenticCareerBoost combines portfolio infrastructure, reports, automation, and career tooling. P3CTeX is LaTeX/document tooling. AAAAT is separate job-search tooling derived from earlier ACB experiments. IronBank is older Java/Spring backend work from the banking simulation project.</p></section>
-  <section class="os-section"><p class="os-label">01A / LIST</p><h3>Selected projects</h3><div class="project-list">{projects.map((project) => <ProjectCard project={project} />)}</div></section>
-</DocumentLayout>
+<DocumentLayout title="Projects" description="Selected public engineering projects by Dídac Llorens." label="01 / PROJECTS" subtitle="Systems, documentation, technical tools, and source-led public evidence." activePath="/projects/"><section class="section-block"><h3>INDEX</h3><div class="section-content preview-list">{projects.map((project)=><ProjectPreview project={project}/>)}</div></section></DocumentLayout>
