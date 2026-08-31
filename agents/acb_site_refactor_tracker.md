@@ -359,3 +359,11 @@ Cutover authorized: NO
 ```
 
 At that point the execution stops. The branch remains the complete development story and production candidate until the user explicitly authorizes a separate cutover.
+
+
+## 14. Execution evidence addendum
+
+- User explicitly instructed continuation through P2/P3 without pausing for V1/V2.
+- P2 completed and passed site-check run `33429107445` at `2977e5102593103896cc8fb1c93d37f335e7826c`.
+- P3 source verification passed site-check run `33430327781` at `765d4bbb81196ea9dcf8362f457f777a3b5cd912`: root/subpath builds, route/base verifier, and browser smoke all passed.
+- No PR, merge, deployment, main write, root-publication write, or Application Tracker implementation change was made.
