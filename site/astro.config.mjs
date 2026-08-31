@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 const origin = process.env.SITE_ORIGIN || "https://example.invalid";
 const base = process.env.SITE_BASE || "/";
 const indexable = process.env.SITE_INDEXABLE === "true";
+const withBase = (path) => `${base === "/" ? "" : base.replace(/\\/$/, "")}${path}`;
 
 export default defineConfig({
   site: origin,
@@ -13,14 +14,14 @@ export default defineConfig({
   publicDir: "./assets",
   build: { format: "directory" },
   redirects: {
-    "/dashboard/": "/projects/agentic-career-boost/",
-    "/application-tracker/": "/projects/agentic-career-boost/",
-    "/curriculum/": "/cv/ml/",
-    "/notes/": "/blog/",
-    "/hire/": "/focus/",
-    "/hire/ml/": "/focus/ml/",
-    "/hire/agentic/": "/focus/agentic/",
-    "/hire/backend/": "/focus/backend/"
+    "/dashboard/": withBase("/projects/agentic-career-boost/"),
+    "/application-tracker/": withBase("/projects/agentic-career-boost/"),
+    "/curriculum/": withBase("/cv/ml/"),
+    "/notes/": withBase("/blog/"),
+    "/hire/": withBase("/focus/"),
+    "/hire/ml/": withBase("/focus/ml/"),
+    "/hire/agentic/": withBase("/focus/agentic/"),
+    "/hire/backend/": withBase("/focus/backend/")
   },
   integrations: indexable ? [sitemap()] : []
 });
