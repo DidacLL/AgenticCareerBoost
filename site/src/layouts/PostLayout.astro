@@ -1,0 +1,8 @@
+---
+import DocumentLayout from "./DocumentLayout.astro";
+import type { CollectionEntry } from "astro:content";
+const { post } = Astro.props as { post: CollectionEntry<"posts"> };
+---
+<DocumentLayout title={`${post.data.title} — Dídac Llorens`} description={post.data.description} label={post.data.label ?? "ARTICLE"} subtitle={post.data.date.toLocaleDateString("en-CA")} activePath="/blog/">
+  <article class="os-panel"><ul class="tags">{post.data.tags.map((tag) => <li>{tag}</li>)}</ul><slot /></article>
+</DocumentLayout>
