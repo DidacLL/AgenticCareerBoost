@@ -1,17 +1,32 @@
 name: Deploy GitHub Pages
+
 on:
   workflow_dispatch:
   push:
-    branches: [main]
-    paths: [".github/workflows/site-build.yml", "site/**", "agents/cv/**", "agents/reports/tex/**"]
-permissions: { contents: read, pages: write, id-token: write }
-concurrency: { group: github-pages, cancel-in-progress: false }
+    branches:
+      - main
+    paths:
+      - .github/workflows/site-build.yml
+      - site/**
+      - agents/cv/**
+      - agents/reports/tex/**
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-        with: { persist-credentials: false }
+        with:
+          persist-credentials: false
       - id: pages
         uses: actions/configure-pages@v5
       - name: Compile public report PDFs
@@ -38,19 +53,23 @@ jobs:
       - name: Publish generated career PDFs
         run: python agents/cv/tools/artifact_manifest.py publish
       - uses: actions/setup-node@v6
-        with: { node-version: 24.20.0 }
+        with:
+          node-version: 24.20.0
       - name: Build Astro site
         run: npm install --prefix site --no-package-lock && npm run build --prefix site
         env:
-          SITE_ORIGIN: ${{ steps.pages.outputs.origin || 'https://example.invalid' }}
-          SITE_BASE: ${{ steps.pages.outputs.base_path || '/' }}
+          SITE_ORIGIN: ${{ steps.pages.outputs.origin }}
+          SITE_BASE: ${{ steps.pages.outputs.base_path }}
           SITE_INDEXABLE: false
       - uses: actions/upload-pages-artifact@v3
-        with: { path: site/dist }
+        with:
+          path: site/dist
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment: { name: github-pages, url: ${{ steps.deployment.outputs.page_url }} }
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
