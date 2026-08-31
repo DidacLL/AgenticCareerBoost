@@ -1,29 +1,15 @@
 name: required-ci
-
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  push: { branches: [main] }
+  pull_request: { branches: [main] }
   workflow_dispatch:
-
-permissions:
-  contents: read
-
+permissions: { contents: read }
 jobs:
   checks:
-    name: required-ci
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
-        with:
-          persist-credentials: false
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-
+      - uses: actions/checkout@v6
+        with: { persist-credentials: false }
       - name: Compile public report PDFs
         uses: xu-cheng/latex-action@v3
         with:
@@ -32,47 +18,28 @@ jobs:
             sprints/*.tex
             guides/*.tex
           args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
-
-      - name: Publish public report PDFs into site artifact
+      - name: Publish public report PDFs
         run: python agents/reports/tex/tools/publish-public-reports.py
-
       - name: Resolve career artifact build inputs
         id: career
         run: |
           python agents/cv/tools/artifact_manifest.py validate
-          {
-            echo 'root_files<<EOF'
-            python agents/cv/tools/artifact_manifest.py roots
-            echo 'EOF'
-          } >> "$GITHUB_OUTPUT"
-
+          { echo 'root_files<<EOF'; python agents/cv/tools/artifact_manifest.py roots; echo 'EOF'; } >> "$GITHUB_OUTPUT"
       - name: Compile public career PDFs
         uses: xu-cheng/latex-action@v3
         with:
           working_directory: agents/cv
           root_file: ${{ steps.career.outputs.root_files }}
           args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
-
-      - name: Publish generated career PDFs into site artifact
+      - name: Publish generated career PDFs
         run: python agents/cv/tools/artifact_manifest.py publish
-
-      - name: Generate site status data
-        run: python agents/tools/export_status.py
-
-      - name: Generate Application Tracker public demo
-        run: python application-tracker/export_demo_dashboard.py
-
-      - name: Validate static site
-        run: python agents/tools/validate_static_site.py
-
-      - name: Upload PR site artifact
-        if: always() && github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
-        with:
-          name: site-with-generated-pdfs
-          path: site
-          if-no-files-found: error
-          retention-days: 14
-
+      - uses: actions/setup-node@v6
+        with: { node-version: 24.20.0 }
+      - name: Build Astro site
+        run: npm install --prefix site --no-package-lock && npm run build --prefix site
+        env:
+          SITE_ORIGIN: ${{ steps.pages.outputs.origin || 'https://example.invalid' }}
+          SITE_BASE: ${{ steps.pages.outputs.base_path || '/' }}
+          SITE_INDEXABLE: false
       - name: Validate internal Markdown links
         run: bash agents/tools/validate_links.sh
