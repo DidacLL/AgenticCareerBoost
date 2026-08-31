@@ -1,0 +1,6 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { asset, paths } from "../lib/paths";
+const { project } = Astro.props as { project: CollectionEntry<"projects"> };
+---
+<a class="preview-row" href={paths.project(project.id)}><span class="preview-row__media"><img src={asset(project.data.image)} alt={project.data.imageAlt} loading="lazy" /></span><span class="preview-row__copy"><p class="system-label">{project.data.label ?? "PROJECT"} · {project.data.status ?? "public record"}</p><h3>{project.data.title} <span aria-hidden="true">→</span></h3><p>{project.data.summary}</p><ul class="tag-list">{project.data.tags.map((tag)=><li>{tag}</li>)}</ul></span></a>
