@@ -16,17 +16,74 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Verify branch checkout and runner
         run: |
           printf 'source_sha=%s\n' "$GITHUB_SHA" > preflight-output.txt
           printf 'ref=%s\n' "$GITHUB_REF" >> preflight-output.txt
           printf 'node=' >> preflight-output.txt
           node --version >> preflight-output.txt
+          printf 'npm=' >> preflight-output.txt
+          npm --version >> preflight-output.txt
           printf 'python=' >> preflight-output.txt
           python3 --version >> preflight-output.txt
-      - name: Upload ordinary Actions artifact
+
+      - name: Resolve package versions from npm registry
+        run: |
+          ASTRO_VERSION="$(npm view astro version)"
+          PLAYWRIGHT_VERSION="$(npm view playwright version)"
+          printf 'astro=%s\n' "$ASTRO_VERSION" | tee -a preflight-output.txt
+          printf 'playwright=%s\n' "$PLAYWRIGHT_VERSION" | tee -a preflight-output.txt
+          printf 'ASTRO_VERSION=%s\n' "$ASTRO_VERSION" >> "$GITHUB_ENV"
+          printf 'PLAYWRIGHT_VERSION=%s\n' "$PLAYWRIGHT_VERSION" >> "$GITHUB_ENV"
+
+      - name: Install Chromium for browser preflight
+        run: npx --yes playwright@${PLAYWRIGHT_VERSION} install --with-deps chromium
+
+      - name: Exercise current site in Chromium and emit machine-readable UX checks
+        shell: bash
+        run: |
+          python3 -m http.server 4173 --directory site > /tmp/acb-preflight-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID || true' EXIT
+          sleep 2
+          cat > /tmp/acb-browser-preflight.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          const browser = await chromium.launch({ headless: true });
+          const page = await browser.newPage({ viewport: { width: 1366, height: 768 } });
+          const consoleErrors = [];
+          const failedRequests = [];
+          page.on('console', msg => { if (msg.type() === 'error') consoleErrors.push(msg.text()); });
+          page.on('requestfailed', req => failedRequests.push({ url: req.url(), error: req.failure()?.errorText ?? 'unknown' }));
+          const response = await page.goto('http://127.0.0.1:4173/', { waitUntil: 'networkidle' });
+          await page.screenshot({ path: 'current-site-1366.png', fullPage: true });
+          const metrics = await page.evaluate(() => ({
+            title: document.title,
+            href: location.href,
+            statusText: document.readyState,
+            horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+            scrollWidth: document.documentElement.scrollWidth,
+            clientWidth: document.documentElement.clientWidth,
+            bodyTextLength: document.body.innerText.length,
+            links: [...document.querySelectorAll('a')].length,
+            images: [...document.images].map(img => ({ src: img.currentSrc || img.src, loaded: img.complete && img.naturalWidth > 0 }))
+          }));
+          const result = {
+            httpStatus: response?.status() ?? null,
+            metrics,
+            consoleErrors,
+            failedRequests
+          };
+          console.log('BROWSER_PREFLIGHT_JSON=' + JSON.stringify(result));
+          await browser.close();
+          EOF
+          npm exec --yes --package=playwright@${PLAYWRIGHT_VERSION} -- node /tmp/acb-browser-preflight.mjs
+
+      - name: Upload ordinary Actions artifacts
         uses: actions/upload-artifact@v4
         with:
           name: connector-preflight-${{ github.sha }}
-          path: preflight-output.txt
+          path: |
+            preflight-output.txt
+            current-site-1366.png
           retention-days: 1
