@@ -1,0 +1,9 @@
+---
+import { getCollection } from "astro:content";
+import DocumentLayout from "../../layouts/DocumentLayout.astro";
+import { paths } from "../../lib/paths";
+const views=(await getCollection("focus")).sort((a,b)=>a.data.order-b.data.order);
+---
+<DocumentLayout title="Focused views — Dídac Llorens" description="Focused profile views: ML/data systems, AI workflows, and backend/tooling." label="FOCUS VIEWS" subtitle="ML/data systems, AI workflows, and backend/tooling." activePath="/focus/">
+  <section class="os-panel"><p>These pages filter the same profile from three angles: ML/data systems, AI workflows, and backend/tooling.</p><div class="project-list">{views.map((view)=><a href={paths.focus(view.id)}><strong>{view.data.title}</strong> — {view.data.description}</a>)}</div></section>
+</DocumentLayout>
