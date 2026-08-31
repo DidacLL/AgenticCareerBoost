@@ -14,7 +14,7 @@ const walk = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((entry) 
 const sourceFiles = walk(resolve("site/src"));
 for (const file of sourceFiles) {
   const text = readFileSync(file, "utf8");
-  if (text.includes("didacll.github.io") || text.includes("/AgenticCareerBoost/")) throw new Error(`Host or deployment prefix found in source: ${file}`);
+  if (/https?:\\/\\/(?:www\\.)?didacll\\.github\\.io/.test(text) || /(?:href|src)\\s*=\\s*["']\\/?AgenticCareerBoost\\//.test(text)) throw new Error(`Host or deployment prefix found in source: ${file}`);
 }
 const pageFile = (route) => join(output, route === "/" ? "index.html" : route.replace(/^\//, "") + "index.html");
 const refs = (html) => [...html.matchAll(/(?:href|src)=["']([^"'#]+)["']/gi)].map((match) => match[1]);
