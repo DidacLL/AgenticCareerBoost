@@ -109,9 +109,9 @@ agents/reports/tex/guides/*cv*.pdf
 !/agents/cv/tex/didac-llorens-cv.tex
 
 # Generated public site artifacts
-site/files/cv/
-site/files/cover-letters/
-site/files/reports/*.pdf
+site/assets/files/cv/
+site/assets/files/cover-letters/
+site/assets/files/reports/*.pdf
 site/data/status.json
 
 # Jekyll and local site outputs
@@ -179,3 +179,8 @@ agents/reports/tex/guides/candidaturas_reconocimiento_tecnico_03072026.tex
 # Local-only artifacts preserved by backup but excluded from commits.
 /didac-*.pdf
 /agents/state/research/UserProjectConclusions.md
+
+# Astro local output
+site/node_modules/
+site/dist/
+site/.astro/
