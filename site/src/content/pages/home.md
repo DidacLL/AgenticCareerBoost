@@ -19,9 +19,7 @@ My current public work covers LaTeX/report systems, local-first career tooling, 
 
 ### Routes
 
-- [CV](/cv/ml/) — role-filtered views, PDF, and current profile.
-- [Projects](/projects/) — AgenticCareerBoost, P3CTeX, AAAAT, and IronBank.
-- [Blog](/blog/) — notes on AI workflows, static publishing, documentation, project maintenance, and software work.
+CV offers role-filtered views, PDF, and the current profile. Projects cover AgenticCareerBoost, P3CTeX, AAAAT, and IronBank. The blog keeps notes on AI workflows, static publishing, documentation, project maintenance, and software work.
 
 ## 00C / SITE
 
