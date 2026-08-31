@@ -1,12 +1,7 @@
 export const site = {
   title: "Dídac Llorens",
-  description: "Software engineer in Barcelona working on LaTeX tooling, local-first career tooling, static publishing, technical documentation, AI workflows, and backend/data systems.",
-  identity: {
-    mark: "DL",
-    name: "Dídac Llorens",
-    location: "Barcelona",
-    role: "Software engineer"
-  },
+  description: "Software engineer in Barcelona working on technical systems, documentation, and practical AI workflows.",
+  identity: { mark: "DL", name: "Dídac Llorens", location: "Barcelona", role: "Software engineer" },
   navigation: [
     { number: "00", label: "Home", path: "/" },
     { number: "01", label: "Projects", path: "/projects/" },
@@ -21,14 +16,12 @@ export const site = {
   ],
   theme: { toggle: "Toggle colour theme", dark: "dark mode", light: "light mode" },
   gallery: {
-    previous: "Previous portrait slide",
-    next: "Next portrait slide",
-    expand: "maximize",
-    collapse: "minimize",
-    image: "/img/me.png",
-    alt: "Dídac Llorens portrait rendered as a retro monitor feed",
-    caption: "portrait / default signal"
+    previous: "Previous signal", next: "Next signal", expand: "maximize", collapse: "minimize",
+    slides: [
+      { image: "/img/me.png", alt: "Dídac Llorens portrait in monitor signal treatment", caption: "portrait / default signal" },
+      { image: "/img/avatar.jpg", alt: "Dídac Llorens portrait alternate signal", caption: "portrait / alternate signal" }
+    ]
   },
-  banner: { image: "/img/418_informal_banner.jpg", alt: "418 banner artwork with Dídac Llorens visual identity" },
+  banner: { image: "/img/418_informal_banner.jpg", alt: "418 visual channel" },
   footer: "© Dídac Llorens · public technical work and source-led evidence."
 } as const;
