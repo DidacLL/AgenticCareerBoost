@@ -72,7 +72,7 @@ If any row fails: STOP; no branch/write is allowed.
 
 | Phase | Purpose | Build gate | Human visual gate | Status |
 |---|---|---|---|---|
-| P1 | Astro foundation + representative visual shell | autonomous build/route/link/base/browser checks | V1 REQUIRED | NOT STARTED |
+| P1 | Astro foundation + representative visual shell | autonomous build/route/link/base/browser checks | V1 REQUIRED | AWAITING V1 |
 | P2 | Complete route/content migration + old runtime removal | autonomous build/route/link/base/browser checks | NONE | BLOCKED BY P1 |
 | P3 | Public artifacts + CI/deploy preparation + repo alignment | autonomous checks + complete diff scope review | V2 REQUIRED | BLOCKED BY P2 |
 | CUTOVER | production integration | separate plan | separate explicit approval | OUTSIDE SCOPE |
@@ -107,26 +107,26 @@ Forbidden:
 | P1-01 | Recheck exact baseline SHA and execution-branch lineage | COMPLETE | `main` identical to baseline; handoff delta inspected |
 | P1-02 | Use existing `DidacLl/siterefactor` branch from exact baseline | COMPLETE | pre-existing branch descends directly from baseline |
 | P1-03 | Keep frozen masterplan + tracker at authoritative `agents/` paths | COMPLETE | existing handoff commit; references normalized |
-| P1-04 | Add `site/package.json` with exact Astro 7.2.9 + sitemap 3.7.3 | PENDING | file |
-| P1-05 | Add `.npmrc`, `astro.config.mjs`, `tsconfig.json` | PENDING | files |
-| P1-06 | Configure static/directory/trailing-slash/publicDir/env-driven origin+base | PENDING | config |
-| P1-07 | Add content schemas and single route/path helper | PENDING | source |
-| P1-08 | Add global site identity/nav/UI data owner | PENDING | source |
-| P1-09 | Add Base/Document/Project layouts | PENDING | source |
-| P1-10 | Rebuild current visual tokens/shell without redesign | PENDING | CSS |
-| P1-11 | Add theme persistence and gallery behavior only | PENDING | JS |
-| P1-12 | Migrate Home | PENDING | Markdown/page |
-| P1-13 | Migrate Projects index | PENDING | page |
-| P1-14 | Migrate AgenticCareerBoost project page without tracker/dashboard | PENDING | Markdown |
-| P1-15 | Migrate P3CTeX project page | PENDING | Markdown |
-| P1-16 | Update `localdeploy.bat` to double-click Astro dev launcher | PENDING | file |
-| P1-17 | Add `verify-build.mjs` explicit invariant verifier | PENDING | script |
-| P1-18 | Add minimal browser functional smoke contract | PENDING | browser check |
-| P1-19 | Add branch-only `site-check.yml` with concurrency cancellation | PENDING | workflow |
-| P1-20 | Locate exact-SHA run and read jobs/logs | PENDING | Actions run SHA |
-| P1-21 | Fix all objective failures until exact head SHA is green | PENDING | Actions logs |
-| P1-22 | Compare changed paths against baseline for scope | PENDING | compare |
-| P1-23 | Report exact green SHA | PENDING | SHA |
+| P1-04 | Add `site/package.json` with exact Astro 7.2.9 + sitemap 3.7.3 | COMPLETE | `site/package.json` |
+| P1-05 | Add `.npmrc`, `astro.config.mjs`, `tsconfig.json` | COMPLETE | Astro config files |
+| P1-06 | Configure static/directory/trailing-slash/publicDir/env-driven origin+base | COMPLETE | static/directory/trailing/publicDir/env config |
+| P1-07 | Add content schemas and single route/path helper | COMPLETE | collections + `paths.ts` |
+| P1-08 | Add global site identity/nav/UI data owner | COMPLETE | `src/data/site.ts` |
+| P1-09 | Add Base/Document/Project layouts | COMPLETE | Astro layouts |
+| P1-10 | Rebuild current visual tokens/shell without redesign | COMPLETE | token/base/site/print CSS |
+| P1-11 | Add theme persistence and gallery behavior only | COMPLETE | theme + gallery scripts |
+| P1-12 | Migrate Home | COMPLETE | `pages/home.md` + route |
+| P1-13 | Migrate Projects index | COMPLETE | project index route |
+| P1-14 | Migrate AgenticCareerBoost project page without tracker/dashboard | COMPLETE | ACB Markdown entry |
+| P1-15 | Migrate P3CTeX project page | COMPLETE | P3CTeX Markdown entry |
+| P1-16 | Update `localdeploy.bat` to double-click Astro dev launcher | COMPLETE | Astro launcher |
+| P1-17 | Add `verify-build.mjs` explicit invariant verifier | COMPLETE | `verify-build.mjs` |
+| P1-18 | Add minimal browser functional smoke contract | COMPLETE | `browser-smoke.mjs` |
+| P1-19 | Add branch-only `site-check.yml` with concurrency cancellation | COMPLETE | `.github/workflows/site-check.yml` |
+| P1-20 | Locate exact-SHA run and read jobs/logs | COMPLETE | run `33426586056`, job `99601533065` |
+| P1-21 | Fix all objective failures until exact head SHA is green | COMPLETE | green exact source SHA |
+| P1-22 | Compare changed paths against baseline for scope | COMPLETE | baseline compare: only P1-control/site paths |
+| P1-23 | Report exact green SHA | COMPLETE | `c7607b9d84ce7476dd2ac9602685f4837f8d0c92` |
 | P1-24 | V1: user opens `localdeploy.bat` and approves visual direction or reports visual defects | HUMAN VISUAL GATE | user response |
 
 P1 cannot close without the human gate.
@@ -283,7 +283,7 @@ No new route may be added during this refactor without explicit user scope expan
 
 | Gate | Branch SHA | User result | Required action |
 |---|---|---|---|
-| V1 after P1 visual foundation | pending | pending | continue or targeted visual patch |
+| V1 after P1 visual foundation | `c7607b9d84ce7476dd2ac9602685f4837f8d0c92` | pending | continue or targeted visual patch |
 | V2 final production candidate | pending | pending | stop; cutover remains separate |
 
 There is no P2 user gate. Objective build/function verification is agent-owned and recorded below.
@@ -294,7 +294,7 @@ There is no P2 user gate. Objective build/function verification is agent-owned a
 
 | Phase | Exact branch SHA | Run ID | Build/root+subpath | Route/link/base verifier | Browser functional smoke | Scope review |
 |---|---|---|---|---|---|---|
-| P1 | pending | pending | pending | pending | pending | pending |
+| P1 | `c7607b9d84ce7476dd2ac9602685f4837f8d0c92` | `33426586056` | PASS | PASS | PASS | PASS |
 | P2 | pending | pending | pending | pending | pending | pending |
 | P3 | pending | pending | pending | pending | pending | pending |
 
