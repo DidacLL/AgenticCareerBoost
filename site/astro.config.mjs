@@ -12,5 +12,15 @@ export default defineConfig({
   trailingSlash: "always",
   publicDir: "./assets",
   build: { format: "directory" },
+  redirects: {
+    "/dashboard/": "/projects/agentic-career-boost/",
+    "/application-tracker/": "/projects/agentic-career-boost/",
+    "/curriculum/": "/cv/ml/",
+    "/notes/": "/blog/",
+    "/hire/": "/focus/",
+    "/hire/ml/": "/focus/ml/",
+    "/hire/agentic/": "/focus/agentic/",
+    "/hire/backend/": "/focus/backend/"
+  },
   integrations: indexable ? [sitemap()] : []
 });
