@@ -26,9 +26,12 @@ const errors = [];
 const failed = [];
 page.on("pageerror", (error) => errors.push(error.message));
 page.on("requestfailed", (request) => { if (request.url().startsWith(origin)) failed.push(request.url()); });
-for (const route of ["/", "/projects/", "/projects/agentic-career-boost/", "/projects/p3ctex/"]) {
-  await page.goto(new URL(route, origin).toString(), { waitUntil: "networkidle" });
-}
+const routes = [
+  "/", "/projects/", "/projects/agentic-career-boost/", "/projects/p3ctex/", "/projects/aaaat/", "/projects/ironbank/",
+  "/blog/", "/blog/agents-need-receipts/", "/blog/static-sites-as-workbenches/", "/blog/sprint-review-agenticcareerboost/",
+  "/cv/ml/", "/cv/agentic/", "/cv/backend/", "/cv/print/", "/focus/", "/focus/ml/", "/focus/agentic/", "/focus/backend/", "/contact/"
+];
+for (const route of routes) await page.goto(new URL(route, origin).toString(), { waitUntil: "networkidle" });
 await page.goto(origin, { waitUntil: "networkidle" });
 await page.getByRole("link", { name: /Projects/ }).first().click();
 if (!page.url().endsWith("/projects/")) throw new Error("Ordinary navigation did not reach projects.");
@@ -41,13 +44,16 @@ const gallery = page.locator("[data-gallery]");
 const before = await gallery.getAttribute("data-slide");
 await page.locator("[data-gallery-next]").click();
 if (await gallery.getAttribute("data-slide") === before) throw new Error("Gallery next did not change state.");
+await page.locator("[data-gallery-prev]").click();
+if (await gallery.getAttribute("data-slide") !== before) throw new Error("Gallery previous did not restore state.");
 await page.locator("[data-gallery-expand]").click();
 if (await gallery.getAttribute("data-expanded") !== "true") throw new Error("Gallery did not expand.");
 for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
   await page.setViewportSize(viewport);
-  await page.goto(origin, { waitUntil: "networkidle" });
-  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
-  if (overflow) throw new Error(`Horizontal overflow at ${viewport.width}px`);
+  for (const route of ["/", "/projects/agentic-career-boost/", "/cv/print/", "/blog/agents-need-receipts/"]) {
+    await page.goto(new URL(route, origin).toString(), { waitUntil: "networkidle" });
+    if (await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)) throw new Error(`Horizontal overflow at ${viewport.width}px on ${route}`);
+  }
 }
 await browser.close();
 await new Promise((done) => server.close(done));
