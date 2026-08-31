@@ -1,17 +1,7 @@
 # site/
 
-Canonical source for public website runtime files.
+Astro source for the public static site.
 
-The site is plain static HTML/CSS/JS. GitHub Pages is deployed from the
-repository root so root SEO entrypoints can stay at canonical URLs, while site
-runtime dependencies stay under `site/`.
+Content is Markdown in src/content/; layouts and components render it at build time. Public assets stay under assets/, including generated CV and report PDFs under assets/files/. Only theme persistence and the portrait gallery use client JavaScript.
 
-## Rules
-
-- Edit HTML, CSS, and JavaScript here.
-- Do not add a site generator unless a future sprint proves it is worth the
-  dependency.
-- Published PDFs remain in `site/files/reports/`; the published CV remains in
-  `site/files/cv/`.
-- Generated runtime status lives at `site/data/status.json` and comes from
-  `agents/tools/export_status.py`; do not edit it by hand.
+Run localdeploy.bat from the repository root for local viewing. Production deployment remains main-only; this branch does not deploy.
