@@ -2,4 +2,4 @@
 import reports from "../data/reports.json";
 import { asset } from "../lib/paths";
 ---
-<section class="os-section"><p class="os-label">EVIDENCE LIBRARY</p><div class="project-list">{reports.map((report) => <a href={asset(`files/reports/${report.file}`)}>{report.title} — {report.description}</a>)}</div></section>
+<section class="section-block"><h3>EVIDENCE</h3><div class="section-content preview-list">{reports.map((report) => <a class="preview-row" href={asset(`files/reports/${report.file}`)}><span class="article-date">PDF</span><span class="preview-row__copy"><h3>{report.title} <span aria-hidden="true">↗</span></h3><p>{report.description}</p></span></a>)}</div></section>
