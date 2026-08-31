@@ -27,7 +27,7 @@ const failed = [];
 page.on("pageerror", (error) => errors.push(error.message));
 page.on("requestfailed", (request) => { if (request.url().startsWith(origin)) failed.push(request.url()); });
 for (const route of ["/", "/projects/", "/projects/agentic-career-boost/", "/projects/p3ctex/"]) {
-  await page.goto(new URL(route, origin), { waitUntil: "networkidle" });
+  await page.goto(new URL(route, origin).toString(), { waitUntil: "networkidle" });
 }
 await page.goto(origin, { waitUntil: "networkidle" });
 await page.getByRole("link", { name: /Projects/ }).first().click();
