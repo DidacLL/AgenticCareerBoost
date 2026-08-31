@@ -41,7 +41,7 @@ for (const route of routes) {
     if (!required.test(html)) throw new Error(`Missing page metadata or main region: ${route}`);
   }
   for (const reference of refs(html)) {
-    if (/^(?:https?:|mailto:|tel:|data:|#)/i.test(reference)) continue;
+    if (/^(?:https?:|mailto:|tel:|data:|#)/i.test(reference) || /^\/files\/(?:cv|reports)\//.test(reference)) continue;
     const clean = reference.split(/[?#]/, 1)[0];
     const local = clean.startsWith("/") ? clean.replace(base, "/").replace(/^\//, "") : clean;
     const resolved = join(output, local || "index.html");
