@@ -1,12 +1,12 @@
 <!-- markdownlint-disable-file MD041 -->
 ## Checklist
 
-- [ ] Execution mode identified from `agents/rules/core/execution-modes.md`
-- [ ] Scope/writes match the user request or sprint contract
-- [ ] Validation matches touched area only
-- [ ] PairCheck or source review included when risk requires it
-- [ ] State/backlog updated only when the selected mode requires it
-- [ ] No orphan work: every artifact connects to repo, site, or social
+- [ ] Scope is clear and matches the issue/request
+- [ ] Private application data, tailored letters/CVs, databases, raw offers, and generated private PDFs are not staged
+- [ ] Generated artifacts are intentional or kept out of the diff
+- [ ] Docs/site copy still describe ACB as a personal career workspace and proof record
+- [ ] Application Tracker and renderer changes preserve the local scratch workflow
+- [ ] Manual review covered the staged file list and public-facing copy
 
 ## Summary
 

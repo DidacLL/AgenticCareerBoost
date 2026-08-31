@@ -17,7 +17,7 @@ body:
     id: source_artifact
     attributes:
       label: Source artifact
-      placeholder: Sprint, commit, or doc that this post references.
+      placeholder: Commit, report, project page, or repo evidence this post references.
     validations:
       required: true
   - type: textarea
@@ -31,4 +31,4 @@ body:
     id: tone_check
     attributes:
       label: Tone check
-      placeholder: Confirm alignment with agents/rules/core/brand.md - flag any concerns.
+      placeholder: Confirm the draft is specific, sober, and does not overclaim AI work.
