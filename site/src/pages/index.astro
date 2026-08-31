@@ -1,0 +1,17 @@
+---
+import { getEntry, render } from "astro:content";
+import DocumentLayout from "../layouts/DocumentLayout.astro";
+import Gallery from "../components/Gallery.astro";
+import { paths } from "../lib/paths";
+const home = await getEntry("pages", "home");
+if (!home) throw new Error("Home content is missing.");
+const { Content } = await render(home);
+---
+<DocumentLayout title={home.data.title} description={home.data.description} label={home.data.label ?? "HOME"} subtitle="Software engineer in Barcelona working on LaTeX tooling, local-first career tooling, static publishing, technical documentation, and backend/data systems." activePath="/">
+  <div class="intro-grid"><div><Content /></div><Gallery /></div>
+  <section class="os-section"><p class="os-label">00B / ROUTES</p><div class="project-list">
+    <a href={paths.cv("ml")}>CV — role-filtered views, PDF, and current profile.</a>
+    <a href={paths.projects()}>Projects — AgenticCareerBoost, P3CTeX, AAAAT, and IronBank.</a>
+    <a href={paths.blog()}>Blog — technical notes and working history.</a>
+  </div></section>
+</DocumentLayout>
