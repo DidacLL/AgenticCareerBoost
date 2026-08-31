@@ -1,5 +1,5 @@
 name: Hotfix task
-description: A small, focused fix outside a full sprint.
+description: A small, focused repository or site fix.
 labels: ["hotfix"]
 body:
   - type: textarea
@@ -23,11 +23,11 @@ body:
       options:
         - "< 30 min"
         - "< 1 hour"
-        - "Escalate to sprint"
+        - "Needs separate planning"
     validations:
       required: true
   - type: textarea
-    id: backlog_note
+    id: review_note
     attributes:
-      label: Backlog note
-      placeholder: Brief note to append to agents/state/backlog.md after completion.
+      label: Review note
+      placeholder: What should be checked manually before merging?

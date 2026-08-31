@@ -20,4 +20,4 @@ body:
     id: source_artifact
     attributes:
       label: Source artifact
-      placeholder: Link to the sprint output, commit, or content file that drives this change.
+      placeholder: Link to the commit, report, screenshot, or content file that drives this change.
