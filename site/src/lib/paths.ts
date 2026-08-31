@@ -11,7 +11,8 @@ export function href(path = "/") {
 }
 
 export function asset(path: string) {
-  return href(path);
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  return `${base}/${normalize(path)}`;
 }
 
 export const paths = {
