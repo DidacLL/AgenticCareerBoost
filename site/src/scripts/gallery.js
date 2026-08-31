@@ -2,7 +2,7 @@ document.querySelectorAll("[data-gallery]").forEach((gallery) => {
   const image = gallery.querySelector("img");
   const expand = gallery.querySelector("[data-gallery-expand]");
   let index = 0;
-  const labels = [image?.alt || ""];
+  const labels = [image?.alt || "", "portrait / secondary signal"];
   const sync = () => {
     gallery.dataset.slide = String(index);
     if (image) image.alt = labels[index];
