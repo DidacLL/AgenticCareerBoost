@@ -4,7 +4,7 @@
 **Status:** FINAL / executable contract after read-only repository audit  
 **Repository:** `DidacLL/AgenticCareerBoost`  
 **Remote baseline:** `main` at `aa7d57c809db41bbbf042eebbfdeba4454476295`  
-**Execution branch:** `refactor/site-astro`  
+**Execution branch:** `DidacLl/siterefactor`  
 **Execution environment:** ChatGPT Classic + connected GitHub connector; user performs subjective visual review locally  
 **Production cutover:** explicitly OUTSIDE this execution plan
 
@@ -52,14 +52,14 @@ Any request whose operative verb is analysis/review/audit/check/plan is read-onl
 
 Repository mutation begins only after the user explicitly instructs ChatGPT to execute this masterplan.
 
-That instruction authorizes only the writes listed in this document, only in `DidacLL/AgenticCareerBoost`, and only on `refactor/site-astro` until a separate cutover authorization is given.
+That instruction authorizes only the writes listed in this document, only in `DidacLL/AgenticCareerBoost`, and only on `DidacLl/siterefactor` until a separate cutover authorization is given.
 
 ### 3.3 Precondition before the first write
 
-Immediately before branch creation, perform these read-only checks:
+At execution handoff, perform these read-only checks:
 
 - `main` must still resolve to `aa7d57c809db41bbbf042eebbfdeba4454476295`.
-- `refactor/site-astro` must not already exist.
+- `DidacLl/siterefactor` must exist, descend directly from the expected baseline, and contain only the committed control documents before execution mutations.
 - `main` must remain the default production source.
 
 If any condition is false: **STOP. Do not adapt the plan silently.** Report the changed fact to the user.
@@ -92,7 +92,7 @@ The plan uses only the following connector capabilities that are present in this
 | Read repository/files/branches/commits/trees | PASS | audit and review |
 | Compare refs/commits | PASS | baseline and change inspection |
 | Repository permission query | PASS (`admin`) | confirms connected account access |
-| Create branch | PASS | create `refactor/site-astro` after authorization |
+| Existing execution branch | PASS | use `DidacLl/siterefactor`; do not create another branch |
 | Create/update/delete UTF-8 text files on a branch | PASS | implementation |
 | Write workflow YAML as a text file | PASS | one non-deploy build workflow |
 | Push on a non-main branch triggers branch workflow | PASS | objective compile check |
@@ -224,10 +224,9 @@ No image-CDN, binary optimizer or extra dependency is introduced. Images below t
 
 ```text
 AgenticCareerBoost/
-├─ docs/
-│  └─ site-refactor/
-│     ├─ masterplan.md
-│     └─ progress.md
+├─ agents/
+│  ├─ acb_site_refactor_masterplan.md
+│  └─ acb_site_refactor_tracker.md
 ├─ localdeploy.bat
 ├─ site/
 │  ├─ .npmrc
@@ -622,7 +621,7 @@ Create one `.github/workflows/site-check.yml`. Its purpose is to make the agent 
 
 ### Trigger
 
-`push` to `refactor/site-astro` for `site/**`, `localdeploy.bat`, or this workflow.
+`push` to `DidacLl/siterefactor` for `site/**`, `localdeploy.bat`, or this workflow.
 
 Use workflow concurrency for this branch with `cancel-in-progress: true`. Connector text writes may create several small commits; obsolete runs are cancelled and the latest branch SHA is the only result that matters. No sentinel file and no PR are required.
 
@@ -767,7 +766,7 @@ Missing generated PDFs do not block local UI viewing. The local launcher does no
 
 ## 20. Production workflow changes prepared on the refactor branch
 
-Updating the workflow files on `refactor/site-astro` does not deploy because the production workflow trigger remains `push: main`.
+Updating the workflow files on `DidacLl/siterefactor` does not deploy because the production workflow trigger remains `push: main`.
 
 ### 20.1 ACB `.github/workflows/site-build.yml`
 
@@ -882,8 +881,8 @@ Do not delete historical `agents/state/logs/**`, report sources, CV sources or A
 Operations:
 
 1. verify Section 3.3 preconditions;
-2. create `refactor/site-astro` from the exact baseline;
-3. add this masterplan and tracker under `docs/site-refactor/`;
+2. continue on the existing `DidacLl/siterefactor` branch, which already descends directly from the exact baseline;
+3. retain this masterplan and tracker at their authoritative `agents/` paths;
 4. add Astro package/config/content-schema/path/global-data foundation;
 5. add Base/Document/Project layouts and minimal components;
 6. reconstruct the current visual shell/tokens/theme/gallery without generic redesign;
