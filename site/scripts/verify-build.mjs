@@ -29,7 +29,8 @@ for (const route of routes) {
   for (const reference of refs(html)) {
     if (/^(?:https?:|mailto:|tel:|data:|#)/i.test(reference)) continue;
     const clean = reference.split(/[?#]/, 1)[0];
-    if (deferredP2Routes.has(clean)) continue;
+    const routePath = clean.startsWith(base) ? clean.slice(base.length - 1) : clean;
+    if (deferredP2Routes.has(routePath)) continue;
     const local = clean.startsWith("/") ? clean.replace(base, "/").replace(/^\//, "") : clean;
     const resolved = join(output, local || "index.html");
     if (!existsSync(resolved) && !existsSync(join(resolved, "index.html"))) throw new Error(`Broken generated reference ${reference} from ${route}`);
