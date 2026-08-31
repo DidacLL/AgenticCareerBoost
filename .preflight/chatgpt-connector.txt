@@ -1,0 +1,4 @@
+ChatGPT GitHub connector capability preflight
+created: 2026-08-31
+branch: preflight/chatgpt-github-capabilities-20260831
+step: create-file
