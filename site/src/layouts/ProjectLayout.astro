@@ -2,6 +2,10 @@
 import DocumentLayout from "./DocumentLayout.astro";
 import type { CollectionEntry } from "astro:content";
 import { asset } from "../lib/paths";
-const {project}=Astro.props as {project:CollectionEntry<"projects">};
+const { project } = Astro.props as { project: CollectionEntry<"projects"> };
 ---
-<DocumentLayout title={project.data.title} description={project.data.description} label={project.data.label ?? "PROJECT"} subtitle={project.data.summary} activePath="/projects/"><section class="section-block"><h3>SIGNAL</h3><div class="section-content project-signal"><figure class="media-frame"><img src={asset(project.data.image)} alt={project.data.imageAlt} loading="eager"/></figure><dl class="fact-table"><div><dt>STATUS</dt><dd>{project.data.status ?? "Public technical record"}</dd></div><div><dt>TAGS</dt><dd>{project.data.tags.join(" · ")}</dd></div>{project.data.repository&&<div><dt>SOURCE</dt><dd><a href={project.data.repository}>Open repository →</a></dd></div>}</dl></div></section><section class="section-block"><h3>DOCUMENT</h3><div class="section-content prose"><slot/></div></section></DocumentLayout>
+<DocumentLayout title={project.data.title} description={project.data.description} label={project.data.label ?? "PROJECT"} subtitle={project.data.summary} activePath="/projects/">
+  <section class="section-block"><h3>SIGNAL</h3><div class="section-content project-signal"><figure class="media-frame"><img src={asset(project.data.image)} alt={project.data.imageAlt} loading="eager" /></figure><dl class="fact-table"><div><dt>STATUS</dt><dd>{project.data.status ?? "Public technical record"}</dd></div><div><dt>TAGS</dt><dd>{project.data.tags.join(" · ")}</dd></div>{project.data.repository && <div><dt>SOURCE</dt><dd><a href={project.data.repository}>Open repository →</a></dd></div>}</dl></div></section>
+  <section class="section-block"><h3>DOCUMENT</h3><div class="section-content prose"><slot /></div></section>
+  <slot name="evidence" />
+</DocumentLayout>
