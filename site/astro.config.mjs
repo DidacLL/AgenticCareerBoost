@@ -7,21 +7,12 @@ const indexable = process.env.SITE_INDEXABLE === "true";
 const withBase = (path) => `${base === "/" ? "" : base.replace(/\/$/, "")}${path}`;
 
 export default defineConfig({
-  site: origin,
-  base,
-  output: "static",
-  trailingSlash: "always",
-  publicDir: "./assets",
-  build: { format: "directory" },
+  site: origin, base, output: "static", trailingSlash: "always", publicDir: "./assets",
+  build: { format: "directory" }, devToolbar: { enabled: false },
   redirects: {
-    "/dashboard/": withBase("/projects/agentic-career-boost/"),
-    "/application-tracker/": withBase("/projects/agentic-career-boost/"),
-    "/curriculum/": withBase("/cv/ml/"),
-    "/notes/": withBase("/blog/"),
-    "/hire/": withBase("/focus/"),
-    "/hire/ml/": withBase("/focus/ml/"),
-    "/hire/agentic/": withBase("/focus/agentic/"),
-    "/hire/backend/": withBase("/focus/backend/")
+    "/dashboard/": withBase("/projects/agentic-career-boost/"), "/application-tracker/": withBase("/projects/agentic-career-boost/"),
+    "/curriculum/": withBase("/cv/ml/"), "/notes/": withBase("/blog/"), "/hire/": withBase("/focus/"),
+    "/hire/ml/": withBase("/focus/ml/"), "/hire/agentic/": withBase("/focus/agentic/"), "/hire/backend/": withBase("/focus/backend/")
   },
   integrations: indexable ? [sitemap()] : []
 });
