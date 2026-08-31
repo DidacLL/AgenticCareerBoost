@@ -1,10 +1,9 @@
 ---
 import { getCollection, render } from "astro:content";
 import ProjectLayout from "../../layouts/ProjectLayout.astro";
-export async function getStaticPaths() {
-  return (await getCollection("projects")).map((project) => ({ params: { id: project.id }, props: { project } }));
-}
+import ArtifactList from "../../components/ArtifactList.astro";
+export async function getStaticPaths() { return (await getCollection("projects")).map((project) => ({ params: { id: project.id }, props: { project } })); }
 const { project } = Astro.props;
 const { Content } = await render(project);
 ---
-<ProjectLayout project={project}><Content /></ProjectLayout>
+<ProjectLayout project={project}><Content />{project.id === "agentic-career-boost" && <ArtifactList />}</ProjectLayout>
