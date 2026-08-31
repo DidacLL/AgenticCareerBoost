@@ -44,7 +44,7 @@ const gallery = page.locator("[data-gallery]");
 const before = await gallery.getAttribute("data-slide");
 await page.locator("[data-gallery-next]").click();
 if (await gallery.getAttribute("data-slide") === before) throw new Error("Gallery next did not change state.");
-await page.locator("[data-gallery-prev]").click();
+await page.locator("[data-gallery-previous]").click();
 if (await gallery.getAttribute("data-slide") !== before) throw new Error("Gallery previous did not restore state.");
 await page.locator("[data-gallery-expand]").click();
 if (await gallery.getAttribute("data-expanded") !== "true") throw new Error("Gallery did not expand.");
