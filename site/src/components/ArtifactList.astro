@@ -1,0 +1,5 @@
+---
+import reports from "../data/reports.json";
+import { asset } from "../lib/paths";
+---
+<section class="os-section"><p class="os-label">EVIDENCE LIBRARY</p><div class="project-list">{reports.map((report) => <a href={asset(`files/reports/${report.file}`)}>{report.title} — {report.description}</a>)}</div></section>
