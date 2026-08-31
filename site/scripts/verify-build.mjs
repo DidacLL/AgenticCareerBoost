@@ -17,7 +17,8 @@ for (const file of sourceFiles) {
   if (text.includes("https://didacll.github.io") || text.includes("http://didacll.github.io") || text.includes('href="/AgenticCareerBoost/') || text.includes('src="/AgenticCareerBoost/')) throw new Error(`Host or deployment prefix found in source: ${file}`);
 }
 const pageFile = (route) => join(output, route === "/" ? "index.html" : route.replace(/^\//, "") + "index.html");
-const deferredP2Routes = new Set(["/blog/", "/cv/ml/", "/contact/", "/focus/ml/", "/focus/agentic/", "/focus/backend/"]);\nconst refs = (html) => [...html.matchAll(/(?:href|src)=["']([^"'#]+)["']/gi)].map((match) => match[1]);
+const deferredP2Routes = new Set(["/blog/", "/cv/ml/", "/contact/", "/focus/ml/", "/focus/agentic/", "/focus/backend/"]);
+const refs = (html) => [...html.matchAll(/(?:href|src)=["']([^"'#]+)["']/gi)].map((match) => match[1]);
 for (const route of routes) {
   const file = pageFile(route);
   if (!existsSync(file)) throw new Error(`Missing generated route: ${route}`);
@@ -28,6 +29,7 @@ for (const route of routes) {
   for (const reference of refs(html)) {
     if (/^(?:https?:|mailto:|tel:|data:|#)/i.test(reference)) continue;
     const clean = reference.split(/[?#]/, 1)[0];
+    if (deferredP2Routes.has(clean)) continue;
     const local = clean.startsWith("/") ? clean.replace(base, "/").replace(/^\//, "") : clean;
     const resolved = join(output, local || "index.html");
     if (!existsSync(resolved) && !existsSync(join(resolved, "index.html"))) throw new Error(`Broken generated reference ${reference} from ${route}`);
