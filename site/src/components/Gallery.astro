@@ -1,0 +1,16 @@
+---
+import { site } from "../data/site";
+import { asset } from "../lib/paths";
+---
+<figure class="gallery" data-gallery data-expanded="false">
+  <img src={asset(site.gallery.image)} alt={site.gallery.alt} loading="lazy" />
+  <figcaption>{site.gallery.caption}</figcaption>
+  <div class="gallery-controls">
+    <button type="button" data-gallery-previous>{site.gallery.previous}</button>
+    <button type="button" data-gallery-next>{site.gallery.next}</button>
+    <button type="button" data-gallery-expand>{site.gallery.expand}</button>
+  </div>
+</figure>
+<script>
+  import "../scripts/gallery.js";
+</script>
