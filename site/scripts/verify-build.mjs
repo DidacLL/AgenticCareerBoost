@@ -37,7 +37,7 @@ for (const route of routes) {
   const file = pageFile(route);
   if (!existsSync(file)) throw new Error(`Missing generated route: ${route}`);
   const html = readFileSync(file, "utf8");
-  for (const required of [/<title>[^<]+<\\/title>/i, /<meta name="description"/i, /<link rel="canonical"/i, /<main[ >]/i]) {
+  for (const required of [/<title>[^<]+<\/title>/i, /<meta name="description"/i, /<link rel="canonical"/i, /<main[ >]/i]) {
     if (!required.test(html)) throw new Error(`Missing page metadata or main region: ${route}`);
   }
   for (const reference of refs(html)) {
