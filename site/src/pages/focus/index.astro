@@ -2,8 +2,29 @@
 import { getCollection } from "astro:content";
 import DocumentLayout from "../../layouts/DocumentLayout.astro";
 import { paths } from "../../lib/paths";
+
 const views = (await getCollection("focus")).sort((a, b) => a.data.order - b.data.order);
 ---
-<DocumentLayout title="Focused views" description="Focused profile views: ML/data systems, AI workflows, and backend/tooling." label="FOCUS VIEWS" subtitle="The same public profile arranged around three technical directions." activePath="/focus/">
-  <section class="section-block"><h3>INDEX</h3><div class="section-content preview-list">{views.map((view) => <a class="preview-row" href={paths.focus(view.id)}><span class="article-date">{view.data.label}</span><span class="preview-row__copy"><h3>{view.data.title} <span aria-hidden="true">→</span></h3><p>{view.data.description}</p></span></a>)}</div></section>
+
+<DocumentLayout
+  title="Focused views"
+  description="Focused profile views: ML/data systems, AI workflows, and backend/tooling."
+  label="FOCUS VIEWS"
+  subtitle="The same public profile arranged around three technical directions."
+  activePath="/focus/"
+>
+  <section class="section-block">
+    <h3>INDEX</h3>
+    <div class="section-content preview-list">
+      {views.map((view) => (
+        <a class="preview-row" href={paths.focus(view.id)}>
+          <span class="article-date">{view.data.label}</span>
+          <span class="preview-row__copy">
+            <h3>{view.data.title} <span aria-hidden="true">→</span></h3>
+            <p>{view.data.description}</p>
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
 </DocumentLayout>

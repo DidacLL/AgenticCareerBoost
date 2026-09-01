@@ -1,7 +1,24 @@
 ---
 import { getCollection } from "astro:content";
-import DocumentLayout from "../../layouts/DocumentLayout.astro";
 import ArticleRecord from "../../components/ArticleRecord.astro";
-const posts=(await getCollection("posts")).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf());
+import DocumentLayout from "../../layouts/DocumentLayout.astro";
+
+const posts = (await getCollection("posts")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
 ---
-<DocumentLayout title="Technical notes" description="Notes on practical AI workflows, static publishing, documentation, and software work." label="02 / BLOG" subtitle="Dated records from ongoing technical work and its history." activePath="/blog/"><section class="section-block"><h3>RECORDS</h3><div class="section-content preview-list">{posts.map((post)=><ArticleRecord post={post}/>)}</div></section></DocumentLayout>
+
+<DocumentLayout
+  title="Technical notes"
+  description="Notes on practical AI workflows, static publishing, documentation, and software work."
+  label="02 / BLOG"
+  subtitle="Dated records from ongoing technical work and its history."
+  activePath="/blog/"
+>
+  <section class="section-block">
+    <h3>RECORDS</h3>
+    <div class="section-content preview-list">
+      {posts.map((post) => <ArticleRecord post={post} />)}
+    </div>
+  </section>
+</DocumentLayout>

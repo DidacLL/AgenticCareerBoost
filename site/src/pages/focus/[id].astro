@@ -1,17 +1,42 @@
 ---
 import { getCollection, render } from "astro:content";
-import DocumentLayout from "../../layouts/DocumentLayout.astro";
 import ProjectPreview from "../../components/ProjectPreview.astro";
+import DocumentLayout from "../../layouts/DocumentLayout.astro";
 import { paths } from "../../lib/paths";
+
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
-  return (await getCollection("focus")).map((focus) => ({ params: { id: focus.id }, props: { focus, projects } }));
+  const focusViews = await getCollection("focus");
+
+  return focusViews.map((focus) => ({
+    params: { id: focus.id },
+    props: { focus, projects }
+  }));
 }
+
 const { focus, projects } = Astro.props;
 const { Content } = await render(focus);
 const related = projects.filter((project) => focus.data.relatedProjectIds.includes(project.id));
 ---
-<DocumentLayout title={`${focus.data.title} — Dídac Llorens`} description={focus.data.description} label={focus.data.label} subtitle={focus.data.description} activePath="/focus/">
-  <section class="section-block"><h3>VIEW</h3><div class="section-content prose"><Content /><p><a href={paths.cv(focus.data.relatedCvId)}>Open the related CV view →</a></p></div></section>
-  <section class="section-block"><h3>RELATED WORK</h3><div class="section-content preview-list">{related.map((project) => <ProjectPreview project={project} />)}</div></section>
+
+<DocumentLayout
+  title={`${focus.data.title} — Dídac Llorens`}
+  description={focus.data.description}
+  label={focus.data.label}
+  subtitle={focus.data.description}
+  activePath="/focus/"
+>
+  <section class="section-block">
+    <h3>VIEW</h3>
+    <div class="section-content prose">
+      <Content />
+      <p><a href={paths.cv(focus.data.relatedCvId)}>Open the related CV view →</a></p>
+    </div>
+  </section>
+  <section class="section-block">
+    <h3>RELATED WORK</h3>
+    <div class="section-content preview-list">
+      {related.map((project) => <ProjectPreview project={project} />)}
+    </div>
+  </section>
 </DocumentLayout>

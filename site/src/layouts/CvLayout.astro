@@ -1,13 +1,63 @@
 ---
-import DocumentLayout from "./DocumentLayout.astro";
 import type { CollectionEntry } from "astro:content";
+import DocumentLayout from "./DocumentLayout.astro";
 import { paths } from "../lib/paths";
-const { cv, views, projects } = Astro.props as { cv: CollectionEntry<"cv">; views: CollectionEntry<"cv">[]; projects: CollectionEntry<"projects">[]; };
+
+interface Props {
+  cv: CollectionEntry<"cv">;
+  views: CollectionEntry<"cv">[];
+  projects: CollectionEntry<"projects">[];
+}
+
+const { cv, views, projects } = Astro.props as Props;
 ---
-<DocumentLayout title={`${cv.data.title} — Dídac Llorens`} description={cv.data.description} label={cv.data.label} activePath="/cv/ml/">
-  <section class="section-block"><h3>VIEWS</h3><div class="section-content"><nav class="view-tabs" aria-label="CV views">{views.map((view) => <a class:list={{ active: view.id === cv.id }} href={paths.cv(view.id)}>{view.data.label}</a>)}</nav></div></section>
-  <section class="section-block"><h3>PROFILE</h3><div class="section-content prose"><slot /></div></section>
-  <section class="section-block"><h3>LANES</h3><div class="section-content"><ul class="tag-list">{cv.data.lanes.map((lane) => <li>{lane}</li>)}</ul></div></section>
-  <section class="section-block"><h3>SELECTED WORK</h3><div class="section-content preview-list">{projects.map((project) => <a class="preview-row" href={paths.project(project.id)}><span class="article-date">{project.data.label ?? "WORK"}</span><span class="preview-row__copy"><h3>{project.data.title} <span aria-hidden="true">→</span></h3><p>{project.data.summary}</p></span></a>)}</div></section>
-  <section class="section-block"><h3>TECHNICAL BASE</h3><div class="section-content prose"><ul>{cv.data.technicalBase.map((item) => <li>{item}</li>)}</ul></div></section>
+
+<DocumentLayout
+  title={`${cv.data.title} — Dídac Llorens`}
+  description={cv.data.description}
+  label={cv.data.label}
+  activePath="/cv/ml/"
+>
+  <section class="section-block">
+    <h3>VIEWS</h3>
+    <div class="section-content">
+      <nav class="view-tabs" aria-label="CV views">
+        {views.map((view) => (
+          <a class:list={{ active: view.id === cv.id }} href={paths.cv(view.id)}>
+            {view.data.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </section>
+  <section class="section-block">
+    <h3>PROFILE</h3>
+    <div class="section-content prose"><slot /></div>
+  </section>
+  <section class="section-block">
+    <h3>LANES</h3>
+    <div class="section-content">
+      <ul class="tag-list">{cv.data.lanes.map((lane) => <li>{lane}</li>)}</ul>
+    </div>
+  </section>
+  <section class="section-block">
+    <h3>SELECTED WORK</h3>
+    <div class="section-content preview-list">
+      {projects.map((project) => (
+        <a class="preview-row" href={paths.project(project.id)}>
+          <span class="article-date">{project.data.label ?? "WORK"}</span>
+          <span class="preview-row__copy">
+            <h3>{project.data.title} <span aria-hidden="true">→</span></h3>
+            <p>{project.data.summary}</p>
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+  <section class="section-block">
+    <h3>TECHNICAL BASE</h3>
+    <div class="section-content prose">
+      <ul>{cv.data.technicalBase.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  </section>
 </DocumentLayout>

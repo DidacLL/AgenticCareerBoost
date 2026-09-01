@@ -3,8 +3,22 @@ import { getCollection, render } from "astro:content";
 import CvLayout from "../../layouts/CvLayout.astro";
 import { publicCvPath } from "../../lib/cv";
 import { asset } from "../../lib/paths";
-export async function getStaticPaths() { const views=(await getCollection("cv")).sort((a,b)=>a.data.order-b.data.order); const projects=await getCollection("projects"); return views.map((cv)=>({params:{id:cv.id},props:{cv,views,projects}})); }
-const { cv, views, projects }=Astro.props;
-const { Content }=await render(cv);
+
+export async function getStaticPaths() {
+  const views = (await getCollection("cv")).sort((a, b) => a.data.order - b.data.order);
+  const projects = await getCollection("projects");
+
+  return views.map((cv) => ({
+    params: { id: cv.id },
+    props: { cv, views, projects }
+  }));
+}
+
+const { cv, views, projects } = Astro.props;
+const { Content } = await render(cv);
 ---
-<CvLayout cv={cv} views={views} projects={projects}><Content />{cv.id === "print" && <p><a href={asset(publicCvPath)}>Download the public PDF CV.</a></p>}</CvLayout>
+
+<CvLayout cv={cv} views={views} projects={projects}>
+  <Content />
+  {cv.id === "print" && <p><a href={asset(publicCvPath)}>Download the public PDF CV.</a></p>}
+</CvLayout>

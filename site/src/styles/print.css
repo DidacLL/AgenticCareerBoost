@@ -1,1 +1,39 @@
-@media print{body{background:#fff}.identity-rail,.system-panel,.document-nav,.signal-banner,.monitor-toolbar{display:none!important}.site-frame{display:block;width:auto;margin:0;border:0;box-shadow:none}.document-body{padding:0}.document-header{margin:0;padding:0;border:0}.monitor{display:none}.site-footer{padding:1rem 0}}
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .identity-rail,
+  .system-panel,
+  .document-nav,
+  .signal-banner,
+  .monitor-toolbar {
+    display: none !important;
+  }
+
+  .site-frame {
+    display: block;
+    width: auto;
+    margin: 0;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .document-body {
+    padding: 0;
+  }
+
+  .document-header {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .monitor {
+    display: none;
+  }
+
+  .site-footer {
+    padding: 1rem 0;
+  }
+}

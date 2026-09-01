@@ -1,7 +1,24 @@
 ---
 import { getCollection } from "astro:content";
-import DocumentLayout from "../../layouts/DocumentLayout.astro";
 import ProjectPreview from "../../components/ProjectPreview.astro";
-const projects=(await getCollection("projects")).sort((a,b)=>a.data.order-b.data.order);
+import DocumentLayout from "../../layouts/DocumentLayout.astro";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order
+);
 ---
-<DocumentLayout title="Projects" description="Selected public engineering projects by Dídac Llorens." label="01 / PROJECTS" subtitle="Systems, documentation, technical tools, and source-led public evidence." activePath="/projects/"><section class="section-block"><h3>INDEX</h3><div class="section-content preview-list">{projects.map((project)=><ProjectPreview project={project}/>)}</div></section></DocumentLayout>
+
+<DocumentLayout
+  title="Projects"
+  description="Selected public engineering projects by Dídac Llorens."
+  label="01 / PROJECTS"
+  subtitle="Systems, documentation, technical tools, and source-led public evidence."
+  activePath="/projects/"
+>
+  <section class="section-block">
+    <h3>INDEX</h3>
+    <div class="section-content preview-list">
+      {projects.map((project) => <ProjectPreview project={project} />)}
+    </div>
+  </section>
+</DocumentLayout>
