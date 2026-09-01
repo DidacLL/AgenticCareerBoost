@@ -463,6 +463,8 @@ body {
 
 .monitor {
   align-self: stretch;
+  display: flex;
+  flex-direction: column;
   min-width: 0;
   margin: 0;
   padding: .65rem;
@@ -496,6 +498,7 @@ body {
 
 .monitor-screen {
   position: relative;
+  flex: 1 1 auto;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border: var(--hair) solid var(--monitor-line);
@@ -696,6 +699,11 @@ body {
 
   .document-header h1 {
     font-size: clamp(2rem, 13vw, 3.7rem);
+  }
+
+  .document-header h1.is-long-title {
+    font-size: clamp(1.65rem, 8.2vw, 2.4rem);
+    letter-spacing: -.045em;
   }
 
   .section-block {

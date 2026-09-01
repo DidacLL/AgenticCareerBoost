@@ -140,9 +140,11 @@ for (const viewport of viewports) {
     }
     if (evidenceRoutes.has(route)) {
       await setTheme("light");
+      await assertDecodedImages(route);
       await capture(`${viewport.name}-${evidenceRoutes.get(route)}-light`);
       if (viewport.width === 1920 && route === "/") {
         await setTheme("dark");
+        await assertDecodedImages(route);
         await capture(`${viewport.name}-home-dark`);
       }
     }
