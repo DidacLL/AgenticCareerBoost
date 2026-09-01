@@ -1,12 +1,11 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { portfolioRoutes } from "./content-routes.mjs";
+import { portfolioRoutes, retiredRoutes } from "./content-routes.mjs";
 
 const [dist = "site/dist", expectedBase = "/", indexableArg = "false", origin = "https://example.invalid"] = process.argv.slice(2);
 const indexable = indexableArg === "true";
 const normalizedBase = expectedBase === "/" ? "/" : `/${expectedBase.replace(/^\/+|\/+$/g, "")}/`;
 const routes = portfolioRoutes();
-const retired = ["/application-tracker/", "/dashboard/", "/hire/", "/hire/ml-ai/", "/hire/agentic/", "/hire/backend/", "/focus/", "/focus/ml-data/", "/focus/agentic/", "/focus/backend/"];
 
 const pageFile = (route) => route === "/" ? join(dist, "index.html") : join(dist, route.replace(/^\//, ""), "index.html");
 const htmlFiles = routes.map(pageFile);
@@ -22,7 +21,7 @@ for (const file of htmlFiles) {
   if (!existsSync(file)) fail(`missing route artifact: ${file}`);
 }
 
-for (const route of retired) {
+for (const route of retiredRoutes) {
   if (existsSync(pageFile(route))) fail(`retired route still emitted: ${route}`);
 }
 
