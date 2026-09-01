@@ -1,7 +1,6 @@
 ---
 title: Sprint review
 description: Development retrospective on project state, public routes, site copy, and repository alignment.
-label: 02C / ARTICLE
 date: 2026-06-28
 tags: [Sprint, Review, AgenticCareerBoost]
 image: img/routing-architecture.png

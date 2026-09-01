@@ -1,7 +1,6 @@
 ---
 title: Static sites as workbenches
 description: Static publishing, route structures, and plain files for personal technical work.
-label: 02B / ARTICLE
 date: 2026-06-27
 tags: [Static site, Content model, Maintenance]
 image: img/routing-map.png

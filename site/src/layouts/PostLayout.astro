@@ -6,21 +6,23 @@ import { asset } from "../lib/paths";
 
 const { post } = Astro.props as { post: CollectionEntry<"posts"> };
 const date = post.data.date.toLocaleDateString("en-CA");
+const meta = [{ term: "DATE", value: date }];
+if (post.data.tags.length) meta.push({ term: "TAGS", value: post.data.tags.join(" · ") });
 ---
 
 <DocumentLayout
   title={post.data.title}
   description={post.data.description}
-  label={post.data.label ?? "RECORD"}
-  subtitle={post.data.subtitle ?? date}
+  label={site.ui.article}
+  subtitle={date}
   activeNav="blog"
   ogType="article"
-  meta={[{ term: "DATE", value: date }, { term: "TAGS", value: post.data.tags.join(" · ") }]}
+  meta={meta}
 >
   {post.data.image && (
     <section class="section-block">
       <h2>IMAGE</h2>
-      <div class="section-content"><figure class="media-frame"><img src={asset(post.data.image)} alt={post.data.imageAlt ?? ""} loading="eager" decoding="async" /></figure></div>
+      <div class="section-content"><figure class="media-frame"><img src={asset(post.data.image)} alt={post.data.imageAlt ?? post.data.title} loading="eager" decoding="async" /></figure></div>
     </section>
   )}
   <section class="section-block">

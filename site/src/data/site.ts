@@ -100,6 +100,7 @@ export const site = {
     note: "NOTE",
     index: "INDEX",
     projectSignal: "PROJECT SIGNAL",
-    channel: "CHANNEL"
+    channel: "CHANNEL",
+    article: "ARTICLE"
   }
 } as const;

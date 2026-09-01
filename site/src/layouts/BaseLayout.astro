@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import Footer from "../components/Footer.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import { site, type NavId } from "../data/site";
@@ -8,7 +9,7 @@ import "../styles/base.css";
 import "../styles/site.css";
 import "../styles/print.css";
 
-type MetaItem = { term: string; value?: string; href?: string; label?: string; external?: boolean };
+type MetaItem = { term: string; value?: string; href?: string; label?: string; external?: boolean; reload?: boolean };
 interface Props {
   title: string;
   description: string;
@@ -28,7 +29,7 @@ const documentTitle = title === site.identity.name ? site.defaultTitle : `${titl
 ---
 
 <!doctype html>
-<html lang="en" data-theme-storage-key={site.theme.storageKey}>
+<html lang="en" data-theme-storage-key={site.theme.storageKey} transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -45,6 +46,7 @@ const documentTitle = title === site.identity.name ? site.defaultTitle : `${titl
     <meta name="twitter:title" content={documentTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <ClientRouter fallback="swap" />
     <script is:inline>
       (() => {
         const root = document.documentElement;
@@ -59,7 +61,7 @@ const documentTitle = title === site.identity.name ? site.defaultTitle : `${titl
     <div class="site-frame">
       <aside class="identity-rail">
         <a class="identity-home" href={paths.home()} aria-label="Home">
-          <span class="identity-avatar"><img src={asset(site.identity.avatar)} alt={site.identity.avatarAlt} /></span>
+          <span class="identity-avatar" transition:persist="identity-avatar"><img src={asset(site.identity.avatar)} alt={site.identity.avatarAlt} /></span>
           <strong>{site.identity.name}</strong>
         </a>
         <div class="identity-lines">
@@ -75,7 +77,7 @@ const documentTitle = title === site.identity.name ? site.defaultTitle : `${titl
       </aside>
 
       <main class="document-body">
-        <figure class="site-banner">
+        <figure class="site-banner" transition:persist="site-banner">
           <img src={asset(site.banner.image)} alt={site.banner.alt} />
           <figcaption>{site.banner.caption}</figcaption>
         </figure>
@@ -99,7 +101,7 @@ const documentTitle = title === site.identity.name ? site.defaultTitle : `${titl
               {meta.map((item) => (
                 <div>
                   <dt>{item.term}</dt>
-                  <dd>{item.href ? <a href={item.href} target={item.external ? "_blank" : undefined} rel={item.external ? "noopener noreferrer" : undefined}>{item.label ?? item.value ?? item.href}</a> : item.value}</dd>
+                  <dd>{item.href ? <a href={item.href} target={item.external ? "_blank" : undefined} rel={item.external ? "noopener noreferrer" : undefined} data-astro-reload={item.reload ? true : undefined}>{item.label ?? item.value ?? item.href}</a> : item.value}</dd>
                 </div>
               ))}
             </dl>

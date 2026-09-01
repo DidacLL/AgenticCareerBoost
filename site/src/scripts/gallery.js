@@ -1,6 +1,8 @@
 function wireMonitor(monitor) {
+  if (monitor.dataset.monitorWired === "true") return;
   const slides = JSON.parse(monitor.dataset.monitorSlides || "[]");
   if (!slides.length) return;
+  monitor.dataset.monitorWired = "true";
 
   let index = 0;
   const screen = monitor.querySelector("[data-monitor-screen]");
@@ -51,9 +53,19 @@ function wireMonitor(monitor) {
   monitor.querySelector("[data-monitor-prev]")?.addEventListener("click", () => applySlide(index - 1));
   monitor.querySelector("[data-monitor-next]")?.addEventListener("click", () => applySlide(index + 1));
   expand?.addEventListener("click", () => setExpanded(monitor.dataset.expanded !== "true"));
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && monitor.dataset.expanded === "true") setExpanded(false);
-  });
 }
 
-document.querySelectorAll("[data-monitor]").forEach(wireMonitor);
+function wireMonitors() {
+  document.querySelectorAll("[data-monitor]").forEach(wireMonitor);
+}
+
+wireMonitors();
+if (!window.__acbMonitorLifecycleWired) {
+  window.__acbMonitorLifecycleWired = true;
+  document.addEventListener("astro:page-load", wireMonitors);
+  document.addEventListener("astro:before-swap", () => document.body.classList.remove("monitor-open"));
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    document.querySelector('[data-monitor][data-expanded="true"] [data-monitor-expand]')?.click();
+  });
+}

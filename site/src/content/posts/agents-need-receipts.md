@@ -1,7 +1,6 @@
 ---
 title: Agents need receipts
 description: Agent-assisted work, project files, review, and technical memory.
-label: 02A / ARTICLE
 date: 2026-06-27
 tags: [Agents, Review, Workflow]
 image: img/sprint-paircheck-loop.png

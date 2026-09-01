@@ -24,7 +24,7 @@ const sortedProjects = [...projects].sort((a, b) => a.data.order - b.data.order)
   ogType="profile"
   meta={[
     { term: "VIEW", value: cv.data.label ?? cv.data.title },
-    { term: "PDF", href: pdfHref, label: site.cv.pdfLabel },
+    { term: "PDF", href: pdfHref, label: site.cv.pdfLabel, reload: true },
     { term: "SOURCE", href: site.cv.sourceUrl, label: site.cv.sourceLabel, external: true }
   ]}
 >
@@ -55,7 +55,7 @@ const sortedProjects = [...projects].sort((a, b) => a.data.order - b.data.order)
   <section class="section-block">
     <h2>{site.ui.source}</h2>
     <div class="section-content source-links">
-      <a href={pdfHref}>{site.cv.pdfLabel}</a>
+      <a href={pdfHref} data-astro-reload>{site.cv.pdfLabel}</a>
       <a href={site.cv.sourceUrl} target="_blank" rel="noopener noreferrer">{site.cv.sourceLabel} ↗</a>
     </div>
   </section>

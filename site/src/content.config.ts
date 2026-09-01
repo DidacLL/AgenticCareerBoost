@@ -30,12 +30,14 @@ const projects = defineCollection({
 
 const posts = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }),
-  schema: common.extend({
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
     date: z.coerce.date(),
-    tags: z.array(z.string()),
+    tags: z.array(z.string()).default([]),
     image: z.string().optional(),
     imageAlt: z.string().optional()
-  })
+  }).strict()
 });
 
 const cv = defineCollection({
