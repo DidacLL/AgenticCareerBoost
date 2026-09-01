@@ -2,7 +2,7 @@
 import BaseLayout from "./BaseLayout.astro";
 import type { NavId } from "../data/site";
 
-type MetaItem = { term: string; value?: string; href?: string; label?: string; external?: boolean };
+type MetaItem = { term: string; value?: string; href?: string; label?: string; external?: boolean; reload?: boolean };
 interface Props {
   title: string;
   description: string;

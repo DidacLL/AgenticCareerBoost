@@ -1,14 +1,19 @@
 name: Site check
 
 on:
-  push:
-    branches: [DidacLl/siterefactor]
+  pull_request:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "agents/cv/**"
+      - ".github/workflows/site-check.yml"
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: site-check-${{ github.ref }}
+  group: site-check-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -56,12 +61,12 @@ jobs:
           SITE_INDEXABLE: "true"
       - name: Browser functional smoke and visual evidence
         run: node site/scripts/browser-smoke.mjs site/dist site/browser-evidence
-      - name: Record branch build context
+      - name: Record build context
         run: printf '{"sha":"%s","base":"/","indexable":true,"desktop":"1920x1080"}\n' "$GITHUB_SHA" > site/dist/build-summary.json
-      - name: Upload exact-SHA branch build
+      - name: Upload exact-SHA site build
         uses: actions/upload-artifact@v4
         with:
-          name: site-branch-${{ github.sha }}
+          name: site-build-${{ github.sha }}
           path: site/dist
           if-no-files-found: error
           retention-days: 3

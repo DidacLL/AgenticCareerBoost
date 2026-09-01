@@ -9,42 +9,44 @@ These documents are ACB report sources and historical technical evidence. They r
 - `pdflatex` is required
 - `latexmk` is optional; local scripts fall back to `pdflatex` when it is not available
 
-## Local build
+## Local build (verify before committing)
 
-The scripts mirror the dedicated report CI pipeline closely.
+These scripts mirror the dedicated report CI pipeline closely. Always run locally before pushing to catch errors early.
 
 **Windows (PowerShell):**
 
 ```powershell
 cd agents/reports/tex
-.\build-local.ps1
-.\build-local.ps1 -Target s000
-.\build-local.ps1 -Target guide
-.\build-local.ps1 -Target smoke
-.\build-local.ps1 -Target clean
+.\build-local.ps1              # build all report documents
+.\build-local.ps1 -Target s000 # Sprint S-000 only
+.\build-local.ps1 -Target guide # Agentic system guide only
+.\build-local.ps1 -Target smoke # preamble smoke test
+.\build-local.ps1 -Target clean # remove build artifacts
 ```
 
 **Linux / macOS (bash):**
 
 ```bash
 cd agents/reports/tex
-./build-local.sh
-./build-local.sh s000
-./build-local.sh guide
-./build-local.sh smoke
-./build-local.sh clean
+./build-local.sh          # build all report documents
+./build-local.sh s000     # Sprint S-000 only
+./build-local.sh guide    # Agentic system guide only
+./build-local.sh smoke    # preamble smoke test
+./build-local.sh clean    # remove build artifacts
 ```
 
 **Makefile (Unix only):**
 
 ```bash
-make s000
-make guide
-make smoke
-make clean
+make s000    # build Sprint S-000 document
+make guide   # build the human-facing system guide
+make smoke   # build the 1-page smoke test
+make clean   # remove build artifacts
 ```
 
-Local output lands in `build/`. The dedicated `latex-build.yml` workflow compiles the same sources and uploads its PDF bundle as a GitHub Actions artifact. Neither local report builds nor report CI copy PDFs into `site/`; generated report PDFs are repository build output rather than portfolio assets.
+Local output lands in `build/`.
+
+CI compiles the report sources and uploads the PDF bundle as an artifact. Local report builds also leave their PDFs under `build/`; neither path copies report PDFs into `site/`. Generated PDFs and auxiliary files must not be tracked inside `agents/reports/tex/`.
 
 ## Architecture
 
@@ -55,31 +57,28 @@ Local output lands in `build/`. The dedicated `latex-build.yml` workflow compile
 - `sprints/` — technical case-study documents tied to a sprint.
 - `guides/` — standalone human-facing guide documents.
 - `figures/` — TikZ sources and external assets.
-- `build/` — generated local/CI output, never portfolio source.
 
 CV and cover-letter sources live in `agents/cv/`, not in this report tree.
 
 ## Document families
 
 - `guides/agenticcareerboost-project-history.tex` — public narrative bridge and documentation coverage map for the project history.
-- `guides/agentic-system-guide.tex` — formal human-facing manual for reading the historical system.
+- `guides/agentic-system-guide.tex` — the formal human-facing manual for how to read and use the system.
 - `sprints/agentic-system-evidence-reconciliation.tex` — local-vs-remote reconciliation, evidence classification, drift fixes, and validation ledger.
 - `sprints/agentic-system-refactor-retrospective.tex` — refactor failure analysis and cleanup architecture retrospective.
-- `sprints/s000-agentic-os-bootstrap.tex` — bootstrap case study and evidence trail.
+- `sprints/s000-agentic-os-bootstrap.tex` — the bootstrap case study and evidence trail.
 - `sprints/s001-profile-audit-positioning.tex` — profile audit and positioning.
 - `sprints/s0015r-system-review.tex` — corrective system-review report.
-- `sprints/s002-restart-refresh.tex` — restart review, static-site foundation, GitHub/LinkedIn human gates, and repo-local closure.
+- `sprints/s002-restart-refresh.tex` — restart review, static site foundation, GitHub/LinkedIn human gates, and repo-local S-002R closure.
 - `sprints/s003-website-os-clarity.tex` — public route-map and website clarity report.
 - `sprints/s004-documentation-alignment.tex` — career guardrail and relaunch calibration report.
-- `sprints/s0045-site-quality.tex` — historical site-quality/runtime/browser-validation report.
+- `sprints/s0045-site-quality.tex` — site-quality, generated status, runtime metadata, and browser-render validation report.
 
-These names describe the period in which the reports were written. They are repository evidence, not instructions to reactivate the old harness.
+These names describe the period in which the reports were written. They are repository evidence, not standing instructions to reactivate the old harness.
 
 ## Rules
 
-- Never use `\includegraphics` directly; use `\screenshotfig` or `\safeincludegraphics`.
-- Any recurring macro belongs in the shared preamble.
-- Each sprint document is self-contained with one `.tex` entry point.
-- Keep generated PDFs and LaTeX auxiliary files out of source directories.
-- Preserve useful report sources/history unless documentation cleanup is explicitly scoped.
-- Do not publish reports through the portfolio merely because they are public repository evidence.
+- **Never use `\includegraphics` directly.** Use `\screenshotfig` or `\safeincludegraphics`.
+- **Any recurring macro must be promoted to the shared preamble.**
+- **Each sprint document is self-contained** (single PDF, single `.tex` entry point).
+- Generated PDFs remain build artifacts. Report sources stay outside the portfolio boundary.

@@ -6,8 +6,8 @@ import { asset } from "../lib/paths";
 
 const { project } = Astro.props as { project: CollectionEntry<"projects"> };
 const meta = [
-  project.data.status ? { term: "STATUS", value: project.data.status } : null,
-  project.data.repository ? { term: "SOURCE", href: project.data.repository, label: "Repository", external: true } : null
+  project.data.status ? { term: site.ui.status, value: project.data.status } : null,
+  project.data.repository ? { term: site.ui.source, href: project.data.repository, label: site.ui.repository, external: true } : null
 ].filter(Boolean);
 ---
 
@@ -27,11 +27,11 @@ const meta = [
       <p class="system-label">{site.ui.projectSignal}</p>
       <p>{project.data.summary}</p>
       <ul class="tag-list">{project.data.tags.map((tag) => <li>{tag}</li>)}</ul>
-      {project.data.repository && <p><a href={project.data.repository} target="_blank" rel="noopener noreferrer">Open repository ↗</a></p>}
+      {project.data.repository && <p><a href={project.data.repository} target="_blank" rel="noopener noreferrer">{site.ui.openRepository}</a></p>}
     </div>
   </section>
   <section class="section-block">
-    <h2>PROJECT</h2>
+    <h2>{site.ui.project}</h2>
     <div class="section-content prose"><slot /></div>
   </section>
 </DocumentLayout>

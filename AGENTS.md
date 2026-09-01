@@ -17,7 +17,8 @@ AAAAT or VCVGenerator.
   harness evidence, tracker output, status data, or application material.
 - `agents/cv/` contains intentionally public/general CV source and build support.
   The selected public CV PDF is the only generated document intentionally served
-  by the portfolio.
+  by the portfolio. CV-owned source assets stay under `agents/cv/`; site cleanup
+  is not authority to move or delete dependencies of the CV build.
 - `agents/reports/`, `agents/state/`, `agents/rules/`, `agents/tests/`, and
   `agents/work/` contain repository evidence, research, historical/work records,
   or legacy harness material. They are not site content and old material there is

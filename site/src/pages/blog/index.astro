@@ -10,7 +10,7 @@ const { Content } = await render(page);
 const posts = (await getCollection("posts")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<DocumentLayout title={page.data.title} description={page.data.description} label={page.data.label} subtitle={page.data.subtitle} activeNav="blog" meta={[{ term: "RECORDS", value: String(posts.length) }]}>
+<DocumentLayout title={page.data.title} description={page.data.description} label={page.data.label} subtitle={page.data.subtitle} activeNav="blog" meta={[{ term: site.ui.records, value: String(posts.length) }]}>
   <section class="section-block"><h2>{site.ui.context}</h2><div class="section-content prose"><Content /></div></section>
   <section class="section-block"><h2>{site.ui.index}</h2><div class="section-content preview-list">{posts.map((post) => <ArticleRecord post={post} />)}</div></section>
 </DocumentLayout>

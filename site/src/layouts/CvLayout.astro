@@ -23,12 +23,12 @@ const sortedProjects = [...projects].sort((a, b) => a.data.order - b.data.order)
   activeNav="cv"
   ogType="profile"
   meta={[
-    { term: "VIEW", value: cv.data.label ?? cv.data.title },
-    { term: "PDF", href: pdfHref, label: site.cv.pdfLabel, reload: true },
-    { term: "SOURCE", href: site.cv.sourceUrl, label: site.cv.sourceLabel, external: true }
+    { term: site.ui.view, value: cv.data.label ?? cv.data.title },
+    { term: site.ui.pdf, href: pdfHref, label: site.cv.pdfLabel, reload: true },
+    { term: site.ui.source, href: site.cv.sourceUrl, label: site.cv.sourceLabel, external: true }
   ]}
 >
-  <nav class="cv-tabs" aria-label="CV views">
+  <nav class="cv-tabs" aria-label={site.ui.cvViews}>
     {views.map((view) => <a class:list={{ "is-active": view.id === cv.id }} href={paths.cv(view.id)}>{view.data.label ?? view.data.title}</a>)}
   </nav>
 

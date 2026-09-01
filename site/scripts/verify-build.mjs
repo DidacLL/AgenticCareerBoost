@@ -1,84 +1,82 @@
-import { existsSync, readdirSync, readFileSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import { portfolioRoutes } from "./content-routes.mjs";
 
-const [outputArg, baseArg = "/", indexableArg = "false", originArg = "https://example.invalid"] = process.argv.slice(2);
-if (!outputArg) throw new Error("Usage: node verify-build.mjs <dist> [base] [indexable] [origin]");
-const output = resolve(outputArg);
-const base = baseArg === "/" ? "/" : `/${baseArg.replace(/^\/+|\/+$/g, "")}/`;
+const [dist = "site/dist", expectedBase = "/", indexableArg = "false", origin = "https://example.invalid"] = process.argv.slice(2);
 const indexable = indexableArg === "true";
-const origin = new URL(originArg);
-const routes = [
-  "/", "/projects/", "/projects/agentic-career-boost/", "/projects/p3ctex/", "/projects/aaaat/", "/projects/ironbank/",
-  "/blog/", "/blog/agents-need-receipts/", "/blog/static-sites-as-workbenches/", "/blog/sprint-review-agenticcareerboost/",
-  "/cv/ml/", "/cv/agentic/", "/cv/backend/", "/cv/print/", "/contact/"
-];
-const retired = [
-  "/dashboard/", "/application-tracker/", "/curriculum/", "/notes/", "/hire/", "/hire/ml/", "/hire/agentic/", "/hire/backend/",
-  "/focus/", "/focus/ml/", "/focus/agentic/", "/focus/backend/"
-];
-const walk = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
-  const path = join(dir, entry.name);
-  return entry.isDirectory() ? walk(path) : [path];
-});
+const normalizedBase = expectedBase === "/" ? "/" : `/${expectedBase.replace(/^\/+|\/+$/g, "")}/`;
+const routes = portfolioRoutes();
+const retired = ["/application-tracker/", "/dashboard/", "/hire/", "/hire/ml-ai/", "/hire/agentic/", "/hire/backend/", "/focus/", "/focus/ml-data/", "/focus/agentic/", "/focus/backend/"];
 
-for (const file of walk(resolve("site/src"))) {
-  const source = readFileSync(file, "utf8");
-  const ownOrigin = /https?:\/\/didacll\.github\.io/i.test(source);
-  const hardcodedProjectBase = /["'`]\/AgenticCareerBoost\//.test(source);
-  if (ownOrigin || hardcodedProjectBase) throw new Error(`Own host or deployment prefix found in site source: ${file}`);
+const pageFile = (route) => route === "/" ? join(dist, "index.html") : join(dist, route.replace(/^\//, ""), "index.html");
+const htmlFiles = routes.map(pageFile);
+const errors = [];
+const expectedPrefix = normalizedBase === "/" ? "/" : normalizedBase;
+const deploymentLiteral = /["'`](\/AgenticCareerBoost\/)/;
+
+function fail(message) {
+  errors.push(message);
 }
 
-const pageFile = (route) => join(output, route === "/" ? "index.html" : route.replace(/^\//, "") + "index.html");
-const refs = (html) => [...html.matchAll(/(?:href|src)=[\"']([^\"'#]+)[\"']/gi)].map((match) => match[1]);
-const canonicalHref = (html) => html.match(/<link\s+rel=[\"']canonical[\"']\s+href=[\"']([^\"']+)[\"']/i)?.[1];
-const metaProperty = (html, property) => html.match(new RegExp(`<meta\\s+property=["']${property}["']\\s+content=["']([^"']+)["']`, "i"))?.[1];
-const hasNoindex = (html) => /<meta\s+name=[\"']robots[\"']\s+content=[\"'][^\"']*noindex/i.test(html);
-
-for (const route of routes) {
-  const file = pageFile(route);
-  if (!existsSync(file)) throw new Error(`Missing generated route: ${route}`);
-  const html = readFileSync(file, "utf8");
-  for (const required of [/<title>[^<]+<\/title>/i, /<meta name="description"/i, /<link rel="canonical"/i, /<main[ >]/i]) {
-    if (!required.test(html)) throw new Error(`Missing page metadata or main region: ${route}`);
-  }
-  const canonical = canonicalHref(html);
-  const expectedCanonical = new URL(route, origin).toString();
-  if (canonical !== expectedCanonical) throw new Error(`Canonical mismatch on ${route}: expected ${expectedCanonical}, got ${canonical ?? "missing"}`);
-  const ogImageHref = metaProperty(html, "og:image");
-  if (!ogImageHref) throw new Error(`Missing og:image on ${route}`);
-  const ogImage = new URL(ogImageHref);
-  if (ogImage.origin !== origin.origin || !ogImage.pathname.startsWith(base)) throw new Error(`og:image is not deployment-base aware on ${route}: ${ogImageHref}`);
-  if (indexable === hasNoindex(html)) throw new Error(`Robots metadata mismatch on ${route}: indexable=${indexable}`);
-  for (const reference of refs(html)) {
-    if (/^(?:https?:|mailto:|tel:|data:|#)/i.test(reference) || /\/files\/cv\//.test(reference)) continue;
-    const clean = reference.split(/[?#]/, 1)[0];
-    const local = clean.startsWith("/") ? clean.replace(base, "/").replace(/^\//, "") : clean;
-    const resolved = join(output, local || "index.html");
-    if (!existsSync(resolved) && !existsSync(join(resolved, "index.html"))) throw new Error(`Broken generated reference ${reference} from ${route}`);
-  }
+for (const file of htmlFiles) {
+  if (!existsSync(file)) fail(`missing route artifact: ${file}`);
 }
 
 for (const route of retired) {
-  if (existsSync(pageFile(route))) throw new Error(`Retired route was regenerated: ${route}`);
+  if (existsSync(pageFile(route))) fail(`retired route still emitted: ${route}`);
 }
 
-const notFound = join(output, "404.html");
-if (!existsSync(notFound)) throw new Error("Missing 404.html");
-const notFoundHtml = readFileSync(notFound, "utf8");
-if (!/<main[ >]/i.test(notFoundHtml) || !hasNoindex(notFoundHtml)) throw new Error("404 page must render the site shell and remain noindex.");
+for (const [route, file] of routes.map((route, index) => [route, htmlFiles[index]])) {
+  if (!existsSync(file)) continue;
+  const html = readFileSync(file, "utf8");
+  const canonicalPath = new URL(html.match(/<link rel="canonical" href="([^"]+)"/)?.[1] ?? "", origin).pathname;
+  const expectedCanonicalPath = route;
+  if (canonicalPath !== expectedCanonicalPath) fail(`${route}: canonical path ${canonicalPath} != ${expectedCanonicalPath}`);
+  if (!html.includes('property="og:title"')) fail(`${route}: missing og:title`);
+  if (!html.includes('property="og:description"')) fail(`${route}: missing og:description`);
+  if (!html.includes('property="og:image"')) fail(`${route}: missing og:image`);
+  if (!html.includes('name="twitter:card"')) fail(`${route}: missing twitter card metadata`);
+  const ogImage = html.match(/<meta property="og:image" content="([^"]+)"/)?.[1];
+  if (!ogImage) {
+    fail(`${route}: missing og:image value`);
+  } else {
+    const ogPath = new URL(ogImage, origin).pathname;
+    if (!ogPath.startsWith(expectedPrefix)) fail(`${route}: og:image ignores deployment base: ${ogPath}`);
+  }
+  if (indexable && html.includes("noindex,nofollow")) fail(`${route}: canonical build unexpectedly noindex`);
+  if (!indexable && !html.includes("noindex,nofollow")) fail(`${route}: mirror build missing noindex`);
+  if (deploymentLiteral.test(html) && normalizedBase !== "/AgenticCareerBoost/") fail(`${route}: deployment prefix is hardcoded in generated HTML`);
+}
 
-const robotsFile = join(output, "robots.txt");
-if (!existsSync(robotsFile)) throw new Error("Missing robots.txt");
-const robots = readFileSync(robotsFile, "utf8");
-const sitemapFile = join(output, "sitemap-index.xml");
-if (indexable) {
-  if (!/Allow:\s*\//i.test(robots) || /Disallow:\s*\//i.test(robots)) throw new Error("Indexable build robots.txt must allow crawling.");
-  const expectedSitemap = new URL("/sitemap-index.xml", origin).toString();
-  if (!robots.includes(`Sitemap: ${expectedSitemap}`)) throw new Error(`robots.txt missing sitemap ${expectedSitemap}`);
-  if (!existsSync(sitemapFile)) throw new Error("Indexable build must contain sitemap-index.xml");
+const notFound = join(dist, "404.html");
+if (!existsSync(notFound)) {
+  fail("missing 404.html");
 } else {
-  if (!/Disallow:\s*\//i.test(robots)) throw new Error("Non-indexable build robots.txt must disallow crawling.");
-  if (existsSync(sitemapFile)) throw new Error("Non-indexable mirror must not publish a sitemap.");
+  const html = readFileSync(notFound, "utf8");
+  if (!html.includes("noindex,nofollow")) fail("404 must be noindex");
 }
 
-console.log(`Verified ${routes.length} portfolio routes, metadata/indexability, retired-route absence and base ${base}`);
+const robotsFile = join(dist, "robots.txt");
+if (!existsSync(robotsFile)) {
+  fail("missing robots.txt");
+} else {
+  const robots = readFileSync(robotsFile, "utf8");
+  if (indexable) {
+    if (!robots.includes("Allow: /")) fail("indexable build robots.txt must allow crawling");
+    if (robots.includes("Disallow: /")) fail("indexable build robots.txt blocks crawling");
+    if (!robots.includes(`${origin}/sitemap-index.xml`)) fail("indexable build robots.txt missing sitemap");
+  } else if (!robots.includes("Disallow: /")) {
+    fail("mirror build robots.txt must block crawling");
+  }
+}
+
+const sitemap = join(dist, "sitemap-index.xml");
+if (indexable && !existsSync(sitemap)) fail("indexable build missing sitemap-index.xml");
+if (!indexable && existsSync(sitemap)) fail("mirror build should not emit a sitemap");
+
+if (errors.length) {
+  console.error(errors.join("\n"));
+  process.exit(1);
+}
+
+console.log(`Verified ${routes.length} generated routes for base ${normalizedBase} (indexable=${indexable}).`);

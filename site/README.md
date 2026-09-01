@@ -45,5 +45,5 @@ Projects follow the same filename-as-slug rule under `src/content/projects/`;
 their richer frontmatter controls ordering, project metadata, and imagery.
 
 Run `localdeploy.bat` from the repository root for local viewing. Generated CV
-output is not required to inspect the local UI. Production deployment remains
-main-only; this branch does not deploy.
+output is not required to inspect the local UI. Production deployment is
+main-only.

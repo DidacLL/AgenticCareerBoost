@@ -5,7 +5,9 @@ material. It is part of the public career proof in this repository.
 
 The canonical public source is `tex/didac-llorens-cv.tex`. It uses the shared
 support file `tex/didac-cv-shared-preamble-v1.tex`, so the public CV and the
-current LaTeX workflow are represented by the same tracked code.
+current LaTeX workflow are represented by the same tracked code. The shared
+header artwork is CV-owned source material at `tex/418-banner.png`; it does not
+belong to the portfolio asset tree.
 
 Tailored/local variants may also use the shared preamble, but they stay ignored
 unless they are intentionally promoted to public proof.

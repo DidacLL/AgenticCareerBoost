@@ -132,6 +132,7 @@ application-tracker/.gitignore
 agents/reports/tex/guides/candidaturas_reconocimiento_tecnico_03072026.tex
 
 # Local/private runtime data.
+# Keep these local; do not commit real application stores or generated private artifacts.
 /.agentic-career-boost/
 /.acb/
 /.tracker/

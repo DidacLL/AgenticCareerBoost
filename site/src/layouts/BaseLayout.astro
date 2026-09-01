@@ -22,13 +22,14 @@ interface Props {
   noindex?: boolean;
 }
 
-const { title, description, label = "DOCUMENT", activeNav, meta = [], ogType = "website", noindex = false } = Astro.props;
+const { title, description, label = site.ui.document, activeNav, meta = [], ogType = "website", noindex = false } = Astro.props;
 const buildIndexable = import.meta.env.SITE_INDEXABLE === "true";
 const robotsBlocked = !buildIndexable || noindex;
 const canonical = new URL(semanticPath(Astro.url.pathname), Astro.site).toString();
 const ogImage = new URL(asset(site.banner.image), Astro.site).toString();
 const browserIcon = asset(site.identity.avatar);
 const documentTitle = title === site.identity.name ? site.defaultTitle : `${title} — ${site.identity.name}`;
+const homeNav = site.navigation.find((item) => item.id === "home")!;
 ---
 
 <!doctype html>
@@ -65,7 +66,7 @@ const documentTitle = title === site.identity.name ? site.defaultTitle : `${titl
   <body>
     <div class="site-frame">
       <aside class="identity-rail">
-        <a class="identity-home" href={paths.home()} aria-label="Home">
+        <a class="identity-home" href={paths.home()} aria-label={homeNav.label}>
           <span class="identity-avatar" transition:persist="identity-avatar"><img src={browserIcon} alt={site.identity.avatarAlt} /></span>
           <strong>{site.identity.name}</strong>
         </a>

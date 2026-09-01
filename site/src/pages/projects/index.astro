@@ -10,7 +10,7 @@ const { Content } = await render(page);
 const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<DocumentLayout title={page.data.title} description={page.data.description} label={page.data.label} subtitle={page.data.subtitle} activeNav="projects" meta={[{ term: "COUNT", value: String(projects.length) }]}>
+<DocumentLayout title={page.data.title} description={page.data.description} label={page.data.label} subtitle={page.data.subtitle} activeNav="projects" meta={[{ term: site.ui.count, value: String(projects.length) }]}>
   <section class="section-block"><h2>{site.ui.context}</h2><div class="section-content prose"><Content /></div></section>
   <section class="section-block"><h2>{site.ui.index}</h2><div class="section-content preview-list">{projects.map((project) => <ProjectPreview project={project} />)}</div></section>
 </DocumentLayout>

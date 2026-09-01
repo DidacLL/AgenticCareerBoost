@@ -1,6 +1,7 @@
 ---
 import { getEntry, render } from "astro:content";
 import DocumentLayout from "../layouts/DocumentLayout.astro";
+import { site } from "../data/site";
 import { paths } from "../lib/paths";
 
 const page = await getEntry("pages", "not-found");
@@ -9,5 +10,5 @@ const { Content } = await render(page);
 ---
 
 <DocumentLayout title={page.data.title} description={page.data.description} label={page.data.label} subtitle={page.data.subtitle} noindex>
-  <section class="section-block"><h2>RETURN</h2><div class="section-content prose"><Content /><p><a href={paths.home()}>Return to the home document →</a></p></div></section>
+  <section class="section-block"><h2>{site.ui.return}</h2><div class="section-content prose"><Content /><p><a href={paths.home()}>{site.ui.returnHome}</a></p></div></section>
 </DocumentLayout>
