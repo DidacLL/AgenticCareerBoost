@@ -7,22 +7,105 @@ import { site } from "../data/site";
 import { asset, href } from "../lib/paths";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import Footer from "../components/Footer.astro";
-interface Props { title: string; description: string; activePath?: string; label?: string; }
+
+interface Props {
+  title: string;
+  description: string;
+  activePath?: string;
+  label?: string;
+}
+
 const { title, description, activePath = "/", label = "DOCUMENT" } = Astro.props;
 const canonical = new URL(Astro.url.pathname.replace(/^\//, ""), Astro.site).href;
 const indexable = import.meta.env.SITE_INDEXABLE === "true";
 ---
-<!doctype html><html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" />
-<title>{title}</title><meta name="description" content={description} /><link rel="canonical" href={canonical} />
-{!indexable && <meta name="robots" content="noindex,nofollow" />}
-<script is:inline>document.documentElement.dataset.theme=localStorage.getItem("didac-site-theme")==="dark"?"dark":"light";</script>
-</head><body><main class="site-frame" aria-labelledby="identity-title">
-<aside class="identity-rail" aria-label="Identity and navigation"><div class="identity-block"><span class="identity-mark">{site.identity.mark}</span><h1 id="identity-title">{site.identity.name}</h1><p>{site.identity.role}</p><p>{site.identity.location}</p></div>
-<nav class="primary-nav" aria-label="Primary navigation">{site.navigation.map((item)=><a class:list={{active:activePath===item.path}} aria-current={activePath===item.path?"page":undefined} href={href(item.path)}><span>{item.number}</span>{item.label}</a>)}</nav>
-<div class="external-nav">{site.external.map((item)=><a href={item.href}>{item.label}</a>)}</div></aside>
-<section class="document-zone"><figure class="signal-banner"><img src={asset(site.banner.image)} alt={site.banner.alt} loading="eager" /><figcaption>visual channel / 418</figcaption></figure>
-<nav class="document-nav" aria-label="Document navigation">{site.navigation.map((item)=><a class:list={{active:activePath===item.path}} href={href(item.path)}>{item.label}</a>)}</nav><slot /><Footer /></section>
-<aside class="system-panel" aria-label="System controls"><section><p class="system-label">SYSTEM</p><dl><div><dt>MODE</dt><dd>{label}</dd></div><div><dt>THEME</dt><dd><ThemeToggle /></dd></div></dl></section>
-<section><p class="system-label">SHORTCUTS</p><div class="system-links"><a href={href("/projects")}>projects/</a><a href={href("/cv/ml")}>cv/ml</a><a href={href("/blog")}>blog/</a></div></section>
-<section><p class="system-label">FOCUS VIEWS</p><div class="system-links"><a href={href("/focus/ml")}>focus/ml</a><a href={href("/focus/agentic")}>focus/agentic</a><a href={href("/focus/backend")}>focus/backend</a></div></section></aside>
-</main></body></html>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {!indexable && <meta name="robots" content="noindex,nofollow" />}
+    <script is:inline>
+      document.documentElement.dataset.theme =
+        localStorage.getItem("didac-site-theme") === "dark" ? "dark" : "light";
+    </script>
+  </head>
+  <body>
+    <main class="site-frame" aria-labelledby="identity-title">
+      <aside class="identity-rail" aria-label="Identity and navigation">
+        <div class="identity-block">
+          <span class="identity-mark">{site.identity.mark}</span>
+          <h1 id="identity-title">{site.identity.name}</h1>
+          <p>{site.identity.role}</p>
+          <p>{site.identity.location}</p>
+        </div>
+        <nav class="primary-nav" aria-label="Primary navigation">
+          {site.navigation.map((item) => (
+            <a
+              class:list={{ active: activePath === item.path }}
+              aria-current={activePath === item.path ? "page" : undefined}
+              href={href(item.path)}
+            >
+              <span>{item.number}</span>{item.label}
+            </a>
+          ))}
+        </nav>
+        <div class="external-nav">
+          {site.external.map((item) => <a href={item.href}>{item.label}</a>)}
+        </div>
+      </aside>
+
+      <section class="document-zone">
+        <figure class="signal-banner">
+          <img src={asset(site.banner.image)} alt={site.banner.alt} loading="eager" />
+          <figcaption>visual channel / 418</figcaption>
+        </figure>
+        <nav class="document-nav" aria-label="Document navigation">
+          {site.navigation.map((item) => (
+            <a class:list={{ active: activePath === item.path }} href={href(item.path)}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+        <slot />
+        <Footer />
+      </section>
+
+      <aside class="system-panel" aria-label="System controls">
+        <section>
+          <p class="system-label">SYSTEM</p>
+          <dl>
+            <div>
+              <dt>MODE</dt>
+              <dd>{label}</dd>
+            </div>
+            <div>
+              <dt>THEME</dt>
+              <dd><ThemeToggle /></dd>
+            </div>
+          </dl>
+        </section>
+        <section>
+          <p class="system-label">SHORTCUTS</p>
+          <div class="system-links">
+            <a href={href("/projects")}>projects/</a>
+            <a href={href("/cv/ml")}>cv/ml</a>
+            <a href={href("/blog")}>blog/</a>
+          </div>
+        </section>
+        <section>
+          <p class="system-label">FOCUS VIEWS</p>
+          <div class="system-links">
+            <a href={href("/focus/ml")}>focus/ml</a>
+            <a href={href("/focus/agentic")}>focus/agentic</a>
+            <a href={href("/focus/backend")}>focus/backend</a>
+          </div>
+        </section>
+      </aside>
+    </main>
+  </body>
+</html>
