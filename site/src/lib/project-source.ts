@@ -17,13 +17,6 @@ export const projectSources: ProjectSource[] = [
     coverPath: ".acb/cover.png"
   },
   {
-    id: "aaaat",
-    repository: "DidacLL/AAAAT",
-    branch: "main",
-    documentPath: ".acb/site.md",
-    coverPath: ".acb/cover.svg"
-  },
-  {
     id: "ironbank",
     repository: "DidacLL/Ironhack-IronBank_FinalProject_vBNKsys",
     branch: "main",
