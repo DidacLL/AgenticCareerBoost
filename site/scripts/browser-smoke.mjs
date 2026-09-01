@@ -67,9 +67,9 @@ async function setTheme(theme) {
   await page.reload({ waitUntil: "networkidle" });
 }
 
-async function capture(name) {
+async function capture(name, fullPage = true) {
   if (!evidenceDir) return;
-  await page.screenshot({ path: join(evidenceDir, `${name}.png`), fullPage: true, animations: "disabled" });
+  await page.screenshot({ path: join(evidenceDir, `${name}.png`), fullPage, animations: "disabled" });
 }
 
 for (const route of routes) await open(route);
@@ -128,6 +128,11 @@ for (const viewport of viewports) {
       await assertDecodedImages(route);
       await capture(`${viewport.name}-${evidenceRoutes.get(route)}-light`);
       if (viewport.width === 1920 && route === "/") {
+        await page.locator("[data-monitor-expand]").click();
+        if (await monitor.getAttribute("data-expanded") !== "true") throw new Error("Monitor did not expand for visual evidence.");
+        await capture(`${viewport.name}-home-monitor-expanded-light`, false);
+        await page.keyboard.press("Escape");
+        if (await monitor.getAttribute("data-expanded") !== "false") throw new Error("Monitor did not close after visual evidence.");
         await setTheme("dark");
         await assertDecodedImages(route);
         await capture(`${viewport.name}-home-dark`);
