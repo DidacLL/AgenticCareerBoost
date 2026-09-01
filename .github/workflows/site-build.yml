@@ -3,13 +3,11 @@ name: Deploy GitHub Pages
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
-      - .github/workflows/site-build.yml
-      - site/**
-      - agents/cv/**
-      - agents/reports/tex/**
+      - ".github/workflows/site-build.yml"
+      - "site/**"
+      - "agents/cv/**"
 
 permissions:
   contents: read
@@ -29,41 +27,41 @@ jobs:
           persist-credentials: false
       - id: pages
         uses: actions/configure-pages@v5
-      - name: Compile public report PDFs
-        uses: xu-cheng/latex-action@v3
+      - uses: actions/setup-python@v6
         with:
-          working_directory: agents/reports/tex
-          root_file: |
-            sprints/*.tex
-            guides/*.tex
-          args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
-      - name: Publish public report PDFs
-        run: python agents/reports/tex/tools/publish-public-reports.py
+          python-version: "3.12"
       - name: Resolve career artifact build inputs
         id: career
         run: |
           python agents/cv/tools/artifact_manifest.py validate
-          { echo 'root_files<<EOF'; python agents/cv/tools/artifact_manifest.py roots; echo 'EOF'; } >> "$GITHUB_OUTPUT"
-      - name: Compile public career PDFs
+          {
+            echo 'root_files<<EOF'
+            python agents/cv/tools/artifact_manifest.py roots
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+      - name: Compile public CV
         uses: xu-cheng/latex-action@v3
         with:
           working_directory: agents/cv
           root_file: ${{ steps.career.outputs.root_files }}
           args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
-      - name: Publish generated career PDFs
+      - name: Publish public CV into portfolio artifact
         run: python agents/cv/tools/artifact_manifest.py publish
       - uses: actions/setup-node@v6
         with:
           node-version: 24.20.0
+      - name: Install site dependencies
+        run: npm install --prefix site --no-package-lock
       - name: Build Astro site
-        run: npm install --prefix site --no-package-lock && npm run build --prefix site
+        run: npm run build --prefix site
         env:
           SITE_ORIGIN: ${{ steps.pages.outputs.origin }}
           SITE_BASE: ${{ steps.pages.outputs.base_path }}
-          SITE_INDEXABLE: false
+          SITE_INDEXABLE: "false"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site/dist
+
   deploy:
     needs: build
     runs-on: ubuntu-latest

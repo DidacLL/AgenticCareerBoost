@@ -3,10 +3,6 @@ name: Site check
 on:
   push:
     branches: [DidacLl/siterefactor]
-    paths:
-      - "site/**"
-      - "localdeploy.bat"
-      - ".github/workflows/site-check.yml"
 
 permissions:
   contents: read
@@ -22,20 +18,25 @@ jobs:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Validate public CV artifact contract
+        run: python agents/cv/tools/artifact_manifest.py validate
       - uses: actions/setup-node@v6
         with:
           node-version: 24.20.0
       - name: Install pinned site dependencies
         run: npm install --prefix site --no-package-lock
-      - name: Build root-base site
+      - name: Build canonical root site
         run: npm run build --prefix site
         env:
           SITE_ORIGIN: https://example.invalid
           SITE_BASE: /
-          SITE_INDEXABLE: "false"
-      - name: Verify root-base artifact
+          SITE_INDEXABLE: "true"
+      - name: Verify canonical root artifact
         run: node site/scripts/verify-build.mjs site/dist /
-      - name: Build project-base site
+      - name: Build project-base mirror
         run: npm run build --prefix site
         env:
           SITE_ORIGIN: https://example.invalid
@@ -47,11 +48,11 @@ jobs:
         run: npm install --prefix site --no-save playwright@1.62.1
       - name: Install Chromium
         run: npx --prefix site playwright install --with-deps chromium
-      - name: Rebuild root-base site for browser smoke
+      - name: Rebuild root site for browser smoke
         run: npm run build --prefix site
         env:
           SITE_ORIGIN: https://example.invalid
           SITE_BASE: /
-          SITE_INDEXABLE: "false"
+          SITE_INDEXABLE: "true"
       - name: Browser functional smoke
         run: node site/scripts/browser-smoke.mjs site/dist

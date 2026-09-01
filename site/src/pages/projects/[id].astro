@@ -1,6 +1,5 @@
 ---
 import { getCollection, render } from "astro:content";
-import ArtifactList from "../../components/ArtifactList.astro";
 import ProjectLayout from "../../layouts/ProjectLayout.astro";
 
 export async function getStaticPaths() {
@@ -18,5 +17,4 @@ const { Content } = await render(project);
 
 <ProjectLayout project={project}>
   <Content />
-  {project.id === "agentic-career-boost" && <ArtifactList slot="evidence" />}
 </ProjectLayout>

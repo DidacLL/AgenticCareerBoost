@@ -1,9 +1,17 @@
 # site/
 
-Astro source for the public static site.
+Astro source for the public portfolio.
 
-Content is Markdown in src/content/; layouts and components render it at build time. Public assets stay under assets/, including generated CV and report PDFs under assets/files/. Only theme persistence and the portrait gallery use client JavaScript.
+Content is Markdown in `src/content/`; layouts and components render it at build
+time. Existing portfolio images stay under `assets/img/`. The selected public CV
+is generated under `assets/files/cv/` for production builds.
 
-Run localdeploy.bat from the repository root for local viewing. Production deployment remains main-only; this branch does not deploy.
+This tree contains only material actually used by the portfolio. ACB reports,
+research, tracker/status output, application material, and historical harness
+evidence live outside `site/` and are not portfolio build inputs.
 
-Generated artifacts are supplied by the production build; missing PDFs do not block local viewing.
+Only theme persistence and the monitor/gallery use client JavaScript.
+
+Run `localdeploy.bat` from the repository root for local viewing. Generated CV
+output is not required to inspect the local UI. Production deployment remains
+main-only; this branch does not deploy.

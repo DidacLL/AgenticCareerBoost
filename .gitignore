@@ -78,6 +78,7 @@ latex.out/
 *.swp
 *~
 bootstrap/user_data.md
+
 # Python / test caches
 __pycache__/
 *.py[cod]
@@ -87,9 +88,7 @@ __pycache__/
 # OS/editor noise
 .DS_Store
 Thumbs.db
-*.swp
 *.swo
-*~
 
 # Local dependency and build outputs
 node_modules/
@@ -108,13 +107,13 @@ agents/reports/tex/guides/*cv*.pdf
 !/agents/cv/tex/didac-cv-shared-preamble-v1.tex
 !/agents/cv/tex/didac-llorens-cv.tex
 
-# Generated public site artifacts
+# Generated portfolio artifact
 site/assets/files/cv/
-site/assets/files/cover-letters/
-site/assets/files/reports/*.pdf
-site/data/status.json
 
-# Jekyll and local site outputs
+# Astro/local site outputs
+site/node_modules/
+site/dist/
+site/.astro/
 site/_site/
 site/.jekyll-cache/
 site/.sass-cache/
@@ -124,6 +123,7 @@ site/Gemfile.lock
 # Local private report sources
 agents/reports/tex/guides/candidaturas_reconocimiento_tecnico_03072026.
 agents/cv/data/
+
 # Application Tracker runtime data
 application-tracker/.private/
 application-tracker/**/*.sqlite
@@ -132,7 +132,6 @@ application-tracker/.gitignore
 agents/reports/tex/guides/candidaturas_reconocimiento_tecnico_03072026.tex
 
 # Local/private runtime data.
-# Keep these local; do not commit real application stores or generated private artifacts.
 /.agentic-career-boost/
 /.acb/
 /.tracker/
@@ -179,8 +178,3 @@ agents/reports/tex/guides/candidaturas_reconocimiento_tecnico_03072026.tex
 # Local-only artifacts preserved by backup but excluded from commits.
 /didac-*.pdf
 /agents/state/research/UserProjectConclusions.md
-
-# Astro local output
-site/node_modules/
-site/dist/
-site/.astro/
