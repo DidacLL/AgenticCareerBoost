@@ -82,8 +82,8 @@ def validate(path: Path = DEFAULT_MANIFEST) -> None:
         site_pdf = as_relative_path(item.get("sitePdf"), "sitePdf")
         if build_pdf.parts[:1] != ("build",):
             raise ValueError(f"buildPdf must be under agents/cv/build: {build_pdf}")
-        if site_pdf.parts[:2] != ("site", "assets", "files"):
-            raise ValueError(f"sitePdf must be under site/assets/files: {site_pdf}")
+        if site_pdf.parts[:4] != ("site", "assets", "files", "cv"):
+            raise ValueError(f"sitePdf must be under site/assets/files/cv: {site_pdf}")
         if site_pdf.suffix.lower() != ".pdf" or build_pdf.suffix.lower() != ".pdf":
             raise ValueError(f"artifact outputs must be PDFs: {site_pdf}")
         if kind == "cv" and not (CV_ROOT / source).is_file():
