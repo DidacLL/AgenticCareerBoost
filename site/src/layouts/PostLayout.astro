@@ -1,11 +1,41 @@
 ---
-import DocumentLayout from "./DocumentLayout.astro";
 import type { CollectionEntry } from "astro:content";
+import DocumentLayout from "./DocumentLayout.astro";
 import { asset } from "../lib/paths";
+
 const { post } = Astro.props as { post: CollectionEntry<"posts"> };
 ---
-<DocumentLayout title={post.data.title} description={post.data.description} label="RECORD" subtitle={post.data.date.toLocaleDateString("en-CA")} activePath="/blog/">
-  {post.data.image && <section class="section-block"><h3>IMAGE</h3><div class="section-content"><figure class="media-frame"><img src={asset(post.data.image)} alt={post.data.imageAlt ?? ""} loading="eager" /></figure></div></section>}
-  <section class="section-block"><h3>CONTEXT</h3><div class="section-content"><ul class="tag-list">{post.data.tags.map((tag) => <li>{tag}</li>)}</ul></div></section>
-  <section class="section-block"><h3>NOTE</h3><div class="section-content prose"><slot /></div></section>
+
+<DocumentLayout
+  title={post.data.title}
+  description={post.data.description}
+  label="RECORD"
+  subtitle={post.data.date.toLocaleDateString("en-CA")}
+  activePath="/blog/"
+>
+  {post.data.image && (
+    <section class="section-block">
+      <h3>IMAGE</h3>
+      <div class="section-content">
+        <figure class="media-frame">
+          <img
+            src={asset(post.data.image)}
+            alt={post.data.imageAlt ?? ""}
+            loading="eager"
+            decoding="async"
+          />
+        </figure>
+      </div>
+    </section>
+  )}
+  <section class="section-block">
+    <h3>CONTEXT</h3>
+    <div class="section-content">
+      <ul class="tag-list">{post.data.tags.map((tag) => <li>{tag}</li>)}</ul>
+    </div>
+  </section>
+  <section class="section-block">
+    <h3>NOTE</h3>
+    <div class="section-content prose"><slot /></div>
+  </section>
 </DocumentLayout>
