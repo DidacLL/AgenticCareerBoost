@@ -1,0 +1,11 @@
+---
+import { getEntry, render } from "astro:content";
+
+const footer = await getEntry("pages", "footer");
+if (!footer) throw new Error("Footer content is missing.");
+const { Content } = await render(footer);
+---
+
+<footer class="site-footer" aria-label={footer.data.title}>
+  <Content />
+</footer>

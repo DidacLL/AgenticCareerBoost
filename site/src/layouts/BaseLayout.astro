@@ -1,0 +1,121 @@
+---
+import { ClientRouter } from "astro:transitions";
+import Footer from "../components/Footer.astro";
+import PrimaryNavigation from "../components/PrimaryNavigation.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import { site, type NavId } from "../data/site";
+import { asset, paths, semanticPath } from "../lib/paths";
+import "../styles/tokens.css";
+import "../styles/base.css";
+import "../styles/site.css";
+import "../styles/shell.css";
+import "../styles/print.css";
+
+type MetaItem = { term: string; value?: string; href?: string; label?: string; external?: boolean; reload?: boolean };
+interface Props {
+  title: string;
+  description: string;
+  label?: string;
+  activeNav?: NavId;
+  meta?: MetaItem[];
+  ogType?: "website" | "article" | "profile";
+  noindex?: boolean;
+}
+
+const { title, description, label = site.ui.document, activeNav, meta = [], ogType = "website", noindex = false } = Astro.props;
+const buildIndexable = import.meta.env.SITE_INDEXABLE === "true";
+const robotsBlocked = !buildIndexable || noindex;
+const canonical = new URL(semanticPath(Astro.url.pathname), Astro.site).toString();
+const ogImage = new URL(asset(site.banner.image), Astro.site).toString();
+const browserIcon = asset(site.identity.avatar);
+const documentTitle = title === site.identity.name ? site.defaultTitle : `${title} — ${site.identity.name}`;
+const homeNav = site.navigation.find((item) => item.id === "home")!;
+---
+
+<!doctype html>
+<html lang="en" data-theme-storage-key={site.theme.storageKey} transition:animate="none">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{documentTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/jpeg" href={browserIcon} />
+    <link rel="apple-touch-icon" href={browserIcon} />
+    <link rel="canonical" href={canonical} />
+    {robotsBlocked && <meta name="robots" content="noindex,nofollow" />}
+    <meta property="og:title" content={documentTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={documentTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <ClientRouter fallback="swap" />
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const key = root.dataset.themeStorageKey;
+        const stored = key ? localStorage.getItem(key) : null;
+        const preferred = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        root.dataset.theme = stored === "dark" || stored === "light" ? stored : preferred;
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="site-frame">
+      <aside class="identity-rail">
+        <a class="identity-home" href={paths.home()} aria-label={homeNav.label}>
+          <span class="identity-avatar" transition:persist="identity-avatar"><img src={browserIcon} alt={site.identity.avatarAlt} /></span>
+          <strong>{site.identity.name}</strong>
+        </a>
+        <div class="identity-lines">
+          {site.identity.lines.map((line) => <p>{line}</p>)}
+        </div>
+        <PrimaryNavigation activeNav={activeNav} variant="rail" />
+      </aside>
+
+      <main class="document-body">
+        <figure class="site-banner" transition:persist="site-banner">
+          <img src={asset(site.banner.image)} alt={site.banner.alt} />
+          <figcaption>{site.banner.caption}</figcaption>
+        </figure>
+        <PrimaryNavigation activeNav={activeNav} variant="tabs" />
+        <slot />
+        <Footer />
+      </main>
+
+      <aside class="system-panel">
+        <section class="system-block">
+          <p class="system-label">{site.ui.system}</p>
+          <dl class="meta-list">
+            <div><dt>{site.ui.mode}</dt><dd>{label}</dd></div>
+            <div><dt>{site.ui.theme}</dt><dd><ThemeToggle /></dd></div>
+          </dl>
+        </section>
+
+        {meta.length > 0 && (
+          <section class="system-block">
+            <p class="system-label">{site.ui.context}</p>
+            <dl class="meta-list">
+              {meta.map((item) => (
+                <div>
+                  <dt>{item.term}</dt>
+                  <dd>{item.href ? <a href={item.href} target={item.external ? "_blank" : undefined} rel={item.external ? "noopener noreferrer" : undefined} data-astro-reload={item.reload ? true : undefined}>{item.label ?? item.value ?? item.href}</a> : item.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
+
+        <section class="system-block">
+          <p class="system-label">{site.ui.links}</p>
+          <ul class="system-links">
+            {site.external.map((item) => <li><a href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a></li>)}
+          </ul>
+        </section>
+      </aside>
+    </div>
+  </body>
+</html>

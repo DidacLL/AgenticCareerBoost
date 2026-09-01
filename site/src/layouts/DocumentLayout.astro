@@ -1,0 +1,27 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import type { NavId } from "../data/site";
+
+type MetaItem = { term: string; value?: string; href?: string; label?: string; external?: boolean; reload?: boolean };
+interface Props {
+  title: string;
+  description: string;
+  label?: string;
+  subtitle?: string;
+  activeNav?: NavId;
+  meta?: MetaItem[];
+  ogType?: "website" | "article" | "profile";
+  noindex?: boolean;
+}
+
+const { title, description, label, subtitle, activeNav, meta = [], ogType = "website", noindex = false } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} label={label} activeNav={activeNav} meta={meta} ogType={ogType} noindex={noindex}>
+  <header class="document-header">
+    {label && <p class="eyebrow">{label}</p>}
+    <h1>{title}</h1>
+    {subtitle && <p class="document-subtitle">{subtitle}</p>}
+  </header>
+  <slot />
+</BaseLayout>

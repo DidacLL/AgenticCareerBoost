@@ -15,64 +15,51 @@ jobs:
     name: required-ci
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v6
         with:
           persist-credentials: false
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-
-      - name: Compile public report PDFs
-        uses: xu-cheng/latex-action@v3
-        with:
-          working_directory: agents/reports/tex
-          root_file: |
-            sprints/*.tex
-            guides/*.tex
-          args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
-
-      - name: Publish public report PDFs into site artifact
-        run: python agents/reports/tex/tools/publish-public-reports.py
-
       - name: Resolve career artifact build inputs
         id: career
         run: |
           python agents/cv/tools/artifact_manifest.py validate
           {
-            echo 'root_files<<EOF'
-            python agents/cv/tools/artifact_manifest.py roots
+            echo 'tex_root_files<<EOF'
+            python agents/cv/tools/artifact_manifest.py roots | sed 's#^tex/##'
             echo 'EOF'
           } >> "$GITHUB_OUTPUT"
-
-      - name: Compile public career PDFs
+      - name: Compile public CV from canonical TeX root
         uses: xu-cheng/latex-action@v3
         with:
-          working_directory: agents/cv
-          root_file: ${{ steps.career.outputs.root_files }}
-          args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
-
-      - name: Publish generated career PDFs into site artifact
+          working_directory: agents/cv/tex
+          root_file: ${{ steps.career.outputs.tex_root_files }}
+          args: -r ../latexmkrc -pdf -interaction=nonstopmode -halt-on-error -outdir=../build -auxdir=../build
+      - name: Assert TeX source directory is clean
+        run: |
+          if find agents/cv/tex -maxdepth 1 -type f \( \
+            -name '*.aux' -o -name '*.log' -o -name '*.out' -o -name '*.fls' -o \
+            -name '*.fdb_latexmk' -o -name '*.synctex.gz' -o -name '*.toc' -o \
+            -name '*.bbl' -o -name '*.bcf' -o -name '*.blg' -o -name '*.run.xml' \
+          \) -print -quit | grep -q .; then
+            echo 'TeX compilation polluted agents/cv/tex with generated files.' >&2
+            exit 1
+          fi
+      - name: Publish public CV into portfolio artifact
         run: python agents/cv/tools/artifact_manifest.py publish
-
-      - name: Generate site status data
-        run: python agents/tools/export_status.py
-
-      - name: Generate Application Tracker public demo
-        run: python application-tracker/export_demo_dashboard.py
-
-      - name: Validate static site
-        run: python agents/tools/validate_static_site.py
-
-      - name: Upload PR site artifact
-        if: always() && github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
+      - uses: actions/setup-node@v6
         with:
-          name: site-with-generated-pdfs
-          path: site
-          if-no-files-found: error
-          retention-days: 14
-
+          node-version: 24.20.0
+      - name: Install site dependencies
+        run: npm install --prefix site --no-package-lock
+      - name: Build Astro site
+        run: npm run build --prefix site
+        env:
+          SITE_ORIGIN: https://example.invalid
+          SITE_BASE: /
+          SITE_INDEXABLE: "true"
+      - name: Validate generated portfolio
+        run: node site/scripts/verify-build.mjs site/dist / true https://example.invalid
       - name: Validate internal Markdown links
         run: bash agents/tools/validate_links.sh

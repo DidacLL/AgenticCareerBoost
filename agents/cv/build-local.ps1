@@ -5,6 +5,8 @@
 
 $ErrorActionPreference = "Stop"
 $cvRoot = $PSScriptRoot
+$texRoot = Join-Path $cvRoot "tex"
+$buildRoot = Join-Path $cvRoot "build"
 
 function Test-LatexmkWorks {
     try {
@@ -15,34 +17,60 @@ function Test-LatexmkWorks {
     }
 }
 
-function Invoke-CvTexBuild {
-    param([string]$TexFile, [string]$Label)
+function Remove-CvTexAuxiliaries {
+    param([string]$BaseName)
 
-    Write-Host "[cv-build] Building $Label..." -ForegroundColor Cyan
-    if ($script:useLatexmk) {
-        & latexmk -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error $TexFile
-        if ($LASTEXITCODE -ne 0) { throw "latexmk failed for $TexFile" }
-        return
-    }
-
-    if (-not (Test-Path "build")) {
-        New-Item -ItemType Directory -Path "build" -Force | Out-Null
-    }
-    $pdfArgs = @(
-        "-interaction=nonstopmode",
-        "-halt-on-error",
-        "-output-directory=build",
-        "-aux-directory=build",
-        $TexFile
+    $suffixes = @(
+        ".aux", ".log", ".out", ".fls", ".fdb_latexmk", ".synctex.gz",
+        ".toc", ".lof", ".lot", ".nav", ".snm", ".vrb",
+        ".bbl", ".bcf", ".blg", ".run.xml", ".xdv"
     )
-    for ($pass = 1; $pass -le 3; $pass++) {
-        Write-Host "  pass $pass/3..." -NoNewline -ForegroundColor DarkGray
-        $proc = Start-Process -FilePath "pdflatex" -ArgumentList $pdfArgs -NoNewWindow -Wait -PassThru -RedirectStandardOutput "NUL" 2>&1
-        if ($proc.ExitCode -ne 0) {
-            Write-Host " FAILED" -ForegroundColor Red
-            throw "pdflatex failed for $TexFile"
+    foreach ($suffix in $suffixes) {
+        $path = Join-Path $texRoot ($BaseName + $suffix)
+        if (Test-Path $path) {
+            Remove-Item -Force $path
         }
-        Write-Host " ok" -ForegroundColor DarkGray
+    }
+}
+
+function Invoke-CvTexBuild {
+    param([string]$TexFile)
+
+    $sourceName = [System.IO.Path]::GetFileName($TexFile)
+    $baseName = [System.IO.Path]::GetFileNameWithoutExtension($TexFile)
+    Remove-CvTexAuxiliaries -BaseName $baseName
+
+    Write-Host "[cv-build] Building $baseName..." -ForegroundColor Cyan
+    if (-not (Test-Path $buildRoot)) {
+        New-Item -ItemType Directory -Path $buildRoot -Force | Out-Null
+    }
+
+    Push-Location $texRoot
+    try {
+        if ($script:useLatexmk) {
+            & latexmk -r ../latexmkrc -pdf -interaction=nonstopmode -halt-on-error -outdir=../build -auxdir=../build $sourceName
+            if ($LASTEXITCODE -ne 0) { throw "latexmk failed for $sourceName" }
+            return
+        }
+
+        $pdfArgs = @(
+            "-interaction=nonstopmode",
+            "-halt-on-error",
+            "-output-directory=../build",
+            $sourceName
+        )
+        for ($pass = 1; $pass -le 3; $pass++) {
+            Write-Host "  pass $pass/3..." -NoNewline -ForegroundColor DarkGray
+            & pdflatex @pdfArgs *> $null
+            if ($LASTEXITCODE -ne 0) {
+                Write-Host " FAILED" -ForegroundColor Red
+                throw "pdflatex failed for $sourceName"
+            }
+            Write-Host " ok" -ForegroundColor DarkGray
+        }
+    } finally {
+        Pop-Location
+        Remove-CvTexAuxiliaries -BaseName $baseName
     }
 }
 
@@ -64,13 +92,13 @@ try {
 
     foreach ($texFile in $roots) {
         if (-not [string]::IsNullOrWhiteSpace($texFile)) {
-            $label = [System.IO.Path]::GetFileNameWithoutExtension($texFile)
-            Invoke-CvTexBuild -TexFile $texFile -Label $label
+            Invoke-CvTexBuild -TexFile $texFile
         }
     }
 
     & python tools/artifact_manifest.py publish
     if ($LASTEXITCODE -ne 0) { throw "artifact publication failed" }
+    Write-Host "[cv-build] Done. Generated files are under agents/cv/build/." -ForegroundColor Green
 } finally {
     Pop-Location
 }

@@ -78,6 +78,7 @@ latex.out/
 *.swp
 *~
 bootstrap/user_data.md
+
 # Python / test caches
 __pycache__/
 *.py[cod]
@@ -87,9 +88,7 @@ __pycache__/
 # OS/editor noise
 .DS_Store
 Thumbs.db
-*.swp
 *.swo
-*~
 
 # Local dependency and build outputs
 node_modules/
@@ -108,13 +107,13 @@ agents/reports/tex/guides/*cv*.pdf
 !/agents/cv/tex/didac-cv-shared-preamble-v1.tex
 !/agents/cv/tex/didac-llorens-cv.tex
 
-# Generated public site artifacts
-site/files/cv/
-site/files/cover-letters/
-site/files/reports/*.pdf
-site/data/status.json
+# Generated portfolio artifact
+site/assets/files/cv/
 
-# Jekyll and local site outputs
+# Astro/local site outputs
+site/node_modules/
+site/dist/
+site/.astro/
 site/_site/
 site/.jekyll-cache/
 site/.sass-cache/
@@ -124,6 +123,7 @@ site/Gemfile.lock
 # Local private report sources
 agents/reports/tex/guides/candidaturas_reconocimiento_tecnico_03072026.
 agents/cv/data/
+
 # Application Tracker runtime data
 application-tracker/.private/
 application-tracker/**/*.sqlite

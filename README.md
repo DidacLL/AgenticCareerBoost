@@ -1,8 +1,8 @@
 # AgenticCareerBoost
 
 AgenticCareerBoost is my personal career workspace and public proof record. It
-holds the practical systems, LaTeX work, public site assets, and scratch tooling
-I use while improving my job-search workflow.
+holds the practical systems, LaTeX work, public portfolio, and scratch tooling I
+use while improving my job-search workflow.
 
 This repository is not a generic software product. Some tools inside it are
 prototypes or temporary local workflow, and some material is intentional public
@@ -10,18 +10,20 @@ career evidence.
 
 ## What Is Here
 
+- `site/` - Markdown-authored Astro portfolio. It contains only the pages, assets
+  and selected public CV output that are actually part of the portfolio.
 - `application-tracker/` - scratch tracker and cover-letter renderer, kept as
   evidence of the local workflow that later informed AAAAT.
 - `application-tracker/letter.ps1` - simple local cover-letter generation flow.
-- `agents/cv/` - public/general CV LaTeX workflow and related build material.
-- `site/` - personal public site and portfolio proof.
-- `agents/reports/` - historical public proof/report material where still useful.
+- `agents/cv/` - public/general CV LaTeX source and build support.
+- `agents/reports/` - report sources and historical repository evidence. Reports
+  are not portfolio assets or site-build inputs.
 - `agents/work/social/` - preserved campaign planning, research, and social
   scratch material.
 - `agents/state/` - historical logs, decisions, research, and previous run
   records.
-- `agents/rules/` and `agents/tests/` - legacy harness material kept as
-  evidence, not as the current control system.
+- `agents/rules/` and `agents/tests/` - legacy harness material kept as evidence,
+  not as the current control system.
 
 ## Private Boundary
 
@@ -57,9 +59,18 @@ The canonical/general CV source remains under `agents/cv/`. Tailored variants
 should stay private or ignored.
 
 The historical `agents/` material is intentionally preserved because this is a
-proof repo. It shows the research, campaign work, earlier system design, and
-failure/correction history. It should not be read as mandatory process for new
-work.
+proof repo. It shows research, campaign work, earlier system design, reports,
+and failure/correction history. It should not be read as mandatory process for
+new work.
+
+## Public Site Boundary
+
+The portfolio is one output of this repository, not a container for every piece
+of ACB evidence. Report sources/history remain inspectable in the repository;
+the site presents the current portfolio, selected project narratives and public
+CV views.
+
+Run `localdeploy.bat` from the repository root to view the Astro site locally.
 
 ## Project Boundary
 
@@ -69,4 +80,4 @@ outside this repository.
 
 The goal here is a clean, understandable career workspace that shows practical
 engineering judgment: useful local automation, careful data boundaries, strong
-LaTeX/document work, and honest public evidence.
+document work, and honest public evidence.

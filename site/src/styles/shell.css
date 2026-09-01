@@ -1,0 +1,103 @@
+/* Shared shell geometry: identity rail, banner and primary navigation. */
+.identity-avatar img {
+  object-position: center;
+}
+
+.primary-nav--rail {
+  border: var(--hair) solid var(--line);
+  border-bottom: 0;
+}
+
+.primary-nav--rail a {
+  border-bottom: var(--hair) solid var(--line);
+}
+
+.primary-nav--rail a strong,
+.primary-nav--tabs a strong {
+  font: inherit;
+}
+
+.site-banner {
+  height: clamp(7rem, 8vw, 9rem);
+}
+
+.primary-nav--tabs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  overflow-x: auto;
+  border-top: 0;
+  border-bottom: var(--strong) solid var(--line);
+  background: var(--paper-alt);
+  scrollbar-width: thin;
+}
+
+.primary-nav--tabs a {
+  display: block;
+  min-width: 0;
+  padding: .72rem .35rem;
+  border-right: var(--hair) solid var(--line);
+  border-bottom: 0;
+  color: var(--muted);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.primary-nav--tabs a:last-child {
+  border-right: 0;
+}
+
+.primary-nav--tabs a span {
+  display: none;
+}
+
+.primary-nav--tabs a.is-active {
+  position: relative;
+  background: color-mix(in srgb, var(--active) 62%, var(--paper));
+  color: var(--ink);
+}
+
+.primary-nav--tabs a.is-active::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: .18rem;
+  background: var(--accent);
+}
+
+@media (max-width: 52rem) {
+  .site-banner {
+    height: clamp(6.5rem, 17vw, 8rem);
+  }
+
+  .primary-nav--rail {
+    display: none;
+  }
+
+  .primary-nav--tabs {
+    grid-template-columns: repeat(5, minmax(4rem, 1fr));
+  }
+
+  .primary-nav--tabs a {
+    padding: .7rem .24rem;
+    font-size: .72rem;
+  }
+}
+
+@media (max-width: 38rem) {
+  .site-banner {
+    height: 6.5rem;
+  }
+
+  .primary-nav--tabs {
+    grid-template-columns: repeat(5, minmax(3.9rem, 1fr));
+  }
+
+  .primary-nav--tabs a {
+    padding: .66rem .16rem;
+    font-size: .67rem;
+    letter-spacing: -.01em;
+  }
+}

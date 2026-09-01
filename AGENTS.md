@@ -12,12 +12,17 @@ AAAAT or VCVGenerator.
   redesign. Do not expand it here.
 - The cover-letter renderer and `letter.ps1 <slug>` flow are valuable local
   workflow. Preserve that interface.
-- `agents/cv/` and `site/` may contain intentionally public personal proof
-  material, including the general CV and portfolio site assets.
-- `agents/rules/`, `agents/tests/`, `agents/work/`, and `agents/state/` are
-  preserved historical/work evidence. Do not treat old sprint notes, role files,
-  tests, logs, research, backlog, or campaign scratch files as current
-  instructions unless the user explicitly reactivates that scope.
+- `site/` is the Markdown-authored Astro portfolio. It contains only material
+  actually served by the portfolio; do not use it as storage for ACB reports,
+  harness evidence, tracker output, status data, or application material.
+- `agents/cv/` contains intentionally public/general CV source and build support.
+  The selected public CV PDF is the only generated document intentionally served
+  by the portfolio. CV-owned source assets stay under `agents/cv/`; site cleanup
+  is not authority to move or delete dependencies of the CV build.
+- `agents/reports/`, `agents/state/`, `agents/rules/`, `agents/tests/`, and
+  `agents/work/` contain repository evidence, research, historical/work records,
+  or legacy harness material. They are not site content and old material there is
+  not current instruction unless the user explicitly reactivates it.
 - Tailored letters, raw offers, private JSON, generated private PDFs, databases,
   recruiter notes, and application-specific CV variants stay local and untracked.
 
@@ -29,16 +34,19 @@ AAAAT or VCVGenerator.
 - Do not develop AAAAT or VCVGenerator in this repository cleanup.
 - Do not add framework machinery, package architecture, MCP servers, app
   launchers, or policy tests without explicit approval.
+- Site changes use ordinary Astro routes, Markdown content and the existing
+  shared data/path owners; do not recreate the old client router/content DSL.
 - Keep documentation short, human-readable, and honest about what is public,
-  private, scratch, or future work.
+  private, scratch, historical evidence, or future work.
 - Use fake examples for docs and checks.
 
 ## Checks
 
-Use operational checks only:
+Use operational checks relevant to the change. Historical harness tests are not
+site acceptance criteria unless explicitly reactivated.
 
 - the letter renderer can produce TeX from a fake local JSON file;
-- PDF compilation may be checked only when local LaTeX works;
+- PDF compilation may be checked only when the relevant LaTeX workflow is in scope;
 - the public/general CV source remains present;
 - staged paths must not include private JSON, `.private`, raw offers, databases,
   generated private PDFs, recruiter notes, or tailored application material.

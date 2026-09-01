@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from "astro:content";
+import DocumentLayout from "./DocumentLayout.astro";
+import { site } from "../data/site";
+import { asset } from "../lib/paths";
+
+const { post } = Astro.props as { post: CollectionEntry<"posts"> };
+const date = post.data.date.toLocaleDateString("en-CA");
+const meta = [{ term: site.ui.date, value: date }];
+if (post.data.tags.length) meta.push({ term: site.ui.tags, value: post.data.tags.join(" · ") });
+---
+
+<DocumentLayout
+  title={post.data.title}
+  description={post.data.description}
+  label={site.ui.article}
+  subtitle={date}
+  activeNav="blog"
+  ogType="article"
+  meta={meta}
+>
+  {post.data.image && (
+    <section class="section-block">
+      <h2>{site.ui.image}</h2>
+      <div class="section-content"><figure class="media-frame"><img src={asset(post.data.image)} alt={post.data.imageAlt ?? post.data.title} loading="eager" decoding="async" /></figure></div>
+    </section>
+  )}
+  <section class="section-block">
+    <h2>{site.ui.note}</h2>
+    <div class="section-content prose"><slot /></div>
+  </section>
+</DocumentLayout>

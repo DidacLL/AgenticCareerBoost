@@ -1,0 +1,62 @@
+---
+import type { CollectionEntry } from "astro:content";
+import DocumentLayout from "./DocumentLayout.astro";
+import ProjectPreview from "../components/ProjectPreview.astro";
+import { site } from "../data/site";
+import { asset, paths } from "../lib/paths";
+import { publicCvPath } from "../lib/cv";
+
+const { cv, views, projects } = Astro.props as {
+  cv: CollectionEntry<"cv">;
+  views: CollectionEntry<"cv">[];
+  projects: CollectionEntry<"projects">[];
+};
+const pdfHref = asset(publicCvPath);
+const sortedProjects = [...projects].sort((a, b) => a.data.order - b.data.order);
+---
+
+<DocumentLayout
+  title={cv.data.title}
+  description={cv.data.description}
+  label={cv.data.label}
+  subtitle={cv.data.subtitle ?? cv.data.description}
+  activeNav="cv"
+  ogType="profile"
+  meta={[
+    { term: site.ui.view, value: cv.data.label ?? cv.data.title },
+    { term: site.ui.pdf, href: pdfHref, label: site.cv.pdfLabel, reload: true },
+    { term: site.ui.source, href: site.cv.sourceUrl, label: site.cv.sourceLabel, external: true }
+  ]}
+>
+  <nav class="cv-tabs" aria-label={site.ui.cvViews}>
+    {views.map((view) => <a class:list={{ "is-active": view.id === cv.id }} href={paths.cv(view.id)}>{view.data.label ?? view.data.title}</a>)}
+  </nav>
+
+  <section class="section-block">
+    <h2>{site.ui.profile}</h2>
+    <div class="section-content prose"><slot /></div>
+  </section>
+
+  <section class="section-block">
+    <h2>{site.ui.lanes}</h2>
+    <div class="section-content"><ul class="tag-list">{cv.data.lanes.map((lane) => <li>{lane}</li>)}</ul></div>
+  </section>
+
+  <section class="section-block">
+    <h2>{site.ui.selectedWork}</h2>
+    <div class="section-content preview-list">{sortedProjects.map((project) => <ProjectPreview project={project} compact />)}</div>
+  </section>
+
+  <section class="section-block">
+    <h2>{site.ui.technicalBase}</h2>
+    <div class="section-content"><dl class="facts-list">{cv.data.technicalBase.map((item) => <div><dt>{item.term}</dt><dd>{item.value}</dd></div>)}</dl></div>
+  </section>
+
+  <section class="section-block">
+    <h2>{site.ui.source}</h2>
+    <div class="section-content source-links">
+      <a href={pdfHref} data-astro-reload>{site.cv.pdfLabel}</a>
+      <a href={site.cv.sourceUrl} target="_blank" rel="noopener noreferrer">{site.cv.sourceLabel} ↗</a>
+    </div>
+  </section>
+</DocumentLayout>

@@ -1,0 +1,49 @@
+:root {
+  --bg: #e7dfcb;
+  --paper: #f7f0df;
+  --paper-alt: #e9dfc9;
+  --ink: #171914;
+  --text: #302e26;
+  --muted: #696455;
+  --line: #32352c;
+  --soft-line: color-mix(in srgb, var(--line) 28%, transparent);
+  --active: #68cabc;
+  --accent: #d77559;
+  --signal: #a6f2bd;
+  --monitor: #06110a;
+  --monitor-ink: #d9ffe0;
+  --monitor-muted: #9bc7a3;
+  --monitor-line: #486a4e;
+  --monitor-glow: rgba(112, 244, 153, .16);
+  --mono: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+  --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --frame: 112rem;
+  --reading: 72ch;
+  --hair: 1px;
+  --strong: 2px;
+  --s1: .45rem;
+  --s2: .75rem;
+  --s3: 1.1rem;
+  --s4: 1.7rem;
+  --s5: 2.5rem;
+  --s6: clamp(3rem, 5vw, 5.5rem);
+}
+
+:root[data-theme="dark"] {
+  --bg: #10150e;
+  --paper: #161d13;
+  --paper-alt: #20291a;
+  --ink: #f0ead5;
+  --text: #e0d8c1;
+  --muted: #b8ae93;
+  --line: #939c7c;
+  --soft-line: color-mix(in srgb, var(--line) 36%, transparent);
+  --active: #8ed5be;
+  --accent: #ef8b70;
+  --signal: #b7f5bf;
+  --monitor: #030905;
+  --monitor-ink: #d9ffe0;
+  --monitor-muted: #9bc7a3;
+  --monitor-line: #5d7f64;
+  --monitor-glow: rgba(112, 244, 153, .2);
+}
