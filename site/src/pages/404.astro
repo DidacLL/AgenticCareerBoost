@@ -2,6 +2,17 @@
 import DocumentLayout from "../layouts/DocumentLayout.astro";
 import { paths } from "../lib/paths";
 ---
-<DocumentLayout title="Not found" description="The requested document was not found." label="404" subtitle="This route is not part of the public document set.">
-  <section class="section-block"><h3>RETURN</h3><div class="section-content prose"><p><a href={paths.home()}>Return to the home document →</a></p></div></section>
+
+<DocumentLayout
+  title="Not found"
+  description="The requested document was not found."
+  label="404"
+  subtitle="This route is not part of the public document set."
+>
+  <section class="section-block">
+    <h3>RETURN</h3>
+    <div class="section-content prose">
+      <p><a href={paths.home()}>Return to the home document →</a></p>
+    </div>
+  </section>
 </DocumentLayout>

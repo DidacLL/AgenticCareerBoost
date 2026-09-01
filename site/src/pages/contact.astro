@@ -2,10 +2,28 @@
 import { getEntry, render } from "astro:content";
 import DocumentLayout from "../layouts/DocumentLayout.astro";
 import { paths } from "../lib/paths";
+
 const contact = await getEntry("pages", "contact");
-if (!contact) throw new Error("Contact content is missing.");
+
+if (!contact) {
+  throw new Error("Contact content is missing.");
+}
+
 const { Content } = await render(contact);
 ---
-<DocumentLayout title="Contact" description={contact.data.description} label="CONTACT" subtitle="Barcelona · software engineering · public work." activePath="/contact/">
-  <section class="section-block"><h3>CHANNEL</h3><div class="section-content prose"><Content /><p><a href={paths.cv("ml")}>Open the web CV →</a></p></div></section>
+
+<DocumentLayout
+  title="Contact"
+  description={contact.data.description}
+  label="CONTACT"
+  subtitle="Barcelona · software engineering · public work."
+  activePath="/contact/"
+>
+  <section class="section-block">
+    <h3>CHANNEL</h3>
+    <div class="section-content prose">
+      <Content />
+      <p><a href={paths.cv("ml")}>Open the web CV →</a></p>
+    </div>
+  </section>
 </DocumentLayout>
