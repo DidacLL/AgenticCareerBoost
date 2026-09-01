@@ -179,3 +179,7 @@ agents/reports/tex/guides/candidaturas_reconocimiento_tecnico_03072026.tex
 # Local-only artifacts preserved by backup but excluded from commits.
 /didac-*.pdf
 /agents/state/research/UserProjectConclusions.md
+/agents/cv/tex/*.pdf
+/agents/cv/tex/*-cv-*.tex
+
+
