@@ -1,13 +1,24 @@
 ---
-import { getEntry, render } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import DocumentLayout from "../layouts/DocumentLayout.astro";
 import Gallery from "../components/Gallery.astro";
 import { paths } from "../lib/paths";
-const home=await getEntry("pages","home"); if(!home) throw new Error("Home content is missing.");
-const {Content}=await render(home);
+import { site } from "../data/site";
+const home = await getEntry("pages", "home");
+if (!home) throw new Error("Home content is missing.");
+const { Content } = await render(home);
+const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+const gallerySlides = [
+  ...site.gallery.slides,
+  ...projects.map((project) => ({
+    image: project.data.image,
+    alt: project.data.imageAlt,
+    caption: `project / ${project.data.title}`
+  }))
+];
 ---
 <DocumentLayout title={home.data.title} description={home.data.description} label="00 / PROFILE" subtitle="Software engineering, technical documents, local-first tools, and practical AI workflows." activePath="/">
-<section class="section-block home-lead"><h3>PROFILE</h3><div class="section-content home-lead__grid"><div class="prose"><Content /></div><Gallery /></div></section>
-<section class="section-block"><h3>ROUTES</h3><div class="section-content preview-list"><a class="preview-row" href={paths.cv("ml")}><span class="article-date">CV / 03</span><span class="preview-row__copy"><h3>Role-filtered CV <span aria-hidden="true">→</span></h3><p>Current technical profile, focused views, and public PDF.</p></span></a><a class="preview-row" href={paths.projects()}><span class="article-date">WORK / 01</span><span class="preview-row__copy"><h3>Selected projects <span aria-hidden="true">→</span></h3><p>Software systems, documentation, public evidence, and project history.</p></span></a><a class="preview-row" href={paths.blog()}><span class="article-date">NOTES / 02</span><span class="preview-row__copy"><h3>Technical records <span aria-hidden="true">→</span></h3><p>Writing on practical workflows, publishing, and engineering maintenance.</p></span></a></div></section>
-<section class="section-block"><h3>SOURCE</h3><div class="section-content"><p class="evidence-note">Public work is source-led: the site, technical reports, and selected project material remain directly inspectable.</p></div></section>
+  <section class="section-block home-lead"><h3>PROFILE</h3><div class="section-content home-lead__grid"><div class="prose"><Content /></div><Gallery slides={gallerySlides} /></div></section>
+  <section class="section-block route-block"><h3>ROUTES</h3><div class="section-content preview-list"><a class="preview-row" href={paths.cv("ml")}><span class="article-date">CV / 03</span><span class="preview-row__copy"><h3>Role-filtered CV <span aria-hidden="true">→</span></h3><p>Current technical profile, focused views, and public PDF.</p></span></a><a class="preview-row" href={paths.projects()}><span class="article-date">WORK / 01</span><span class="preview-row__copy"><h3>Selected projects <span aria-hidden="true">→</span></h3><p>Software systems, documentation, public evidence, and project history.</p></span></a><a class="preview-row" href={paths.blog()}><span class="article-date">NOTES / 02</span><span class="preview-row__copy"><h3>Technical records <span aria-hidden="true">→</span></h3><p>Writing on practical workflows, publishing, and engineering maintenance.</p></span></a></div></section>
+  <section class="section-block source-block"><h3>SOURCE</h3><div class="section-content"><p class="evidence-note">Public work is source-led: the site, technical reports, and selected project material remain directly inspectable.</p></div></section>
 </DocumentLayout>

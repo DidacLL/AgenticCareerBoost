@@ -16,11 +16,8 @@ export const site = {
   ],
   theme: { toggle: "Toggle colour theme", dark: "dark mode", light: "light mode" },
   gallery: {
-    previous: "Previous signal", next: "Next signal", expand: "maximize", collapse: "minimize",
-    slides: [
-      { image: "/img/me.png", alt: "Dídac Llorens portrait in monitor signal treatment", caption: "portrait / default signal" },
-      { image: "/img/avatar.jpg", alt: "Dídac Llorens portrait alternate signal", caption: "portrait / alternate signal" }
-    ]
+    previous: "Previous image", next: "Next image", expand: "maximize", collapse: "minimize",
+    slides: [{ image: "/img/me.png", alt: "Dídac Llorens portrait rendered as a CRT feed", caption: "portrait / profile" }]
   },
   banner: { image: "/img/418_informal_banner.jpg", alt: "418 visual channel" },
   footer: "© Dídac Llorens · public technical work and source-led evidence."
