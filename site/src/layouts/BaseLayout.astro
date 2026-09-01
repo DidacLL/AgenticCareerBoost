@@ -24,7 +24,7 @@ const { title, description, label = "DOCUMENT", activeNav, meta = [], ogType = "
 const buildIndexable = import.meta.env.SITE_INDEXABLE === "true";
 const robotsBlocked = !buildIndexable || noindex;
 const canonical = new URL(semanticPath(Astro.url.pathname), Astro.site).toString();
-const ogImage = new URL("/img/418_informal_banner.jpg", Astro.site).toString();
+const ogImage = new URL(asset(site.banner.image), Astro.site).toString();
 const documentTitle = title === site.identity.name ? site.defaultTitle : `${title} — ${site.identity.name}`;
 ---
 

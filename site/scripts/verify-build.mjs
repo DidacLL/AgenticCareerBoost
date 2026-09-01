@@ -31,6 +31,7 @@ for (const file of walk(resolve("site/src"))) {
 const pageFile = (route) => join(output, route === "/" ? "index.html" : route.replace(/^\//, "") + "index.html");
 const refs = (html) => [...html.matchAll(/(?:href|src)=[\"']([^\"'#]+)[\"']/gi)].map((match) => match[1]);
 const canonicalHref = (html) => html.match(/<link\s+rel=[\"']canonical[\"']\s+href=[\"']([^\"']+)[\"']/i)?.[1];
+const metaProperty = (html, property) => html.match(new RegExp(`<meta\\s+property=["']${property}["']\\s+content=["']([^"']+)["']`, "i"))?.[1];
 const hasNoindex = (html) => /<meta\s+name=[\"']robots[\"']\s+content=[\"'][^\"']*noindex/i.test(html);
 
 for (const route of routes) {
@@ -43,6 +44,10 @@ for (const route of routes) {
   const canonical = canonicalHref(html);
   const expectedCanonical = new URL(route, origin).toString();
   if (canonical !== expectedCanonical) throw new Error(`Canonical mismatch on ${route}: expected ${expectedCanonical}, got ${canonical ?? "missing"}`);
+  const ogImageHref = metaProperty(html, "og:image");
+  if (!ogImageHref) throw new Error(`Missing og:image on ${route}`);
+  const ogImage = new URL(ogImageHref);
+  if (ogImage.origin !== origin.origin || !ogImage.pathname.startsWith(base)) throw new Error(`og:image is not deployment-base aware on ${route}: ${ogImageHref}`);
   if (indexable === hasNoindex(html)) throw new Error(`Robots metadata mismatch on ${route}: indexable=${indexable}`);
   for (const reference of refs(html)) {
     if (/^(?:https?:|mailto:|tel:|data:|#)/i.test(reference) || /\/files\/cv\//.test(reference)) continue;
