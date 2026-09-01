@@ -30,7 +30,9 @@ export const collections = {
     schema: z.object({
       ...common,
       date: z.coerce.date(),
-      tags: z.array(z.string())
+      tags: z.array(z.string()),
+      image: z.string().optional(),
+      imageAlt: z.string().optional()
     })
   }),
   cv: defineCollection({
