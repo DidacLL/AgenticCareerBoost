@@ -13,7 +13,7 @@ facts:
 ---
 I build software because I enjoy turning recurring friction into tools. Sometimes that means a desktop application or a backend service; sometimes it means going unusually deep into a language like TeX because the right abstraction can remove hours of repetitive work.
 
-P3CTeX is the clearest example: a LaTeX class and package ecosystem I built while studying at UOC so I could produce PECs quickly without giving up professional typography, diagrams, code listings, tables, screenshots, or reproducible source. AAAAT is a local-first desktop application for a completely different kind of repetitive workflow. The older IronBank project records my Java/Spring backend starting point.
+[P3CTeX](projects/p3ctex/) is the clearest example: a LaTeX class and package ecosystem I built while studying at UOC so I could produce PECs quickly without giving up professional typography, diagrams, code listings, tables, screenshots, or reproducible source. [AAAAT](projects/aaaat/) is a local-first desktop application for a completely different kind of repetitive workflow. The older [IronBank](projects/ironbank/) project records my Java/Spring backend starting point.
 
 My previous career in banking and insurance still influences the way I write software. I care about domain rules, traceability, failure modes, readable state, and knowing which part of a system owns a piece of information. My arts/design background is the other half of that: software can be technically sound without being visually anonymous.
 
