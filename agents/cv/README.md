@@ -1,42 +1,104 @@
-# CV LaTeX Area
+# `agents/cv/` — public CV source and build pipeline
 
-This folder keeps the public/general CV LaTeX workflow and related build
-material. It is independent from the portfolio source tree.
+This directory owns the public/general CV and its build tooling. It is deliberately independent from the portfolio source tree: the site consumes a generated PDF artifact, but it does not own the TeX source, shared preamble, header artwork, or compilation rules.
 
-The canonical TeX root is `agents/cv/tex/`. The public document,
-`didac-llorens-cv.tex`, includes `didac-cv-shared-preamble-v1.tex` as a sibling,
-and the shared header artwork is the sibling asset `418-banner.png`. There are
-no `site/` dependencies and no working-directory-dependent path prefixes inside
-the TeX sources.
+## Canonical source root
 
-This means the public CV can be opened and compiled directly from
-`agents/cv/tex/` in a LaTeX IDE. The repository build helpers use the same TeX
-root; they only redirect generated PDFs and auxiliary files to
-`agents/cv/build/` so `.aux`, `.log`, `.out`, `.fls`, `.fdb_latexmk`,
-`.synctex.gz`, and similar files do not accumulate beside the sources. The
-helpers also remove known auxiliary residues from `tex/` before and after a
-build.
+The single LaTeX source/compilation root is:
 
-Tailored/local variants may also use the shared preamble, but they stay ignored
-unless they are intentionally promoted to public proof.
+```text
+agents/cv/tex/
+```
 
-## Boundaries
+It contains:
+
+```text
+didac-llorens-cv.tex
+didac-cv-shared-preamble-v1.tex
+418-banner.png
+```
+
+The main document includes the preamble as a sibling and the preamble loads the banner as a sibling. There are no `site/` dependencies and no dual working-directory search paths.
+
+That means `didac-llorens-cv.tex` can be opened and compiled directly from `agents/cv/tex/` in a LaTeX IDE.
+
+## Build outputs
+
+Repository build helpers use the same TeX root but redirect generated material to:
+
+```text
+agents/cv/build/
+```
+
+This includes the public PDF and LaTeX auxiliary output. Known residues such as `.aux`, `.log`, `.out`, `.fls`, `.fdb_latexmk`, `.synctex.gz`, `.toc`, bibliography state and related temporary files are removed from the source directory before/after scripted builds.
+
+The source directory should therefore remain source-only.
+
+## Local build
+
+Windows:
+
+```powershell
+cd agents/cv
+.\build-local.ps1
+```
+
+Bash:
+
+```bash
+cd agents/cv
+./build-local.sh
+```
+
+Both helpers:
+
+1. validate `artifacts.json`;
+2. resolve the public CV source;
+3. compile from `agents/cv/tex/`;
+4. write generated output under `agents/cv/build/`;
+5. publish the selected public PDF to the portfolio artifact path declared by the manifest;
+6. keep the TeX source directory clean.
+
+Direct IDE compilation remains valid independently of these helper scripts.
+
+## Artifact manifest
+
+[`artifacts.json`](artifacts.json) is the small contract between the CV subsystem and publication.
+
+It records:
+
+- the public CV source;
+- the expected generated PDF under `agents/cv/build/`;
+- the public site artifact destination under `site/assets/files/cv/`;
+- whether the artifact is intentionally published.
+
+[`tools/artifact_manifest.py`](tools/artifact_manifest.py) validates that contract and performs the publication copy. It does not generate CV content.
+
+## CI contract
+
+`required-ci` compiles the real public CV from `agents/cv/tex/`, using the same source geometry as the IDE/local scripts. Generated PDF/auxiliary output is redirected to `agents/cv/build/`.
+
+The workflow then explicitly checks that `agents/cv/tex/` was not polluted by build artifacts before publishing the generated public PDF into the site build.
+
+This test exists because a manifest/path check alone is not enough to prove the TeX document still compiles.
+
+## Public/private boundary
 
 Allowed here:
 
-- public/general CV source;
-- shared LaTeX support when it is intentionally public or supports local CV
-  maintenance;
-- build helpers for intentional public CV artifacts;
-- fake or public-safe examples.
+- the public/general CV source;
+- shared public LaTeX support;
+- the CV-owned header artwork;
+- build helpers and artifact-manifest tooling;
+- intentionally public-safe material.
 
 Keep out of commits:
 
-- tailored CV variants for specific applications;
+- tailored CV variants for individual applications;
 - generated private PDFs;
-- private application notes;
-- raw offer material;
-- private JSON/data.
+- raw job offers or recruiter material;
+- private notes/data;
+- application-specific JSON;
+- unrelated CV-generator product development.
 
-CV generator product work lives outside this repository. This folder documents
-the public CV source and the local LaTeX support used by current CV work.
+Tailored/local variants may reuse the shared preamble, but they remain ignored unless explicitly promoted to public source.
