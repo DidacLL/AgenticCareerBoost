@@ -4,6 +4,8 @@ description: Agent-assisted work, project files, review, and technical memory.
 label: 02A / ARTICLE
 date: 2026-06-27
 tags: [Agents, Review, Workflow]
+image: img/sprint-paircheck-loop.png
+imageAlt: Pair-check workflow diagram from AgenticCareerBoost development
 ---
 Agent-assisted work is only useful when the result can be inspected.
 

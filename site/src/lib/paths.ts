@@ -22,7 +22,6 @@ const navigationRoutes: Record<NavId, string> = {
   projects: "/projects",
   blog: "/blog",
   cv: "/cv/ml",
-  focus: "/focus",
   contact: "/contact"
 };
 
@@ -34,7 +33,6 @@ export const paths = {
   blog: () => href("/blog"),
   post: (id: string) => href(`/blog/${id}`),
   cv: (id: string) => href(`/cv/${id}`),
-  focus: (id?: string) => href(id ? `/focus/${id}` : "/focus"),
   contact: () => href("/contact")
 };
 

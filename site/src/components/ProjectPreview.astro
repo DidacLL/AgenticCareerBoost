@@ -6,7 +6,7 @@ const { project, compact = false } = Astro.props as { project: CollectionEntry<"
 ---
 
 <a class:list={["preview-row", { "is-compact": compact }]} href={paths.project(project.id)}>
-  {!compact && <span class="preview-row__media"><img src={asset(project.data.image)} alt={project.data.imageAlt} loading="lazy" decoding="async" /></span>}
+  <span class="preview-row__media"><img src={asset(project.data.image)} alt={project.data.imageAlt} loading="lazy" decoding="async" /></span>
   <span class="preview-row__copy">
     <p class="system-label">{project.data.label ?? "PROJECT"} · {project.data.status ?? "public record"}</p>
     <h3>{project.data.title} <span aria-hidden="true">→</span></h3>

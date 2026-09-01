@@ -1,8 +1,7 @@
 ---
 title: Contact
 description: Contact and public profile routes for Dídac Llorens.
-label: CONTACT
+label: 04 / CONTACT
 subtitle: Barcelona · software engineering · public work.
 ---
-- [LinkedIn](https://www.linkedin.com/in/didacllorens/) — professional profile and messages.
-- [GitHub](https://github.com/DidacLL) — repositories, technical work, and source history.
+For professional contact, LinkedIn is the most direct route. GitHub contains the public project and source history; the CV collects the role-specific views and public PDF.

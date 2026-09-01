@@ -40,7 +40,7 @@ page.on("response", (response) => { if (response.url().startsWith(origin) && res
 const routes = [
   "/", "/projects/", "/projects/agentic-career-boost/", "/projects/p3ctex/", "/projects/aaaat/", "/projects/ironbank/",
   "/blog/", "/blog/agents-need-receipts/", "/blog/static-sites-as-workbenches/", "/blog/sprint-review-agenticcareerboost/",
-  "/cv/ml/", "/cv/agentic/", "/cv/backend/", "/cv/print/", "/focus/", "/focus/ml/", "/focus/agentic/", "/focus/backend/", "/contact/"
+  "/cv/ml/", "/cv/agentic/", "/cv/backend/", "/cv/print/", "/contact/"
 ];
 
 async function open(route) {
@@ -88,30 +88,15 @@ if (await page.locator("html").getAttribute("data-theme") !== theme) throw new E
 
 const monitor = page.locator("[data-monitor]");
 const image = page.locator("[data-monitor-image]");
-const before = {
-  src: await image.getAttribute("src"),
-  title: await page.locator("[data-monitor-title]").textContent(),
-  position: await page.locator("[data-monitor-position]").textContent()
-};
+const before = { src: await image.getAttribute("src"), title: await page.locator("[data-monitor-title]").textContent(), position: await page.locator("[data-monitor-position]").textContent() };
 await page.locator("[data-monitor-next]").click();
 try { await image.evaluate((node) => node.decode()); } catch {}
-const after = {
-  src: await image.getAttribute("src"),
-  title: await page.locator("[data-monitor-title]").textContent(),
-  position: await page.locator("[data-monitor-position]").textContent(),
-  width: await image.evaluate((node) => node.naturalWidth)
-};
-if (after.src === before.src || after.title === before.title || after.position === before.position || after.width <= 0) {
-  throw new Error("Monitor next did not load a distinct, decoded project signal.");
-}
+const after = { src: await image.getAttribute("src"), title: await page.locator("[data-monitor-title]").textContent(), position: await page.locator("[data-monitor-position]").textContent(), width: await image.evaluate((node) => node.naturalWidth) };
+if (after.src === before.src || after.title === before.title || after.position === before.position || after.width <= 0) throw new Error("Monitor next did not load a distinct, decoded project signal.");
 await page.locator("[data-monitor-prev]").click();
-if (await image.getAttribute("src") !== before.src || await page.locator("[data-monitor-title]").textContent() !== before.title) {
-  throw new Error("Monitor previous did not restore the original project signal.");
-}
+if (await image.getAttribute("src") !== before.src || await page.locator("[data-monitor-title]").textContent() !== before.title) throw new Error("Monitor previous did not restore the original project signal.");
 await page.locator("[data-monitor-expand]").click();
-if (await monitor.getAttribute("data-expanded") !== "true" || await monitor.getAttribute("role") !== "dialog" || await monitor.getAttribute("aria-modal") !== "true") {
-  throw new Error("Monitor expansion state is incomplete.");
-}
+if (await monitor.getAttribute("data-expanded") !== "true" || await monitor.getAttribute("role") !== "dialog" || await monitor.getAttribute("aria-modal") !== "true") throw new Error("Monitor expansion state is incomplete.");
 if (!await page.locator("body").evaluate((node) => node.classList.contains("monitor-open"))) throw new Error("Expanded monitor did not lock the page state.");
 await page.keyboard.press("Escape");
 if (await monitor.getAttribute("data-expanded") !== "false" || await monitor.getAttribute("aria-modal") !== null) throw new Error("Escape did not close the monitor cleanly.");
@@ -122,14 +107,14 @@ const viewports = [
   { width: 768, height: 1024, name: "tablet-768" },
   { width: 390, height: 844, name: "mobile-390" }
 ];
-const responsiveRoutes = ["/", "/projects/", "/projects/agentic-career-boost/", "/cv/ml/", "/focus/", "/blog/agents-need-receipts/"];
-const evidenceRoutes = new Map([["/", "home"], ["/projects/agentic-career-boost/", "project-acb"], ["/cv/ml/", "cv-ml"]]);
+const responsiveRoutes = ["/", "/projects/", "/projects/agentic-career-boost/", "/cv/ml/", "/blog/", "/contact/", "/blog/agents-need-receipts/"];
+const evidenceRoutes = new Map([["/", "home"], ["/projects/agentic-career-boost/", "project-acb"], ["/cv/ml/", "cv-ml"], ["/blog/", "blog"], ["/contact/", "contact"]]);
 
 for (const viewport of viewports) {
   await page.setViewportSize(viewport);
   for (const route of responsiveRoutes) {
     await open(route);
-    if (route === "/" || route === "/projects/agentic-career-boost/") await assertDecodedImages(route);
+    if (["/", "/projects/agentic-career-boost/", "/cv/ml/", "/blog/", "/contact/"].includes(route)) await assertDecodedImages(route);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     if (overflow > 1) {
       const offenders = await page.evaluate(() => [...document.querySelectorAll("body *")]
@@ -162,7 +147,5 @@ await noJsContext.close();
 
 await browser.close();
 await new Promise((done) => server.close(done));
-if (pageErrors.length || consoleErrors.length || failedRequests.length || badResponses.length) {
-  throw new Error(`Browser errors: ${pageErrors.join(" | ")}; console: ${consoleErrors.join(" | ")}; failed requests: ${failedRequests.join(" | ")}; bad responses: ${badResponses.join(" | ")}`);
-}
+if (pageErrors.length || consoleErrors.length || failedRequests.length || badResponses.length) throw new Error(`Browser errors: ${pageErrors.join(" | ")}; console: ${consoleErrors.join(" | ")}; failed requests: ${failedRequests.join(" | ")}; bad responses: ${badResponses.join(" | ")}`);
 console.log("Browser smoke passed: routes, HTTP/assets, theme, monitor, responsive layouts at 1920/1366/768/390 and no-JS content.");

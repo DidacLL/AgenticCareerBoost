@@ -1,13 +1,11 @@
 @media print {
-  body {
-    background: #fff;
-  }
+  body { background: #fff; }
 
   .identity-rail,
   .system-panel,
   .cv-tabs,
   .monitor,
-  .signal-banner,
+  .site-banner,
   .primary-nav {
     display: none !important;
   }
@@ -29,21 +27,8 @@
     padding-right: 0;
   }
 
-  .document-header {
-    padding-top: 0;
-  }
-
-  .section-block {
-    display: block;
-    break-inside: avoid;
-  }
-
-  .section-block > h2 {
-    padding-left: 0;
-    border-right: 0;
-  }
-
-  .preview-row {
-    break-inside: avoid;
-  }
+  .document-header { padding-top: 0; }
+  .section-block { display: block; break-inside: avoid; }
+  .section-block > h2 { padding-left: 0; border-right: 0; }
+  .preview-row { break-inside: avoid; }
 }

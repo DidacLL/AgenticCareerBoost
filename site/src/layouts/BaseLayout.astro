@@ -59,7 +59,7 @@ const documentTitle = title === site.identity.name ? site.defaultTitle : `${titl
     <div class="site-frame">
       <aside class="identity-rail">
         <a class="identity-home" href={paths.home()} aria-label="Home">
-          <span class="identity-mark">{site.identity.mark}</span>
+          <span class="identity-avatar"><img src={asset(site.identity.avatar)} alt={site.identity.avatarAlt} /></span>
           <strong>{site.identity.name}</strong>
         </a>
         <div class="identity-lines">
@@ -75,6 +75,10 @@ const documentTitle = title === site.identity.name ? site.defaultTitle : `${titl
       </aside>
 
       <main class="document-body">
+        <figure class="site-banner">
+          <img src={asset(site.banner.image)} alt={site.banner.alt} />
+          <figcaption>{site.banner.caption}</figcaption>
+        </figure>
         <slot />
         <Footer />
       </main>
@@ -108,11 +112,6 @@ const documentTitle = title === site.identity.name ? site.defaultTitle : `${titl
             {site.external.map((item) => <li><a href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a></li>)}
           </ul>
         </section>
-
-        <figure class="signal-banner">
-          <img src={asset(site.banner.image)} alt={site.banner.alt} />
-          <figcaption>{site.banner.caption}</figcaption>
-        </figure>
       </aside>
     </div>
   </body>

@@ -4,6 +4,8 @@ description: Static publishing, route structures, and plain files for personal t
 label: 02B / ARTICLE
 date: 2026-06-27
 tags: [Static site, Content model, Maintenance]
+image: img/routing-map.png
+imageAlt: Routing map from the earlier static site architecture
 ---
 A static site does not need to become a pile of copied pages.
 

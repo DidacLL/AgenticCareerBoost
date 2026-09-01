@@ -4,6 +4,8 @@ description: Development retrospective on project state, public routes, site cop
 label: 02C / ARTICLE
 date: 2026-06-28
 tags: [Sprint, Review, AgenticCareerBoost]
+image: img/routing-architecture.png
+imageAlt: Routing architecture diagram from the site cleanup period
 ---
 The sprint tightened the public site around source-backed work.
 

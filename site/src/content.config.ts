@@ -47,14 +47,4 @@ const cv = defineCollection({
   })
 });
 
-const focus = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/focus" }),
-  schema: common.extend({
-    order: z.number(),
-    relatedProjectIds: z.array(z.string()),
-    relatedPostIds: z.array(z.string()).default([]),
-    relatedCvId: z.string()
-  })
-});
-
-export const collections = { pages, projects, posts, cv, focus };
+export const collections = { pages, projects, posts, cv };

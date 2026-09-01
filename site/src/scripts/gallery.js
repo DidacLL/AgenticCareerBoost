@@ -10,6 +10,7 @@ function wireMonitor(monitor) {
   const copy = monitor.querySelector("[data-monitor-copy]");
   const links = monitor.querySelector("[data-monitor-links]");
   const caption = monitor.querySelector("[data-monitor-caption]");
+  const captionTitle = monitor.querySelector("[data-monitor-caption-title]");
   const position = monitor.querySelector("[data-monitor-position]");
   const expand = monitor.querySelector("[data-monitor-expand]");
 
@@ -22,6 +23,7 @@ function wireMonitor(monitor) {
     label.textContent = slide.label || "";
     title.textContent = slide.title || "";
     copy.textContent = (slide.lines || []).join(" · ");
+    captionTitle.textContent = slide.title || "";
     caption.textContent = slide.caption || "";
     position.textContent = String(index + 1).padStart(2, "0");
     links.replaceChildren(...(slide.links || []).map((item) => {
