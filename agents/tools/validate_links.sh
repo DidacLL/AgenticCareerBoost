@@ -16,6 +16,64 @@ else
     || true)
 fi
 
+declare -A site_routes=()
+
+normalize_route() {
+  local route="$1"
+  route="/${route#/}"
+  route="$(realpath -m "$route")"
+  if [[ "$route" != "/" ]]; then
+    route="${route%/}"
+  fi
+  printf '%s\n' "$route"
+}
+
+add_site_route() {
+  site_routes["$(normalize_route "$1")"]=1
+}
+
+site_base_for_file() {
+  local file="$1"
+  local id
+  case "$file" in
+    site/src/content/pages/home.md) printf '/\n' ;;
+    site/src/content/pages/projects.md) printf '/projects/\n' ;;
+    site/src/content/pages/blog.md) printf '/blog/\n' ;;
+    site/src/content/pages/contact.md) printf '/contact/\n' ;;
+    site/src/content/pages/404.md) printf '/404/\n' ;;
+    site/src/content/projects/*.md)
+      id="$(basename "$file" .md)"
+      printf '/projects/%s/\n' "$id"
+      ;;
+    site/src/content/posts/*.md)
+      id="$(basename "$file" .md)"
+      printf '/blog/%s/\n' "$id"
+      ;;
+    site/src/content/cv/*.md)
+      id="$(basename "$file" .md)"
+      printf '/cv/%s/\n' "$id"
+      ;;
+    *) return 1 ;;
+  esac
+}
+
+add_site_route "/"
+[[ -f site/src/content/pages/projects.md ]] && add_site_route "/projects/"
+[[ -f site/src/content/pages/blog.md ]] && add_site_route "/blog/"
+[[ -f site/src/content/pages/contact.md ]] && add_site_route "/contact/"
+
+shopt -s nullglob
+for source in site/src/content/projects/*.md; do
+  add_site_route "/projects/$(basename "$source" .md)/"
+done
+for source in site/src/content/posts/*.md; do
+  add_site_route "/blog/$(basename "$source" .md)/"
+done
+for source in site/src/content/cv/*.md; do
+  add_site_route "/cv/$(basename "$source" .md)/"
+done
+shopt -u nullglob
+
 errors=0
 checked=0
 for file in "${files[@]}"; do
@@ -23,8 +81,29 @@ for file in "${files[@]}"; do
   dir="$(dirname "$file")"
   while IFS= read -r target; do
     target="${target%%#*}"
+    target="${target%%\?*}"
     [[ -z "$target" ]] && continue
     [[ "$target" =~ ^(https?:|mailto:|tel:) ]] && continue
+
+    if site_base="$(site_base_for_file "$file" 2>/dev/null)"; then
+      if [[ "$target" == /* ]]; then
+        site_target="$(normalize_route "$target")"
+      else
+        site_target="$(normalize_route "${site_base}${target}")"
+      fi
+
+      if [[ -n "${site_routes[$site_target]:-}" ]]; then
+        checked=$((checked + 1))
+        continue
+      fi
+
+      public_asset="$repo_root/site/assets/${site_target#/}"
+      if [[ -e "$public_asset" ]]; then
+        checked=$((checked + 1))
+        continue
+      fi
+    fi
+
     if [[ "$target" == /* ]]; then
       resolved="$repo_root${target}"
     else
