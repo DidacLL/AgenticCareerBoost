@@ -1,18 +1,45 @@
 ---
 import { site } from "../data/site";
 import { asset } from "../lib/paths";
-type Slide = { image: string; alt: string; caption: string };
-const { slides: suppliedSlides } = Astro.props as { slides?: Slide[] };
-const slides = (suppliedSlides?.length ? suppliedSlides : site.gallery.slides).map((slide) => ({ ...slide, image: asset(slide.image) }));
+
+type Slide = {
+  image: string;
+  alt: string;
+  caption: string;
+};
+
+interface Props {
+  slides?: Slide[];
+}
+
+const { slides: suppliedSlides } = Astro.props as Props;
+const slides = (suppliedSlides?.length ? suppliedSlides : site.gallery.slides).map((slide) => ({
+  ...slide,
+  image: asset(slide.image)
+}));
 ---
+
 <figure class="monitor" data-monitor data-expanded="false" data-slides={JSON.stringify(slides)}>
   <div class="monitor-toolbar">
     <button type="button" data-monitor-prev aria-label={site.gallery.previous}>←</button>
     <span data-monitor-caption>{slides[0].caption}</span>
     <button type="button" data-monitor-next aria-label={site.gallery.next}>→</button>
-    <button type="button" data-monitor-expand aria-expanded="false">{site.gallery.expand}</button>
+    <button type="button" data-monitor-expand aria-expanded="false">
+      {site.gallery.expand}
+    </button>
   </div>
-  <div class="monitor-screen"><img data-monitor-image src={slides[0].image} alt={slides[0].alt} loading="eager" /></div>
+  <div class="monitor-screen">
+    <img
+      data-monitor-image
+      src={slides[0].image}
+      alt={slides[0].alt}
+      loading="eager"
+      decoding="async"
+    />
+  </div>
   <figcaption data-monitor-label>{slides[0].caption}</figcaption>
 </figure>
-<script>import "../scripts/gallery.js";</script>
+
+<script>
+  import "../scripts/gallery.js";
+</script>
