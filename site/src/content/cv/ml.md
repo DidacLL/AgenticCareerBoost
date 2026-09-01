@@ -1,7 +1,7 @@
 ---
 title: Web curriculum
 description: Web CV view focused on ML/data systems and the engineering around data flows, validation, and domain constraints.
-subtitle: Current view: ML/Data.
+subtitle: "Current view: ML/Data."
 label: CV
 order: 1
 lanes: [ML/Data systems, Python, SQL/data pipelines, Regulated-domain context]
