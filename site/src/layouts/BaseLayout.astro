@@ -1,12 +1,14 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import Footer from "../components/Footer.astro";
+import PrimaryNavigation from "../components/PrimaryNavigation.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import { site, type NavId } from "../data/site";
 import { asset, paths, semanticPath } from "../lib/paths";
 import "../styles/tokens.css";
 import "../styles/base.css";
 import "../styles/site.css";
+import "../styles/shell.css";
 import "../styles/print.css";
 
 type MetaItem = { term: string; value?: string; href?: string; label?: string; external?: boolean; reload?: boolean };
@@ -25,6 +27,7 @@ const buildIndexable = import.meta.env.SITE_INDEXABLE === "true";
 const robotsBlocked = !buildIndexable || noindex;
 const canonical = new URL(semanticPath(Astro.url.pathname), Astro.site).toString();
 const ogImage = new URL(asset(site.banner.image), Astro.site).toString();
+const browserIcon = asset(site.identity.avatar);
 const documentTitle = title === site.identity.name ? site.defaultTitle : `${title} — ${site.identity.name}`;
 ---
 
@@ -35,6 +38,8 @@ const documentTitle = title === site.identity.name ? site.defaultTitle : `${titl
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{documentTitle}</title>
     <meta name="description" content={description} />
+    <link rel="icon" type="image/jpeg" href={browserIcon} />
+    <link rel="apple-touch-icon" href={browserIcon} />
     <link rel="canonical" href={canonical} />
     {robotsBlocked && <meta name="robots" content="noindex,nofollow" />}
     <meta property="og:title" content={documentTitle} />
@@ -61,19 +66,13 @@ const documentTitle = title === site.identity.name ? site.defaultTitle : `${titl
     <div class="site-frame">
       <aside class="identity-rail">
         <a class="identity-home" href={paths.home()} aria-label="Home">
-          <span class="identity-avatar" transition:persist="identity-avatar"><img src={asset(site.identity.avatar)} alt={site.identity.avatarAlt} /></span>
+          <span class="identity-avatar" transition:persist="identity-avatar"><img src={browserIcon} alt={site.identity.avatarAlt} /></span>
           <strong>{site.identity.name}</strong>
         </a>
         <div class="identity-lines">
           {site.identity.lines.map((line) => <p>{line}</p>)}
         </div>
-        <nav class="primary-nav" aria-label={site.ui.primaryNavigation}>
-          {site.navigation.map((item) => (
-            <a class:list={{ "is-active": activeNav === item.id }} href={paths.nav(item.id)} aria-current={activeNav === item.id ? "page" : undefined}>
-              <span>{item.number}</span>{item.label}
-            </a>
-          ))}
-        </nav>
+        <PrimaryNavigation activeNav={activeNav} variant="rail" />
       </aside>
 
       <main class="document-body">
@@ -81,6 +80,7 @@ const documentTitle = title === site.identity.name ? site.defaultTitle : `${titl
           <img src={asset(site.banner.image)} alt={site.banner.alt} />
           <figcaption>{site.banner.caption}</figcaption>
         </figure>
+        <PrimaryNavigation activeNav={activeNav} variant="tabs" />
         <slot />
         <Footer />
       </main>
