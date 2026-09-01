@@ -23,3 +23,19 @@ export function portfolioRoutes() {
     "/contact/"
   ];
 }
+
+export const retiredRoutes = [
+  "/application-tracker/",
+  "/dashboard/",
+  "/curriculum/",
+  "/curriculum/index.html",
+  "/notes/",
+  "/hire/",
+  "/hire/ml/",
+  "/hire/agentic/",
+  "/hire/backend/",
+  "/focus/",
+  "/focus/ml/",
+  "/focus/agentic/",
+  "/focus/backend/"
+];
