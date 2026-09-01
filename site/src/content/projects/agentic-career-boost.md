@@ -1,30 +1,22 @@
 ---
 title: AgenticCareerBoost
-description: Career engineering workspace combining a static site, LaTeX reports, CV tooling, application-tracking experiments, and automation.
+description: Career engineering workspace whose public portfolio is one static, source-led artifact.
 label: 01A / PROJECT
-summary: Repository-backed career tooling with a static site, LaTeX reports, CV material, automation, and public project documentation.
+summary: The repository behind this portfolio: a clean static publishing system, public CV tooling, and documented engineering work.
 order: 1
-tags: [Career tooling, LaTeX, Static site, Automation]
+tags: [Astro, Markdown, Static publishing, Career tooling]
 image: /img/routing-map.png
 imageAlt: Routing map diagram for AgenticCareerBoost
 repository: https://github.com/DidacLL/AgenticCareerBoost
 status: Public technical workspace
 ---
-AgenticCareerBoost is a personal engineering workspace built around a real career-search workflow.
 
-The repository combines a static portfolio, Markdown project content, LaTeX reports and CV sources, application-tracking experiments, GitHub Actions, validation scripts, and local utilities used during the job-search process.
+AgenticCareerBoost is the repository where this portfolio is designed, built, and maintained as a real static artifact rather than a generic template.
 
-AI-assisted workflows are one part of the system rather than the subject of the project: they operate alongside ordinary files, scripts, structured data, CI, and manually reviewable outputs. The repository also preserves enough development history to show how the implementation changed over time.
+Its public site uses Markdown-authored content, ordinary static routes, shared path ownership, and a deliberately authored retro-document visual language. The aim is to make the portfolio easy to maintain while keeping its technical character intact.
 
-## Development history
+The repository also contains its own engineering documentation and historical proof. Those documents belong to the project repository: this portfolio links to the source rather than reproducing its internal history as a public evidence library.
 
-- **Initial automation structure** — the first source-backed workflow structure, LaTeX report infrastructure, CI, research, and launch options.
-- **Context cleanup** — stale style, duplicated paths, old drafts, and over-broad checks were separated from current work.
-- **Public presentation cleanup** — current guidance was separated from historical evidence while reports and public artifacts became easier to inspect.
-- **Post-launch hardening** — deployment-base routing, generated CV PDFs, static-file fallback loops, and CI scope were tightened.
+## Public scope
 
-## Current version
-
-The current repository is intentionally narrower than its earlier iterations: the public website, CV, reports, application-tooling experiments, and selected historical material remain together because they document the same career-engineering workflow.
-
-Older rules, tests, state files, and sprint notes are retained only as development history. Current work is ordinary repository maintenance: code, documents, site content, local utilities, and CI. AAAAT and future CV-generation product work are developed separately rather than expanding this repository into a general-purpose job-search product.
+The portfolio presents current work, selected CV views, writing, and project narratives. Local application workflows and private material remain outside the public surface.

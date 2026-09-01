@@ -1,9 +1,9 @@
 # site/
 
-Astro source for the public static site.
+Astro source for the public static portfolio.
 
-Content is Markdown in src/content/; layouts and components render it at build time. Public assets stay under assets/, including generated CV and report PDFs under assets/files/. Only theme persistence and the portrait gallery use client JavaScript.
+Content lives in `src/content/`; layouts and components render it at build time. Public assets live under `assets/`. The selected public CV may be generated into `assets/files/cv/`; AgenticCareerBoost reports and project documentation are not site assets or site content. Only theme persistence and the gallery use client JavaScript.
 
-Run localdeploy.bat from the repository root for local viewing. Production deployment remains main-only; this branch does not deploy.
+Run `localdeploy.bat` from the repository root for local viewing. Production deployment remains main-only; this branch does not deploy.
 
-Generated artifacts are supplied by the production build; missing PDFs do not block local viewing.
+Missing generated CV output does not block local viewing.
