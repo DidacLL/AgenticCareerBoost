@@ -1,41 +1,30 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import DocumentLayout from "./DocumentLayout.astro";
+import { site } from "../data/site";
 import { asset } from "../lib/paths";
 
 const { post } = Astro.props as { post: CollectionEntry<"posts"> };
+const date = post.data.date.toLocaleDateString("en-CA");
 ---
 
 <DocumentLayout
   title={post.data.title}
   description={post.data.description}
-  label="RECORD"
-  subtitle={post.data.date.toLocaleDateString("en-CA")}
-  activePath="/blog/"
+  label={post.data.label ?? "RECORD"}
+  subtitle={post.data.subtitle ?? date}
+  activeNav="blog"
+  ogType="article"
+  meta={[{ term: "DATE", value: date }, { term: "TAGS", value: post.data.tags.join(" · ") }]}
 >
   {post.data.image && (
     <section class="section-block">
-      <h3>IMAGE</h3>
-      <div class="section-content">
-        <figure class="media-frame">
-          <img
-            src={asset(post.data.image)}
-            alt={post.data.imageAlt ?? ""}
-            loading="eager"
-            decoding="async"
-          />
-        </figure>
-      </div>
+      <h2>IMAGE</h2>
+      <div class="section-content"><figure class="media-frame"><img src={asset(post.data.image)} alt={post.data.imageAlt ?? ""} loading="eager" decoding="async" /></figure></div>
     </section>
   )}
   <section class="section-block">
-    <h3>CONTEXT</h3>
-    <div class="section-content">
-      <ul class="tag-list">{post.data.tags.map((tag) => <li>{tag}</li>)}</ul>
-    </div>
-  </section>
-  <section class="section-block">
-    <h3>NOTE</h3>
+    <h2>{site.ui.note}</h2>
     <div class="section-content prose"><slot /></div>
   </section>
 </DocumentLayout>

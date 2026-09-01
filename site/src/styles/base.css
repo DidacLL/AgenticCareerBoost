@@ -5,10 +5,13 @@
 html {
   color: var(--text);
   font-family: var(--sans);
+  background: var(--bg);
 }
 
 body {
-  line-height: 1.55;
+  margin: 0;
+  min-width: 0;
+  line-height: 1.58;
 }
 
 a {
@@ -27,6 +30,7 @@ img {
 }
 
 button {
+  color: inherit;
   cursor: pointer;
   font: inherit;
 }
@@ -39,7 +43,10 @@ button {
 h1,
 h2,
 h3,
-p {
+p,
+figure,
+dl,
+ul {
   margin-top: 0;
 }
 
@@ -48,6 +55,7 @@ p {
   *::before,
   *::after {
     animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: .01ms !important;
   }

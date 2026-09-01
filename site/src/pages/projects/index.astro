@@ -1,24 +1,16 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import ProjectPreview from "../../components/ProjectPreview.astro";
 import DocumentLayout from "../../layouts/DocumentLayout.astro";
+import { site } from "../../data/site";
 
-const projects = (await getCollection("projects")).sort(
-  (a, b) => a.data.order - b.data.order
-);
+const page = await getEntry("pages", "projects");
+if (!page) throw new Error("Projects index content is missing.");
+const { Content } = await render(page);
+const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<DocumentLayout
-  title="Projects"
-  description="Selected public engineering projects by Dídac Llorens."
-  label="01 / PROJECTS"
-  subtitle="Systems, documentation, technical tools, and source-led public evidence."
-  activePath="/projects/"
->
-  <section class="section-block">
-    <h3>INDEX</h3>
-    <div class="section-content preview-list">
-      {projects.map((project) => <ProjectPreview project={project} />)}
-    </div>
-  </section>
+<DocumentLayout title={page.data.title} description={page.data.description} label={page.data.label} subtitle={page.data.subtitle} activeNav="projects" meta={[{ term: "COUNT", value: String(projects.length) }]}>
+  <section class="section-block"><h2>{site.ui.context}</h2><div class="section-content prose"><Content /></div></section>
+  <section class="section-block"><h2>{site.ui.index}</h2><div class="section-content preview-list">{projects.map((project) => <ProjectPreview project={project} />)}</div></section>
 </DocumentLayout>

@@ -1,25 +1,21 @@
-const STORAGE_KEY = "didac-site-theme";
 const root = document.documentElement;
+const storageKey = root.dataset.themeStorageKey;
 
-function applyTheme(theme) {
+function label(button, theme) {
+  const nextLabel = theme === "dark" ? button.dataset.labelLight : button.dataset.labelDark;
+  if (nextLabel) button.textContent = nextLabel;
+  button.setAttribute("aria-pressed", String(theme === "dark"));
+}
+
+function applyTheme(theme, persist = true) {
   root.dataset.theme = theme;
-
-  document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
-    button.textContent = theme === "dark" ? "light mode" : "dark mode";
-    button.setAttribute("aria-pressed", String(theme === "dark"));
-  });
+  if (persist && storageKey) localStorage.setItem(storageKey, theme);
+  document.querySelectorAll("[data-theme-toggle]").forEach((button) => label(button, theme));
 }
-
-function toggleTheme() {
-  const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
-
-  localStorage.setItem(STORAGE_KEY, nextTheme);
-  applyTheme(nextTheme);
-}
-
-const storedTheme = localStorage.getItem(STORAGE_KEY);
-applyTheme(storedTheme === "dark" ? "dark" : "light");
 
 document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
-  button.addEventListener("click", toggleTheme);
+  label(button, root.dataset.theme === "dark" ? "dark" : "light");
+  button.addEventListener("click", () => {
+    applyTheme(root.dataset.theme === "dark" ? "light" : "dark");
+  });
 });

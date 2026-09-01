@@ -1,18 +1,13 @@
 ---
+import { getEntry, render } from "astro:content";
 import DocumentLayout from "../layouts/DocumentLayout.astro";
 import { paths } from "../lib/paths";
+
+const page = await getEntry("pages", "not-found");
+if (!page) throw new Error("404 content is missing.");
+const { Content } = await render(page);
 ---
 
-<DocumentLayout
-  title="Not found"
-  description="The requested document was not found."
-  label="404"
-  subtitle="This route is not part of the public document set."
->
-  <section class="section-block">
-    <h3>RETURN</h3>
-    <div class="section-content prose">
-      <p><a href={paths.home()}>Return to the home document →</a></p>
-    </div>
-  </section>
+<DocumentLayout title={page.data.title} description={page.data.description} label={page.data.label} subtitle={page.data.subtitle}>
+  <section class="section-block"><h2>RETURN</h2><div class="section-content prose"><Content /><p><a href={paths.home()}>Return to the home document →</a></p></div></section>
 </DocumentLayout>

@@ -1,11 +1,12 @@
 ---
 title: P3CTeX
 description: LaTeX tooling for reports, diagrams, listings, CV material, and repeatable document builds.
+subtitle: LaTeX class and package work for repeatable academic and technical documents.
 label: 01B / PROJECT
 summary: LaTeX work for reports, CV material, diagrams, listings, screenshots, and document builds.
 order: 2
 tags: [LaTeX, Tooling, Reports, Source documents]
-image: /img/P3CTeXLogo.png
+image: img/P3CTeXLogo.png
 imageAlt: P3CTeX logo
 repository: https://github.com/DidacLL/P3CTeX
 status: Document engineering

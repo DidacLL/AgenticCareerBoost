@@ -1,58 +1,60 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
-const common = {
+const common = z.object({
   title: z.string(),
   description: z.string(),
-  label: z.string().optional()
-};
+  label: z.string().optional(),
+  subtitle: z.string().optional()
+});
 
-export const collections = {
-  pages: defineCollection({
-    loader: glob({ base: "./src/content/pages", pattern: "**/*.md" }),
-    schema: z.object(common)
-  }),
-  projects: defineCollection({
-    loader: glob({ base: "./src/content/projects", pattern: "**/*.md" }),
-    schema: z.object({
-      ...common,
-      summary: z.string(),
-      order: z.number(),
-      tags: z.array(z.string()),
-      image: z.string(),
-      imageAlt: z.string(),
-      repository: z.string().url().optional(),
-      status: z.string().optional()
-    })
-  }),
-  posts: defineCollection({
-    loader: glob({ base: "./src/content/posts", pattern: "**/*.md" }),
-    schema: z.object({
-      ...common,
-      date: z.coerce.date(),
-      tags: z.array(z.string()),
-      image: z.string().optional(),
-      imageAlt: z.string().optional()
-    })
-  }),
-  cv: defineCollection({
-    loader: glob({ base: "./src/content/cv", pattern: "**/*.md" }),
-    schema: z.object({
-      ...common,
-      label: z.string(),
-      order: z.number(),
-      lanes: z.array(z.string()),
-      technicalBase: z.array(z.string())
-    })
-  }),
-  focus: defineCollection({
-    loader: glob({ base: "./src/content/focus", pattern: "**/*.md" }),
-    schema: z.object({
-      ...common,
-      label: z.string(),
-      order: z.number(),
-      relatedProjectIds: z.array(z.string()),
-      relatedCvId: z.string()
-    })
+const facts = z.array(z.object({ term: z.string(), value: z.string() }));
+
+const pages = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/pages" }),
+  schema: common.extend({ facts: facts.optional() })
+});
+
+const projects = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
+  schema: common.extend({
+    summary: z.string(),
+    order: z.number(),
+    tags: z.array(z.string()),
+    image: z.string(),
+    imageAlt: z.string(),
+    repository: z.string().url().optional(),
+    status: z.string().optional()
   })
-};
+});
+
+const posts = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }),
+  schema: common.extend({
+    date: z.coerce.date(),
+    tags: z.array(z.string()),
+    image: z.string().optional(),
+    imageAlt: z.string().optional()
+  })
+});
+
+const cv = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/cv" }),
+  schema: common.extend({
+    order: z.number(),
+    lanes: z.array(z.string()),
+    technicalBase: facts
+  })
+});
+
+const focus = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/focus" }),
+  schema: common.extend({
+    order: z.number(),
+    relatedProjectIds: z.array(z.string()),
+    relatedPostIds: z.array(z.string()).default([]),
+    relatedCvId: z.string()
+  })
+});
+
+export const collections = { pages, projects, posts, cv, focus };

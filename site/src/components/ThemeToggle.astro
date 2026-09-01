@@ -6,7 +6,10 @@ import { site } from "../data/site";
   class="theme-toggle"
   type="button"
   data-theme-toggle
+  data-label-dark={site.theme.dark}
+  data-label-light={site.theme.light}
   aria-label={site.theme.toggle}
+  aria-pressed="false"
 >
   {site.theme.dark}
 </button>

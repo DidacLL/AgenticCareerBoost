@@ -1,50 +1,37 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import DocumentLayout from "./DocumentLayout.astro";
+import { site } from "../data/site";
 import { asset } from "../lib/paths";
 
 const { project } = Astro.props as { project: CollectionEntry<"projects"> };
+const meta = [
+  project.data.status ? { term: "STATUS", value: project.data.status } : null,
+  project.data.repository ? { term: "SOURCE", href: project.data.repository, label: "Repository", external: true } : null
+].filter(Boolean);
 ---
 
 <DocumentLayout
   title={project.data.title}
   description={project.data.description}
-  label={project.data.label ?? "PROJECT"}
-  subtitle={project.data.summary}
-  activePath="/projects/"
+  label={project.data.label}
+  subtitle={project.data.subtitle ?? project.data.description}
+  activeNav="projects"
+  meta={meta}
 >
-  <section class="section-block">
-    <h3>SIGNAL</h3>
-    <div class="section-content project-signal">
-      <figure class="media-frame">
-        <img
-          src={asset(project.data.image)}
-          alt={project.data.imageAlt}
-          loading="eager"
-          decoding="async"
-        />
-      </figure>
-      <dl class="fact-table">
-        <div>
-          <dt>STATUS</dt>
-          <dd>{project.data.status ?? "Public technical record"}</dd>
-        </div>
-        <div>
-          <dt>TAGS</dt>
-          <dd>{project.data.tags.join(" · ")}</dd>
-        </div>
-        {project.data.repository && (
-          <div>
-            <dt>SOURCE</dt>
-            <dd><a href={project.data.repository}>Open repository →</a></dd>
-          </div>
-        )}
-      </dl>
+  <section class="project-signal">
+    <figure class="project-media">
+      <img src={asset(project.data.image)} alt={project.data.imageAlt} loading="eager" decoding="async" />
+    </figure>
+    <div class="project-signal__data">
+      <p class="system-label">{site.ui.projectSignal}</p>
+      <p>{project.data.summary}</p>
+      <ul class="tag-list">{project.data.tags.map((tag) => <li>{tag}</li>)}</ul>
+      {project.data.repository && <p><a href={project.data.repository} target="_blank" rel="noopener noreferrer">Open repository ↗</a></p>}
     </div>
   </section>
   <section class="section-block">
-    <h3>DOCUMENT</h3>
+    <h2>PROJECT</h2>
     <div class="section-content prose"><slot /></div>
   </section>
-  <slot name="evidence" />
 </DocumentLayout>

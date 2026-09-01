@@ -5,35 +5,45 @@
 
   .identity-rail,
   .system-panel,
-  .document-nav,
+  .cv-tabs,
+  .monitor,
   .signal-banner,
-  .monitor-toolbar {
+  .primary-nav {
     display: none !important;
   }
 
   .site-frame {
     display: block;
     width: auto;
+    min-height: 0;
     margin: 0;
     border: 0;
     box-shadow: none;
   }
 
-  .document-body {
-    padding: 0;
+  .document-header,
+  .section-content,
+  .home-copy,
+  .site-footer {
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .document-header {
-    margin: 0;
-    padding: 0;
-    border: 0;
+    padding-top: 0;
   }
 
-  .monitor {
-    display: none;
+  .section-block {
+    display: block;
+    break-inside: avoid;
   }
 
-  .site-footer {
-    padding: 1rem 0;
+  .section-block > h2 {
+    padding-left: 0;
+    border-right: 0;
+  }
+
+  .preview-row {
+    break-inside: avoid;
   }
 }

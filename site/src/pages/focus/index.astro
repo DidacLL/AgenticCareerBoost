@@ -1,30 +1,18 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import DocumentLayout from "../../layouts/DocumentLayout.astro";
+import { site } from "../../data/site";
 import { paths } from "../../lib/paths";
 
+const page = await getEntry("pages", "focus");
+if (!page) throw new Error("Focus index content is missing.");
+const { Content } = await render(page);
 const views = (await getCollection("focus")).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<DocumentLayout
-  title="Focused views"
-  description="Focused profile views: ML/data systems, AI workflows, and backend/tooling."
-  label="FOCUS VIEWS"
-  subtitle="The same public profile arranged around three technical directions."
-  activePath="/focus/"
->
-  <section class="section-block">
-    <h3>INDEX</h3>
-    <div class="section-content preview-list">
-      {views.map((view) => (
-        <a class="preview-row" href={paths.focus(view.id)}>
-          <span class="article-date">{view.data.label}</span>
-          <span class="preview-row__copy">
-            <h3>{view.data.title} <span aria-hidden="true">→</span></h3>
-            <p>{view.data.description}</p>
-          </span>
-        </a>
-      ))}
-    </div>
-  </section>
+<DocumentLayout title={page.data.title} description={page.data.description} label={page.data.label} subtitle={page.data.subtitle} activeNav="focus">
+  <section class="section-block"><h2>{site.ui.context}</h2><div class="section-content prose"><Content /></div></section>
+  <section class="section-block"><h2>{site.ui.index}</h2><div class="section-content preview-list">
+    {views.map((view) => <a class="preview-row is-text" href={paths.focus(view.id)}><span class="article-date">{view.data.label}</span><span class="preview-row__copy"><h3>{view.data.title} →</h3><p>{view.data.description}</p></span></a>)}
+  </div></section>
 </DocumentLayout>

@@ -1,15 +1,22 @@
 ---
 title: Dídac Llorens
-description: Software engineer in Barcelona working on LaTeX tooling, local-first career tooling, static publishing, technical documentation, AI workflows, and backend/data systems.
+description: Software engineer in Barcelona working on AI workflows, data and backend systems, technical tooling, and documentation.
 label: HOME
+subtitle: Software engineer in Barcelona working across systems, AI workflows, data, backend engineering, and technical tooling.
+facts:
+  - term: Current
+    value: AI workflows, ML/data systems, technical tooling, static publishing, and documentation
+  - term: Base
+    value: Java/Spring backend work, banking and insurance operations, ML/AI studies, and LaTeX/document engineering
+  - term: Direction
+    value: Engineering roles where software, data, automation, domain constraints, and maintainability meet
 ---
-
 I build software and technical tools that combine implementation, automation, documentation, and maintainability.
 
-My current public work covers LaTeX/report systems, local-first career tooling, static publishing, AI workflow experiments, and backend foundations. My background combines banking and insurance operations, Java/Spring development, ML/AI studies, and formal technical documentation.
+My current public work spans AI workflow experiments, data and backend foundations, LaTeX/report tooling, and small systems built around real constraints rather than isolated demos.
 
-<dl class="facts">
-  <div><dt>Current</dt><dd>LaTeX tooling, local-first career tooling, static publishing, AI workflows, and technical documentation.</dd></div>
-  <div><dt>Base</dt><dd>Java/Spring backend work, ML/AI studies, banking and insurance operations.</dd></div>
-  <div><dt>Direction</dt><dd>AI workflow engineering, research engineering, ML/data systems with domain depth, and backend/platform work with real technical constraints.</dd></div>
-</dl>
+My background combines software engineering with fifteen years in banking and insurance operations. That makes traceability, domain rules, failure modes, and clear technical communication part of how I approach engineering work.
+
+## Repository
+
+This portfolio is one output of AgenticCareerBoost. The repository also preserves the source, decisions, CV tooling, report evidence, and historical work behind the project without forcing all of that material into the website.

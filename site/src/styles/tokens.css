@@ -11,12 +11,14 @@
   --accent: #d77559;
   --signal: #a6f2bd;
   --monitor: #06110a;
+  --monitor-ink: #d9ffe0;
+  --monitor-muted: #9bc7a3;
+  --monitor-line: #486a4e;
+  --monitor-glow: rgba(112, 244, 153, .16);
   --mono: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
   --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --frame: 103rem;
-  --rail: 14rem;
-  --system: 16rem;
-  --gap: 0px;
+  --frame: 112rem;
+  --reading: 72ch;
   --hair: 1px;
   --strong: 2px;
   --s1: .45rem;
@@ -24,6 +26,7 @@
   --s3: 1.1rem;
   --s4: 1.7rem;
   --s5: 2.5rem;
+  --s6: clamp(3rem, 5vw, 5.5rem);
 }
 
 :root[data-theme="dark"] {
@@ -37,4 +40,10 @@
   --soft-line: color-mix(in srgb, var(--line) 36%, transparent);
   --active: #8ed5be;
   --accent: #ef8b70;
+  --signal: #b7f5bf;
+  --monitor: #030905;
+  --monitor-ink: #d9ffe0;
+  --monitor-muted: #9bc7a3;
+  --monitor-line: #5d7f64;
+  --monitor-glow: rgba(112, 244, 153, .2);
 }
