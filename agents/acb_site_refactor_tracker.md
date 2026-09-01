@@ -20,6 +20,7 @@ This section supersedes contradictory completed-status claims in the older track
 | ACB reports/proofs | repository documentation, never site content/assets/workflow input |
 | Public CV | explicit selected site artifact; target remains manifest-owned |
 | Legacy site outputs | preserve local site/files evidence without reading, staging, moving, or deleting it |
+| ACB research and documentation | preserve under agents/; classify value before any cleanup, never delete through site cleanup |
 | Retired site URLs | no redirects, aliases, or compatibility layer |
 | Visual source | pre-refactor direction is evidence only; implement cleanly, do not restore old code |
 | User role | one final subjective visual inspection; no intermediate QA responsibility |
@@ -30,7 +31,8 @@ This section supersedes contradictory completed-status claims in the older track
 |---|---|---|
 | A-01 | Remove portfolio report catalog/evidence component/copy and report-publication coupling | IN PROGRESS |
 | A-02 | Remove dashboard/tracker/legacy redirect configuration and verifier assumptions | PENDING |
-| A-03 | Preserve CV contract, ACB report documentation, and legacy local generated evidence boundaries | PENDING |
+| A-03 | Preserve CV contract, ACB report documentation, research, and legacy local generated evidence boundaries | PENDING |
+| A-04 | Inventory ACB documentation as current proof, useful history, exact duplicate, or discarded proposal before any documentation cleanup | PENDING |
 | B-01 | Rebuild wide shell, rails, typography, and content composition around the authored retro-document direction | PENDING |
 | B-02 | Rebuild monitor/gallery markup, overlay metadata, CRT compositor, expansion, and image scaling | PENDING |
 | B-03 | Audit all current portfolio routes for ACB-documentation leakage and content hierarchy | PENDING |
