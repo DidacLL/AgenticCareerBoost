@@ -87,6 +87,7 @@ export const site = {
   },
   ui: {
     primaryNavigation: "Primary navigation",
+    document: "DOCUMENT",
     system: "SYSTEM",
     mode: "MODE",
     theme: "THEME",
@@ -99,8 +100,25 @@ export const site = {
     context: "CONTEXT",
     note: "NOTE",
     index: "INDEX",
+    project: "PROJECT",
     projectSignal: "PROJECT SIGNAL",
+    publicRecord: "public record",
+    status: "STATUS",
+    repository: "Repository",
+    openRepository: "Open repository ↗",
+    openProject: "Open project",
+    selectedProjectCaption: "project / selected work",
     channel: "CHANNEL",
-    article: "ARTICLE"
+    article: "ARTICLE",
+    image: "IMAGE",
+    return: "RETURN",
+    returnHome: "Return to the home document →",
+    view: "VIEW",
+    pdf: "PDF",
+    date: "DATE",
+    tags: "TAGS",
+    records: "RECORDS",
+    count: "COUNT",
+    cvViews: "CV views"
   }
 } as const;
