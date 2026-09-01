@@ -2,11 +2,10 @@ import { createReadStream, existsSync, mkdirSync } from "node:fs";
 import { createServer } from "node:http";
 import { extname, join, normalize } from "node:path";
 import { chromium } from "playwright";
-import { portfolioRoutes } from "./content-routes.mjs";
+import { portfolioRoutes, retiredRoutes } from "./content-routes.mjs";
 
 const [dist = "site/dist", evidenceDir = "site/browser-evidence"] = process.argv.slice(2);
 const routes = portfolioRoutes();
-const retired = ["/application-tracker/", "/dashboard/", "/hire/", "/hire/ml-ai/", "/hire/agentic/", "/hire/backend/", "/focus/", "/focus/ml-data/", "/focus/agentic/", "/focus/backend/"];
 const responsiveRoutes = ["/", "/projects/agentic-career-boost/", "/blog/", "/cv/ml/", "/contact/"];
 const evidenceRoutes = ["/", "/projects/agentic-career-boost/", "/blog/", "/cv/ml/", "/contact/"];
 const viewports = [
@@ -64,7 +63,7 @@ for (const route of routes) {
   await assertImagesDecoded(page, route);
 }
 
-for (const route of retired) {
+for (const route of retiredRoutes) {
   const response = await page.goto(`${origin}${route}`, { waitUntil: "networkidle" });
   if (!response || response.status() !== 404) throw new Error(`${route}: retired route must return HTTP 404`);
 }
