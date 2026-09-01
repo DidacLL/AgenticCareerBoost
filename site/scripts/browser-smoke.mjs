@@ -4,7 +4,7 @@ import { extname, join, normalize, resolve } from "node:path";
 import { chromium } from "playwright";
 
 const output = resolve(process.argv[2] || "site/dist");
-const mime = { ".css": "text/css", ".js": "text/javascript", ".html": "text/html", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".svg": "image/svg+xml", ".webp": "image/webp" };
+const mime = { ".css": "text/css", ".js": "text/javascript", ".html": "text/html", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".svg": "image/svg+xml", ".webp": "image/webp", ".xml": "application/xml", ".txt": "text/plain" };
 const server = createServer(async (request, response) => {
   const pathname = decodeURIComponent(new URL(request.url, "http://localhost").pathname);
   const candidate = normalize(join(output, pathname === "/" ? "index.html" : pathname));
@@ -21,42 +21,112 @@ await new Promise((done) => server.listen(0, "127.0.0.1", done));
 const { port } = server.address();
 const origin = `http://127.0.0.1:${port}`;
 const browser = await chromium.launch({ headless: true });
-const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
-const errors = [];
-const failed = [];
-page.on("pageerror", (error) => errors.push(error.message));
-page.on("requestfailed", (request) => { if (request.url().startsWith(origin)) failed.push(request.url()); });
+const page = await browser.newPage({ viewport: { width: 1366, height: 768 } });
+const pageErrors = [];
+const consoleErrors = [];
+const failedRequests = [];
+const badResponses = [];
+page.on("pageerror", (error) => pageErrors.push(error.message));
+page.on("console", (message) => { if (message.type() === "error") consoleErrors.push(message.text()); });
+page.on("requestfailed", (request) => { if (request.url().startsWith(origin)) failedRequests.push(request.url()); });
+page.on("response", (response) => { if (response.url().startsWith(origin) && response.status() >= 400) badResponses.push(`${response.status()} ${response.url()}`); });
+
 const routes = [
   "/", "/projects/", "/projects/agentic-career-boost/", "/projects/p3ctex/", "/projects/aaaat/", "/projects/ironbank/",
   "/blog/", "/blog/agents-need-receipts/", "/blog/static-sites-as-workbenches/", "/blog/sprint-review-agenticcareerboost/",
   "/cv/ml/", "/cv/agentic/", "/cv/backend/", "/cv/print/", "/focus/", "/focus/ml/", "/focus/agentic/", "/focus/backend/", "/contact/"
 ];
-for (const route of routes) await page.goto(new URL(route, origin).toString(), { waitUntil: "networkidle" });
-await page.goto(origin, { waitUntil: "networkidle" });
+
+async function open(route) {
+  const response = await page.goto(new URL(route, origin).toString(), { waitUntil: "networkidle" });
+  if (!response || response.status() !== 200) throw new Error(`Expected HTTP 200 for ${route}, got ${response?.status() ?? "no response"}`);
+}
+
+async function assertDecodedImages(route) {
+  const images = page.locator("img");
+  for (let index = 0; index < await images.count(); index += 1) {
+    const image = images.nth(index);
+    await image.scrollIntoViewIfNeeded();
+    try { await image.evaluate((node) => node.decode()); } catch {}
+    const state = await image.evaluate((node) => ({ src: node.currentSrc || node.src, complete: node.complete, width: node.naturalWidth, height: node.naturalHeight }));
+    if (!state.complete || state.width <= 0 || state.height <= 0) throw new Error(`Image did not decode on ${route}: ${state.src}`);
+  }
+}
+
+for (const route of routes) await open(route);
+
+await open("/");
+await assertDecodedImages("/");
 await page.getByRole("link", { name: /Projects/ }).first().click();
+await page.waitForLoadState("networkidle");
 if (!page.url().endsWith("/projects/")) throw new Error("Ordinary navigation did not reach projects.");
-await page.goto(origin, { waitUntil: "networkidle" });
+
+await open("/");
 await page.locator("[data-theme-toggle]").click();
 const theme = await page.locator("html").getAttribute("data-theme");
 await page.reload({ waitUntil: "networkidle" });
 if (await page.locator("html").getAttribute("data-theme") !== theme) throw new Error("Theme did not persist after reload.");
+
 const monitor = page.locator("[data-monitor]");
 const image = page.locator("[data-monitor-image]");
-const before = await image.getAttribute("src");
+const before = {
+  src: await image.getAttribute("src"),
+  title: await page.locator("[data-monitor-title]").textContent(),
+  position: await page.locator("[data-monitor-position]").textContent()
+};
 await page.locator("[data-monitor-next]").click();
-if (await image.getAttribute("src") === before) throw new Error("Monitor next did not change the signal.");
+try { await image.evaluate((node) => node.decode()); } catch {}
+const after = {
+  src: await image.getAttribute("src"),
+  title: await page.locator("[data-monitor-title]").textContent(),
+  position: await page.locator("[data-monitor-position]").textContent(),
+  width: await image.evaluate((node) => node.naturalWidth)
+};
+if (after.src === before.src || after.title === before.title || after.position === before.position || after.width <= 0) {
+  throw new Error("Monitor next did not load a distinct, decoded project signal.");
+}
 await page.locator("[data-monitor-prev]").click();
-if (await image.getAttribute("src") !== before) throw new Error("Monitor previous did not restore the signal.");
+if (await image.getAttribute("src") !== before.src || await page.locator("[data-monitor-title]").textContent() !== before.title) {
+  throw new Error("Monitor previous did not restore the original project signal.");
+}
 await page.locator("[data-monitor-expand]").click();
-if (await monitor.getAttribute("data-expanded") !== "true") throw new Error("Monitor did not expand.");
-for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+if (await monitor.getAttribute("data-expanded") !== "true" || await monitor.getAttribute("role") !== "dialog" || await monitor.getAttribute("aria-modal") !== "true") {
+  throw new Error("Monitor expansion state is incomplete.");
+}
+if (!await page.locator("body").evaluate((node) => node.classList.contains("monitor-open"))) throw new Error("Expanded monitor did not lock the page state.");
+await page.keyboard.press("Escape");
+if (await monitor.getAttribute("data-expanded") !== "false" || await monitor.getAttribute("aria-modal") !== null) throw new Error("Escape did not close the monitor cleanly.");
+
+const viewports = [{ width: 1366, height: 768 }, { width: 768, height: 1024 }, { width: 390, height: 844 }];
+const responsiveRoutes = ["/", "/projects/", "/projects/agentic-career-boost/", "/cv/ml/", "/focus/", "/blog/agents-need-receipts/"];
+for (const viewport of viewports) {
   await page.setViewportSize(viewport);
-  for (const route of ["/", "/projects/agentic-career-boost/", "/cv/print/", "/blog/agents-need-receipts/"]) {
-    await page.goto(new URL(route, origin).toString(), { waitUntil: "networkidle" });
-    if (await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)) throw new Error(`Horizontal overflow at ${viewport.width}px on ${route}`);
+  for (const route of responsiveRoutes) {
+    await open(route);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    if (overflow > 1) {
+      const offenders = await page.evaluate(() => [...document.querySelectorAll("body *")]
+        .filter((node) => node.getBoundingClientRect().right > window.innerWidth + 1 || node.getBoundingClientRect().left < -1)
+        .slice(0, 5)
+        .map((node) => `${node.tagName.toLowerCase()}.${[...node.classList].join(".")}`));
+      throw new Error(`Horizontal overflow ${overflow}px at ${viewport.width}px on ${route}; offenders: ${offenders.join(", ")}`);
+    }
+    if (route === "/" || route === "/projects/agentic-career-boost/") await assertDecodedImages(route);
   }
 }
+
+const noJsContext = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+const noJsPage = await noJsContext.newPage();
+for (const route of ["/", "/projects/agentic-career-boost/"]) {
+  const response = await noJsPage.goto(new URL(route, origin).toString(), { waitUntil: "load" });
+  if (!response || response.status() !== 200) throw new Error(`No-JS route failed: ${route}`);
+  if (!(await noJsPage.locator("main").textContent())?.trim()) throw new Error(`No-JS route has no authored content: ${route}`);
+}
+await noJsContext.close();
+
 await browser.close();
 await new Promise((done) => server.close(done));
-if (errors.length || failed.length) throw new Error(`Browser errors: ${errors.join(" | ")}; failed same-origin requests: ${failed.join(" | ")}`);
-console.log("Browser smoke passed.");
+if (pageErrors.length || consoleErrors.length || failedRequests.length || badResponses.length) {
+  throw new Error(`Browser errors: ${pageErrors.join(" | ")}; console: ${consoleErrors.join(" | ")}; failed requests: ${failedRequests.join(" | ")}; bad responses: ${badResponses.join(" | ")}`);
+}
+console.log("Browser smoke passed: routes, HTTP/assets, theme, monitor, responsive layouts and no-JS content.");

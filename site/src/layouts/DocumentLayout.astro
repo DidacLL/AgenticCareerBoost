@@ -11,12 +11,13 @@ interface Props {
   activeNav?: NavId;
   meta?: MetaItem[];
   ogType?: "website" | "article" | "profile";
+  noindex?: boolean;
 }
 
-const { title, description, label, subtitle, activeNav, meta = [], ogType = "website" } = Astro.props;
+const { title, description, label, subtitle, activeNav, meta = [], ogType = "website", noindex = false } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} label={label} activeNav={activeNav} meta={meta} ogType={ogType}>
+<BaseLayout title={title} description={description} label={label} activeNav={activeNav} meta={meta} ogType={ogType} noindex={noindex}>
   <header class="document-header">
     {label && <p class="eyebrow">{label}</p>}
     <h1>{title}</h1>

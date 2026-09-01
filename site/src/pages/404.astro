@@ -8,6 +8,6 @@ if (!page) throw new Error("404 content is missing.");
 const { Content } = await render(page);
 ---
 
-<DocumentLayout title={page.data.title} description={page.data.description} label={page.data.label} subtitle={page.data.subtitle}>
+<DocumentLayout title={page.data.title} description={page.data.description} label={page.data.label} subtitle={page.data.subtitle} noindex>
   <section class="section-block"><h2>RETURN</h2><div class="section-content prose"><Content /><p><a href={paths.home()}>Return to the home document →</a></p></div></section>
 </DocumentLayout>

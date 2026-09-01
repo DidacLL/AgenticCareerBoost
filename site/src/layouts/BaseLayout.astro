@@ -16,10 +16,12 @@ interface Props {
   activeNav?: NavId;
   meta?: MetaItem[];
   ogType?: "website" | "article" | "profile";
+  noindex?: boolean;
 }
 
-const { title, description, label = "DOCUMENT", activeNav, meta = [], ogType = "website" } = Astro.props;
-const indexable = import.meta.env.SITE_INDEXABLE === "true";
+const { title, description, label = "DOCUMENT", activeNav, meta = [], ogType = "website", noindex = false } = Astro.props;
+const buildIndexable = import.meta.env.SITE_INDEXABLE === "true";
+const robotsBlocked = !buildIndexable || noindex;
 const canonical = new URL(semanticPath(Astro.url.pathname), Astro.site).toString();
 const ogImage = new URL("/img/418_informal_banner.jpg", Astro.site).toString();
 const documentTitle = title === site.identity.name ? site.defaultTitle : `${title} — ${site.identity.name}`;
@@ -33,7 +35,7 @@ const documentTitle = title === site.identity.name ? site.defaultTitle : `${titl
     <title>{documentTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {!indexable && <meta name="robots" content="noindex,nofollow" />}
+    {robotsBlocked && <meta name="robots" content="noindex,nofollow" />}
     <meta property="og:title" content={documentTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />

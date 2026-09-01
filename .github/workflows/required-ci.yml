@@ -34,6 +34,6 @@ jobs:
           SITE_BASE: /
           SITE_INDEXABLE: "true"
       - name: Validate generated portfolio
-        run: node site/scripts/verify-build.mjs site/dist /
+        run: node site/scripts/verify-build.mjs site/dist / true https://example.invalid
       - name: Validate internal Markdown links
         run: bash agents/tools/validate_links.sh
