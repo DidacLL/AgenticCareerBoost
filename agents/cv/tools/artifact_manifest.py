@@ -9,6 +9,7 @@ from pathlib import Path
 
 
 CV_ROOT = Path(__file__).resolve().parents[1]
+TEX_ROOT = CV_ROOT / "tex"
 ROOT = CV_ROOT.parents[1]
 DEFAULT_MANIFEST = CV_ROOT / "artifacts.json"
 NON_CV_MESSAGE = "only public CV artifacts are supported by agents/cv/artifacts.json"
@@ -86,8 +87,8 @@ def validate(path: Path = DEFAULT_MANIFEST) -> None:
             raise ValueError(f"sitePdf must be under site/assets/files/cv: {site_pdf}")
         if site_pdf.suffix.lower() != ".pdf" or build_pdf.suffix.lower() != ".pdf":
             raise ValueError(f"artifact outputs must be PDFs: {site_pdf}")
-        if kind == "cv" and not (CV_ROOT / source).is_file():
-            raise FileNotFoundError(f"missing CV source: {source}")
+        if kind == "cv" and not (TEX_ROOT / source).is_file():
+            raise FileNotFoundError(f"missing CV source: tex/{source}")
 
 
 def parse_args() -> argparse.Namespace:
