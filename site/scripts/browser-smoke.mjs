@@ -59,6 +59,28 @@ async function assertDecodedImages(route) {
   }
 }
 
+async function assertShell(route, viewportWidth) {
+  const avatarSrc = await page.locator(".identity-avatar img").getAttribute("src");
+  if (!avatarSrc?.endsWith("/img/avatar.jpg")) throw new Error(`Identity avatar is not avatar.jpg on ${route}: ${avatarSrc}`);
+  const favicon = await page.locator('link[rel="icon"]').getAttribute("href");
+  if (!favicon?.endsWith("/img/avatar.jpg")) throw new Error(`Browser icon is not avatar.jpg on ${route}: ${favicon}`);
+  const faviconStatus = await page.evaluate(async (href) => (await fetch(href)).status, favicon);
+  if (faviconStatus !== 200) throw new Error(`Browser icon failed to load on ${route}: HTTP ${faviconStatus}`);
+
+  const tabs = page.locator(".primary-nav--tabs a");
+  if (await tabs.count() !== 5) throw new Error(`Expected five shared navigation tabs on ${route}`);
+  const tabTops = await tabs.evaluateAll((nodes) => [...new Set(nodes.map((node) => Math.round(node.getBoundingClientRect().top)))]);
+  if (tabTops.length !== 1) throw new Error(`Shared navigation wrapped on ${route} at ${viewportWidth}px`);
+  if (await page.locator(".primary-nav--tabs a.is-active").count() !== 1) throw new Error(`Shared navigation must have exactly one active tab on ${route}`);
+
+  const bannerHeight = await page.locator(".site-banner").evaluate((node) => node.getBoundingClientRect().height);
+  if (bannerHeight < 100) throw new Error(`Banner is too shallow on ${route} at ${viewportWidth}px: ${bannerHeight}px`);
+
+  const railDisplay = await page.locator(".primary-nav--rail").evaluate((node) => getComputedStyle(node).display);
+  if (viewportWidth <= 832 && railDisplay !== "none") throw new Error(`Rail navigation should not duplicate tabs at ${viewportWidth}px`);
+  if (viewportWidth > 832 && railDisplay === "none") throw new Error(`Rail navigation unexpectedly hidden at ${viewportWidth}px`);
+}
+
 async function setTheme(theme) {
   await page.evaluate((nextTheme) => {
     const key = document.documentElement.dataset.themeStorageKey;
@@ -76,6 +98,8 @@ for (const route of routes) await open(route);
 
 await open("/");
 await assertDecodedImages("/");
+await assertShell("/", 1920);
+if (!(await page.locator(".primary-nav--tabs a.is-active").textContent())?.includes("Home")) throw new Error("Home tab is not active on Home.");
 await page.evaluate(() => {
   window.__acbClientNavigationMarker = "alive";
   const banner = document.querySelector(".site-banner");
@@ -84,7 +108,7 @@ await page.evaluate(() => {
   banner.dataset.persistenceProbe = "banner";
   avatar.dataset.persistenceProbe = "avatar";
 });
-await page.getByRole("link", { name: /Projects/ }).first().click();
+await page.locator('.primary-nav--tabs a[href$="/projects/"]').click();
 await page.waitForURL(new URL("/projects/", origin).toString());
 await page.locator("main").waitFor();
 const projectNavigation = await page.evaluate(() => ({
@@ -94,8 +118,9 @@ const projectNavigation = await page.evaluate(() => ({
 }));
 if (projectNavigation.marker !== "alive") throw new Error("Internal navigation performed a full document reload.");
 if (projectNavigation.banner !== "banner" || projectNavigation.avatar !== "avatar") throw new Error("Shared banner/avatar DOM was replaced during internal navigation.");
+if (!(await page.locator(".primary-nav--tabs a.is-active").textContent())?.includes("Projects")) throw new Error("Projects tab did not become active after client navigation.");
 
-await page.getByRole("link", { name: /Home/ }).first().click();
+await page.locator('.primary-nav--tabs a[href$="/"]').first().click();
 await page.waitForURL(new URL("/", origin).toString());
 await page.locator("[data-monitor]").waitFor();
 if (await page.evaluate(() => window.__acbClientNavigationMarker) !== "alive") throw new Error("Client navigation context was lost when returning Home.");
@@ -133,6 +158,7 @@ for (const viewport of viewports) {
   await page.setViewportSize(viewport);
   for (const route of responsiveRoutes) {
     await open(route);
+    await assertShell(route, viewport.width);
     if (["/", "/projects/agentic-career-boost/", "/cv/ml/", "/blog/", "/contact/"].includes(route)) await assertDecodedImages(route);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     if (overflow > 1) {
@@ -172,4 +198,4 @@ await noJsContext.close();
 await browser.close();
 await new Promise((done) => server.close(done));
 if (pageErrors.length || consoleErrors.length || failedRequests.length || badResponses.length) throw new Error(`Browser errors: ${pageErrors.join(" | ")}; console: ${consoleErrors.join(" | ")}; failed requests: ${failedRequests.join(" | ")}; bad responses: ${badResponses.join(" | ")}`);
-console.log("Browser smoke passed: routes, HTTP/assets, client navigation with persisted shell, theme, monitor after navigation, responsive layouts at 1920/1366/768/390 and no-JS content.");
+console.log("Browser smoke passed: routes, avatar/favicon, shared tab navigation, client navigation with persisted shell, theme, monitor, responsive layouts at 1920/1366/768/390 and no-JS content.");

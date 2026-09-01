@@ -1,0 +1,20 @@
+---
+import { site, type NavId } from "../data/site";
+import { paths } from "../lib/paths";
+
+interface Props {
+  activeNav?: NavId;
+  variant: "rail" | "tabs";
+}
+
+const { activeNav, variant } = Astro.props;
+---
+
+<nav class:list={["primary-nav", `primary-nav--${variant}`]} aria-label={site.ui.primaryNavigation}>
+  {site.navigation.map((item) => (
+    <a class:list={{ "is-active": activeNav === item.id }} href={paths.nav(item.id)} aria-current={activeNav === item.id ? "page" : undefined}>
+      <span aria-hidden="true">{item.number}</span>
+      <strong>{item.label}</strong>
+    </a>
+  ))}
+</nav>
