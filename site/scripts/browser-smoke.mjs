@@ -109,12 +109,12 @@ await monitor.locator("[data-monitor-next]").click();
 const nextImage = await monitor.locator("[data-monitor-image]").getAttribute("src");
 if (!firstImage || firstImage === nextImage) throw new Error("Monitor next control did not advance signal");
 await monitor.locator("[data-monitor-expand]").click();
-if (!await monitor.evaluate((node) => node.classList.contains("is-expanded"))) throw new Error("Monitor expand control did not expand");
+if (await monitor.getAttribute("data-expanded") !== "true") throw new Error("Monitor expand control did not expand");
 const expandedBox = await monitor.boundingBox();
 if (!expandedBox || expandedBox.width > 1100 || expandedBox.width < 700) throw new Error(`Expanded CRT width is unreasonable at 1920px: ${expandedBox?.width}`);
 await page.screenshot({ path: join(evidenceDir, "home-expanded-1920.png"), fullPage: true });
 await monitor.locator("[data-monitor-expand]").click();
-if (await monitor.evaluate((node) => node.classList.contains("is-expanded"))) throw new Error("Monitor expand control did not collapse");
+if (await monitor.getAttribute("data-expanded") !== "false") throw new Error("Monitor expand control did not collapse");
 
 for (const viewport of viewports) {
   await page.setViewportSize({ width: viewport.width, height: viewport.height });
