@@ -80,6 +80,8 @@ def validate(path: Path = DEFAULT_MANIFEST) -> None:
         source = as_relative_path(item.get("source"), "source")
         build_pdf = as_relative_path(item.get("buildPdf"), "buildPdf")
         site_pdf = as_relative_path(item.get("sitePdf"), "sitePdf")
+        if source.parts[:1] != ("tex",):
+            raise ValueError(f"source must be under agents/cv/tex: {source}")
         if build_pdf.parts[:1] != ("build",):
             raise ValueError(f"buildPdf must be under agents/cv/build: {build_pdf}")
         if site_pdf.parts[:4] != ("site", "assets", "files", "cv"):

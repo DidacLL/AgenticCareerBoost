@@ -26,22 +26,26 @@ jobs:
         run: |
           python agents/cv/tools/artifact_manifest.py validate
           {
-            echo 'root_files<<EOF'
-            python agents/cv/tools/artifact_manifest.py roots
+            echo 'tex_root_files<<EOF'
+            python agents/cv/tools/artifact_manifest.py roots | sed 's#^tex/##'
             echo 'EOF'
           } >> "$GITHUB_OUTPUT"
-      - name: Compile public CV
-        uses: xu-cheng/latex-action@v3
-        with:
-          working_directory: agents/cv
-          root_file: ${{ steps.career.outputs.root_files }}
-          args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
-      - name: Compile CV directly from TeX source directory
+      - name: Compile public CV from canonical TeX root
         uses: xu-cheng/latex-action@v3
         with:
           working_directory: agents/cv/tex
-          root_file: didac-llorens-cv.tex
-          args: -pdf -interaction=nonstopmode -halt-on-error
+          root_file: ${{ steps.career.outputs.tex_root_files }}
+          args: -r ../latexmkrc -pdf -interaction=nonstopmode -halt-on-error -outdir=../build -auxdir=../build
+      - name: Assert TeX source directory is clean
+        run: |
+          if find agents/cv/tex -maxdepth 1 -type f \( \
+            -name '*.aux' -o -name '*.log' -o -name '*.out' -o -name '*.fls' -o \
+            -name '*.fdb_latexmk' -o -name '*.synctex.gz' -o -name '*.toc' -o \
+            -name '*.bbl' -o -name '*.bcf' -o -name '*.blg' -o -name '*.run.xml' \
+          \) -print -quit | grep -q .; then
+            echo 'TeX compilation polluted agents/cv/tex with generated files.' >&2
+            exit 1
+          fi
       - name: Publish public CV into portfolio artifact
         run: python agents/cv/tools/artifact_manifest.py publish
       - uses: actions/setup-node@v6

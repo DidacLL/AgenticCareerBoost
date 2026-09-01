@@ -1,5 +1,5 @@
-$out_dir = 'build';
-$aux_dir = 'build';
 $pdf_mode = 1;
 $interaction = 'nonstopmode';
 $halt_on_error = 1;
+# Output directories are supplied by build-local.* and CI so this config is
+# independent of the caller's working directory.
