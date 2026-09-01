@@ -376,13 +376,3 @@ At that point the execution stops. The branch remains the complete development s
 
 - CRT correction and source-readability cleanup source SHA `fc379edcbc4036bb35b8a78ce6b1808b22f54b3f` passed site-check run `33456137785`: root/subpath builds, artifact/route/base verification, and browser functional smoke all passed. The corrective implementation removes the SVG procedural-noise filter, uses a separate upward-moving scanline overlay plus restrained compositor-friendly picture jitter, keeps gallery expansion fixed to the viewport, adds optional blog-image frontmatter/rendering, and expands every `site/src` source file into readable conventional formatting.
 - Readability closeout source SHA `4dad07b1a55f4d4e57fc592e26971ba6aafc1efe` passed site-check run `33456332898`: all shared layouts, components, routes, scripts, site data, and styles under `site/src/` are formatted as readable human-maintained source; root/subpath builds, artifact/base verification, and Chromium functional smoke passed.
-
-## 15. User-authorized project source contracts
-
-The current user explicitly superseded the frozen cross-repository deferral for this bounded purpose: the public site may consume each project repository's declared public contract from its `main` branch, without copying content or media into ACB.
-
-- Contract path: `/.acb/site.md`; declared cover: `/.acb/cover.*` in the same project repository.
-- P3CTeX: published on `main` at `c95496062e9330301b9df8302b9fb04007408d1e`.
-- IronBank: permanent `main` branch created directly from existing `master`, then contract published at `cdedeaa84f2744ca158ca00c1346f6e5d4a6295e`.
-- AAAAT: protected `main` rejected direct write; focused public-only PR [#52](https://github.com/DidacLL/AAAAT/pull/52) is open from `codex/acb-site-source`. No private workspace, candidature data, database, or generated application material is involved. It is not consumed until merged to AAAAT `main`.
-- ACB integration source `9370c94d17d2a14f43f5935875ed488c17cb253d` passed site-check run `33457851248`: root/subpath builds, route/base verification, and browser functional smoke all passed.
