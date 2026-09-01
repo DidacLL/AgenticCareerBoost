@@ -1,11 +1,26 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { asset, paths } from "../lib/paths";
+
 const { post } = Astro.props as { post: CollectionEntry<"posts"> };
 ---
+
 <a class="preview-row article-record" href={paths.post(post.id)}>
-  {post.data.image
-    ? <span class="preview-row__media"><img src={asset(post.data.image)} alt={post.data.imageAlt ?? ""} loading="lazy" /></span>
-    : <span class="article-date">{post.data.date.toLocaleDateString("en-CA")}</span>}
-  <span class="preview-row__copy"><p class="system-label">RECORD / {post.data.tags.join(" · ")}</p><h3>{post.data.title} <span aria-hidden="true">→</span></h3><p>{post.data.description}</p></span>
+  {post.data.image ? (
+    <span class="preview-row__media">
+      <img
+        src={asset(post.data.image)}
+        alt={post.data.imageAlt ?? ""}
+        loading="lazy"
+        decoding="async"
+      />
+    </span>
+  ) : (
+    <span class="article-date">{post.data.date.toLocaleDateString("en-CA")}</span>
+  )}
+  <span class="preview-row__copy">
+    <p class="system-label">RECORD / {post.data.tags.join(" · ")}</p>
+    <h3>{post.data.title} <span aria-hidden="true">→</span></h3>
+    <p>{post.data.description}</p>
+  </span>
 </a>
