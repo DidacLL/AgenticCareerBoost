@@ -1,6 +1,10 @@
 \documentclass[a4paper,10pt]{article}
 
-\input{tex/didac-cv-shared-preamble-v1.tex}
+% Resolve shared CV sources relative to this file, not the process working directory.
+% This keeps direct IDE compilation and repository build scripts equivalent.
+\usepackage{currfile}
+\edef\cvTexDir{\currfiledir}
+\input{\cvTexDir didac-cv-shared-preamble-v1.tex}
 
 \cvsetup
   {Software Engineering CV}
