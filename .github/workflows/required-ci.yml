@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   checks:
+    name: required-ci
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
