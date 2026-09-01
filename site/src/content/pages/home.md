@@ -1,22 +1,20 @@
 ---
 title: Dídac Llorens
-description: Software engineer in Barcelona working on AI workflows, data and backend systems, technical tooling, and documentation.
+description: Software engineer in Barcelona building developer tools, local-first applications, backend systems, and unusual document automation.
 label: HOME
-subtitle: Software engineer in Barcelona working across systems, AI workflows, data, backend engineering, and technical tooling.
+subtitle: Software engineer in Barcelona. I like building tools that make awkward work faster, clearer, and easier to repeat.
 facts:
-  - term: Current
-    value: AI workflows, ML/data systems, technical tooling, static publishing, and documentation
-  - term: Base
-    value: Java/Spring backend work, banking and insurance operations, ML/AI studies, and LaTeX/document engineering
-  - term: Direction
-    value: Engineering roles where software, data, automation, domain constraints, and maintainability meet
+  - term: Building
+    value: P3CTeX, AAAAT, backend/data experiments, technical writing, and small tools I actually use
+  - term: Background
+    value: Java/Spring engineering, ML/AI studies, fifteen years in banking and insurance operations, and arts/design training
+  - term: Approach
+    value: Maintainable source, explicit data ownership, useful automation, strong documentation, and interfaces with some personality
 ---
-I build software and technical tools that combine implementation, automation, documentation, and maintainability.
+I build software because I enjoy turning recurring friction into tools. Sometimes that means a desktop application or a backend service; sometimes it means going unusually deep into a language like TeX because the right abstraction can remove hours of repetitive work.
 
-My current public work spans AI workflow experiments, data and backend foundations, LaTeX/report tooling, and small systems built around real constraints rather than isolated demos.
+[P3CTeX](projects/p3ctex/) is the clearest example: a LaTeX class and package ecosystem I built while studying at UOC so I could produce PECs quickly without giving up professional typography, diagrams, code listings, tables, screenshots, or reproducible source. [AAAAT](projects/aaaat/) is a local-first desktop application for a completely different kind of repetitive workflow. The older [IronBank](projects/ironbank/) project records my Java/Spring backend starting point.
 
-My background combines software engineering with fifteen years in banking and insurance operations. That makes traceability, domain rules, failure modes, and clear technical communication part of how I approach engineering work.
+My previous career in banking and insurance still influences the way I write software. I care about domain rules, traceability, failure modes, readable state, and knowing which part of a system owns a piece of information. My arts/design background is the other half of that: software can be technically sound without being visually anonymous.
 
-## Repository
-
-This portfolio is one output of AgenticCareerBoost. The repository also preserves the source, decisions, CV tooling, report evidence, and historical work behind the project without forcing all of that material into the website.
+This site is an index of that work, plus a blog for technical notes and experiments as they evolve.

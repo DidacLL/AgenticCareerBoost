@@ -1,7 +1,9 @@
 ---
 title: Contact
-description: Contact and public profile routes for Dídac Llorens.
+description: Public contact and profile links for Dídac Llorens.
 label: 04 / CONTACT
-subtitle: Barcelona · software engineering · public work.
+subtitle: Barcelona · software engineering · projects and conversation.
 ---
-For professional contact, LinkedIn is the most direct route. GitHub contains the public project and source history; the CV collects the role-specific views and public PDF.
+GitHub is the best place to inspect the work itself. LinkedIn is the most direct way to contact me privately.
+
+Project questions, technical conversations, collaboration ideas, bug reports, or a thoughtful disagreement about one of the things published here are all welcome.

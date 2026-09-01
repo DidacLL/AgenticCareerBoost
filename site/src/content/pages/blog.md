@@ -1,7 +1,9 @@
 ---
 title: Blog
-description: Technical notes on practical AI workflows, static publishing, documentation, and software work.
+description: Notes on software, tooling, systems, experiments, and lessons from ongoing work.
 label: 02 / BLOG
-subtitle: Technical notes and dated records from ongoing work and earlier project states.
+subtitle: Things I build, break, refactor, learn, or decide are worth writing down.
 ---
-The blog collects short technical notes and development records. Historical entries keep the architecture and project state that existed when they were written.
+This is a technical notebook rather than a product changelog. Some entries come from current projects; others are short write-ups of an implementation decision, a failure mode, or a useful idea that survived the project where I first encountered it.
+
+Older posts keep their original date, but the useful part should stand on its own without requiring knowledge of an obsolete version of this site.

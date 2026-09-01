@@ -1,34 +1,34 @@
 ---
 title: AgenticCareerBoost
-description: Personal career engineering workspace combining a static portfolio, CV/document tooling, workflow experiments, and repository-backed evidence.
-subtitle: Career engineering workspace built from ordinary source files, automation, documents, and inspectable outputs.
-label: 01A / PROJECT
-summary: Repository-backed career engineering workspace with a static portfolio, CV/document tooling, workflow experiments, and public project history.
-order: 1
-tags: [Career tooling, Astro, LaTeX, Automation]
+description: Engineering workspace behind this portfolio, combining static publishing, document builds, CI, local automation, and preserved project history.
+subtitle: The repository where I build and maintain this site and the supporting automation around it.
+label: 01C / PROJECT
+summary: Markdown-authored Astro publishing, GitHub Actions, generated document artifacts, local utilities, validation, and the development record behind the portfolio.
+order: 3
+tags: [Astro, Markdown, GitHub Actions, Automation]
 image: img/routing-map.png
-imageAlt: Routing map diagram for AgenticCareerBoost
+imageAlt: AgenticCareerBoost site and repository routing map
 repository: https://github.com/DidacLL/AgenticCareerBoost
-status: Public technical workspace
+status: Active / portfolio source
 ---
-AgenticCareerBoost is a personal engineering workspace built around a real career-search workflow.
+AgenticCareerBoost is the repository behind this site and the collection of small tools, document workflows and experiments that grew around maintaining my public technical work.
 
-The repository combines the public portfolio, Markdown project content, LaTeX CV/report sources, application-tooling experiments, GitHub Actions, validation scripts, and local utilities used during the job-search process. The portfolio is deliberately narrower than the repository: historical reports and working evidence remain inspectable under `agents/` rather than being copied into the website.
+The current version is intentionally simple at the public boundary. Portfolio content is Markdown. Astro turns it into static HTML. A small amount of client JavaScript keeps navigation smooth and runs the theme and CRT/gallery interactions. GitHub Actions builds the site at both root and project-base paths, checks metadata and assets, compiles document artifacts, and exercises the result in Chromium.
 
-AI-assisted workflows are one part of the system rather than the subject of the project. They operate alongside ordinary files, scripts, structured inputs and outputs, CI, generated documents, and manual review.
+## The repository is larger than the website
 
-## Development history
+I use ACB as a working engineering repository, so not every useful file belongs in the public site. The `site/` tree contains only what the portfolio actually serves. Technical reports, historical decisions and earlier workflow material remain under `agents/`; local application data stays outside Git entirely.
 
-- **Initial automation structure** — source-backed workflow structure, LaTeX report infrastructure, CI, research, and launch options.
-- **Initial growth** — positioning, profile cleanup, CV material, recruiter-readiness, and the first public artifacts.
-- **Context cleanup** — stale style, duplicated paths, old drafts, over-broad checks, and state/rule confusion were separated from current work.
-- **End-of-semester pause** — useful artifacts remained while campaign momentum and the public explanation became uneven.
-- **Launch-readiness review** — the restart exposed weak evidence boundaries and presentation problems that needed cleanup before broader use.
-- **Public presentation cleanup** — current guidance was separated from historical evidence while the public portfolio and inspectable source became easier to read.
-- **Post-launch hardening** — deployment-base routing, generated CV handling, fallback loops, and CI scope were tightened after real deployment exposed sharper bugs.
+That separation took several iterations to get right. Earlier versions tried to make too much repository state part of the public runtime. The current design keeps source ownership explicit: content owns prose, shared data owns global identity and navigation, components own presentation, and generated output is treated as disposable build material.
 
-## Current version
+## Agent-assisted work with inspectable state
 
-The current repository is intentionally narrower than its earlier agentic-system iterations. The portfolio, CV/document sources, selected historical evidence, local utilities, and scratch application tooling remain together because they document the same career-engineering process, but they no longer pretend to be one live public application.
+The project has also been a place to experiment with agent-assisted engineering. The part I kept is not a permanent orchestration framework; it is the discipline of leaving useful state behind: small changes, source files, validation results, decisions and enough history to understand why something changed.
 
-Older rules, tests, state files, and sprint notes are retained as development history rather than active operating instructions. AAAAT and future CV-generation product work are developed separately.
+Older rules, reports and workflow documents remain in the repository because they are useful evidence of that evolution, but they are not an active harness that new work must obey.
+
+## Where the experiments went
+
+The first application-tracking experiments lived here because ACB was the convenient place to test them. Once that idea became substantial software, it moved into [AAAAT](https://github.com/DidacLL/AAAAT). Keeping that boundary is more useful than letting this repository grow into a monolith simply because the experiments started here.
+
+ACB is therefore best understood as the source and engineering history of the portfolio itself: static publishing, automation, validation, technical documents, and the corrections that made those pieces maintainable.
