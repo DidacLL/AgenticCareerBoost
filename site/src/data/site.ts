@@ -40,7 +40,7 @@ export const site = {
     { id: "home" as NavId, number: "00", label: "Home", kicker: "profile", description: "Profile, current work, and what I like building." },
     { id: "projects" as NavId, number: "01", label: "Projects", kicker: "work", description: "P3CTeX, AAAAT, AgenticCareerBoost, and IronBank." },
     { id: "blog" as NavId, number: "02", label: "Blog", kicker: "notes", description: "Notes on software, tooling, systems, and experiments." },
-    { id: "cv" as NavId, number: "03", label: "CV", kicker: "cv", description: "Role-focused web CV views and the public PDF." },
+    { id: "cv" as NavId, number: "03", label: "CV", kicker: "cv", description: "Web curriculum views and the downloadable public PDF." },
     { id: "contact" as NavId, number: "04", label: "Contact", kicker: "signal", description: "Public profiles and ways to reach me." }
   ],
   external: [profiles.github, profiles.linkedin, profiles.source],
