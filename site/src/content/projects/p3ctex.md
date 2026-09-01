@@ -45,10 +45,10 @@ TeX programming is also very different from mainstream application code. Macro e
 
 ## See it working
 
-- [Open the compiled P3CTeX showcase PDF](https://github.com/DidacLL/P3CTeX/blob/main/examples/P3CTeX-example.pdf)
+- [Download the compiled P3CTeX showcase PDF](https://raw.githubusercontent.com/DidacLL/P3CTeX/main/examples/P3CTeX-example.pdf)
 - [Read the source of the showcase](https://github.com/DidacLL/P3CTeX/blob/main/examples/P3CTeX-example.tex)
-- [Open the minimal UOC template output](https://github.com/DidacLL/P3CTeX/blob/main/examples/UOCTemplates/MinimalTemplate/PAC1/MinimalTemplatePAC.pdf)
-- [Open the extended UOC template output](https://github.com/DidacLL/P3CTeX/blob/main/examples/UOCTemplates/ExtendedTemplate/PAC1/ExtendedTemplatePAC.pdf)
+- [Download the minimal UOC template PDF](https://raw.githubusercontent.com/DidacLL/P3CTeX/main/examples/UOCTemplates/MinimalTemplate/PAC1/MinimalTemplatePAC.pdf)
+- [Download the extended UOC template PDF](https://raw.githubusercontent.com/DidacLL/P3CTeX/main/examples/UOCTemplates/ExtendedTemplate/PAC1/ExtendedTemplatePAC.pdf)
 - [Read the pxUML API/manual source](https://github.com/DidacLL/P3CTeX/blob/main/tex/doc/pxUML.tex)
 
 The repository contains the package sources, manuals, examples and test suites. The compiled examples are the quickest way to understand why the project exists; the `.sty`, `.cls` and `.code.tex` files show the depth behind the output.
