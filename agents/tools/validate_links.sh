@@ -8,12 +8,12 @@ cd "$repo_root"
 if [[ $# -gt 0 ]]; then
   files=("$@")
 else
-  mapfile -t files < <(find . -type f -name '*.md' \
-    ! -path './.git/*' \
-    ! -path './agents/state/archive/*' \
-    ! -path './agents/state/logs/*' \
-    ! -path './agents/state/summaries/*' \
-    | sed 's#^\./##')
+  # Validate repository-owned Markdown only. Build outputs and installed
+  # dependencies can contain their own incomplete documentation trees and are
+  # deliberately outside this repository's link contract.
+  mapfile -t files < <(git ls-files -- '*.md' \
+    | grep -vE '^agents/state/(archive|logs|summaries)/' \
+    || true)
 fi
 
 errors=0
