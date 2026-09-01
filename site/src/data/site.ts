@@ -32,8 +32,8 @@ export const site = {
   description: "Public engineering portfolio: software systems, AI workflows, data, backend work, LaTeX tooling, and technical documentation.",
   identity: {
     name: "Dídac Llorens",
-    avatar: "img/me.png",
-    avatarAlt: "Portrait of Dídac Llorens",
+    avatar: "img/avatar.jpg",
+    avatarAlt: "Dídac Llorens avatar",
     lines: ["Software engineer · Barcelona", "Systems · AI workflows · data · backend"]
   },
   navigation: [
