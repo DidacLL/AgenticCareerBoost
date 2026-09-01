@@ -3,19 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import DocumentLayout from "./DocumentLayout.astro";
 import { asset } from "../lib/paths";
 
-interface Props {
-  project: CollectionEntry<"projects">;
-  remoteCover?: {
-    src: string;
-    alt: string;
-  };
-}
-
-const { project, remoteCover } = Astro.props as Props;
-const cover = remoteCover ?? {
-  src: asset(project.data.image),
-  alt: project.data.imageAlt
-};
+const { project } = Astro.props as { project: CollectionEntry<"projects"> };
 ---
 
 <DocumentLayout
@@ -29,7 +17,12 @@ const cover = remoteCover ?? {
     <h3>SIGNAL</h3>
     <div class="section-content project-signal">
       <figure class="media-frame">
-        <img src={cover.src} alt={cover.alt} loading="eager" decoding="async" />
+        <img
+          src={asset(project.data.image)}
+          alt={project.data.imageAlt}
+          loading="eager"
+          decoding="async"
+        />
       </figure>
       <dl class="fact-table">
         <div>
