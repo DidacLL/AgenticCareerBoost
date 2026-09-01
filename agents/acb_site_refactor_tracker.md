@@ -1,72 +1,49 @@
 # AgenticCareerBoost — Site Refactor Recovery Tracker
 
-**Authority:** `agents/acb_site_refactor_masterplan.md`  
+**Status:** ENGINEERING COMPLETE — closed evidence record, not an active harness  
 **Branch:** `DidacLl/siterefactor`  
 **Recovery baseline:** `336573134c0aed5ce3ed5d46c1e74a615aa7769b`  
+**Accepted implementation:** `872e6c5ed2583da8b5f87eda84f508de083969f7`  
 **Production cutover:** not authorized
 
-Earlier phase-complete claims are historical and are not acceptance evidence for the current tree.
+## Recovery result
 
-## Recovery board
-
-| Batch | Purpose | Status | Evidence |
-|---|---|---|---|
-| R1 | Reset public boundary, control docs, report/site separation and route contract | IN PROGRESS | pending commit/run |
-| R2 | Restore content ownership and reconstruct visual hierarchy/monitor | PENDING | — |
-| R3 | Harden CV publication, metadata/indexability and objective verification | PENDING | — |
-| R4 | Remove dead residue, review full diff, exact-SHA closeout | PENDING | — |
-| FINAL VISUAL | User opens `localdeploy.bat` once after all objective checks pass | PENDING | user verdict |
-
-## Non-negotiable state
-
-- `site/` = portfolio source/assets only.
-- ACB reports/research/history = repository evidence under `agents/**`, not site assets.
-- `agents/**` historical material is evidence, not an active harness.
-- Public CV = sole generated document artifact intentionally served by the portfolio.
-- Application Tracker/dashboard = not public portfolio surfaces.
-- No legacy route aliases/redirect compatibility.
-- Astro/Markdown/static architecture retained.
-- No external-project loader/federation.
-- Retro-vintage videogame/document identity refined, not replaced by generic template styling.
-- Project monitor slides derive from canonical project collection data.
-- Agent owns objective verification; automation never approves aesthetics.
-- One final human visual review only.
-- No PR, merge, deployment, main write or root-publication-repo write.
-
-## Defects to close
-
-| ID | Defect | Status |
+| Batch | Result | Evidence |
 |---|---|---|
-| BOUND-01 | Report catalog/evidence component is incorrectly inside portfolio | OPEN |
-| BOUND-02 | Site/deploy CI incorrectly compiles/publishes ACB reports as portfolio inputs | OPEN |
-| BOUND-03 | Report local build scripts still copy outputs into `site/` | OPEN |
-| BOUND-04 | Root/site guidance still describes reports as site artifacts | OPEN |
-| ROUTE-01 | Retired dashboard/tracker/legacy aliases still generate redirects | OPEN |
-| OWN-01 | Authored page/UI copy is scattered through layouts/pages/scripts | OPEN |
-| CONTENT-01 | ACB/CV/Focus migration lost useful structure/context | OPEN |
-| VIS-01 | Shell is rigid and visual treatment is still glitchy/over-filtered | OPEN |
-| VIS-02 | Monitor lost project metadata/links and is only an image carousel | OPEN |
-| META-01 | OG/Twitter metadata incomplete | OPEN |
-| SEO-01 | `robots.txt` does not respect indexable build mode | OPEN |
-| CV-01 | CV artifact validation has an invalid path-prefix comparison | OPEN |
-| CI-01 | Site Check does not cover every recovery HEAD | OPEN |
-| CI-02 | Browser smoke misses normal HTTP 4xx/5xx responses and image decode failures | OPEN |
-| DOC-01 | Root README/AGENTS were over-trimmed during refactor | OPEN |
+| R1 — boundaries/authority | CLOSED | report/site separation, retired public scratch routes; `65a98c30…`, run `33504203240` |
+| R2 — content/design recovery | CLOSED | content ownership, visual reconstruction, user-feedback pass; `34104a67…`, run `33510213693` |
+| R3 — publication/verification | CLOSED | canonical/mirror policy, CV contract, hardened static/browser checks; `cc4235ed…`, run `33505819136` |
+| R4 — closeout/cleanup | CLOSED | expanded CRT evidence + unused site-asset pruning; `1f9ed918…` run `33510831603`, `872e6c5e…` run `33514536384` |
+
+## Closed defects
+
+- **BOUND:** reports/research/history are repository evidence under `agents/**`, not portfolio files or build inputs.
+- **ROUTES:** dashboard, tracker demo, old aliases and duplicate `/focus/**` surface are retired.
+- **OWNERSHIP:** authored content has explicit Markdown/data owners; shared identity/UI data has one global owner.
+- **CONTENT:** ACB history, CV facts/source/PDF access and historical blog context retained without turning reports into site downloads.
+- **VISUAL:** banner restored to header; avatar restored; heading scale restrained; CRT/hologram character restored; normal and expanded monitor sizes corrected; Blog/CV/Contact regain useful imagery and visual variation.
+- **META/SEO:** canonical, OG/Twitter metadata, robots and sitemap follow build mode.
+- **CV:** artifact destination contract is valid and checked.
+- **CI:** every branch HEAD receives non-deploy Site Check; HTTP errors, decoded images, navigation, theme, CRT behavior, overflow and no-JS content are checked at 1920/1366/768/390.
+- **CLEANUP:** obsolete renderer/DSL residue and unused `site/assets` material, including unused generated-image sets and alternate logos, are no longer shipped in the portfolio tree.
+- **DOCS:** root/agents guidance states privacy boundaries and clearly marks historical agent material as evidence rather than an active harness.
+
+## Final route contract
+
+Portfolio routes are Home, Projects + four project pages, Blog + three posts, four CV views, Contact and static 404. Role-specific presentation exists only under `/cv/*`; there is no separate Focus concept.
 
 ## Verification ledger
 
-| Recovery SHA | Site Check run | Build root | Build mirror | Static verifier | Browser smoke | Notes |
-|---|---|---|---|---|---|---|
-| `336573134c0aed5ce3ed5d46c1e74a615aa7769b` | `33499345620` | PASS | PASS | PASS | PASS | baseline checks were too narrow; audit found defects above |
+| SHA | Site Check | Result | Purpose |
+|---|---|---|---|
+| `65a98c30…` | `33504203240` | PASS | first clean boundary recovery |
+| `cbc6daaa…` | `33505589811` | PASS | mobile overflow corrected at source |
+| `cc4235ed…` | `33505819136` | PASS | hardened root/mirror + browser contract |
+| `1d1ef461…` | `33506484199` | PASS | 1920-first visual evidence |
+| `34104a67…` | `33510213693` | PASS | user visual-feedback corrections |
+| `1f9ed918…` | `33510831603` | PASS | expanded CRT 1920 evidence |
+| `872e6c5e…` | `33514536384` | PASS | final unused-asset cleanup |
 
-## Final gate
+## Remaining boundary
 
-Before asking for the user's visual verdict:
-
-1. all defects above must be CLOSED or explicitly deferred by the user;
-2. exact final SHA must have a green Site Check;
-3. full recovery diff must be inspected for unintended scope;
-4. full branch-vs-main diff must be inspected for refactor residue;
-5. no production surface may have been modified.
-
-Then the only user action is: double-click `localdeploy.bat` and give the subjective visual verdict.
+There is no open engineering task in this recovery record. A final local look with `localdeploy.bat` can be used for the user's subjective acceptance before any production cutover. Merge/deploy/main/root-publication changes remain outside this recovery and require a separate explicit instruction.

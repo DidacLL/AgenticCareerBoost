@@ -7,6 +7,11 @@ evolution.
 It is not a live agent harness. The active repository guidance is the root
 `AGENTS.md` plus direct user instructions.
 
+The root-level `acb_site_refactor_masterplan.md` and
+`acb_site_refactor_tracker.md` in this directory are closed recovery records for
+the 2026 site refactor. Their status blocks are evidence of that completed run,
+not standing instructions for future agents.
+
 ## How To Read This Tree
 
 | Path | Current role |
