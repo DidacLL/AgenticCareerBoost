@@ -4,7 +4,7 @@
     {
       "kind": "cv",
       "publish": true,
-      "source": "didac-llorens-cv.tex",
+      "source": "tex/didac-llorens-cv.tex",
       "buildPdf": "build/didac-llorens-cv.pdf",
       "sitePdf": "site/assets/files/cv/didac-llorens-cv.pdf"
     }
