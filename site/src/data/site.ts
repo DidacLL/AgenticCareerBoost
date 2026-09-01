@@ -5,7 +5,7 @@ const profiles = {
     id: "github",
     label: "GitHub",
     href: "https://github.com/DidacLL",
-    description: "Repositories, technical work, and source history.",
+    description: "Repositories, source code, and technical work.",
     image: "img/logos/GitHub_Invertocat_White.png",
     imageAlt: "GitHub logo"
   },
@@ -21,7 +21,7 @@ const profiles = {
     id: "source",
     label: "Site source",
     href: "https://github.com/DidacLL/AgenticCareerBoost",
-    description: "Source repository for this portfolio.",
+    description: "Source, build tooling, and history for this portfolio.",
     image: "img/routing-map.png",
     imageAlt: "AgenticCareerBoost routing map"
   }
@@ -29,23 +29,23 @@ const profiles = {
 
 export const site = {
   defaultTitle: "Dídac Llorens — Software Engineer",
-  description: "Public engineering portfolio: software systems, AI workflows, data, backend work, LaTeX tooling, and technical documentation.",
+  description: "Personal developer portfolio by Dídac Llorens: P3CTeX, AAAAT, backend systems, AI-assisted engineering, and technical notes.",
   identity: {
     name: "Dídac Llorens",
     avatar: "img/avatar.jpg",
     avatarAlt: "Dídac Llorens avatar",
-    lines: ["Software engineer · Barcelona", "Systems · AI workflows · data · backend"]
+    lines: ["Software engineer · Barcelona", "Tools · systems · data · backend"]
   },
   navigation: [
-    { id: "home" as NavId, number: "00", label: "Home", kicker: "profile", description: "Technical profile, current direction, and selected routes." },
-    { id: "projects" as NavId, number: "01", label: "Projects", kicker: "work", description: "AgenticCareerBoost, P3CTeX, AAAAT, and IronBank." },
-    { id: "blog" as NavId, number: "02", label: "Blog", kicker: "notes", description: "Dated technical notes and historical project records." },
+    { id: "home" as NavId, number: "00", label: "Home", kicker: "profile", description: "Profile, current work, and what I like building." },
+    { id: "projects" as NavId, number: "01", label: "Projects", kicker: "work", description: "P3CTeX, AAAAT, AgenticCareerBoost, and IronBank." },
+    { id: "blog" as NavId, number: "02", label: "Blog", kicker: "notes", description: "Notes on software, tooling, systems, and experiments." },
     { id: "cv" as NavId, number: "03", label: "CV", kicker: "cv", description: "Role-focused web CV views and the public PDF." },
-    { id: "contact" as NavId, number: "04", label: "Contact", kicker: "signal", description: "Public profile and contact channels." }
+    { id: "contact" as NavId, number: "04", label: "Contact", kicker: "signal", description: "Public profiles and ways to reach me." }
   ],
   external: [profiles.github, profiles.linkedin, profiles.source],
   contact: {
-    channels: [profiles.linkedin, profiles.github]
+    channels: [profiles.linkedin, profiles.github, profiles.source]
   },
   cv: {
     sourceUrl: "https://github.com/DidacLL/AgenticCareerBoost/blob/main/agents/cv/tex/didac-llorens-cv.tex",
@@ -72,9 +72,9 @@ export const site = {
       title: "Dídac Llorens",
       image: "img/me.png",
       alt: "Dídac Llorens portrait rendered as a retro monitor feed",
-      lines: ["software engineering · Barcelona", "implementation · systems · documentation"],
+      lines: ["software engineering · Barcelona", "tools · systems · documents · experiments"],
       links: [
-        { label: "Open CV", navId: "cv" as NavId },
+        { label: "Projects", navId: "projects" as NavId },
         { label: "Contact", navId: "contact" as NavId }
       ],
       caption: "portrait / default signal"
