@@ -12,47 +12,6 @@
 
 ---
 
-## 0. Re-baselined authority — portfolio boundary and reconstruction
-
-This section supersedes every conflicting instruction later in this document. The Astro/Markdown/static foundation remains; the report-publication, compatibility, and visual decisions below are replaced.
-
-### 0.1 Public boundary
-
-- The portfolio is one public artifact in AgenticCareerBoost. It is not the public container for ACB reports, implementation logs, sprint history, tracker material, cover letters, or generated application material.
-- ACB reports and proofs remain repository documentation. Do not catalog them in the site, copy them to site assets, render them through a portfolio component, or make Astro depend on their PDFs.
-- The site contains only current portfolio pages, concise project narratives, direct source links, and explicitly selected public CV views. The public CV remains the sole generated site artifact, with its single target owned by agents/cv/artifacts.json.
-- Existing local generated outputs under site/files are legacy evidence. Preserve them in place: do not read their contents as site data, stage, move, or delete them during this refactor. They are not served by the Astro portfolio.
-
-### 0.2 Replacement, not compatibility
-
-- The site has no legacy dashboard, Application Tracker, curriculum, notes, or hire routes. Do not redirect any of them to a current page.
-- Remove their redirect configuration and verifier expectations. Unknown paths use the normal static 404 response; no compatibility route is created.
-- Remove ArtifactList.astro, site/src/data/reports.json, portfolio report links, and report-publication coupling from site workflows. Retain report sources, tools, documentation, and history.
-
-### 0.3 Visual reconstruction
-
-The pre-refactor site is visual evidence, not implementation source. Do not restore its router, JSON renderer, stylesheet, or client architecture.
-
-Rebuild the authored retro-vintage document/game direction in clean, readable Astro/CSS/vanilla-JS:
-
-- use a fluid wide desktop composition with readable rails; the outer grid must not disturb rail or body text;
-- retain the warm/dark document world, ink borders, 418 identity, teal/terracotta/green signal palette, monospaced system labels, asymmetric density, and editorial hierarchy;
-- make the gallery a real monitor: curated slides, factual screen-overlay metadata, a shared clipped image/scanline/vignette/scan-beam compositor, and a fixed viewport dialog when expanded;
-- eliminate generic caption labels, blanket sepia/grayscale filters, detached scanlines, procedural noise, expensive animation, oversized image cards, and in-flow expansion;
-- use only short transform/opacity motion, honor reduced motion, and recompose at breakpoints rather than preserve rigid columns;
-- refine content composition and project media as part of the visual work; do not add generic portfolio cards or flatten the site into a template.
-
-### 0.4 Execution order
-
-A. Correct public boundaries and control documents: remove site-facing report/redirect coupling and correct misleading portfolio copy while preserving ACB documentation and local generated outputs.
-
-B. Reconstruct visual and interaction quality: audit local rendering against the supplied screenshots and existing visual direction, then rebuild shell, rails, monitor/gallery, media treatment, and responsive behavior with clean source.
-
-C. Align and close: remove only obsolete runtime/workflow coupling after the replacement owns the surface; verify current routes, base paths, navigation, theme, gallery, assets, console, requests, and overflow at the exact branch SHA; then perform one final agent critique before asking for final subjective local inspection.
-
-The agent does not stop at intermediate visual gates. The user is not the functional tester and performs one final subjective visual review only after agent-owned correction is exhausted.
-
----
 ## 1. Purpose
 
 Refactor the current browser-rendered portfolio into a simple static site whose content is authored as Markdown and whose presentation is rendered at build time with Astro.
