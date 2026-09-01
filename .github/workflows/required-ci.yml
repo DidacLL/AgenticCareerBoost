@@ -36,6 +36,12 @@ jobs:
           working_directory: agents/cv
           root_file: ${{ steps.career.outputs.root_files }}
           args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
+      - name: Compile CV directly from TeX source directory
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: agents/cv/tex
+          root_file: didac-llorens-cv.tex
+          args: -pdf -interaction=nonstopmode -halt-on-error
       - name: Publish public CV into portfolio artifact
         run: python agents/cv/tools/artifact_manifest.py publish
       - uses: actions/setup-node@v6
