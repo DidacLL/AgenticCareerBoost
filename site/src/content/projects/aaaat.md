@@ -3,7 +3,7 @@ title: AAAAT
 description: Local-first desktop software for managing job applications, source material, conversations, documents, and optional bounded AI assistance.
 subtitle: A native Python workspace that keeps the application record local and remains fully useful with no AI connected.
 label: 01B / PROJECT
-summary: A wxPython/SQLite desktop application centred on the candidature: offer source, status, notes, next actions, reusable context, generated documents, local artifacts, and provider-neutral optional assistance.
+summary: "A wxPython/SQLite desktop application centred on the candidature: offer source, status, notes, next actions, reusable context, generated documents, local artifacts, and provider-neutral optional assistance."
 order: 2
 tags: [Python, wxPython, SQLite, Local-first, PyInstaller]
 image: img/AAAATlogo.png

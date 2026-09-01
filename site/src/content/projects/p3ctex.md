@@ -3,7 +3,7 @@ title: P3CTeX
 description: A LaTeX2e/expl3 document toolkit built to turn UOC PEC work into fast, reproducible, professional technical documents.
 subtitle: The project I built so formatting a PEC would stop competing with the actual engineering work.
 label: 01A / PROJECT
-summary: An extensible document class and package suite for UOC work: official-style structure, source listings, resilient screenshots, data-driven tables, UML class models, reusable metadata, and deterministic builds.
+summary: "An extensible document class and package suite for UOC work: official-style structure, source listings, resilient screenshots, data-driven tables, UML class models, reusable metadata, and deterministic builds."
 order: 1
 tags: [LaTeX2e, expl3, TeX programming, UML, Document tooling]
 image: img/P3CTeXLogo.png
