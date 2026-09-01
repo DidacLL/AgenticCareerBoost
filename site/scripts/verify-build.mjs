@@ -19,7 +19,9 @@ const walk = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((entry) 
 
 for (const file of walk(resolve("site/src"))) {
   const source = readFileSync(file, "utf8");
-  if (source.includes("https://didacll.github.io") || source.includes("http://didacll.github.io") || source.includes("/AgenticCareerBoost/")) {
+  const ownOrigin = /https?:\/\/didacll\.github\.io/i.test(source);
+  const hardcodedProjectBase = /["'`]\/AgenticCareerBoost\//.test(source);
+  if (ownOrigin || hardcodedProjectBase) {
     throw new Error(`Own host or deployment prefix found in site source: ${file}`);
   }
 }
