@@ -21,8 +21,23 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-      - name: Validate public CV artifact contract
-        run: python agents/cv/tools/artifact_manifest.py validate
+      - name: Resolve career artifact build inputs
+        id: career
+        run: |
+          python agents/cv/tools/artifact_manifest.py validate
+          {
+            echo 'root_files<<EOF'
+            python agents/cv/tools/artifact_manifest.py roots
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+      - name: Compile public CV
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: agents/cv
+          root_file: ${{ steps.career.outputs.root_files }}
+          args: -r latexmkrc -pdf -interaction=nonstopmode -halt-on-error
+      - name: Publish public CV into portfolio artifact
+        run: python agents/cv/tools/artifact_manifest.py publish
       - uses: actions/setup-node@v6
         with:
           node-version: 24.20.0
