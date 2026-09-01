@@ -76,15 +76,29 @@ for (const route of routes) await open(route);
 
 await open("/");
 await assertDecodedImages("/");
+await page.evaluate(() => {
+  window.__acbClientNavigationMarker = "alive";
+  const banner = document.querySelector(".site-banner");
+  const avatar = document.querySelector(".identity-avatar");
+  if (!banner || !avatar) throw new Error("Persistent shell elements are missing on Home.");
+  banner.dataset.persistenceProbe = "banner";
+  avatar.dataset.persistenceProbe = "avatar";
+});
 await page.getByRole("link", { name: /Projects/ }).first().click();
-await page.waitForLoadState("networkidle");
-if (!page.url().endsWith("/projects/")) throw new Error("Ordinary navigation did not reach projects.");
+await page.waitForURL(new URL("/projects/", origin).toString());
+await page.locator("main").waitFor();
+const projectNavigation = await page.evaluate(() => ({
+  marker: window.__acbClientNavigationMarker,
+  banner: document.querySelector(".site-banner")?.dataset.persistenceProbe,
+  avatar: document.querySelector(".identity-avatar")?.dataset.persistenceProbe
+}));
+if (projectNavigation.marker !== "alive") throw new Error("Internal navigation performed a full document reload.");
+if (projectNavigation.banner !== "banner" || projectNavigation.avatar !== "avatar") throw new Error("Shared banner/avatar DOM was replaced during internal navigation.");
 
-await open("/");
-await page.locator("[data-theme-toggle]").click();
-const theme = await page.locator("html").getAttribute("data-theme");
-await page.reload({ waitUntil: "networkidle" });
-if (await page.locator("html").getAttribute("data-theme") !== theme) throw new Error("Theme did not persist after reload.");
+await page.getByRole("link", { name: /Home/ }).first().click();
+await page.waitForURL(new URL("/", origin).toString());
+await page.locator("[data-monitor]").waitFor();
+if (await page.evaluate(() => window.__acbClientNavigationMarker) !== "alive") throw new Error("Client navigation context was lost when returning Home.");
 
 const monitor = page.locator("[data-monitor]");
 const image = page.locator("[data-monitor-image]");
@@ -92,7 +106,7 @@ const before = { src: await image.getAttribute("src"), title: await page.locator
 await page.locator("[data-monitor-next]").click();
 try { await image.evaluate((node) => node.decode()); } catch {}
 const after = { src: await image.getAttribute("src"), title: await page.locator("[data-monitor-title]").textContent(), position: await page.locator("[data-monitor-position]").textContent(), width: await image.evaluate((node) => node.naturalWidth) };
-if (after.src === before.src || after.title === before.title || after.position === before.position || after.width <= 0) throw new Error("Monitor next did not load a distinct, decoded project signal.");
+if (after.src === before.src || after.title === before.title || after.position === before.position || after.width <= 0) throw new Error("Monitor next did not load a distinct, decoded project signal after client navigation.");
 await page.locator("[data-monitor-prev]").click();
 if (await image.getAttribute("src") !== before.src || await page.locator("[data-monitor-title]").textContent() !== before.title) throw new Error("Monitor previous did not restore the original project signal.");
 await page.locator("[data-monitor-expand]").click();
@@ -100,6 +114,11 @@ if (await monitor.getAttribute("data-expanded") !== "true" || await monitor.getA
 if (!await page.locator("body").evaluate((node) => node.classList.contains("monitor-open"))) throw new Error("Expanded monitor did not lock the page state.");
 await page.keyboard.press("Escape");
 if (await monitor.getAttribute("data-expanded") !== "false" || await monitor.getAttribute("aria-modal") !== null) throw new Error("Escape did not close the monitor cleanly.");
+
+await page.locator("[data-theme-toggle]").click();
+const theme = await page.locator("html").getAttribute("data-theme");
+await page.reload({ waitUntil: "networkidle" });
+if (await page.locator("html").getAttribute("data-theme") !== theme) throw new Error("Theme did not persist after reload.");
 
 const viewports = [
   { width: 1920, height: 1080, name: "desktop-1920" },
@@ -153,4 +172,4 @@ await noJsContext.close();
 await browser.close();
 await new Promise((done) => server.close(done));
 if (pageErrors.length || consoleErrors.length || failedRequests.length || badResponses.length) throw new Error(`Browser errors: ${pageErrors.join(" | ")}; console: ${consoleErrors.join(" | ")}; failed requests: ${failedRequests.join(" | ")}; bad responses: ${badResponses.join(" | ")}`);
-console.log("Browser smoke passed: routes, HTTP/assets, theme, monitor, responsive layouts at 1920/1366/768/390 and no-JS content.");
+console.log("Browser smoke passed: routes, HTTP/assets, client navigation with persisted shell, theme, monitor after navigation, responsive layouts at 1920/1366/768/390 and no-JS content.");
