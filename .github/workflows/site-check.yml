@@ -54,14 +54,21 @@ jobs:
           SITE_ORIGIN: https://example.invalid
           SITE_BASE: /
           SITE_INDEXABLE: "true"
-      - name: Browser functional smoke
-        run: node site/scripts/browser-smoke.mjs site/dist
+      - name: Browser functional smoke and visual evidence
+        run: node site/scripts/browser-smoke.mjs site/dist site/browser-evidence
       - name: Record branch build context
-        run: printf '{"sha":"%s","base":"/","indexable":true}\n' "$GITHUB_SHA" > site/dist/build-summary.json
+        run: printf '{"sha":"%s","base":"/","indexable":true,"desktop":"1920x1080"}\n' "$GITHUB_SHA" > site/dist/build-summary.json
       - name: Upload exact-SHA branch build
         uses: actions/upload-artifact@v4
         with:
           name: site-branch-${{ github.sha }}
           path: site/dist
+          if-no-files-found: error
+          retention-days: 3
+      - name: Upload exact-SHA visual evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-review-${{ github.sha }}
+          path: site/browser-evidence
           if-no-files-found: error
           retention-days: 3

@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
-# Local LaTeX build script for AgenticCareerBoost report evidence.
-# Output stays inside agents/reports/tex/build/; reports are not portfolio assets.
+# Local LaTeX build script for AgenticCareerBoost reports.
+# Mirrors the dedicated report CI pipeline closely.
+#
+# Usage:
+#   ./build-local.sh          # build all report documents
+#   ./build-local.sh s000     # Sprint S-000 only
+#   ./build-local.sh guide    # Agentic system guide only
+#   ./build-local.sh smoke    # preamble smoke test only
+#   ./build-local.sh clean    # remove build artifacts
 
 set -euo pipefail
 cd "$(dirname "$0")"
