@@ -1,5 +1,5 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import ArtifactList from "../../components/ArtifactList.astro";
 import ProjectLayout from "../../layouts/ProjectLayout.astro";
 
@@ -13,10 +13,16 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { Content } = await render(project);
+const remoteSource = await getEntry("projectSources", project.id);
+const { Content: LocalContent } = await render(project);
+const remoteRender = remoteSource ? await render(remoteSource) : undefined;
+const RemoteContent = remoteRender?.Content;
+const remoteCover = remoteSource
+  ? { src: remoteSource.data.coverUrl, alt: project.data.imageAlt }
+  : undefined;
 ---
 
-<ProjectLayout project={project}>
-  <Content />
+<ProjectLayout project={project} remoteCover={remoteCover}>
+  {RemoteContent ? <RemoteContent /> : <LocalContent />}
   {project.id === "agentic-career-boost" && <ArtifactList slot="evidence" />}
 </ProjectLayout>

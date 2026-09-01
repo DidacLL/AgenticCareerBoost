@@ -2,6 +2,7 @@
 import { getCollection, getEntry, render } from "astro:content";
 import Gallery from "../components/Gallery.astro";
 import { site } from "../data/site";
+import { getProjectSource } from "../lib/project-source";
 import DocumentLayout from "../layouts/DocumentLayout.astro";
 import { paths } from "../lib/paths";
 
@@ -16,7 +17,7 @@ const projects = (await getCollection("projects")).sort((a, b) => a.data.order -
 const gallerySlides = [
   ...site.gallery.slides,
   ...projects.map((project) => ({
-    image: project.data.image,
+    image: getProjectSource(project.id)?.coverUrl ?? project.data.image,
     alt: project.data.imageAlt,
     caption: `project / ${project.data.title}`
   }))

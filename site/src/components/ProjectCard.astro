@@ -1,17 +1,15 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { getProjectSource } from "../lib/project-source";
 import { asset, paths } from "../lib/paths";
 
 const { project } = Astro.props as { project: CollectionEntry<"projects"> };
+const source = getProjectSource(project.id);
+const image = source?.coverUrl ?? asset(project.data.image);
 ---
 
 <a class="project-card" href={paths.project(project.id)}>
-  <img
-    src={asset(project.data.image)}
-    alt={project.data.imageAlt}
-    loading="lazy"
-    decoding="async"
-  />
+  <img src={image} alt={project.data.imageAlt} loading="lazy" decoding="async" />
   <div>
     <p class="eyebrow">{project.data.label ?? "project"}</p>
     <h3>{project.data.title}</h3>

@@ -1,5 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
+import { projectSourceLoader } from "./lib/project-source";
 
 const common = {
   title: z.string(),
@@ -23,6 +24,14 @@ export const collections = {
       imageAlt: z.string(),
       repository: z.string().url().optional(),
       status: z.string().optional()
+    })
+  }),
+  projectSources: defineCollection({
+    loader: projectSourceLoader(),
+    schema: z.object({
+      repository: z.string(),
+      documentUrl: z.string().url(),
+      coverUrl: z.string().url()
     })
   }),
   posts: defineCollection({
