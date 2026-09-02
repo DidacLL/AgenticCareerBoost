@@ -6,8 +6,8 @@ import { portfolioRoutes, retiredRoutes } from "./content-routes.mjs";
 
 const [dist = "site/dist", evidenceDir = "site/browser-evidence"] = process.argv.slice(2);
 const routes = portfolioRoutes();
-const responsiveRoutes = ["/", "/projects/agentic-career-boost/", "/blog/", "/cv/ml/", "/contact/"];
-const evidenceRoutes = ["/", "/projects/agentic-career-boost/", "/blog/", "/cv/ml/", "/contact/"];
+const responsiveRoutes = ["/", "/es/", "/ca/", "/projects/agentic-career-boost/", "/blog/", "/cv/ml/", "/contact/"];
+const evidenceRoutes = ["/", "/es/", "/ca/", "/projects/agentic-career-boost/", "/blog/", "/cv/ml/", "/contact/"];
 const viewports = [
   { name: "desktop-1920", width: 1920, height: 1080 },
   { name: "desktop-1366", width: 1366, height: 768 },
@@ -93,6 +93,24 @@ await page.waitForURL(`${origin}/`);
 const homeActiveHref = await page.locator('.primary-nav--tabs a[aria-current="page"]').getAttribute("href");
 if (new URL(homeActiveHref ?? "", origin).pathname !== "/") throw new Error("Home tab did not become active after returning through client navigation");
 
+const languageLinks = page.locator(".language-switcher a");
+if (await languageLinks.count() !== 3) throw new Error("Language switcher must expose ENG, CAST and CAT");
+if (await page.locator('.language-switcher a[aria-current="page"]').getAttribute("lang") !== "en") throw new Error("English must be active on the canonical root route");
+await page.locator('.language-switcher a[lang="es"]').click();
+await page.waitForURL(`${origin}/es/`);
+if (await page.locator("html").getAttribute("lang") !== "es") throw new Error("CAST switch did not set html lang=es");
+if (await page.locator('.language-switcher a[aria-current="page"]').getAttribute("lang") !== "es") throw new Error("CAST switch did not become active");
+await page.locator('.primary-nav--tabs a[href="/es/projects/"]').click();
+await page.waitForURL(`${origin}/es/projects/`);
+await page.locator('.language-switcher a[lang="ca"]').click();
+await page.waitForURL(`${origin}/ca/projects/`);
+if (await page.locator("html").getAttribute("lang") !== "ca") throw new Error("CAT switch did not preserve the Projects route");
+await page.locator('.language-switcher a[lang="en"]').click();
+await page.waitForURL(`${origin}/projects/`);
+if (await page.locator("html").getAttribute("lang") !== "en") throw new Error("ENG switch did not return to the unprefixed Projects route");
+await page.locator('.primary-nav--tabs a[href="/"]').click();
+await page.waitForURL(`${origin}/`);
+
 const themeButton = page.locator("[data-theme-toggle]");
 const beforeTheme = await page.locator("html").getAttribute("data-theme");
 await themeButton.click();
@@ -129,6 +147,9 @@ for (const viewport of viewports) {
     const tabRows = await tabs.evaluateAll((nodes) => new Set(nodes.map((node) => Math.round(node.getBoundingClientRect().top))).size);
     if (tabRows !== 1) throw new Error(`${route}@${viewport.name}: primary tabs wrapped onto ${tabRows} rows`);
     if (await page.locator('.primary-nav--tabs a[aria-current="page"]').count() !== 1) throw new Error(`${route}@${viewport.name}: expected one active primary tab`);
+    const languageTabs = page.locator(".language-switcher a");
+    if (await languageTabs.count() !== 3) throw new Error(`${route}@${viewport.name}: expected three language choices`);
+    if (await page.locator('.language-switcher a[aria-current="page"]').count() !== 1) throw new Error(`${route}@${viewport.name}: expected one active language`);
     const bannerHeight = await page.locator(".site-banner").evaluate((node) => node.getBoundingClientRect().height);
     if (bannerHeight < 100) throw new Error(`${route}@${viewport.name}: banner is too thin (${bannerHeight}px)`);
     if (viewport.width <= 768) {
@@ -153,6 +174,8 @@ const noJsResponse = await noJs.goto(origin, { waitUntil: "load" });
 if (!noJsResponse || noJsResponse.status() !== 200) throw new Error("No-JS Home did not load");
 if (!await noJs.locator("main").count()) throw new Error("No-JS Home missing main content");
 await assertImagesDecoded(noJs, "no-js-home");
+const noJsSpanish = await noJs.goto(`${origin}/es/`, { waitUntil: "load" });
+if (!noJsSpanish || noJsSpanish.status() !== 200 || await noJs.locator("html").getAttribute("lang") !== "es") throw new Error("No-JS CAST Home did not load as a static document");
 await noJs.close();
 
 if (browserErrors.length) throw new Error(`Browser errors:\n${browserErrors.join("\n")}`);
@@ -160,4 +183,4 @@ if (failedResponses.length) throw new Error(`Same-origin HTTP failures:\n${faile
 
 await browser.close();
 await new Promise((resolve) => server.close(resolve));
-console.log(`Browser smoke passed for ${routes.length} discovered routes across ${viewports.length} viewport profiles.`);
+console.log(`Browser smoke passed for ${routes.length} discovered routes across ${viewports.length} viewport profiles and three languages.`);
