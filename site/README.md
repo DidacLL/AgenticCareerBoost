@@ -81,6 +81,8 @@ src/content/projects/ca/p3ctex.md     Catalan
 
 The current publication contract requires translation parity for public pages, projects, posts and CV web views. `content-routes.mjs` fails CI if an English content ID does not have matching `es/` and `ca/` content, or if a translation invents an extra ID.
 
+The exception is the global 404 document: GitHub Pages serves a single static `404.html`, so it remains one English fallback instead of maintaining locale files that the host cannot select per request.
+
 Route segments such as `projects`, `blog`, `cv` and the filename-derived slugs are intentionally not translated. This keeps links stable and makes locale switching a reversible transformation of the same semantic route.
 
 Every language version is generated as a complete static HTML document. There is no browser-side translation lookup. Pages emit their own `lang`, canonical URL, `hreflang` alternates and `x-default` metadata.
