@@ -9,7 +9,7 @@ const contentRoot = join(scriptDir, "..", "src", "content");
 export const locales = ["en", "es", "ca"];
 export const defaultLocale = "en";
 const translatedLocales = locales.filter((locale) => locale !== defaultLocale);
-const requiredPages = ["home", "projects", "blog", "contact", "footer", "not-found"];
+const requiredPages = ["home", "projects", "blog", "contact", "footer"];
 
 function sourceDir(collection, locale) {
   return locale === defaultLocale ? join(contentRoot, collection) : join(contentRoot, collection, locale);
