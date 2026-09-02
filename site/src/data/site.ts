@@ -80,7 +80,7 @@ const copy = {
       home: { label: "Inicio", kicker: "perfil", description: "Perfil, trabajo actual y lo que me gusta construir." },
       projects: { label: "Proyectos", kicker: "trabajo", description: "P3CTeX, AAAAT, AgenticCareerBoost e IronBank." },
       blog: { label: "Blog", kicker: "notas", description: "Notas sobre software, herramientas, sistemas y experimentos." },
-      cv: { label: "CV", kicker: "cv", description: "Vistas web del currículum y PDF público descargable." },
+      cv: { label: "CV", kicker: "cv", description: "Vistas web del currículum y PDF público en inglés." },
       contact: { label: "Contacto", kicker: "señal", description: "Perfiles públicos y formas de contactar conmigo." }
     },
     profiles: {
@@ -90,9 +90,9 @@ const copy = {
       source: "Código, herramientas de build e historial de este portfolio."
     },
     cv: {
-      pdfLabel: "PDF público",
+      pdfLabel: "PDF público (EN)",
       sourceLabel: "Fuente LaTeX",
-      contactDescription: "Vistas web orientadas por rol y PDF público."
+      contactDescription: "Vistas web orientadas por rol y PDF público en inglés."
     },
     theme: { dark: "modo oscuro", light: "modo claro", toggle: "Cambiar tema de color" },
     monitor: {
@@ -111,14 +111,14 @@ const copy = {
     }
   },
   ca: {
-    defaultTitle: "Dídac Llorens — Enginyer de software",
+    defaultTitle: "Dídac Llorens — Enginyer de programari",
     description: "Portfolio personal de desenvolupament de Dídac Llorens: P3CTeX, AAAAT, sistemes backend, enginyeria assistida per IA i notes tècniques.",
-    identityLines: ["Enginyer de software · Barcelona", "eines · sistemes · dades · backend"],
+    identityLines: ["Enginyer de programari · Barcelona", "eines · sistemes · dades · backend"],
     navigation: {
       home: { label: "Inici", kicker: "perfil", description: "Perfil, feina actual i el que m'agrada construir." },
       projects: { label: "Projectes", kicker: "feina", description: "P3CTeX, AAAAT, AgenticCareerBoost i IronBank." },
-      blog: { label: "Blog", kicker: "notes", description: "Notes sobre software, eines, sistemes i experiments." },
-      cv: { label: "CV", kicker: "cv", description: "Vistes web del currículum i PDF públic descarregable." },
+      blog: { label: "Blog", kicker: "notes", description: "Notes sobre programari, eines, sistemes i experiments." },
+      cv: { label: "CV", kicker: "cv", description: "Vistes web del currículum i PDF públic en anglès." },
       contact: { label: "Contacte", kicker: "senyal", description: "Perfils públics i maneres de contactar amb mi." }
     },
     profiles: {
@@ -128,14 +128,14 @@ const copy = {
       source: "Codi, eines de build i historial d'aquest portfolio."
     },
     cv: {
-      pdfLabel: "PDF públic",
+      pdfLabel: "PDF públic (EN)",
       sourceLabel: "Font LaTeX",
-      contactDescription: "Vistes web orientades per rol i PDF públic."
+      contactDescription: "Vistes web orientades per rol i PDF públic en anglès."
     },
     theme: { dark: "mode fosc", light: "mode clar", toggle: "Canviar el tema de color" },
     monitor: {
       previous: "Senyal anterior", next: "Senyal següent", expand: "maximitzar", collapse: "minimitzar", label: "Monitor de senyal visual",
-      profileLabel: "PERFIL / 418", profileLines: ["enginyeria de software · Barcelona", "eines · sistemes · documents · experiments"],
+      profileLabel: "PERFIL / 418", profileLines: ["enginyeria de programari · Barcelona", "eines · sistemes · documents · experiments"],
       projects: "Projectes", contact: "Contacte", caption: "retrat / senyal per defecte"
     },
     banner: { alt: "Art del bàner 418 de la identitat visual de Dídac Llorens", caption: "canal visual / 418" },
