@@ -31,7 +31,8 @@ for (const [route, file] of routes.map((route, index) => [route, htmlFiles[index
   const locale = routeLocale(route);
   const canonicalPath = new URL(html.match(/<link rel="canonical" href="([^"]+)"/)?.[1] ?? "", origin).pathname;
   if (canonicalPath !== route) fail(`${route}: canonical path ${canonicalPath} != ${route}`);
-  if (!html.includes(`<html lang="${locale}"`)) fail(`${route}: html lang does not match ${locale}`);
+  const htmlLang = html.match(/<html\b[^>]*\blang="([^"]+)"/)?.[1];
+  if (htmlLang !== locale) fail(`${route}: html lang ${htmlLang ?? "<missing>"} != ${locale}`);
 
   const alternates = new Map([...html.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)].map((match) => [match[1], match[2]]));
   for (const target of locales) {
