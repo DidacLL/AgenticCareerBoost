@@ -1,20 +1,14 @@
 ---
-import { getCollection, render } from "astro:content";
-import PostLayout from "../../layouts/PostLayout.astro";
+import { getCollection } from "astro:content";
+import PostView from "../../views/PostView.astro";
+import { localContentId, localizedEntries } from "../../lib/i18n";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("posts");
-
-  return posts.map((post) => ({
-    params: { id: post.id },
-    props: { post }
-  }));
+  const posts = localizedEntries(await getCollection("posts"), "en");
+  return posts.map((post) => ({ params: { id: localContentId(post.id) }, props: { post } }));
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
 ---
 
-<PostLayout post={post}>
-  <Content />
-</PostLayout>
+<PostView post={post} locale="en" />

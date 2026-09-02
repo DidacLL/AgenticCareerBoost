@@ -11,12 +11,12 @@ const common = z.object({
 const facts = z.array(z.object({ term: z.string(), value: z.string() }));
 
 const pages = defineCollection({
-  loader: glob({ pattern: "*.md", base: "./src/content/pages" }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/pages" }),
   schema: common.extend({ facts: facts.optional() })
 });
 
 const projects = defineCollection({
-  loader: glob({ pattern: "*.md", base: "./src/content/projects" }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
   schema: common.extend({
     summary: z.string(),
     order: z.number(),
@@ -29,7 +29,7 @@ const projects = defineCollection({
 });
 
 const posts = defineCollection({
-  loader: glob({ pattern: "*.md", base: "./src/content/posts" }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -41,7 +41,7 @@ const posts = defineCollection({
 });
 
 const cv = defineCollection({
-  loader: glob({ pattern: "*.md", base: "./src/content/cv" }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/cv" }),
   schema: common.extend({
     order: z.number(),
     lanes: z.array(z.string()),

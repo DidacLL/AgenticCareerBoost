@@ -1,10 +1,12 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import Footer from "../components/Footer.astro";
+import LanguageSwitcher from "../components/LanguageSwitcher.astro";
 import PrimaryNavigation from "../components/PrimaryNavigation.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
-import { site, type NavId } from "../data/site";
-import { asset, paths, semanticPath } from "../lib/paths";
+import { siteFor, type NavId } from "../data/site";
+import { defaultLocale, locales, type Locale } from "../lib/i18n";
+import { asset, localizedSemanticPath, paths, semanticPath } from "../lib/paths";
 import "../styles/tokens.css";
 import "../styles/base.css";
 import "../styles/site.css";
@@ -20,12 +22,29 @@ interface Props {
   meta?: MetaItem[];
   ogType?: "website" | "article" | "profile";
   noindex?: boolean;
+  locale?: Locale;
 }
 
-const { title, description, label = site.ui.document, activeNav, meta = [], ogType = "website", noindex = false } = Astro.props;
+const {
+  title,
+  description,
+  label,
+  activeNav,
+  meta = [],
+  ogType = "website",
+  noindex = false,
+  locale = defaultLocale
+} = Astro.props;
+const site = siteFor(locale);
+const documentLabel = label ?? site.ui.document;
 const buildIndexable = import.meta.env.SITE_INDEXABLE === "true";
 const robotsBlocked = !buildIndexable || noindex;
-const canonical = new URL(semanticPath(Astro.url.pathname), Astro.site).toString();
+const semantic = semanticPath(Astro.url.pathname);
+const canonical = new URL(semantic, Astro.site).toString();
+const alternates = noindex ? [] : locales.map((target) => ({
+  locale: target,
+  href: new URL(localizedSemanticPath(Astro.url.pathname, target), Astro.site).toString()
+}));
 const ogImage = new URL(asset(site.banner.image), Astro.site).toString();
 const browserIcon = asset(site.identity.avatar);
 const documentTitle = title === site.identity.name ? site.defaultTitle : `${title} — ${site.identity.name}`;
@@ -33,7 +52,7 @@ const homeNav = site.navigation.find((item) => item.id === "home")!;
 ---
 
 <!doctype html>
-<html lang="en" data-theme-storage-key={site.theme.storageKey} transition:animate="none">
+<html lang={locale} data-theme-storage-key={site.theme.storageKey} transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -42,12 +61,15 @@ const homeNav = site.navigation.find((item) => item.id === "home")!;
     <link rel="icon" type="image/jpeg" href={browserIcon} />
     <link rel="apple-touch-icon" href={browserIcon} />
     <link rel="canonical" href={canonical} />
+    {alternates.map((alternate) => <link rel="alternate" hreflang={alternate.locale} href={alternate.href} />)}
+    {alternates.length > 0 && <link rel="alternate" hreflang="x-default" href={alternates.find((item) => item.locale === defaultLocale)!.href} />}
     {robotsBlocked && <meta name="robots" content="noindex,nofollow" />}
     <meta property="og:title" content={documentTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={locale === "en" ? "en_GB" : locale === "es" ? "es_ES" : "ca_ES"} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={documentTitle} />
     <meta name="twitter:description" content={description} />
@@ -66,32 +88,33 @@ const homeNav = site.navigation.find((item) => item.id === "home")!;
   <body>
     <div class="site-frame">
       <aside class="identity-rail">
-        <a class="identity-home" href={paths.home()} aria-label={homeNav.label}>
-          <span class="identity-avatar" transition:persist="identity-avatar"><img src={browserIcon} alt={site.identity.avatarAlt} /></span>
+        <a class="identity-home" href={paths.home(locale)} aria-label={homeNav.label}>
+          <span class="identity-avatar" transition:persist={`identity-avatar-${locale}`}><img src={browserIcon} alt={site.identity.avatarAlt} /></span>
           <strong>{site.identity.name}</strong>
         </a>
         <div class="identity-lines">
           {site.identity.lines.map((line) => <p>{line}</p>)}
         </div>
-        <PrimaryNavigation activeNav={activeNav} variant="rail" />
+        <PrimaryNavigation activeNav={activeNav} variant="rail" locale={locale} />
       </aside>
 
       <main class="document-body">
-        <figure class="site-banner" transition:persist="site-banner">
+        <figure class="site-banner" transition:persist={`site-banner-${locale}`}>
           <img src={asset(site.banner.image)} alt={site.banner.alt} />
           <figcaption>{site.banner.caption}</figcaption>
         </figure>
-        <PrimaryNavigation activeNav={activeNav} variant="tabs" />
+        <PrimaryNavigation activeNav={activeNav} variant="tabs" locale={locale} />
         <slot />
-        <Footer />
+        <Footer locale={locale} />
       </main>
 
       <aside class="system-panel">
         <section class="system-block">
           <p class="system-label">{site.ui.system}</p>
           <dl class="meta-list">
-            <div><dt>{site.ui.mode}</dt><dd>{label}</dd></div>
-            <div><dt>{site.ui.theme}</dt><dd><ThemeToggle /></dd></div>
+            <div><dt>{site.ui.mode}</dt><dd>{documentLabel}</dd></div>
+            <div><dt>{site.ui.theme}</dt><dd><ThemeToggle locale={locale} /></dd></div>
+            {!noindex && <div><dt>{site.ui.language}</dt><dd><LanguageSwitcher locale={locale} /></dd></div>}
           </dl>
         </section>
 

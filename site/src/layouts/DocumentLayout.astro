@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import type { NavId } from "../data/site";
+import { defaultLocale, type Locale } from "../lib/i18n";
 
 type MetaItem = { term: string; value?: string; href?: string; label?: string; external?: boolean; reload?: boolean };
 interface Props {
@@ -12,12 +13,23 @@ interface Props {
   meta?: MetaItem[];
   ogType?: "website" | "article" | "profile";
   noindex?: boolean;
+  locale?: Locale;
 }
 
-const { title, description, label, subtitle, activeNav, meta = [], ogType = "website", noindex = false } = Astro.props;
+const {
+  title,
+  description,
+  label,
+  subtitle,
+  activeNav,
+  meta = [],
+  ogType = "website",
+  noindex = false,
+  locale = defaultLocale
+} = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} label={label} activeNav={activeNav} meta={meta} ogType={ogType} noindex={noindex}>
+<BaseLayout title={title} description={description} label={label} activeNav={activeNav} meta={meta} ogType={ogType} noindex={noindex} locale={locale}>
   <header class="document-header">
     {label && <p class="eyebrow">{label}</p>}
     <h1>{title}</h1>

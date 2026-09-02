@@ -1,0 +1,32 @@
+---
+import { getEntry, render } from "astro:content";
+import DocumentLayout from "../layouts/DocumentLayout.astro";
+import { siteFor } from "../data/site";
+import { contentId, defaultLocale, type Locale } from "../lib/i18n";
+import { asset } from "../lib/paths";
+
+interface Props { locale?: Locale; }
+const { locale = defaultLocale } = Astro.props;
+const site = siteFor(locale);
+const contact = await getEntry("pages", contentId("contact", locale));
+if (!contact) throw new Error(`Contact content is missing for locale ${locale}.`);
+const { Content } = await render(contact);
+const channels = site.contact.channels.map((item) => ({ ...item, external: true }));
+---
+
+<DocumentLayout title={contact.data.title} description={contact.data.description} label={contact.data.label} subtitle={contact.data.subtitle} activeNav="contact" locale={locale}>
+  <section class="section-block">
+    <h2>{site.ui.channel}</h2>
+    <div class="section-content">
+      <div class="prose"><Content /></div>
+      <div class="channel-grid">
+        {channels.map((channel) => (
+          <a class="channel-card" href={channel.href} target={channel.external ? "_blank" : undefined} rel={channel.external ? "noopener noreferrer" : undefined}>
+            <span class="channel-card__media"><img src={asset(channel.image)} alt={channel.imageAlt} loading="eager" decoding="async" /></span>
+            <span class="channel-card__copy"><strong>{channel.label}</strong><span>{channel.description}</span></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</DocumentLayout>

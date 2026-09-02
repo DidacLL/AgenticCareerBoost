@@ -1,0 +1,22 @@
+---
+import { siteFor } from "../data/site";
+import { localeLabels, localeNames, locales, type Locale } from "../lib/i18n";
+import { switchLocaleHref } from "../lib/paths";
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const site = siteFor(locale);
+---
+
+<nav class="language-switcher" aria-label={site.ui.language}>
+  {locales.map((target) => (
+    <a
+      href={switchLocaleHref(Astro.url.pathname, target)}
+      aria-current={target === locale ? "page" : undefined}
+      lang={target}
+      title={localeNames[target]}
+    >
+      {localeLabels[target]}
+    </a>
+  ))}
+</nav>

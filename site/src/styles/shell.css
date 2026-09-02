@@ -67,6 +67,26 @@
   background: var(--accent);
 }
 
+.language-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: .38rem;
+  white-space: nowrap;
+}
+
+.language-switcher a {
+  color: var(--muted);
+  font-size: .72rem;
+  letter-spacing: .04em;
+  text-decoration: none;
+}
+
+.language-switcher a[aria-current="page"] {
+  border-bottom: var(--strong) solid var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+}
+
 @media (max-width: 52rem) {
   .site-banner {
     height: clamp(6.5rem, 17vw, 8rem);

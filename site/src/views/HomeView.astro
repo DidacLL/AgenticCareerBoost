@@ -1,0 +1,53 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+import Gallery from "../components/Gallery.astro";
+import DocumentLayout from "../layouts/DocumentLayout.astro";
+import { siteFor } from "../data/site";
+import { contentId, defaultLocale, localContentId, localizedEntries, type Locale } from "../lib/i18n";
+import { asset, paths } from "../lib/paths";
+
+interface Props { locale?: Locale; }
+const { locale = defaultLocale } = Astro.props;
+const site = siteFor(locale);
+const home = await getEntry("pages", contentId("home", locale));
+if (!home) throw new Error(`Home content is missing for locale ${locale}.`);
+const { Content } = await render(home);
+const projects = localizedEntries(await getCollection("projects"), locale).sort((a, b) => a.data.order - b.data.order);
+const featuredNav = site.navigation.filter((item) => ["cv", "projects", "blog"].includes(item.id));
+const slides = [
+  {
+    ...site.monitor.profile,
+    image: asset(site.monitor.profile.image),
+    links: site.monitor.profile.links.map((link) => ({ label: link.label, href: paths.nav(link.navId, locale) }))
+  },
+  ...projects.map((project) => ({
+    label: `${project.data.label ?? site.ui.project} / ${project.data.status ?? site.ui.publicRecord}`,
+    title: project.data.title,
+    image: asset(project.data.image),
+    alt: project.data.imageAlt,
+    lines: [project.data.summary, project.data.tags.join(" · ")],
+    links: [{ label: site.ui.openProject, href: paths.project(localContentId(project.id), locale) }],
+    caption: site.ui.selectedProjectCaption,
+    contain: true
+  }))
+];
+---
+
+<DocumentLayout title={home.data.title} description={home.data.description} label={home.data.label} subtitle={home.data.subtitle} activeNav="home" locale={locale}>
+  <section class="home-intro">
+    <div class="home-copy">
+      <div class="prose"><Content /></div>
+      {home.data.facts && <dl class="facts-list">{home.data.facts.map((item) => <div><dt>{item.term}</dt><dd>{item.value}</dd></div>)}</dl>}
+    </div>
+    <Gallery slides={slides} />
+  </section>
+
+  <section class="section-block">
+    <h2>{site.ui.index}</h2>
+    <div class="section-content route-list">
+      {featuredNav.map((item) => (
+        <a href={paths.nav(item.id, locale)}><span>{item.kicker}</span><strong>{item.label}</strong><p>{item.description}</p></a>
+      ))}
+    </div>
+  </section>
+</DocumentLayout>

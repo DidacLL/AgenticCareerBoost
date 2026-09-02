@@ -8,9 +8,6 @@ cd "$repo_root"
 if [[ $# -gt 0 ]]; then
   files=("$@")
 else
-  # Validate repository-owned Markdown only. Build outputs and installed
-  # dependencies can contain their own incomplete documentation trees and are
-  # deliberately outside this repository's link contract.
   mapfile -t files < <(git ls-files -- '*.md' \
     | grep -vE '^agents/state/(archive|logs|summaries)/' \
     || true)
@@ -22,57 +19,43 @@ normalize_route() {
   local route="$1"
   route="/${route#/}"
   route="$(realpath -m "$route")"
-  if [[ "$route" != "/" ]]; then
-    route="${route%/}"
-  fi
+  if [[ "$route" != "/" ]]; then route="${route%/}"; fi
   printf '%s\n' "$route"
 }
 
-add_site_route() {
-  site_routes["$(normalize_route "$1")"]=1
-}
+while IFS= read -r route; do
+  [[ -n "$route" ]] && site_routes["$(normalize_route "$route")"]=1
+done < <(node site/scripts/content-routes.mjs)
 
 site_base_for_file() {
   local file="$1"
-  local id
-  case "$file" in
-    site/src/content/pages/home.md) printf '/\n' ;;
-    site/src/content/pages/projects.md) printf '/projects/\n' ;;
-    site/src/content/pages/blog.md) printf '/blog/\n' ;;
-    site/src/content/pages/contact.md) printf '/contact/\n' ;;
-    site/src/content/pages/404.md) printf '/404/\n' ;;
-    site/src/content/projects/*.md)
-      id="$(basename "$file" .md)"
-      printf '/projects/%s/\n' "$id"
+  local rel collection rest locale="" prefix="" id
+  [[ "$file" == site/src/content/* ]] || return 1
+  rel="${file#site/src/content/}"
+  collection="${rel%%/*}"
+  rest="${rel#*/}"
+  if [[ "$rest" == es/* || "$rest" == ca/* ]]; then
+    locale="${rest%%/*}"
+    rest="${rest#*/}"
+    prefix="/$locale"
+  fi
+  id="$(basename "$rest" .md)"
+  case "$collection" in
+    pages)
+      case "$id" in
+        home) printf '%s/\n' "$prefix" ;;
+        projects) printf '%s/projects/\n' "$prefix" ;;
+        blog) printf '%s/blog/\n' "$prefix" ;;
+        contact) printf '%s/contact/\n' "$prefix" ;;
+        *) return 1 ;;
+      esac
       ;;
-    site/src/content/posts/*.md)
-      id="$(basename "$file" .md)"
-      printf '/blog/%s/\n' "$id"
-      ;;
-    site/src/content/cv/*.md)
-      id="$(basename "$file" .md)"
-      printf '/cv/%s/\n' "$id"
-      ;;
+    projects) printf '%s/projects/%s/\n' "$prefix" "$id" ;;
+    posts) printf '%s/blog/%s/\n' "$prefix" "$id" ;;
+    cv) printf '%s/cv/%s/\n' "$prefix" "$id" ;;
     *) return 1 ;;
   esac
 }
-
-add_site_route "/"
-[[ -f site/src/content/pages/projects.md ]] && add_site_route "/projects/"
-[[ -f site/src/content/pages/blog.md ]] && add_site_route "/blog/"
-[[ -f site/src/content/pages/contact.md ]] && add_site_route "/contact/"
-
-shopt -s nullglob
-for source in site/src/content/projects/*.md; do
-  add_site_route "/projects/$(basename "$source" .md)/"
-done
-for source in site/src/content/posts/*.md; do
-  add_site_route "/blog/$(basename "$source" .md)/"
-done
-for source in site/src/content/cv/*.md; do
-  add_site_route "/cv/$(basename "$source" .md)/"
-done
-shopt -u nullglob
 
 errors=0
 checked=0

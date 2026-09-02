@@ -8,7 +8,7 @@ Systems · AI workflows · data · backend · technical tooling
 [![required-ci](https://github.com/DidacLL/AgenticCareerBoost/actions/workflows/required-ci.yml/badge.svg)](https://github.com/DidacLL/AgenticCareerBoost/actions/workflows/required-ci.yml)
 [![Site check](https://github.com/DidacLL/AgenticCareerBoost/actions/workflows/site-check.yml/badge.svg)](https://github.com/DidacLL/AgenticCareerBoost/actions/workflows/site-check.yml)
 
-AgenticCareerBoost is the engineering workspace behind my public portfolio and career tooling. It combines a maintainable static site, a reproducible LaTeX CV pipeline, technical reports, local automation, and the decision/history record behind the work.
+AgenticCareerBoost is the engineering workspace behind my public portfolio and career tooling. It combines a maintainable multilingual static site, a reproducible LaTeX CV pipeline, technical reports, local automation, and the decision/history record behind the work.
 
 It is deliberately broader than a single demo application: the repository shows how I structure small systems around real constraints, keep public and private data boundaries explicit, automate repeatable work, and preserve enough history to make engineering decisions inspectable.
 
@@ -21,10 +21,11 @@ Before moving into software engineering I spent fifteen years in banking and ins
 ## What this repository demonstrates
 
 - **Static publishing architecture** — Markdown-authored content compiled by Astro into ordinary static HTML, with clean URLs, canonical metadata, robots/sitemap handling, and deployment-base portability.
-- **Maintainable content ownership** — posts and projects are discovered from source files; a new blog article is one Markdown file, with the filename as the route slug and no manual route registry or `dist/` maintenance.
-- **UI engineering without a heavy runtime** — responsive retro/document interface, persistent client navigation, theme handling, and CRT/gallery interaction using Astro plus small vanilla-JavaScript behaviors.
+- **Static multilingual publishing** — English remains the unprefixed canonical route family while Spanish and Catalan are generated under `/es/` and `/ca/`; each page has native `lang`, canonical, `hreflang` and `x-default` metadata without a browser translation runtime.
+- **Maintainable content ownership** — posts and projects are discovered from source files; filenames own route slugs, translations reuse the same filenames, and generated `dist/` output is never maintained by hand.
+- **UI engineering without a heavy runtime** — responsive retro/document interface, persistent client navigation, language switching, theme handling, and CRT/gallery interaction using Astro plus small vanilla-JavaScript behaviors.
 - **Document engineering** — a public CV authored in LaTeX, compiled from a single canonical TeX root, published through an explicit artifact manifest, and verified in CI.
-- **Build and release discipline** — GitHub Actions checks canonical and project-base builds, metadata, routes, assets, responsive behavior, client navigation, no-JavaScript fallback, and Chromium smoke tests before publication.
+- **Build and release discipline** — GitHub Actions checks canonical and project-base builds, multilingual route parity and metadata, assets, responsive behavior, client navigation, no-JavaScript fallback, and Chromium smoke tests before publication.
 - **Practical automation** — Python, PowerShell and shell tooling support artifact publication, local document generation, validation, and repeatable build tasks.
 - **Boundary management** — portfolio source, CV source, report evidence, prototype tooling, and private application data have separate owners instead of being mixed into one public runtime.
 
@@ -32,11 +33,11 @@ Before moving into software engineering I spent fifteen years in banking and ins
 
 | Area | Current stack |
 | --- | --- |
-| Portfolio | Astro 7.2.9, `@astrojs/sitemap` 3.7.3, Astro components, TypeScript data/config, Markdown content collections |
+| Portfolio | Astro 7.2.9, `@astrojs/sitemap` 3.7.3, Astro components, TypeScript data/config, Markdown content collections, static EN/ES/CA routes |
 | Presentation | Plain CSS, responsive layouts, small vanilla-JavaScript theme + CRT/gallery behavior, Astro client navigation |
-| Output | Static HTML, directory-format routes, trailing slashes, base-aware assets and metadata |
+| Output | Static HTML, directory-format routes, trailing slashes, base-aware assets and metadata, `hreflang` alternates |
 | Delivery | GitHub Actions, GitHub Pages, Node 24.20 in CI (`>=22.12` locally), exact dependency versions |
-| Browser verification | Chromium functional smoke, HTTP/image checks, responsive checks at 1920×1080, 1366×768, 768×1024 and 390×844 |
+| Browser verification | Chromium functional smoke, language switching, HTTP/image checks, responsive checks at 1920×1080, 1366×768, 768×1024 and 390×844 |
 | CV pipeline | LaTeX / pdfLaTeX, `latexmk`, Python artifact manifest, generated PDF publication into the portfolio build |
 | Local tooling | Python, PowerShell, Bash, repository-local scripts |
 
@@ -44,8 +45,9 @@ Before moving into software engineering I spent fifteen years in banking and ins
 
 ```text
 site/src/content/**/*.md ─┐
-site/src/data/site.ts ────┼─> Astro static build ─> site/dist/ ─> GitHub Pages
-site/src/components/** ───┘
+site/src/data/site.ts ────┼─> Astro static build ─> EN / ES / CA HTML ─> site/dist/ ─> GitHub Pages
+site/src/components/** ───┤
+site/src/views/** ────────┘
 
 agents/cv/tex/*.tex
         │
@@ -55,7 +57,7 @@ agents/cv/tex/*.tex
 
 GitHub Actions
   ├─ required-ci: CV compile + artifact publication + Astro build + Markdown links
-  ├─ Site check: root/mirror builds + metadata/routes/assets + Chromium behavior
+  ├─ Site check: root/mirror builds + multilingual routes/metadata + Chromium behavior
   └─ LaTeX reports: independent report evidence build
 ```
 
@@ -63,7 +65,7 @@ The portfolio is only one output of this repository. Historical reports and proj
 
 ## Repository map
 
-- [`site/`](site/) — source for the public Astro portfolio. See [`site/README.md`](site/README.md) for architecture, authoring and verification details.
+- [`site/`](site/) — source for the public Astro portfolio. See [`site/README.md`](site/README.md) for architecture, multilingual authoring and verification details.
 - [`agents/cv/`](agents/cv/) — public/general CV source and reproducible build support. See [`agents/cv/README.md`](agents/cv/README.md).
 - [`agents/reports/`](agents/reports/) — technical report sources and historical repository evidence, independent from the portfolio build.
 - [`application-tracker/`](application-tracker/) — preserved prototype/local workflow evidence, including the simple cover-letter renderer that later informed AAAAT.
@@ -73,19 +75,31 @@ The portfolio is only one output of this repository. Historical reports and proj
 
 ## Maintaining the portfolio
 
-The authoring model is intentionally small:
+English is the canonical source language. A new article starts as one normal Markdown file:
 
 ```text
-new blog article
-    ↓
-create site/src/content/posts/my-article.md
-    ↓
-write frontmatter + Markdown
-    ↓
-commit
+site/src/content/posts/my-article.md
 ```
 
-The filename becomes `/blog/my-article/`. Astro discovers it for the Blog index and static route automatically. Projects use the same filename-as-slug model. Generated `site/dist/` output is never maintained by hand.
+The filename becomes `/blog/my-article/`; Astro discovers it for the Blog index and route automatically. Projects use the same filename-as-slug model. Generated `site/dist/` output is never maintained by hand.
+
+The Spanish and Catalan versions reuse the same filename beneath locale directories:
+
+```text
+site/src/content/posts/my-article.md
+site/src/content/posts/es/my-article.md
+site/src/content/posts/ca/my-article.md
+```
+
+which generate:
+
+```text
+/blog/my-article/
+/es/blog/my-article/
+/ca/blog/my-article/
+```
+
+The technical path vocabulary and slugs remain stable across languages. Current CI requires EN/ES/CA parity for public pages, projects, posts and CV web views, so adding or removing a public document cannot silently leave one language stale.
 
 For local viewing, run:
 
@@ -101,6 +115,8 @@ The canonical CV compilation root is [`agents/cv/tex/`](agents/cv/tex/). The mai
 
 Repository build helpers use the same root and redirect PDFs plus auxiliary files to `agents/cv/build/`, keeping the source directory clean. The generated public PDF is then copied into the portfolio artifact through [`agents/cv/artifacts.json`](agents/cv/artifacts.json).
 
+The CV web pages are translated with the site; the generated LaTeX PDF remains the canonical English public PDF.
+
 ## Verification and publication
 
 The public site is built in two configurations during verification:
@@ -108,7 +124,7 @@ The public site is built in two configurations during verification:
 1. canonical root (`/`) with indexable metadata;
 2. project-base mirror (`/AgenticCareerBoost/`) with non-indexable metadata.
 
-The checks validate generated routes, canonical/OpenGraph metadata, robots/sitemap behavior, internal assets, image decoding, client-side navigation persistence, theme/CRT behavior, responsive overflow, retired-route behavior and no-JavaScript content fallback.
+The checks derive all three language route families from source content, enforce translation parity, validate `lang`, canonical/`hreflang`/OpenGraph metadata, robots/sitemap behavior, internal assets, image decoding, client-side navigation persistence, ENG/CAST/CAT route switching, theme/CRT behavior, responsive overflow, retired-route behavior and no-JavaScript content fallback.
 
 The repository's GitHub Pages workflow deploys the project-base mirror from `main`. The personal root site remains a separate publication boundary.
 

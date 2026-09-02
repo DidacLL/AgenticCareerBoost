@@ -1,10 +1,12 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import DocumentLayout from "./DocumentLayout.astro";
-import { site } from "../data/site";
+import { siteFor } from "../data/site";
+import { defaultLocale, type Locale } from "../lib/i18n";
 import { asset } from "../lib/paths";
 
-const { project } = Astro.props as { project: CollectionEntry<"projects"> };
+const { project, locale = defaultLocale } = Astro.props as { project: CollectionEntry<"projects">; locale?: Locale };
+const site = siteFor(locale);
 const meta = [
   project.data.status ? { term: site.ui.status, value: project.data.status } : null,
   project.data.repository ? { term: site.ui.source, href: project.data.repository, label: site.ui.repository, external: true } : null
@@ -18,6 +20,7 @@ const meta = [
   subtitle={project.data.subtitle ?? project.data.description}
   activeNav="projects"
   meta={meta}
+  locale={locale}
 >
   <section class="project-signal">
     <figure class="project-media">

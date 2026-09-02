@@ -1,0 +1,20 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+import ProjectPreview from "../components/ProjectPreview.astro";
+import DocumentLayout from "../layouts/DocumentLayout.astro";
+import { siteFor } from "../data/site";
+import { contentId, defaultLocale, localizedEntries, type Locale } from "../lib/i18n";
+
+interface Props { locale?: Locale; }
+const { locale = defaultLocale } = Astro.props;
+const site = siteFor(locale);
+const page = await getEntry("pages", contentId("projects", locale));
+if (!page) throw new Error(`Projects index content is missing for locale ${locale}.`);
+const { Content } = await render(page);
+const projects = localizedEntries(await getCollection("projects"), locale).sort((a, b) => a.data.order - b.data.order);
+---
+
+<DocumentLayout title={page.data.title} description={page.data.description} label={page.data.label} subtitle={page.data.subtitle} activeNav="projects" locale={locale} meta={[{ term: site.ui.count, value: String(projects.length) }]}>
+  <section class="section-block"><h2>{site.ui.context}</h2><div class="section-content prose"><Content /></div></section>
+  <section class="section-block"><h2>{site.ui.index}</h2><div class="section-content preview-list">{projects.map((project) => <ProjectPreview project={project} locale={locale} />)}</div></section>
+</DocumentLayout>

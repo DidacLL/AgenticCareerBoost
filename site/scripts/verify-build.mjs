@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { portfolioRoutes, retiredRoutes } from "./content-routes.mjs";
+import { localizedRoute, locales, portfolioRoutes, retiredRoutes, routeLocale } from "./content-routes.mjs";
 
 const [dist = "site/dist", expectedBase = "/", indexableArg = "false", origin = "https://example.invalid"] = process.argv.slice(2);
 const indexable = indexableArg === "true";
@@ -28,9 +28,26 @@ for (const route of retiredRoutes) {
 for (const [route, file] of routes.map((route, index) => [route, htmlFiles[index]])) {
   if (!existsSync(file)) continue;
   const html = readFileSync(file, "utf8");
+  const locale = routeLocale(route);
   const canonicalPath = new URL(html.match(/<link rel="canonical" href="([^"]+)"/)?.[1] ?? "", origin).pathname;
-  const expectedCanonicalPath = route;
-  if (canonicalPath !== expectedCanonicalPath) fail(`${route}: canonical path ${canonicalPath} != ${expectedCanonicalPath}`);
+  if (canonicalPath !== route) fail(`${route}: canonical path ${canonicalPath} != ${route}`);
+  const htmlLang = html.match(/<html\b[^>]*\blang="([^"]+)"/)?.[1];
+  if (htmlLang !== locale) fail(`${route}: html lang ${htmlLang ?? "<missing>"} != ${locale}`);
+
+  const alternates = new Map([...html.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)].map((match) => [match[1], match[2]]));
+  for (const target of locales) {
+    const alternate = alternates.get(target);
+    if (!alternate) {
+      fail(`${route}: missing hreflang ${target}`);
+      continue;
+    }
+    const alternatePath = new URL(alternate, origin).pathname;
+    const expected = localizedRoute(route, target);
+    if (alternatePath !== expected) fail(`${route}: hreflang ${target} path ${alternatePath} != ${expected}`);
+  }
+  const xDefault = alternates.get("x-default");
+  if (!xDefault || new URL(xDefault, origin).pathname !== localizedRoute(route, "en")) fail(`${route}: invalid x-default alternate`);
+
   if (!html.includes('property="og:title"')) fail(`${route}: missing og:title`);
   if (!html.includes('property="og:description"')) fail(`${route}: missing og:description`);
   if (!html.includes('property="og:image"')) fail(`${route}: missing og:image`);
@@ -78,4 +95,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Verified ${routes.length} generated routes for base ${normalizedBase} (indexable=${indexable}).`);
+console.log(`Verified ${routes.length} generated multilingual routes for base ${normalizedBase} (indexable=${indexable}).`);

@@ -1,0 +1,16 @@
+---
+import { getCollection } from "astro:content";
+import ProjectView from "../../../views/ProjectView.astro";
+import { localContentId, localizedEntries, translatedLocales, type Locale } from "../../../lib/i18n";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return translatedLocales.flatMap((locale) => localizedEntries(projects, locale).map((project) => ({
+    params: { locale, id: localContentId(project.id) },
+    props: { locale, project }
+  })));
+}
+const { locale, project } = Astro.props as { locale: Locale; project: any };
+---
+
+<ProjectView project={project} locale={locale} />

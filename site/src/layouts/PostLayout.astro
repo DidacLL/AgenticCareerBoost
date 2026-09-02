@@ -1,11 +1,13 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import DocumentLayout from "./DocumentLayout.astro";
-import { site } from "../data/site";
+import { siteFor } from "../data/site";
+import { dateLocales, defaultLocale, type Locale } from "../lib/i18n";
 import { asset } from "../lib/paths";
 
-const { post } = Astro.props as { post: CollectionEntry<"posts"> };
-const date = post.data.date.toLocaleDateString("en-CA");
+const { post, locale = defaultLocale } = Astro.props as { post: CollectionEntry<"posts">; locale?: Locale };
+const site = siteFor(locale);
+const date = post.data.date.toLocaleDateString(dateLocales[locale]);
 const meta = [{ term: site.ui.date, value: date }];
 if (post.data.tags.length) meta.push({ term: site.ui.tags, value: post.data.tags.join(" · ") });
 ---
@@ -18,6 +20,7 @@ if (post.data.tags.length) meta.push({ term: site.ui.tags, value: post.data.tags
   activeNav="blog"
   ogType="article"
   meta={meta}
+  locale={locale}
 >
   {post.data.image && (
     <section class="section-block">

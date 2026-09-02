@@ -1,0 +1,12 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import ProjectLayout from "../layouts/ProjectLayout.astro";
+import { defaultLocale, type Locale } from "../lib/i18n";
+
+const { project, locale = defaultLocale } = Astro.props as { project: CollectionEntry<"projects">; locale?: Locale };
+const { Content } = await render(project);
+---
+
+<ProjectLayout project={project} locale={locale}>
+  <Content />
+</ProjectLayout>
