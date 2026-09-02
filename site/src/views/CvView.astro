@@ -1,0 +1,14 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import CvLayout from "../layouts/CvLayout.astro";
+import { defaultLocale, localizedEntries, type Locale } from "../lib/i18n";
+
+const { cv, locale = defaultLocale } = Astro.props as { cv: CollectionEntry<"cv">; locale?: Locale };
+const views = localizedEntries(await getCollection("cv"), locale).sort((a, b) => a.data.order - b.data.order);
+const projects = localizedEntries(await getCollection("projects"), locale);
+const { Content } = await render(cv);
+---
+
+<CvLayout cv={cv} views={views} projects={projects} locale={locale}>
+  <Content />
+</CvLayout>

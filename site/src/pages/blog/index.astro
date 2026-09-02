@@ -1,16 +1,5 @@
 ---
-import { getCollection, getEntry, render } from "astro:content";
-import ArticleRecord from "../../components/ArticleRecord.astro";
-import DocumentLayout from "../../layouts/DocumentLayout.astro";
-import { site } from "../../data/site";
-
-const page = await getEntry("pages", "blog");
-if (!page) throw new Error("Blog index content is missing.");
-const { Content } = await render(page);
-const posts = (await getCollection("posts")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+import BlogView from "../../views/BlogView.astro";
 ---
 
-<DocumentLayout title={page.data.title} description={page.data.description} label={page.data.label} subtitle={page.data.subtitle} activeNav="blog" meta={[{ term: site.ui.records, value: String(posts.length) }]}>
-  <section class="section-block"><h2>{site.ui.context}</h2><div class="section-content prose"><Content /></div></section>
-  <section class="section-block"><h2>{site.ui.index}</h2><div class="section-content preview-list">{posts.map((post) => <ArticleRecord post={post} />)}</div></section>
-</DocumentLayout>
+<BlogView locale="en" />

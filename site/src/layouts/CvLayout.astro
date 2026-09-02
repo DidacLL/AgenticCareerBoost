@@ -2,15 +2,18 @@
 import type { CollectionEntry } from "astro:content";
 import DocumentLayout from "./DocumentLayout.astro";
 import ProjectPreview from "../components/ProjectPreview.astro";
-import { site } from "../data/site";
+import { siteFor } from "../data/site";
+import { defaultLocale, localContentId, type Locale } from "../lib/i18n";
 import { asset, paths } from "../lib/paths";
 import { publicCvPath } from "../lib/cv";
 
-const { cv, views, projects } = Astro.props as {
+const { cv, views, projects, locale = defaultLocale } = Astro.props as {
   cv: CollectionEntry<"cv">;
   views: CollectionEntry<"cv">[];
   projects: CollectionEntry<"projects">[];
+  locale?: Locale;
 };
+const site = siteFor(locale);
 const pdfHref = asset(publicCvPath);
 const sortedProjects = [...projects].sort((a, b) => a.data.order - b.data.order);
 ---
@@ -22,6 +25,7 @@ const sortedProjects = [...projects].sort((a, b) => a.data.order - b.data.order)
   subtitle={cv.data.subtitle ?? cv.data.description}
   activeNav="cv"
   ogType="profile"
+  locale={locale}
   meta={[
     { term: site.ui.view, value: cv.data.label ?? cv.data.title },
     { term: site.ui.pdf, href: pdfHref, label: site.cv.pdfLabel, reload: true },
@@ -29,7 +33,7 @@ const sortedProjects = [...projects].sort((a, b) => a.data.order - b.data.order)
   ]}
 >
   <nav class="cv-tabs" aria-label={site.ui.cvViews}>
-    {views.map((view) => <a class:list={{ "is-active": view.id === cv.id }} href={paths.cv(view.id)}>{view.data.label ?? view.data.title}</a>)}
+    {views.map((view) => <a class:list={{ "is-active": view.id === cv.id }} href={paths.cv(localContentId(view.id), locale)}>{view.data.label ?? view.data.title}</a>)}
   </nav>
 
   <section class="section-block">
@@ -44,7 +48,7 @@ const sortedProjects = [...projects].sort((a, b) => a.data.order - b.data.order)
 
   <section class="section-block">
     <h2>{site.ui.selectedWork}</h2>
-    <div class="section-content preview-list">{sortedProjects.map((project) => <ProjectPreview project={project} compact />)}</div>
+    <div class="section-content preview-list">{sortedProjects.map((project) => <ProjectPreview project={project} compact locale={locale} />)}</div>
   </section>
 
   <section class="section-block">

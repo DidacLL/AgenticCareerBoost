@@ -1,0 +1,16 @@
+---
+import { getCollection } from "astro:content";
+import PostView from "../../../views/PostView.astro";
+import { localContentId, localizedEntries, translatedLocales, type Locale } from "../../../lib/i18n";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return translatedLocales.flatMap((locale) => localizedEntries(posts, locale).map((post) => ({
+    params: { locale, id: localContentId(post.id) },
+    props: { locale, post }
+  })));
+}
+const { locale, post } = Astro.props as { locale: Locale; post: any };
+---
+
+<PostView post={post} locale={locale} />

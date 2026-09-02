@@ -1,17 +1,19 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { site } from "../data/site";
+import { siteFor } from "../data/site";
+import { dateLocales, defaultLocale, localContentId, type Locale } from "../lib/i18n";
 import { asset, paths } from "../lib/paths";
 
-const { post } = Astro.props as { post: CollectionEntry<"posts"> };
+const { post, locale = defaultLocale } = Astro.props as { post: CollectionEntry<"posts">; locale?: Locale };
+const site = siteFor(locale);
 const tags = post.data.tags.length ? ` · ${post.data.tags.join(" · ")}` : "";
 ---
 
-<a class="preview-row article-record" href={paths.post(post.id)}>
+<a class="preview-row article-record" href={paths.post(localContentId(post.id), locale)}>
   {post.data.image ? (
     <span class="preview-row__media"><img src={asset(post.data.image)} alt={post.data.imageAlt ?? post.data.title} loading="lazy" decoding="async" /></span>
   ) : (
-    <span class="article-date">{post.data.date.toLocaleDateString("en-CA")}</span>
+    <span class="article-date">{post.data.date.toLocaleDateString(dateLocales[locale])}</span>
   )}
   <span class="preview-row__copy">
     <p class="system-label">{site.ui.article}{tags}</p>

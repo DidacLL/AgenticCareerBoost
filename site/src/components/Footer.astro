@@ -1,8 +1,11 @@
 ---
 import { getEntry, render } from "astro:content";
+import { contentId, defaultLocale, type Locale } from "../lib/i18n";
 
-const footer = await getEntry("pages", "footer");
-if (!footer) throw new Error("Footer content is missing.");
+interface Props { locale?: Locale; }
+const { locale = defaultLocale } = Astro.props;
+const footer = await getEntry("pages", contentId("footer", locale));
+if (!footer) throw new Error(`Footer content is missing for locale ${locale}.`);
 const { Content } = await render(footer);
 ---
 

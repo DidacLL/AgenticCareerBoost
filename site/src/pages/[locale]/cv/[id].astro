@@ -1,0 +1,16 @@
+---
+import { getCollection } from "astro:content";
+import CvView from "../../../views/CvView.astro";
+import { localContentId, localizedEntries, translatedLocales, type Locale } from "../../../lib/i18n";
+
+export async function getStaticPaths() {
+  const views = await getCollection("cv");
+  return translatedLocales.flatMap((locale) => localizedEntries(views, locale).map((cv) => ({
+    params: { locale, id: localContentId(cv.id) },
+    props: { locale, cv }
+  })));
+}
+const { locale, cv } = Astro.props as { locale: Locale; cv: any };
+---
+
+<CvView cv={cv} locale={locale} />

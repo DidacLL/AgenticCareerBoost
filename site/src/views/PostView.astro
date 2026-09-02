@@ -1,0 +1,12 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import PostLayout from "../layouts/PostLayout.astro";
+import { defaultLocale, type Locale } from "../lib/i18n";
+
+const { post, locale = defaultLocale } = Astro.props as { post: CollectionEntry<"posts">; locale?: Locale };
+const { Content } = await render(post);
+---
+
+<PostLayout post={post} locale={locale}>
+  <Content />
+</PostLayout>

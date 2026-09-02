@@ -1,5 +1,10 @@
 ---
-import { site } from "../data/site";
+import { siteFor } from "../data/site";
+import { defaultLocale, type Locale } from "../lib/i18n";
+
+interface Props { locale?: Locale; }
+const { locale = defaultLocale } = Astro.props;
+const site = siteFor(locale);
 ---
 
 <button
@@ -10,7 +15,7 @@ import { site } from "../data/site";
   data-label-light={site.theme.light}
   aria-label={site.theme.toggle}
   aria-pressed="false"
-  transition:persist="theme-toggle"
+  transition:persist={`theme-toggle-${locale}`}
 >
   {site.theme.dark}
 </button>
