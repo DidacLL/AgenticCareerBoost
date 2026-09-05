@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:scvria": "astro build --config astro.scvria.config.mjs",
     "preview": "astro preview"
   },
   "dependencies": {
