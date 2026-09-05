@@ -1,16 +1,32 @@
 ---
+import ScvriaLayout from "../layouts/ScvriaLayout.astro";
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>SCVRIA Sofware</title>
-  </head>
-  <body>
-    <main>
+
+<ScvriaLayout
+  title="SCVRIA Sofware"
+  description="SCVRIA Sofware — open-source software publisher and studio."
+>
+  <div class="scvria-grid">
+    <section class="scvria-hero">
+      <p class="scvria-eyebrow">SCVRIA / public system</p>
       <h1>SCVRIA Sofware</h1>
-      <p>Open-source software publisher and studio.</p>
-    </main>
-  </body>
-</html>
+      <p class="scvria-claim">Bring the intelligence back to the people.</p>
+      <p class="scvria-summary">Open-source software publisher and studio.</p>
+    </section>
+
+    <dl class="scvria-readout" aria-label="SCVRIA surface information">
+      <div>
+        <dt>Type</dt>
+        <dd>Software publisher / studio</dd>
+      </div>
+      <div>
+        <dt>Mode</dt>
+        <dd>Open source</dd>
+      </div>
+      <div>
+        <dt>Boundary</dt>
+        <dd>Independent public surface</dd>
+      </div>
+    </dl>
+  </div>
+</ScvriaLayout>
