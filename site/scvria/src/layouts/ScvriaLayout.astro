@@ -1,0 +1,42 @@
+---
+import "../../../src/styles/tokens.css";
+import "../../../src/styles/base.css";
+import "../styles/scvria.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "SCVRIA Sofware",
+  description = "Open-source software publisher and studio."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <div class="scvria-frame">
+      <header class="scvria-bar" aria-label="SCVRIA surface">
+        <strong>SCVRIA Sofware</strong>
+        <span>public software surface</span>
+      </header>
+
+      <main class="scvria-document">
+        <slot />
+      </main>
+
+      <footer class="scvria-footer">
+        <span>SCVRIA Sofware</span>
+        <span>Open-source software publisher and studio.</span>
+      </footer>
+    </div>
+  </body>
+</html>
