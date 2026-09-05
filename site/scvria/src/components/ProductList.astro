@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  products: CollectionEntry<"products">[];
+}
+
+const { products } = Astro.props;
+---
+
+<ul class="scvria-card-grid" aria-label="SCVRIA software">
+  {products.map((product) => (
+    <li class="scvria-card">
+      <div class="scvria-card-meta">
+        <span>{product.data.status}</span>
+        {product.data.platforms.length > 0 && <span>{product.data.platforms.join(" / ")}</span>}
+      </div>
+      <h3><a href={`/software/${product.id}/`}>{product.data.title}</a></h3>
+      <p>{product.data.summary}</p>
+      {product.data.tags.length > 0 && (
+        <ul class="scvria-tags" aria-label={`${product.data.title} tags`}>
+          {product.data.tags.map((tag) => <li>{tag}</li>)}
+        </ul>
+      )}
+    </li>
+  ))}
+</ul>

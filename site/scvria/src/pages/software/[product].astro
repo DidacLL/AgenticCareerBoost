@@ -1,0 +1,64 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCollection, render } from "astro:content";
+import ScvriaLayout from "../../layouts/ScvriaLayout.astro";
+
+export async function getStaticPaths() {
+  const products = await getCollection("products");
+
+  return products.map((product) => ({
+    params: { product: product.id },
+    props: { product }
+  }));
+}
+
+interface Props {
+  product: CollectionEntry<"products">;
+}
+
+const { product } = Astro.props;
+const { Content } = await render(product);
+const links = [
+  product.data.website && { label: "Website", href: product.data.website },
+  product.data.repository && { label: "Source", href: product.data.repository },
+  product.data.documentation && { label: "Documentation", href: product.data.documentation },
+  product.data.download && { label: "Download / release", href: product.data.download }
+].filter(Boolean) as { label: string; href: string }[];
+---
+
+<ScvriaLayout
+  title={`${product.data.title} — SCVRIA Sofware`}
+  description={product.data.summary}
+>
+  <article class="scvria-page scvria-product">
+    <header class="scvria-page-header">
+      <p class="scvria-eyebrow">Software / {product.data.status}</p>
+      <h1>{product.data.title}</h1>
+      <p class="scvria-lead">{product.data.summary}</p>
+
+      {(product.data.tags.length > 0 || product.data.platforms.length > 0 || product.data.license) && (
+        <dl class="scvria-product-meta">
+          {product.data.platforms.length > 0 && (
+            <div><dt>Platforms</dt><dd>{product.data.platforms.join(", ")}</dd></div>
+          )}
+          {product.data.tags.length > 0 && (
+            <div><dt>Tags</dt><dd>{product.data.tags.join(", ")}</dd></div>
+          )}
+          {product.data.license && (
+            <div><dt>License</dt><dd>{product.data.license}</dd></div>
+          )}
+        </dl>
+      )}
+
+      {links.length > 0 && (
+        <ul class="scvria-link-list" aria-label={`${product.data.title} links`}>
+          {links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+        </ul>
+      )}
+    </header>
+
+    <div class="scvria-prose">
+      <Content />
+    </div>
+  </article>
+</ScvriaLayout>
