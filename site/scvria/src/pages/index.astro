@@ -1,32 +1,49 @@
 ---
+import { getCollection } from "astro:content";
+import ProductList from "../components/ProductList.astro";
 import ScvriaLayout from "../layouts/ScvriaLayout.astro";
+
+const products = (await getCollection("products")).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <ScvriaLayout
   title="SCVRIA Sofware"
-  description="SCVRIA Sofware — open-source software publisher and studio."
+  description="SCVRIA Sofware — independent open-source software studio and publisher."
 >
-  <div class="scvria-grid">
-    <section class="scvria-hero">
+  <section class="scvria-page scvria-home">
+    <div class="scvria-hero scvria-hero-wide">
       <p class="scvria-eyebrow">SCVRIA / public system</p>
       <h1>SCVRIA Sofware</h1>
       <p class="scvria-claim">Bring the intelligence back to the people.</p>
-      <p class="scvria-summary">Open-source software publisher and studio.</p>
-    </section>
+      <p class="scvria-summary">
+        An independent software studio and publisher for open-source tools and systems shaped around
+        user control, inspectability, and low lock-in.
+      </p>
 
-    <dl class="scvria-readout" aria-label="SCVRIA surface information">
-      <div>
-        <dt>Type</dt>
-        <dd>Software publisher / studio</dd>
+      <div class="scvria-actions" aria-label="Explore SCVRIA Sofware">
+        <a href="/software/">Software</a>
+        <a href="/manifesto/">Manifesto</a>
+        <a href="/community/">Community</a>
+        <a href="/about/">About</a>
       </div>
-      <div>
-        <dt>Mode</dt>
-        <dd>Open source</dd>
+    </div>
+
+    <section class="scvria-section" aria-labelledby="home-software-title">
+      <div class="scvria-section-heading">
+        <p class="scvria-eyebrow">Software</p>
+        <h2 id="home-software-title">Published software</h2>
+        <p>Products appear here only when their publication under SCVRIA Sofware is explicit.</p>
       </div>
-      <div>
-        <dt>Boundary</dt>
-        <dd>Independent public surface</dd>
-      </div>
-    </dl>
-  </div>
+
+      {products.length > 0 ? (
+        <ProductList products={products} />
+      ) : (
+        <div class="scvria-empty-state">
+          <h3>No confirmed products yet.</h3>
+          <p>The catalog structure is live, but SCVRIA Sofware is not assigning existing personal repositories to it by assumption.</p>
+          <a href="/software/">Open the software catalog</a>
+        </div>
+      )}
+    </section>
+  </section>
 </ScvriaLayout>

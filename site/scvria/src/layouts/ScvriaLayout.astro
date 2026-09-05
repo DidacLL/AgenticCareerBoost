@@ -12,6 +12,17 @@ const {
   title = "SCVRIA Sofware",
   description = "Open-source software publisher and studio."
 } = Astro.props;
+
+const navigation = [
+  { href: "/", label: "Home" },
+  { href: "/software/", label: "Software" },
+  { href: "/manifesto/", label: "Manifesto" },
+  { href: "/community/", label: "Community" },
+  { href: "/about/", label: "About" }
+];
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => href === "/" ? currentPath === "/" : currentPath.startsWith(href);
 ---
 
 <!doctype html>
@@ -24,9 +35,23 @@ const {
   </head>
   <body>
     <div class="scvria-frame">
-      <header class="scvria-bar" aria-label="SCVRIA surface">
-        <strong>SCVRIA Sofware</strong>
-        <span>public software surface</span>
+      <header class="scvria-header">
+        <div class="scvria-bar">
+          <a class="scvria-brand" href="/">SCVRIA Sofware</a>
+          <span>public software surface</span>
+        </div>
+
+        <nav class="scvria-nav" aria-label="Primary navigation">
+          <ul>
+            {navigation.map((item) => (
+              <li>
+                <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </header>
 
       <main class="scvria-document">
@@ -35,7 +60,7 @@ const {
 
       <footer class="scvria-footer">
         <span>SCVRIA Sofware</span>
-        <span>Open-source software publisher and studio.</span>
+        <span>Bring the intelligence back to the people.</span>
       </footer>
     </div>
   </body>

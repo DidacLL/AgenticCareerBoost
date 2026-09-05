@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import ProductList from "../../components/ProductList.astro";
+import ScvriaLayout from "../../layouts/ScvriaLayout.astro";
+
+const products = (await getCollection("products")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<ScvriaLayout
+  title="Software — SCVRIA Sofware"
+  description="The public software catalog for SCVRIA Sofware."
+>
+  <section class="scvria-page">
+    <header class="scvria-page-header">
+      <p class="scvria-eyebrow">Catalog</p>
+      <h1>Software</h1>
+      <p class="scvria-lead">
+        SCVRIA Sofware publishes software only when that publication relationship is explicit and supportable.
+      </p>
+    </header>
+
+    {products.length > 0 ? (
+      <ProductList products={products} />
+    ) : (
+      <div class="scvria-empty-state">
+        <h2>The catalog is intentionally empty.</h2>
+        <p>
+          No product currently has explicit publication evidence under SCVRIA Sofware. Existing personal repositories are not treated as SCVRIA products by default.
+        </p>
+      </div>
+    )}
+  </section>
+</ScvriaLayout>
