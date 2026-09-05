@@ -61,5 +61,9 @@ jobs:
           SITE_INDEXABLE: "true"
       - name: Validate generated portfolio
         run: node site/scripts/verify-build.mjs site/dist / true https://example.invalid
+      - name: Build SCVRIA site
+        run: npm run build:scvria --prefix site
+      - name: Validate generated SCVRIA
+        run: node site/scripts/verify-scvria-build.mjs site/dist-scvria
       - name: Validate internal Markdown links
         run: bash agents/tools/validate_links.sh

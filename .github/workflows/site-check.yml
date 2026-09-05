@@ -41,6 +41,10 @@ jobs:
           SITE_INDEXABLE: "true"
       - name: Verify canonical root artifact
         run: node site/scripts/verify-build.mjs site/dist / true https://example.invalid
+      - name: Build SCVRIA site
+        run: npm run build:scvria --prefix site
+      - name: Verify SCVRIA artifact
+        run: node site/scripts/verify-scvria-build.mjs site/dist-scvria
       - name: Build project-base mirror
         run: npm run build --prefix site
         env:
@@ -68,6 +72,13 @@ jobs:
         with:
           name: site-build-${{ github.sha }}
           path: site/dist
+          if-no-files-found: error
+          retention-days: 3
+      - name: Upload exact-SHA SCVRIA build
+        uses: actions/upload-artifact@v4
+        with:
+          name: scvria-build-${{ github.sha }}
+          path: site/dist-scvria
           if-no-files-found: error
           retention-days: 3
       - name: Upload exact-SHA visual evidence
