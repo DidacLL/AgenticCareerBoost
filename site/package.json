@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "build:scvria": "npx astro --config astro.scvria.config.mjs build",
+    "build:scvria": "node ./node_modules/astro/bin/astro.mjs --config astro.scvria.config.mjs build",
     "preview": "astro preview"
   },
   "dependencies": {
