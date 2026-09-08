@@ -102,3 +102,9 @@ Keep out of commits:
 - unrelated CV-generator product development.
 
 Tailored/local variants may reuse the shared preamble, but they remain ignored unless explicitly promoted to public source.
+
+## Tailored application authoring — private tasks only
+
+When the active request is specifically to create or tailor a CV and/or cover letter for one vacancy, use [`TAILORED_APPLICATION_AUTHORING.md`](TAILORED_APPLICATION_AUTHORING.md).
+
+That guide is deliberately narrow. It does **not** govern the public CV build/publication flow, site work, Application Tracker research/development, AAAAT/VCVGenerator work, CI maintenance, or other ACB workflows.

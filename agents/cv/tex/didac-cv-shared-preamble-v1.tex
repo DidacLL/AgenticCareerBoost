@@ -67,13 +67,18 @@
 \newcommand{\cvpill}[1]{%
   \scriptsize\colorbox{soft}{\strut\hspace{0.22em}#1\hspace{0.22em}}%
 }
-
+\NewDocumentCommand{\cvAbstract}{+m}{
+  \vspace{.30em}%
+   \raggedleft #1
+  \vspace{.30em}%
+  \vspace{.5\fill}%
+}
 \newcommand{\mainsection}[1]{%
-  \vspace{1.30em}%
+  \vspace{\fill}%
   {\hspace*{\fill}\large\bfseries\ttfamily\color{accent}#1~~}\par
   \vspace{0.3em}%
   {\color{line}\hrule}%
-  \vspace{0.5em}%
+  \vspace{1.30em}%
 }
 
 \newcommand{\railsection}[1]{%
