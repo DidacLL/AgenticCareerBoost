@@ -1,7 +1,10 @@
 # Local Letter Workflow
 
-This is the current simple workflow for producing a tailored cover letter from
-local data.
+This is the current simple workflow for producing a **standalone** tailored cover letter from local data.
+
+For the broader application workflow — one-page tailored CVs, parser summaries, claim discipline and combined `CV + carta adjunta` documents — use [`../agents/cv/APPLICATION_WORKFLOW.md`](../agents/cv/APPLICATION_WORKFLOW.md).
+
+A request for `CV + carta adjunta` does **not** default to this renderer: it normally means one two-page TeX/PDF with the CV on page 1 and the cover letter on page 2.
 
 ## Render A Letter
 
@@ -62,4 +65,4 @@ For public examples, use a synthetic slug and synthetic company:
 - `letter.ps1` runs the renderer and then `pdflatex`.
 - If LaTeX is not available, keep the generated TeX and compile later.
 - Application Tracker code here is prototype material for AAAAT and documents
-  the current local workflow.
+  the current local standalone-letter workflow.
