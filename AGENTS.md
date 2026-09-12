@@ -39,16 +39,15 @@ AAAAT or VCVGenerator.
   In this ACB workflow, the CV artifact is TeX. Do not invent a CV JSON schema.
   If the user asks for `CV en TeX + carta en JSON`, `CV + carta JSON`, or an
   equivalent formulation, deliver **two separate files**: one tailored `.tex`
-  CV and one cover-letter `.json` matching the standalone letter renderer
-  schema exactly. Do not append a letter page to the CV in that case.
+  CV and one cover-letter `.json` matching the existing standalone letter input
+  shape exactly. Do not append a letter page to the CV in that case.
 - A plain `CV + carta adjunta` with no separate format request may use the
   combined two-page TeX convention documented in `APPLICATION_WORKFLOW.md`.
   An explicit `JSON`, `separado`, `formulario`, or other output instruction
   overrides that default.
-- Cover-letter JSON is the renderer input schema from
-  `application-tracker/USAGE.md` / `application-tracker/letter-input.schema.json`.
-  Do not wrap it in `application`, `candidate`, `cv`, `cover_letter`, or other
-  invented objects; do not add a second JSON for the CV.
+- Do not wrap cover-letter JSON in `application`, `candidate`, `cv`,
+  `cover_letter`, `claim_controls`, or other invented objects; do not add a
+  second JSON for the CV.
 - **Routine tailored-application work uses the documented fast path.** Treat
   `didac-cv-shared-preamble-v1.tex` and `418-banner.png` as stable local build
   dependencies. Do not fetch, inspect, download, reproduce, or explain them just
@@ -71,6 +70,12 @@ AAAAT or VCVGenerator.
 - `\cvParserSummary`/role metadata may deliberately expose exact supported job
   vocabulary for ATS/AI retrieval, but hidden text must never add unsupported
   claims.
+- **Harness-only fixes stay in the harness.** If an agent-behavior problem is
+  being corrected, change `AGENTS.md` and/or `agents/cv/APPLICATION_WORKFLOW.md`
+  only. Do not modify the renderer, tracker code, templates, CI workflows, build
+  scripts, publication pipeline, or other functioning project code merely to
+  force an agent to follow instructions unless the user explicitly asks for a
+  product/code change.
 - Do not use staged, unstaged, tracked, or ignored status as semantic truth.
   Classify changes by scope before changing or staging them.
 - Do not develop AAAAT or VCVGenerator in this repository cleanup.
@@ -88,8 +93,6 @@ Use operational checks relevant to the change. Historical harness tests are not
 site acceptance criteria unless explicitly reactivated.
 
 - the letter renderer can produce TeX from a fake local JSON file;
-- cover-letter JSON generated for ACB applications uses the exact documented
-  schema and does not contain CV/application wrapper objects;
 - PDF compilation may be checked only when the relevant LaTeX workflow is in scope;
 - the public/general CV source remains present and compiles from the canonical
   `agents/cv/tex/` root;
