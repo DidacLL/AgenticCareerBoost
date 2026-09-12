@@ -68,6 +68,14 @@
   \scriptsize\colorbox{soft}{\strut\hspace{0.22em}#1\hspace{0.22em}}%
 }
 
+% Human-facing narrative opener for the main CV column. Tailored CVs should use
+% this immediately after \small, before the first main section.
+\newcommand{\cvAbstract}[1]{%
+  \vspace{0.18em}%
+  {\small #1\par}%
+  \vspace{0.34em}%
+}
+
 \newcommand{\mainsection}[1]{%
   \vspace{1.30em}%
   {\hspace*{\fill}\large\bfseries\ttfamily\color{accent}#1~~}\par
@@ -141,6 +149,8 @@
   }
 }
 
+% ATS/AI-readable support surface. It repeats only evidence-backed information;
+% role-specific terms come from \cvsetup and must not be used to create claims.
 \newcommand{\cvParserSummary}{%
   \resizebox{0pt}{!}{%
     \textcolor{white}{%
@@ -153,7 +163,8 @@
       CI/CD. Public projects include AgenticCareerBoost, AAAAT, P3CTeX %
       and IronBank. More than fifteen years of prior professional %
       experience in banking, insurance, telecom and operations. %
-      Role focus: \cvRoleSummary
+      Role focus: \cvRoleSummary. %
+      Evidence-backed role keywords: \cvRoleKeywords.
     }%
   }%
 }
