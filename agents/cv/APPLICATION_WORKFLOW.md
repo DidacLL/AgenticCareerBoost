@@ -4,16 +4,44 @@ This file is active guidance for agents preparing job-application material for D
 
 Direct user instructions still have highest authority. Real offers, recruiter messages, tailored CVs/letters, private JSON and generated private PDFs remain local and untracked.
 
+## Artifact format contract
+
+Read the requested output format literally before drafting. Explicit format instructions override shorthand such as `carta adjunta`.
+
+Within this ACB workflow:
+
+- the CV deliverable is a tailored **`.tex` file** using the canonical CV design;
+- there is **no CV JSON format** and agents must not invent one;
+- JSON is used for the standalone cover-letter renderer input;
+- if the user explicitly asks for a JSON letter, the CV and letter are separate artifacts.
+
+| User request | Required output |
+| --- | --- |
+| `CV` / `solo dame el tex` | one-page tailored CV `.tex` file |
+| `CV + carta`, `CV + carta adjunta`, `CV con carta` and no separate-format instruction | one `.tex` document rendering as page 1 CV + page 2 letter |
+| `CV en TeX + carta en JSON`, `CV + carta JSON`, `CV + carta adjunta en JSON` | **two files**: one-page tailored CV `.tex` + cover-letter `.json` matching the renderer schema exactly |
+| `carta en JSON` | one cover-letter `.json` matching the renderer schema exactly |
+| separate rendered `carta` / cover-letter artifact | use the local `application-tracker/letter.ps1 <slug>` flow when a rendered standalone letter is wanted |
+| platform form/text-box letter | one-page CV `.tex` plus form/text content separately; do not add a second PDF page unless requested |
+
+A word such as `adjunta` describes the relationship of the letter to the application; it does **not** override an explicit file format. If the user says the letter is JSON, do not place that letter into the CV TeX as page 2.
+
+Do not produce an application wrapper such as `{ "application": ..., "candidate": ..., "cv": ... }`. Do not produce two JSON files. A request for CV + JSON letter means exactly one CV TeX file and one letter JSON file.
+
+The exact cover-letter JSON contract is documented in `application-tracker/USAGE.md` and machine-readable in `application-tracker/letter-input.schema.json`.
+
 ## Routine fast path
 
-For an ordinary request such as `prepara CV + carta adjunta para esta oferta`, do not reverse-engineer the CV system before producing the artifact. The workflow itself is the contract.
+For an ordinary application request, do not reverse-engineer the CV system before producing the artifact. The workflow itself is the contract.
 
 1. Read the vacancy/request and this file.
-2. Select evidence from the known candidate/project record; fetch additional repository evidence only for claims that actually need verification.
-3. Draft the one-page CV using the canonical structure below.
-4. If requested, append the one-page cover letter after `\newpage` in the same source.
-5. Materialize the requested `.tex` as a local/downloadable file using the current environment's file-writing capability.
-6. Return the file link plus only a short note about major tailoring choices. Do not dump the full TeX source into the chat unless the user explicitly asks to see the source inline.
+2. Resolve the requested artifact format first using the contract above.
+3. Select evidence from the known candidate/project record; fetch additional repository evidence only for claims that actually need verification.
+4. Draft the one-page CV using the canonical structure below.
+5. If and only if a combined document was requested, append the one-page cover letter after `\newpage` in the same source.
+6. If a JSON letter was requested, create the separate JSON file using the exact renderer schema; do not append the letter to the CV.
+7. Materialize every requested artifact as a local/downloadable file using the current environment's file-writing capability.
+8. Return the file link(s) plus only a short note about major tailoring choices. Do not dump full TeX or JSON into the chat unless the user explicitly asks to see source inline.
 
 ### Stable dependencies are opaque during routine drafting
 
@@ -37,28 +65,14 @@ A request such as `solo dame el tex` specifically means: create the `.tex` file 
 
 ### Artifact completion contract
 
-A routine artifact request is complete only when the requested file exists in the current artifact/local environment and is linked or otherwise exposed to the user.
+A routine artifact request is complete only when every requested file exists in the current artifact/local environment and is linked or otherwise exposed to the user.
 
 - Raw TeX in a code block is not a substitute for a requested `.tex` file when file creation is available.
+- Raw JSON in a code block is not a substitute for a requested `.json` file when file creation is available.
 - Do not commit tailored application files to GitHub just to make them downloadable.
 - Do not add them to `artifacts.json` or publish them to the portfolio.
 - Do not compile unless the user asks for a PDF, requests compilation/validation, or compilation is necessary to diagnose a reported problem.
 - If the current environment genuinely cannot create files, say so briefly and then provide the source inline as the fallback; do not pretend that inline source is the preferred workflow.
-
-## Default deliverable semantics
-
-Interpret the user's requested artifact before writing:
-
-| User request | Default output |
-| --- | --- |
-| `CV` | one-page tailored CV TeX |
-| `CV + carta`, `CV + carta adjunta`, `CV con carta` | one TeX document that renders as **page 1 CV + page 2 cover letter** |
-| `carta` / separate cover letter | use the local `application-tracker/letter.ps1 <slug>` renderer when a standalone letter artifact is wanted |
-| platform form/text-box letter | one-page CV TeX plus the letter/form text separately; do not add a second PDF page unless requested |
-
-`Carta adjunta` therefore means a second page in the same application document by default, not a separate JSON file, separate PDF, or another workspace.
-
-Produce the requested local artifact directly. Do not redirect an application-artifact request into site publication, AAAAT development, another workspace, or a different product flow.
 
 ## Canonical CV architecture
 
@@ -133,9 +147,13 @@ Both must be truthful, but they serve different purposes:
 
 When an employer explicitly states that AI/ATS systems review applications, it is legitimate to be especially deliberate about the parser summary, metadata and exact supported terminology.
 
-## Cover letter in a combined document
+## Cover-letter modes
 
-When the user asks for `CV + carta adjunta`, finish the one-page CV, then use `\newpage` and render a one-page letter in the **same TeX document**.
+### Combined TeX letter
+
+Use this mode only when the requested output is a combined CV + letter document and there is no explicit request for the letter in JSON or another separate format.
+
+Finish the one-page CV, then use `\newpage` and render a one-page letter in the same TeX document.
 
 The letter should normally:
 
@@ -148,6 +166,19 @@ The letter should normally:
 - avoid recruiter-visible claim-control/meta language;
 - avoid salary discussion unless requested;
 - fit on one page.
+
+### JSON letter
+
+When the user asks for the cover letter in JSON:
+
+- create a separate `.json` file;
+- use **only** the exact top-level fields defined by the renderer contract;
+- do not invent wrapper objects, claim-control arrays, vacancy-analysis objects, CV content, or application metadata;
+- keep `paragraphs` and `keywords` as the two array fields expected by the renderer;
+- make the content role-specific and evidence-backed exactly as for a prose letter;
+- do not render the JSON to TeX/PDF unless the user asks for rendering.
+
+The CV remains its own `.tex` file. There is no CV JSON artifact in this workflow.
 
 For roles strongly related to agentic engineering, do not reduce the story to `uses Codex/Claude`. ACB, AAAAT/VCVGenerator and MADRE provide deeper evidence around provider-independent orchestration, context/authority boundaries, anti-drift design, runtime behavior, local inference, validation and replaceable execution clients.
 
@@ -179,8 +210,8 @@ If `latexmk` is unavailable, use the existing pdfLaTeX-compatible setup and keep
 
 Do not add a tailored application to `artifacts.json` or publish it to the portfolio unless the owner explicitly asks.
 
-## Separate letter renderer
+## Standalone letter renderer
 
-The existing `application-tracker/letter.ps1 <slug>` flow remains the local standalone-letter path. It is useful when the platform wants a separate cover letter artifact.
+The existing `application-tracker/letter.ps1 <slug>` flow remains the local rendered standalone-letter path.
 
-It is **not** the default for `CV + carta adjunta`, because that request means one combined two-page application document unless the user or application platform says otherwise.
+If the user asks specifically for the **JSON letter source**, stop after materializing the schema-valid `.json` input file. Do not automatically render it.
