@@ -15,6 +15,10 @@ AAAAT or VCVGenerator.
 - **Tailored job-application artifacts follow
   [`agents/cv/APPLICATION_WORKFLOW.md`](agents/cv/APPLICATION_WORKFLOW.md).**
   This is active guidance, not historical harness evidence.
+- **For application positioning only,
+  [`agents/rules/core/career-direction.md`](agents/rules/core/career-direction.md)
+  is active canonical guidance.** Other material under `agents/rules/` remains
+  historical/legacy unless the user explicitly reactivates it.
 - `site/` is the Markdown-authored Astro portfolio. It contains only material
   actually served by the portfolio; do not use it as storage for ACB reports,
   harness evidence, tracker output, status data, or application material.
@@ -22,10 +26,10 @@ AAAAT or VCVGenerator.
   The selected public CV PDF is the only generated document intentionally served
   by the portfolio. CV-owned source assets stay under `agents/cv/`; site cleanup
   is not authority to move or delete dependencies of the CV build.
-- `agents/reports/`, `agents/state/`, `agents/rules/`, `agents/tests/`, and
-  `agents/work/` contain repository evidence, research, historical/work records,
-  or legacy harness material. They are not site content and old material there is
-  not current instruction unless the user explicitly reactivates it.
+- `agents/reports/`, `agents/state/`, `agents/tests/`, and `agents/work/` contain
+  repository evidence, research, historical/work records, or legacy harness
+  material. They are not routine application inputs unless the user explicitly
+  asks for deeper research or historical verification.
 - Tailored letters, raw offers, private JSON, generated private PDFs, databases,
   recruiter notes, and application-specific CV variants stay local and untracked.
 
@@ -35,6 +39,28 @@ AAAAT or VCVGenerator.
 - For application work, read the vacancy/request and
   `agents/cv/APPLICATION_WORKFLOW.md` before drafting. Reuse the shared CV
   preamble and established layout instead of inventing a generic resume format.
+- **Routine application work has a bounded read set. Do not search the repository
+  to discover standards, profile, objectives, preferences, or CV format.** Use:
+  1. the user's vacancy/request;
+  2. `agents/cv/APPLICATION_WORKFLOW.md`;
+  3. `agents/rules/core/career-direction.md` for career path/preferences;
+  4. `agents/cv/tex/didac-llorens-cv.tex` only when baseline public-CV wording or
+     a stable factual detail is actually needed.
+  The project evidence summaries in `APPLICATION_WORKFLOW.md` are sufficient for
+  ordinary tailoring. Fetch a named project source only when a specific stronger
+  claim requires verification.
+- Do not follow references from `career-direction.md` into historical positioning
+  reports during ordinary application work. That file is the self-contained
+  current career-direction snapshot for this workflow.
+- Repository-wide code search, state/history review, report inspection, social
+  research, issue/PR archaeology, or cross-repository browsing is **not** part of
+  the normal application fast path. Use it only when the vacancy requires a
+  claim that is not already supported by the bounded inputs, or when the user
+  explicitly requests deeper verification/research.
+- Once the bounded inputs support the application, stop researching and produce
+  the requested artifact. Do not spend time narrating that you are locating ACB
+  standards, schemas, profile data, or preferences that already have canonical
+  paths above.
 - **Requested artifact formats are literal and take precedence over shorthand.**
   In this ACB workflow, the CV artifact is TeX. Do not invent a CV JSON schema.
   If the user asks for `CV en TeX + carta en JSON`, `CV + carta JSON`, or an

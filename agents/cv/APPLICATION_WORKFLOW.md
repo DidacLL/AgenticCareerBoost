@@ -52,18 +52,39 @@ keywords          # array of strings
 
 Use those top-level keys directly. Do not invent wrappers, claim-control arrays, vacancy-analysis objects, CV content, or application metadata inside the letter JSON.
 
+## Bounded inputs — no discovery phase
+
+Routine application work has fixed canonical inputs. Do **not** start by searching GitHub for ACB standards, the candidate profile, career objectives, preferences, CV schemas, or project history.
+
+Read only these inputs by default:
+
+1. the vacancy and the user's explicit request;
+2. this file, `agents/cv/APPLICATION_WORKFLOW.md`;
+3. `agents/rules/core/career-direction.md` for the current career path, role lanes and company preferences.
+
+Optional fourth input:
+
+4. `agents/cv/tex/didac-llorens-cv.tex` only when baseline public-CV wording or a stable factual detail is needed.
+
+That is the complete ordinary read set. `career-direction.md` is self-contained for application positioning: do not follow its historical references into S-001 or other reports during routine tailoring.
+
+The project summaries under **Evidence selection reminders** below are the normal evidence index. Do not browse `agents/state/`, `agents/reports/`, `agents/work/`, historical rules, issues, PRs, commits, or other repositories merely to prepare a normal CV/letter. If a vacancy depends on one specific claim not already supported here, fetch only the named project/source needed to verify that claim, then stop.
+
+There is no separate "locate the standards", "extract the schema", or "search the repository for profile/preferences" phase. Those paths and contracts are already defined here. Once the bounded inputs support the application, draft and materialize the requested artifacts.
+
 ## Routine fast path
 
 For an ordinary application request, do not reverse-engineer the CV system before producing the artifact. The workflow itself is the contract.
 
-1. Read the vacancy/request and this file.
+1. Read the vacancy/request, this file, and `agents/rules/core/career-direction.md`.
 2. Resolve the requested artifact format first using the contract above.
-3. Select evidence from the known candidate/project record; fetch additional repository evidence only for claims that actually need verification.
-4. Draft the one-page CV using the canonical structure below.
-5. If and only if a combined document was requested, append the one-page cover letter after `\newpage` in the same source.
-6. If a JSON letter was requested, create the separate JSON file using the exact existing input shape above; do not append the letter to the CV.
-7. Materialize every requested artifact as a local/downloadable file using the current environment's file-writing capability.
-8. Return the file link(s) plus only a short note about major tailoring choices. Do not dump full TeX or JSON into the chat unless the user explicitly asks to see source inline.
+3. Use the career direction and evidence summaries already present here; fetch `agents/cv/tex/didac-llorens-cv.tex` only if a baseline factual detail is needed.
+4. Only if a stronger specific claim remains unsupported, fetch the single relevant named project/source. Do not perform repository-wide discovery.
+5. Draft the one-page CV using the canonical structure below.
+6. If and only if a combined document was requested, append the one-page cover letter after `\newpage` in the same source.
+7. If a JSON letter was requested, create the separate JSON file using the exact existing input shape above; do not append the letter to the CV.
+8. Materialize every requested artifact as a local/downloadable file using the current environment's file-writing capability.
+9. Return the file link(s) plus only a short note about major tailoring choices. Do not dump full TeX or JSON into the chat unless the user explicitly asks to see source inline.
 
 ### Stable dependencies are opaque during routine drafting
 
@@ -206,7 +227,7 @@ For roles strongly related to agentic engineering, do not reduce the story to `u
 
 ## Evidence selection reminders
 
-Use repository evidence before novel strong claims. Common project angles include:
+Use these summaries as the default evidence index. They are here specifically so an agent does not need a repository-wide search before drafting.
 
 - **AgenticCareerBoost:** career-engineering workspace, agentic workflow experiments, job-offer/application support, social/research work, multilingual Astro portfolio, LaTeX CV/document pipeline, Git/GitHub Actions, privacy boundaries and inspectable engineering history.
 - **AAAAT + VCVGenerator:** local-first domain application, Electron/React/TypeScript/SQLite, candidature/professional information, independently useful CV/letter tooling, bounded optional AI, typed/validated operations, product authority and anti-drift governance.
@@ -215,6 +236,8 @@ Use repository evidence before novel strong claims. Common project angles includ
 - **IronBank:** Java/Spring Boot, REST, persistence, microservice/backend foundations.
 
 Do not flatten ACB into only an old coding-agent harness. Its active repository is broader career tooling and public engineering infrastructure; the historical richer harness is evidence where relevant, not the whole project.
+
+If a vacancy needs a detail beyond these summaries, verify that one detail against the relevant named source. Do not turn targeted verification into general repository exploration.
 
 ## Local compilation
 
