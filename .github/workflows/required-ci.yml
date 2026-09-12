@@ -21,6 +21,70 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
+      - name: Validate cover-letter JSON contract
+        run: |
+          python - <<'PY'
+          import importlib.util
+          import json
+          from pathlib import Path
+
+          renderer_path = Path("application-tracker/render_letter.py")
+          spec = importlib.util.spec_from_file_location("render_letter", renderer_path)
+          renderer = importlib.util.module_from_spec(spec)
+          assert spec.loader is not None
+          spec.loader.exec_module(renderer)
+
+          schema = json.loads(Path("application-tracker/letter-input.schema.json").read_text(encoding="utf-8"))
+          schema_keys = set(schema["properties"])
+          assert schema["additionalProperties"] is False
+          assert schema_keys == set(schema["required"])
+          assert schema_keys == renderer.EXPECTED_KEYS
+          PY
+
+          tmpdir="$(mktemp -d)"
+          cat > "$tmpdir/letter.json" <<'JSON'
+          {
+            "slug": "example-slug",
+            "output_pdf": "example-cover-letter.pdf",
+            "candidate_name": "Example Candidate",
+            "headline": "Software Engineer",
+            "email": "example@example.invalid",
+            "portfolio_url": "https://example.invalid",
+            "github_url": "https://example.invalid/github",
+            "linkedin_url": "https://example.invalid/linkedin",
+            "recipient": "Example Hiring Team",
+            "role": "Software Engineer",
+            "location": "Remote",
+            "greeting": "Dear Example Hiring Team,",
+            "paragraphs": ["This is fake example content."],
+            "closing": "Sincerely,",
+            "public_note": "Generated from fake local data.",
+            "parser_summary": "Fake summary for validation.",
+            "keywords": ["software", "engineering"]
+          }
+          JSON
+
+          python application-tracker/render_letter.py \
+            --input "$tmpdir/letter.json" \
+            --output-dir "$tmpdir/generated"
+          test -f "$tmpdir/generated/example-cover-letter.tex"
+
+          python - "$tmpdir/letter.json" "$tmpdir/invalid.json" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          source = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+          source["cv"] = {"this": "must be rejected"}
+          Path(sys.argv[2]).write_text(json.dumps(source), encoding="utf-8")
+          PY
+
+          if python application-tracker/render_letter.py \
+            --input "$tmpdir/invalid.json" \
+            --output-dir "$tmpdir/invalid-generated"; then
+            echo "Renderer accepted an unsupported wrapper field." >&2
+            exit 1
+          fi
       - name: Resolve career artifact build inputs
         id: career
         run: |
