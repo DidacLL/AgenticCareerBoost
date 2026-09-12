@@ -14,9 +14,7 @@ AAAAT or VCVGenerator.
   workflow. Preserve that interface.
 - **Tailored job-application artifacts follow
   [`agents/cv/APPLICATION_WORKFLOW.md`](agents/cv/APPLICATION_WORKFLOW.md).**
-  This is active guidance, not historical harness evidence. In particular, a
-  request for `CV + carta adjunta` normally means one local two-page TeX/PDF:
-  page 1 is the one-page tailored CV and page 2 is the cover letter.
+  This is active guidance, not historical harness evidence.
 - `site/` is the Markdown-authored Astro portfolio. It contains only material
   actually served by the portfolio; do not use it as storage for ACB reports,
   harness evidence, tracker output, status data, or application material.
@@ -37,18 +35,32 @@ AAAAT or VCVGenerator.
 - For application work, read the vacancy/request and
   `agents/cv/APPLICATION_WORKFLOW.md` before drafting. Reuse the shared CV
   preamble and established layout instead of inventing a generic resume format.
+- **Requested artifact formats are literal and take precedence over shorthand.**
+  In this ACB workflow, the CV artifact is TeX. Do not invent a CV JSON schema.
+  If the user asks for `CV en TeX + carta en JSON`, `CV + carta JSON`, or an
+  equivalent formulation, deliver **two separate files**: one tailored `.tex`
+  CV and one cover-letter `.json` matching the standalone letter renderer
+  schema exactly. Do not append a letter page to the CV in that case.
+- A plain `CV + carta adjunta` with no separate format request may use the
+  combined two-page TeX convention documented in `APPLICATION_WORKFLOW.md`.
+  An explicit `JSON`, `separado`, `formulario`, or other output instruction
+  overrides that default.
+- Cover-letter JSON is the renderer input schema from
+  `application-tracker/USAGE.md` / `application-tracker/letter-input.schema.json`.
+  Do not wrap it in `application`, `candidate`, `cv`, `cover_letter`, or other
+  invented objects; do not add a second JSON for the CV.
 - **Routine tailored-application work uses the documented fast path.** Treat
   `didac-cv-shared-preamble-v1.tex` and `418-banner.png` as stable local build
   dependencies. Do not fetch, inspect, download, reproduce, or explain them just
   to prepare a tailored CV/letter. Only inspect those assets when the user asks
   to change the design/build infrastructure, or when an actual compilation
   failure specifically requires diagnosis there.
-- If the user asks for a `.tex` artifact, create the `.tex` file in the current
-  local/artifact environment and return a download/file link. **Do not satisfy
-  the request by pasting raw TeX into chat** when file creation is available.
-  `solo dame el tex` means deliver the file, not print its source. Tailored
-  application files remain local/untracked; do not commit them merely to make
-  them downloadable.
+- If the user asks for a `.tex` or `.json` artifact, create the file in the
+  current local/artifact environment and return a download/file link. **Do not
+  satisfy the request by pasting raw TeX or JSON into chat** when file creation
+  is available. `solo dame el tex` means deliver the file, not print its source.
+  Tailored application files remain local/untracked; do not commit them merely
+  to make them downloadable.
 - Do not compile a tailored source, fetch binary assets, or inspect build helpers
   unless the requested deliverable or validation actually requires compilation.
   A request for the TeX file alone ends when the correct local file has been
@@ -76,6 +88,8 @@ Use operational checks relevant to the change. Historical harness tests are not
 site acceptance criteria unless explicitly reactivated.
 
 - the letter renderer can produce TeX from a fake local JSON file;
+- cover-letter JSON generated for ACB applications uses the exact documented
+  schema and does not contain CV/application wrapper objects;
 - PDF compilation may be checked only when the relevant LaTeX workflow is in scope;
 - the public/general CV source remains present and compiles from the canonical
   `agents/cv/tex/` root;
