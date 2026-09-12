@@ -37,6 +37,22 @@ AAAAT or VCVGenerator.
 - For application work, read the vacancy/request and
   `agents/cv/APPLICATION_WORKFLOW.md` before drafting. Reuse the shared CV
   preamble and established layout instead of inventing a generic resume format.
+- **Routine tailored-application work uses the documented fast path.** Treat
+  `didac-cv-shared-preamble-v1.tex` and `418-banner.png` as stable local build
+  dependencies. Do not fetch, inspect, download, reproduce, or explain them just
+  to prepare a tailored CV/letter. Only inspect those assets when the user asks
+  to change the design/build infrastructure, or when an actual compilation
+  failure specifically requires diagnosis there.
+- If the user asks for a `.tex` artifact, create the `.tex` file in the current
+  local/artifact environment and return a download/file link. **Do not satisfy
+  the request by pasting raw TeX into chat** when file creation is available.
+  `solo dame el tex` means deliver the file, not print its source. Tailored
+  application files remain local/untracked; do not commit them merely to make
+  them downloadable.
+- Do not compile a tailored source, fetch binary assets, or inspect build helpers
+  unless the requested deliverable or validation actually requires compilation.
+  A request for the TeX file alone ends when the correct local file has been
+  materialized and linked.
 - The tailored CV page remains one page. Its main column starts with the visible
   `\cvAbstract{...}` narrative opener; do not replace it with a long chronology
   or bury it below project sections.
