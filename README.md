@@ -66,9 +66,9 @@ The portfolio is only one output of this repository. Historical reports and proj
 ## Repository map
 
 - [`site/`](site/) — source for the public Astro portfolio. See [`site/README.md`](site/README.md) for architecture, multilingual authoring and verification details.
-- [`agents/cv/`](agents/cv/) — public/general CV source and reproducible build support. See [`agents/cv/README.md`](agents/cv/README.md).
+- [`agents/cv/`](agents/cv/) — public/general CV source, tailored-application workflow and reproducible build support. See [`agents/cv/README.md`](agents/cv/README.md) and [`agents/cv/APPLICATION_WORKFLOW.md`](agents/cv/APPLICATION_WORKFLOW.md).
 - [`agents/reports/`](agents/reports/) — technical report sources and historical repository evidence, independent from the portfolio build.
-- [`application-tracker/`](application-tracker/) — preserved prototype/local workflow evidence, including the simple cover-letter renderer that later informed AAAAT.
+- [`application-tracker/`](application-tracker/) — preserved prototype/local workflow evidence, including the simple standalone cover-letter renderer that later informed AAAAT.
 - [`agents/state/`](agents/state/) — historical decisions, research and previous run records.
 - [`agents/work/social/`](agents/work/social/) — campaign/research material retained as project history.
 - [`agents/rules/`](agents/rules/) and [`agents/tests/`](agents/tests/) — legacy harness material preserved as evidence, not the current control system.
@@ -114,6 +114,8 @@ The launcher checks the local Node version, installs the pinned site dependencie
 The canonical CV compilation root is [`agents/cv/tex/`](agents/cv/tex/). The main `.tex`, shared preamble and header asset are siblings, so the document can be compiled directly from that directory in a LaTeX IDE.
 
 Repository build helpers use the same root and redirect PDFs plus auxiliary files to `agents/cv/build/`, keeping the source directory clean. The generated public PDF is then copied into the portfolio artifact through [`agents/cv/artifacts.json`](agents/cv/artifacts.json).
+
+Tailored applications reuse the same design locally. The active conventions — one-page CV, `\cvAbstract` opener, evidence-backed parser summary, and combined `CV + carta adjunta` as one two-page document — are documented in [`agents/cv/APPLICATION_WORKFLOW.md`](agents/cv/APPLICATION_WORKFLOW.md). Tailored material remains local/untracked and is not added to the publication manifest by default.
 
 The CV web pages are translated with the site; the generated LaTeX PDF remains the canonical English public PDF.
 
