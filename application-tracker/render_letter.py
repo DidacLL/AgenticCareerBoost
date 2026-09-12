@@ -31,8 +31,6 @@ REQUIRED_STRINGS = [
     "public_note",
     "parser_summary",
 ]
-REQUIRED_LISTS = ["paragraphs", "keywords"]
-EXPECTED_KEYS = set(REQUIRED_STRINGS + REQUIRED_LISTS)
 
 LATEX_REPLACEMENTS = {
     "\\": r"\textbackslash{}",
@@ -79,28 +77,13 @@ def safe_output_tex_name(value: object) -> str:
 
 def load_letter(path: Path) -> dict:
     data = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(data, dict):
-        raise ValueError(f"{path}: cover-letter input must be a JSON object")
-
-    actual_keys = set(data)
-    missing_keys = sorted(EXPECTED_KEYS - actual_keys)
-    extra_keys = sorted(actual_keys - EXPECTED_KEYS)
-    if missing_keys:
-        raise ValueError(f"{path}: missing required fields: {', '.join(missing_keys)}")
-    if extra_keys:
-        raise ValueError(f"{path}: unsupported fields: {', '.join(extra_keys)}")
-
-    empty_strings = [key for key in REQUIRED_STRINGS if not str(data.get(key, "")).strip()]
-    if empty_strings:
-        raise ValueError(f"{path}: empty required fields: {', '.join(empty_strings)}")
-
-    for key in REQUIRED_LISTS:
-        values = data.get(key)
-        if not isinstance(values, list) or not values:
-            raise ValueError(f"{path}: {key} must be a non-empty list")
-        if any(not isinstance(item, str) or not item.strip() for item in values):
-            raise ValueError(f"{path}: {key} items must be non-empty strings")
-
+    missing = [key for key in REQUIRED_STRINGS if not str(data.get(key, "")).strip()]
+    if missing:
+        raise ValueError(f"{path}: missing required fields: {', '.join(missing)}")
+    if not isinstance(data.get("paragraphs"), list) or not data["paragraphs"]:
+        raise ValueError(f"{path}: paragraphs must be a non-empty list")
+    if not isinstance(data.get("keywords"), list) or not data["keywords"]:
+        raise ValueError(f"{path}: keywords must be a non-empty list")
     return data
 
 
