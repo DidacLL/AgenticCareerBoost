@@ -3,7 +3,9 @@
 ## Purpose
 
 This file prevents campaign drift. Agents must use it before recommending roles,
-companies, public positioning, or profile rewrites.
+companies, public positioning, profile rewrites, or tailoring a job application.
+
+For routine application work this file is the **self-contained current career-direction snapshot**. Do not search for or follow historical positioning reports, S-001 material, state files, social research, issues, PRs, or other repository history unless the user explicitly asks for a strategy/history review.
 
 ## Primary identity
 
@@ -18,7 +20,7 @@ The target identity is:
 
 ## Role lanes
 
-Use the S-001 positioning report as the source model, with the correction below:
+Use these current lanes directly; no historical source lookup is required for ordinary application tailoring.
 
 1. **Agentic systems / AI workflow engineering** — main differentiator and public
    proof engine.
@@ -67,5 +69,7 @@ Avoid or deprioritize companies and roles with these signals:
 The campaign must lead with inspectable proof. The repo, reports, commits,
 architecture, workflows, and public artifacts are the evidence. Social content is
 only distribution.
+
+For a routine application, however, do not inspect all of that evidence by default. Use the project summaries already provided in `agents/cv/APPLICATION_WORKFLOW.md` and perform only targeted verification when a specific stronger claim needs it.
 
 Agentic engineering is not decoration. It is the differentiator.
