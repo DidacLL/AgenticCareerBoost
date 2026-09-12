@@ -12,15 +12,15 @@ Within this ACB workflow:
 
 - the CV deliverable is a tailored **`.tex` file** using the canonical CV design;
 - there is **no CV JSON format** and agents must not invent one;
-- JSON is used for the standalone cover-letter renderer input;
+- JSON is used only when the user explicitly asks for the standalone cover-letter JSON input;
 - if the user explicitly asks for a JSON letter, the CV and letter are separate artifacts.
 
 | User request | Required output |
 | --- | --- |
 | `CV` / `solo dame el tex` | one-page tailored CV `.tex` file |
 | `CV + carta`, `CV + carta adjunta`, `CV con carta` and no separate-format instruction | one `.tex` document rendering as page 1 CV + page 2 letter |
-| `CV en TeX + carta en JSON`, `CV + carta JSON`, `CV + carta adjunta en JSON` | **two files**: one-page tailored CV `.tex` + cover-letter `.json` matching the renderer schema exactly |
-| `carta en JSON` | one cover-letter `.json` matching the renderer schema exactly |
+| `CV en TeX + carta en JSON`, `CV + carta JSON`, `CV + carta adjunta en JSON` | **two files**: one-page tailored CV `.tex` + cover-letter `.json` using the exact existing letter input shape |
+| `carta en JSON` | one cover-letter `.json` using the exact existing letter input shape |
 | separate rendered `carta` / cover-letter artifact | use the local `application-tracker/letter.ps1 <slug>` flow when a rendered standalone letter is wanted |
 | platform form/text-box letter | one-page CV `.tex` plus form/text content separately; do not add a second PDF page unless requested |
 
@@ -28,7 +28,29 @@ A word such as `adjunta` describes the relationship of the letter to the applica
 
 Do not produce an application wrapper such as `{ "application": ..., "candidate": ..., "cv": ... }`. Do not produce two JSON files. A request for CV + JSON letter means exactly one CV TeX file and one letter JSON file.
 
-The exact cover-letter JSON contract is documented in `application-tracker/USAGE.md` and machine-readable in `application-tracker/letter-input.schema.json`.
+The existing letter JSON shape is:
+
+```text
+slug
+output_pdf
+candidate_name
+headline
+email
+portfolio_url
+github_url
+linkedin_url
+recipient
+role
+location
+greeting
+paragraphs        # array of strings
+closing
+public_note
+parser_summary
+keywords          # array of strings
+```
+
+Use those top-level keys directly. Do not invent wrappers, claim-control arrays, vacancy-analysis objects, CV content, or application metadata inside the letter JSON.
 
 ## Routine fast path
 
@@ -39,7 +61,7 @@ For an ordinary application request, do not reverse-engineer the CV system befor
 3. Select evidence from the known candidate/project record; fetch additional repository evidence only for claims that actually need verification.
 4. Draft the one-page CV using the canonical structure below.
 5. If and only if a combined document was requested, append the one-page cover letter after `\newpage` in the same source.
-6. If a JSON letter was requested, create the separate JSON file using the exact renderer schema; do not append the letter to the CV.
+6. If a JSON letter was requested, create the separate JSON file using the exact existing input shape above; do not append the letter to the CV.
 7. Materialize every requested artifact as a local/downloadable file using the current environment's file-writing capability.
 8. Return the file link(s) plus only a short note about major tailoring choices. Do not dump full TeX or JSON into the chat unless the user explicitly asks to see source inline.
 
@@ -172,9 +194,9 @@ The letter should normally:
 When the user asks for the cover letter in JSON:
 
 - create a separate `.json` file;
-- use **only** the exact top-level fields defined by the renderer contract;
+- use only the exact top-level fields listed in this harness;
 - do not invent wrapper objects, claim-control arrays, vacancy-analysis objects, CV content, or application metadata;
-- keep `paragraphs` and `keywords` as the two array fields expected by the renderer;
+- keep `paragraphs` and `keywords` as arrays;
 - make the content role-specific and evidence-backed exactly as for a prose letter;
 - do not render the JSON to TeX/PDF unless the user asks for rendering.
 
@@ -210,8 +232,14 @@ If `latexmk` is unavailable, use the existing pdfLaTeX-compatible setup and keep
 
 Do not add a tailored application to `artifacts.json` or publish it to the portfolio unless the owner explicitly asks.
 
+## Harness boundary
+
+This file governs agent behavior. Fixing an agent misunderstanding here does not authorize changes to the renderer, `application-tracker` code, templates, CI workflows, build scripts, publication logic, or other functioning project code.
+
+Only change those implementation surfaces when the user explicitly asks for a product/code/build change or when a real implementation defect is independently in scope.
+
 ## Standalone letter renderer
 
 The existing `application-tracker/letter.ps1 <slug>` flow remains the local rendered standalone-letter path.
 
-If the user asks specifically for the **JSON letter source**, stop after materializing the schema-valid `.json` input file. Do not automatically render it.
+If the user asks specifically for the **JSON letter source**, stop after materializing the `.json` input file. Do not automatically render it.
