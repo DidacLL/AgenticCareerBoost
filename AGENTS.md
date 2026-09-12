@@ -12,6 +12,11 @@ AAAAT or VCVGenerator.
   redesign. Do not expand it here.
 - The cover-letter renderer and `letter.ps1 <slug>` flow are valuable local
   workflow. Preserve that interface.
+- **Tailored job-application artifacts follow
+  [`agents/cv/APPLICATION_WORKFLOW.md`](agents/cv/APPLICATION_WORKFLOW.md).**
+  This is active guidance, not historical harness evidence. In particular, a
+  request for `CV + carta adjunta` normally means one local two-page TeX/PDF:
+  page 1 is the one-page tailored CV and page 2 is the cover letter.
 - `site/` is the Markdown-authored Astro portfolio. It contains only material
   actually served by the portfolio; do not use it as storage for ACB reports,
   harness evidence, tracker output, status data, or application material.
@@ -29,6 +34,15 @@ AAAAT or VCVGenerator.
 ## Working Rules
 
 - Direct user instructions override repository guidance.
+- For application work, read the vacancy/request and
+  `agents/cv/APPLICATION_WORKFLOW.md` before drafting. Reuse the shared CV
+  preamble and established layout instead of inventing a generic resume format.
+- The tailored CV page remains one page. Its main column starts with the visible
+  `\cvAbstract{...}` narrative opener; do not replace it with a long chronology
+  or bury it below project sections.
+- `\cvParserSummary`/role metadata may deliberately expose exact supported job
+  vocabulary for ATS/AI retrieval, but hidden text must never add unsupported
+  claims.
 - Do not use staged, unstaged, tracked, or ignored status as semantic truth.
   Classify changes by scope before changing or staging them.
 - Do not develop AAAAT or VCVGenerator in this repository cleanup.
@@ -47,6 +61,7 @@ site acceptance criteria unless explicitly reactivated.
 
 - the letter renderer can produce TeX from a fake local JSON file;
 - PDF compilation may be checked only when the relevant LaTeX workflow is in scope;
-- the public/general CV source remains present;
+- the public/general CV source remains present and compiles from the canonical
+  `agents/cv/tex/` root;
 - staged paths must not include private JSON, `.private`, raw offers, databases,
   generated private PDFs, recruiter notes, or tailored application material.
