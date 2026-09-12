@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://didacll.github.io/AgenticCareerBoost/application-tracker/letter-input.schema.json",
+  "title": "AgenticCareerBoost cover-letter renderer input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "slug",
+    "output_pdf",
+    "candidate_name",
+    "headline",
+    "email",
+    "portfolio_url",
+    "github_url",
+    "linkedin_url",
+    "recipient",
+    "role",
+    "location",
+    "greeting",
+    "paragraphs",
+    "closing",
+    "public_note",
+    "parser_summary",
+    "keywords"
+  ],
+  "properties": {
+    "slug": {"type": "string", "minLength": 1},
+    "output_pdf": {"type": "string", "minLength": 1},
+    "candidate_name": {"type": "string", "minLength": 1},
+    "headline": {"type": "string", "minLength": 1},
+    "email": {"type": "string", "minLength": 1},
+    "portfolio_url": {"type": "string", "minLength": 1},
+    "github_url": {"type": "string", "minLength": 1},
+    "linkedin_url": {"type": "string", "minLength": 1},
+    "recipient": {"type": "string", "minLength": 1},
+    "role": {"type": "string", "minLength": 1},
+    "location": {"type": "string", "minLength": 1},
+    "greeting": {"type": "string", "minLength": 1},
+    "paragraphs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "closing": {"type": "string", "minLength": 1},
+    "public_note": {"type": "string", "minLength": 1},
+    "parser_summary": {"type": "string", "minLength": 1},
+    "keywords": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}
