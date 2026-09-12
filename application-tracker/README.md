@@ -17,18 +17,12 @@ The cover-letter renderer is the important working path:
 Expected local files:
 
 - input: `.private/example-slug.json`
-- input contract: `letter-input.schema.json`
 - template: `templates/letter-template.tex`
 - renderer: `render_letter.py`
 - output: `.private/generated/`
 
 The `.private` directory contains live local data and must not be committed or
 copied into docs, prompts, tests, or public examples.
-
-The JSON schema belongs only to the standalone cover-letter input. ACB does not
-use or define a CV JSON format: tailored CV artifacts use the existing LaTeX CV
-system. See `agents/cv/APPLICATION_WORKFLOW.md` for format precedence and combined
-versus separate application deliverables.
 
 ## Prototype Tracker
 
