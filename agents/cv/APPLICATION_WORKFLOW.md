@@ -4,6 +4,47 @@ This file is active guidance for agents preparing job-application material for D
 
 Direct user instructions still have highest authority. Real offers, recruiter messages, tailored CVs/letters, private JSON and generated private PDFs remain local and untracked.
 
+## Routine fast path
+
+For an ordinary request such as `prepara CV + carta adjunta para esta oferta`, do not reverse-engineer the CV system before producing the artifact. The workflow itself is the contract.
+
+1. Read the vacancy/request and this file.
+2. Select evidence from the known candidate/project record; fetch additional repository evidence only for claims that actually need verification.
+3. Draft the one-page CV using the canonical structure below.
+4. If requested, append the one-page cover letter after `\newpage` in the same source.
+5. Materialize the requested `.tex` as a local/downloadable file using the current environment's file-writing capability.
+6. Return the file link plus only a short note about major tailoring choices. Do not dump the full TeX source into the chat unless the user explicitly asks to see the source inline.
+
+### Stable dependencies are opaque during routine drafting
+
+The tailored source depends on:
+
+```tex
+\input{didac-cv-shared-preamble-v1.tex}
+```
+
+and the shared preamble depends on the local banner asset. For routine application drafting, **that is all the agent needs to know**.
+
+Do not fetch, inspect, download, reproduce or analyze `didac-cv-shared-preamble-v1.tex`, `418-banner.png`, `latexmkrc`, build scripts or generated PDFs merely to understand the design. They are stable local dependencies already owned by the CV subsystem.
+
+Inspect them only when one of these is true:
+
+- the user explicitly asks to modify the CV design or shared infrastructure;
+- the user asks to diagnose a real compilation/layout problem;
+- the task itself is repository maintenance of those files.
+
+A request such as `solo dame el tex` specifically means: create the `.tex` file and provide it as an artifact. It does **not** mean paste raw TeX into the conversation, fetch the banner, compile a PDF, or investigate the shared preamble.
+
+### Artifact completion contract
+
+A routine artifact request is complete only when the requested file exists in the current artifact/local environment and is linked or otherwise exposed to the user.
+
+- Raw TeX in a code block is not a substitute for a requested `.tex` file when file creation is available.
+- Do not commit tailored application files to GitHub just to make them downloadable.
+- Do not add them to `artifacts.json` or publish them to the portfolio.
+- Do not compile unless the user asks for a PDF, requests compilation/validation, or compilation is necessary to diagnose a reported problem.
+- If the current environment genuinely cannot create files, say so briefly and then provide the source inline as the fallback; do not pretend that inline source is the preferred workflow.
+
 ## Default deliverable semantics
 
 Interpret the user's requested artifact before writing:
@@ -40,6 +81,8 @@ Tailored CVs reuse the public CV system rather than inventing a new template:
 ```
 
 The source should compile from `agents/cv/tex/`, where the shared preamble and `418-banner.png` are siblings. Tailored variants remain local/untracked unless the owner explicitly promotes one.
+
+The workflow documentation defines the normal composition contract. An agent does not need to inspect the preamble to know how to use `\cvheader`, `\cvAbstract`, `\project`, `\mainsection`, `\railsection`, `\cvMainLinks`, `\cvBeforeEngineering`, `\cvEducation` or `\cvParserSummary` in a routine tailored source.
 
 ### Page-one rule
 
@@ -122,7 +165,9 @@ Do not flatten ACB into only an old coding-agent harness. Its active repository 
 
 ## Local compilation
 
-For a tailored TeX variant, compile from the canonical TeX root so sibling assets resolve:
+Compilation is not part of the routine `.tex`-only fast path. Use it when the user asks for a PDF/compiled artifact or requests validation, or when diagnosing a real build problem.
+
+For a tailored TeX variant that does need compilation, compile from the canonical TeX root so sibling assets resolve:
 
 ```powershell
 Push-Location agents/cv/tex
