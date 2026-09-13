@@ -64,6 +64,46 @@ Avoid or deprioritize companies and roles with these signals:
 - equity-only or pre-seed instability;
 - roles sold as AI but implemented as dashboard maintenance or manual cleanup.
 
+### Internship exploitation screening
+
+Internships and trainee roles require an explicit labour-quality check before the
+agent recommends applying or starts tailoring a CV/letter. The check is not only
+about legal compliance or whether some payment exists; repeated use of interns as
+cheap substitute labour is a negative signal about company culture and treatment
+of junior employees.
+
+Warn the user and reduce the opportunity priority when several of these signals
+appear together:
+
+- full-time or near-full-time internship with substantial production ownership;
+- responsibilities that resemble a normal junior employee role rather than a
+  supervised learning placement;
+- no salary, stipend, or compensation range published despite detailed role and
+  benefits information;
+- vague language such as `possibility to grow` without a concrete conversion path;
+- repeated or simultaneous internship hiring across functions that suggests a
+  standing low-cost staffing layer;
+- successive fixed internship cohorts for work that appears permanent;
+- expectations of autonomy, stakeholder ownership, KPI delivery, production
+  maintenance, or end-to-end implementation without corresponding junior-level
+  employment terms;
+- compensation that is technically paid but materially below a sustainable
+  junior wage for the workload and location;
+- emphasis on eligibility for an internship agreement when the work itself does
+  not appear primarily educational.
+
+Do not label a company exploitative from one ambiguous vacancy alone. Distinguish
+between confirmed facts, public patterns, and inference. When the pattern is
+unclear and the opportunity otherwise fits, recommend verifying compensation,
+working hours, supervision, learning objectives, and conversion history before
+spending significant effort on the application.
+
+When a recurring pattern is supported by multiple current vacancies, company
+materials, or credible employee/candidate reports, treat it as a company-level
+culture signal, not merely a weakness of one posting. Explicitly tell the user
+before generating application artifacts unless they have already decided to
+proceed despite the warning.
+
 ## Campaign rule
 
 The campaign must lead with inspectable proof. The repo, reports, commits,
