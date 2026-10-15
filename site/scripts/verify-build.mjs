@@ -64,6 +64,17 @@ for (const [route, file] of routes.map((route, index) => [route, htmlFiles[index
   if (deploymentLiteral.test(html) && normalizedBase !== "/AgenticCareerBoost/") fail(`${route}: deployment prefix is hardcoded in generated HTML`);
 }
 
+const aaaatRedirect = pageFile("/aaaat/");
+if (!existsSync(aaaatRedirect)) {
+  fail("missing lowercase AAAAT redirect artifact");
+} else {
+  const html = readFileSync(aaaatRedirect, "utf8");
+  if (!/http-equiv="refresh"[^>]*content="0; url=https:\/\/didacll\.github\.io\/AAAAT\/"/i.test(html)) {
+    fail("lowercase AAAAT route must immediately redirect to the uppercase project site");
+  }
+  if (!html.includes('name="robots" content="noindex,follow"')) fail("lowercase AAAAT redirect must be noindex");
+}
+
 const notFound = join(dist, "404.html");
 if (!existsSync(notFound)) {
   fail("missing 404.html");
